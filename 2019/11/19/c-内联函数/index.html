@@ -10,16 +10,16 @@
 <title>c++内联函数 - 薛轩的个人博客</title>
 
 
-    <meta name="description" content="参考链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;BjarneCpp&#x2F;article&#x2F;details&#x2F;76044493 1.内联函数在C++中我们通常定义以下函数来求两个整数的最大值： 1234int max(int a, int b)&amp;#123;    return a &amp;gt; b ? a : b;&amp;#125;1234  为这么一个小的操作定义一个函数的好处有： ① 阅读和理解函数 max">
+    <meta name="description" content="参考链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;BjarneCpp&#x2F;article&#x2F;details&#x2F;76044493 1.内联函数在C++中我们通常定义以下函数来求两个整数的最大值：">
 <meta name="keywords" content="c++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="c++内联函数">
 <meta property="og:url" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;2019&#x2F;11&#x2F;19&#x2F;c-%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0&#x2F;index.html">
 <meta property="og:site_name" content="薛轩的个人博客">
-<meta property="og:description" content="参考链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;BjarneCpp&#x2F;article&#x2F;details&#x2F;76044493 1.内联函数在C++中我们通常定义以下函数来求两个整数的最大值： 1234int max(int a, int b)&amp;#123;    return a &amp;gt; b ? a : b;&amp;#125;1234  为这么一个小的操作定义一个函数的好处有： ① 阅读和理解函数 max">
+<meta property="og:description" content="参考链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;BjarneCpp&#x2F;article&#x2F;details&#x2F;76044493 1.内联函数在C++中我们通常定义以下函数来求两个整数的最大值：">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
-<meta property="og:updated_time" content="2019-11-19T06:15:12.185Z">
+<meta property="og:updated_time" content="2019-11-19T06:18:29.705Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
 
@@ -146,7 +146,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    16 分钟 读完 (大约 2367 个字)
+                    16 分钟 读完 (大约 2368 个字)
                 </span>
                 
                 
@@ -166,6 +166,7 @@
         <div class="content">
             <p>参考链接：<a href="https://blog.csdn.net/BjarneCpp/article/details/76044493" target="_blank" rel="noopener">https://blog.csdn.net/BjarneCpp/article/details/76044493</a></p>
 <h3 id="1-内联函数"><a href="#1-内联函数" class="headerlink" title="1.内联函数"></a>1.内联函数</h3><p>在C++中我们通常定义以下函数来求两个整数的最大值：</p>
+<a id="more"></a>
 <figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">max</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span></span></span><br><span class="line"><span class="hljs-function"></span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> a &gt; b ? a : b;</span><br><span class="line">&#125;<span class="hljs-number">1234</span></span><br></pre></td></tr></table></figure>
 
 <p>为这么一个小的操作定义一个函数的好处有：</p>
