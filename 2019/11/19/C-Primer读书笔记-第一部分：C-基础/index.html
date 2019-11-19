@@ -19,7 +19,7 @@
 <meta property="og:description" content="3.字符串、向量和数组命名空间using声明 每个名字都需要独立的using声明  头文件不应该使用using声明   string类型 string对象会自动忽略开头的空白，从第一个非空的字符开始读起，直到另一个空白为止。  读取整行：getline(cin,line)  size()函数返回的是size_type类型，是一个无符号整型，避免与有符号类型混用（如果一个表达式有size()就不要用">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
-<meta property="og:updated_time" content="2019-11-19T06:09:23.767Z">
+<meta property="og:updated_time" content="2019-11-19T06:13:38.390Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
 
@@ -146,7 +146,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    22 分钟 读完 (大约 3238 个字)
+                    22 分钟 读完 (大约 3239 个字)
                 </span>
                 
                 
@@ -295,18 +295,29 @@
 <li><p>定义明确的类型转换<code>double slope = static_cast&lt;double&gt;(j)/i</code></p>
 </li>
 <li><p>找回void*指针</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void *p = &amp;d;</span><br><span class="line">double *dp = static_cast&lt;double*&gt;(p)</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">void</span> *p = &amp;d;</span><br><span class="line"><span class="hljs-keyword">double</span> *dp = <span class="hljs-keyword">static_cast</span>&lt;<span class="hljs-keyword">double</span>*&gt;(p)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
 <li><p>const_cast</p>
 <ul>
 <li><p>只能改变运算对象底层的const，不能改变变量的类型</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const char *pc;</span><br><span class="line">char *p=const_cast&lt;char*&gt;(pc);</span><br></pre></td></tr></table></figure>
+
 </li>
-<li><pre><code>const char *pc;
-char *p=const_cast&lt;char*&gt;(pc);
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 5.语句</span><br><span class="line"></span><br><span class="line">### 简单语句</span><br><span class="line"></span><br><span class="line">- 使用空语句应当加上注释</span><br><span class="line">- switch语句case关键字和它对应的值一起被称为case标签。case标签必须是整型常量表达式。</span><br><span class="line">- break语句负责终止离他最近的while、do while、for或switch语句，并从这些语句之后的第一条语句开始执行。</span><br><span class="line">- 不要在程序中使用goto语句。</span><br><span class="line">- 异常类型只定义了一个名为what的成员函数，该函数没有任何参数，返回值是一个指向C风格字符串的const char *</span><br><span class="line"></span><br><span class="line">## 6.函数</span><br><span class="line"></span><br><span class="line">### 函数基础</span><br><span class="line"></span><br><span class="line">- 可以使用void表示函数没有形参</span><br><span class="line"></span><br><span class="line">  ```c++</span><br><span class="line">  void f1()&#123;&#125;</span><br><span class="line">  void f2(void)&#123;&#125;</span><br></pre></td></tr></table></figure></code></pre></li>
 </ul>
+</li>
+</ul>
+<h2 id="5-语句"><a href="#5-语句" class="headerlink" title="5.语句"></a>5.语句</h2><h3 id="简单语句"><a href="#简单语句" class="headerlink" title="简单语句"></a>简单语句</h3><ul>
+<li>使用空语句应当加上注释</li>
+<li>switch语句case关键字和它对应的值一起被称为case标签。case标签必须是整型常量表达式。</li>
+<li>break语句负责终止离他最近的while、do while、for或switch语句，并从这些语句之后的第一条语句开始执行。</li>
+<li>不要在程序中使用goto语句。</li>
+<li>异常类型只定义了一个名为what的成员函数，该函数没有任何参数，返回值是一个指向C风格字符串的const char *</li>
+</ul>
+<h2 id="6-函数"><a href="#6-函数" class="headerlink" title="6.函数"></a>6.函数</h2><h3 id="函数基础"><a href="#函数基础" class="headerlink" title="函数基础"></a>函数基础</h3><ul>
+<li><p>可以使用void表示函数没有形参</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f1</span><span class="hljs-params">()</span></span>&#123;&#125;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f2</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>函数的返回类型不能是数组类型或函数类型，但可以是指向数组或函数的指针。</p>
 </li>
@@ -333,7 +344,7 @@ char *p=const_cast&lt;char*&gt;(pc);
 </ul>
 </li>
 <li><p>分离式编译</p>
-<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ main.cpp func.cpp -o mian //func函数在main中调用</span><br></pre></td></tr></table></figure>
+  <figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ main.cpp func.cpp -o mian //func函数在main中调用</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p>分离式编译</p>
@@ -354,7 +365,7 @@ char *p=const_cast&lt;char*&gt;(pc);
 <li><p>const int ia[]等价于const int *ia</p>
 </li>
 <li><p>matrix指向数组的首元素，该数组的元素是由10个整数构成的数组</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void print(int (*matrix)[10], int rowsize)&#123;&#125;</span><br><span class="line">void print(int matrix[][10], int rowsize)&#123;&#125;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void print(int (*matrix)[10], int rowsize)&#123;&#125;</span><br><span class="line">void print(int matrix[][10], int rowsize)&#123;&#125;</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
@@ -486,7 +497,7 @@ char *p=const_cast&lt;char*&gt;(pc);
 <li><p>一个const 成员函数如果以引用的形式返回*this，那么他的返回类型将是一个常量引用。</p>
 </li>
 <li><p>类的声明</p>
-<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Sales_data item1;</span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sales_data</span> <span class="hljs-title">item1</span>;</span> <span class="hljs-comment">//等价的声明</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Sales_data item1;</span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sales_data</span> <span class="hljs-title">item1</span>;</span> <span class="hljs-comment">//等价的声明</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>一个类的成员类型不能是类自己。然而，一旦一个类的名字出现后，他就被认为是声明过了，因此类允许包含指向他自身类型的引用或指针。</p>
 <figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Link_screen</span>&#123;</span></span><br><span class="line">  Screen window;</span><br><span class="line">  Link_screen *next;</span><br><span class="line">  Link_screen *prev;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -510,7 +521,7 @@ char *p=const_cast&lt;char*&gt;(pc);
 <li><p>最好令构造函数的初始值的顺序与成员声明的顺序一致。而且如果可能的话，尽量避免使用某些成员初始化另一些成员。</p>
 </li>
 <li><p>委托构造函数</p>
-<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sales_data</span>&#123;</span></span><br><span class="line">  <span class="hljs-keyword">public</span>:</span><br><span class="line">  	<span class="hljs-comment">//非委托构造函数使用对应的实参初始化成员</span></span><br><span class="line">  Sales_data(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> s, <span class="hljs-keyword">unsigned</span> cnt, <span class="hljs-keyword">double</span> price):</span><br><span class="line">  			bookNo(s),units_sold(cnt),revenue(cnt * price)&#123;&#125;</span><br><span class="line">  <span class="hljs-comment">//其余构造函数全部委托给另一个构造函数</span></span><br><span class="line">  Sales_data():Sales_data(<span class="hljs-string">""</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)&#123;&#125;</span><br><span class="line">  Sales_data(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> s):Sales_data(s, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)&#123;&#125;</span><br><span class="line">  Sales_data(<span class="hljs-built_in">std</span>:istream &amp;is):Sales_data()&#123;<span class="hljs-built_in">read</span>(is,*<span class="hljs-keyword">this</span>);&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sales_data</span>&#123;</span></span><br><span class="line">  <span class="hljs-keyword">public</span>:</span><br><span class="line">  	<span class="hljs-comment">//非委托构造函数使用对应的实参初始化成员</span></span><br><span class="line">  Sales_data(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> s, <span class="hljs-keyword">unsigned</span> cnt, <span class="hljs-keyword">double</span> price):</span><br><span class="line">  			bookNo(s),units_sold(cnt),revenue(cnt * price)&#123;&#125;</span><br><span class="line">  <span class="hljs-comment">//其余构造函数全部委托给另一个构造函数</span></span><br><span class="line">  Sales_data():Sales_data(<span class="hljs-string">""</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)&#123;&#125;</span><br><span class="line">  Sales_data(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> s):Sales_data(s, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)&#123;&#125;</span><br><span class="line">  Sales_data(<span class="hljs-built_in">std</span>:istream &amp;is):Sales_data()&#123;<span class="hljs-built_in">read</span>(is,*<span class="hljs-keyword">this</span>);&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>当一个构造函数委托给另一个构造函数时，受委托的构造函数的初始值列表和函数体被依次执行。假如函数体包含有代码的话，将先执行这些代码，然后控制权才会交还给委托者的函数体。</li>
@@ -519,7 +530,7 @@ char *p=const_cast&lt;char*&gt;(pc);
 <li><p>如果定义了其他构造函数，最好也提供一个默认的构造函数。</p>
 </li>
 <li><p>使用默认构造函数</p>
-<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Sales_data obj; <span class="hljs-comment">//正确</span></span><br><span class="line"><span class="hljs-function">Sales_data <span class="hljs-title">obj</span><span class="hljs-params">()</span></span>; <span class="hljs-comment">//错误，实际上定义了一个函数</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Sales_data obj; <span class="hljs-comment">//正确</span></span><br><span class="line"><span class="hljs-function">Sales_data <span class="hljs-title">obj</span><span class="hljs-params">()</span></span>; <span class="hljs-comment">//错误，实际上定义了一个函数</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>抑制构造函数定义的隐式转换</p>
 <ul>
@@ -550,7 +561,7 @@ char *p=const_cast&lt;char*&gt;(pc);
 <figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bar</span>&#123;</span></span><br><span class="line">  <span class="hljs-keyword">public</span>:</span><br><span class="line">  <span class="hljs-comment">//...</span></span><br><span class="line">  <span class="hljs-keyword">private</span>:</span><br><span class="line">  <span class="hljs-keyword">static</span> Bar mem1; <span class="hljs-comment">//正确：静态成员可以是不完全类型</span></span><br><span class="line">  Bar *mem2;  <span class="hljs-comment">//正确：指针成员可以是不完全类型</span></span><br><span class="line">  Bar mem3;   <span class="hljs-comment">//错误：数据成员必须是完全类型</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>可以使用静态成员作为默认实参</p>
-<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Screen</span>&#123;</span></span><br><span class="line">  <span class="hljs-keyword">public</span>:</span><br><span class="line">  	<span class="hljs-function">screen&amp; <span class="hljs-title">clear</span><span class="hljs-params">(<span class="hljs-keyword">char</span> = bkground)</span></span>;</span><br><span class="line">  <span class="hljs-keyword">private</span>:</span><br><span class="line">  	<span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> bkground;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Screen</span>&#123;</span></span><br><span class="line">  <span class="hljs-keyword">public</span>:</span><br><span class="line">  	<span class="hljs-function">screen&amp; <span class="hljs-title">clear</span><span class="hljs-params">(<span class="hljs-keyword">char</span> = bkground)</span></span>;</span><br><span class="line">  <span class="hljs-keyword">private</span>:</span><br><span class="line">  	<span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> bkground;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>非静态数据成员不能作为默认实参，因为他的值本身属于对象的一部分，这么做的结果是无法真正提供一个对象以便从中获取成员的值，最终将引发错误。</p>
 </li>
@@ -684,53 +695,69 @@ char *p=const_cast&lt;char*&gt;(pc);
         <a class="is-flex" href="#显式转换">
         <span class="has-mr-6">2.4</span>
         <span>显式转换</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#5-语句">
+        <span class="has-mr-6">3</span>
+        <span>5.语句</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#简单语句">
+        <span class="has-mr-6">3.1</span>
+        <span>简单语句</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#6-函数">
+        <span class="has-mr-6">4</span>
+        <span>6.函数</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#函数基础">
+        <span class="has-mr-6">4.1</span>
+        <span>函数基础</span>
         </a></li><li>
         <a class="is-flex" href="#参数传递">
-        <span class="has-mr-6">2.5</span>
+        <span class="has-mr-6">4.2</span>
         <span>参数传递</span>
         </a></li><li>
         <a class="is-flex" href="#数组形参">
-        <span class="has-mr-6">2.6</span>
+        <span class="has-mr-6">4.3</span>
         <span>数组形参</span>
         </a></li><li>
         <a class="is-flex" href="#含有可变形参的函数">
-        <span class="has-mr-6">2.7</span>
+        <span class="has-mr-6">4.4</span>
         <span>含有可变形参的函数</span>
         </a></li><li>
         <a class="is-flex" href="#constexpr函数">
-        <span class="has-mr-6">2.8</span>
+        <span class="has-mr-6">4.5</span>
         <span>constexpr函数</span>
         </a></li><li>
         <a class="is-flex" href="#调试帮助">
-        <span class="has-mr-6">2.9</span>
+        <span class="has-mr-6">4.6</span>
         <span>调试帮助</span>
         </a></li><li>
         <a class="is-flex" href="#函数指针">
-        <span class="has-mr-6">2.10</span>
+        <span class="has-mr-6">4.7</span>
         <span>函数指针</span>
         </a></li></ul></li><li>
         <a class="is-flex" href="#7-类">
-        <span class="has-mr-6">3</span>
+        <span class="has-mr-6">5</span>
         <span>7.类</span>
         </a><ul class="menu-list"><li>
         <a class="is-flex" href="#构造函数">
-        <span class="has-mr-6">3.1</span>
+        <span class="has-mr-6">5.1</span>
         <span>构造函数</span>
         </a></li><li>
         <a class="is-flex" href="#友元">
-        <span class="has-mr-6">3.2</span>
+        <span class="has-mr-6">5.2</span>
         <span>友元</span>
         </a></li><li>
         <a class="is-flex" href="#类的其他特性">
-        <span class="has-mr-6">3.3</span>
+        <span class="has-mr-6">5.3</span>
         <span>类的其他特性</span>
         </a></li><li>
         <a class="is-flex" href="#再探构造函数">
-        <span class="has-mr-6">3.4</span>
+        <span class="has-mr-6">5.4</span>
         <span>再探构造函数</span>
         </a></li><li>
         <a class="is-flex" href="#类的静态成员">
-        <span class="has-mr-6">3.5</span>
+        <span class="has-mr-6">5.5</span>
         <span>类的静态成员</span>
         </a></li></ul></li></ul>
             </div>
