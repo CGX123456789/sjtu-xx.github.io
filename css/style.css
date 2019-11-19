@@ -134,6 +134,9 @@ img.thumbnail {
 }
 .footer {
   background: #fff;
+  align-items: center;
+  text-align: center;
+  margin: auto;
 }
 .footer .field .button {
   background: transparent;
