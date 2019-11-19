@@ -150,7 +150,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    22 分钟 读完 (大约 3237 个字)
+                    22 分钟 读完 (大约 3238 个字)
                 </span>
                 
                 
@@ -239,10 +239,10 @@
 <li><p>int (*p)[4]; //指向含有4个指针的数组</p>
 </li>
 <li><p>别名：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">typedef double wages;</span><br><span class="line">typedef int int_array[4]; //</span><br><span class="line">using int_array = int[4]; //别名声明</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">double</span> wages;</span><br><span class="line"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">int</span> int_array[<span class="hljs-number">4</span>]; <span class="hljs-comment">//</span></span><br><span class="line"><span class="hljs-keyword">using</span> int_array = <span class="hljs-keyword">int</span>[<span class="hljs-number">4</span>]; <span class="hljs-comment">//别名声明</span></span><br></pre></td></tr></table></figure>
+
 <h2 id="4-表达式"><a href="#4-表达式" class="headerlink" title="4.表达式"></a>4.表达式</h2><h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><ul>
 <li>当一个对象被用作右值的时候，用的是对象的值（内容）；当对象被用作左值的时候，用的是对象的身份（在内容中的位置）</li>
 <li>在需要右值的时候可以使用左值来代替，但是不能把右值当成左值使用。当一个左值被当成右值使用时，实际使用的是他的内容（值）。</li>
@@ -294,13 +294,17 @@
 <li><p>定义明确的类型转换<code>double slope = static_cast&lt;double&gt;(j)/i</code></p>
 </li>
 <li><p>找回void*指针</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void *p = &amp;d;</span><br><span class="line">double *dp = static_cast&lt;double*&gt;(p)</span><br></pre></td></tr></table></figure>
 </li>
-<li><pre><code>void *p = &amp;d;
-double *dp = static_cast&lt;double*&gt;(p)
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- const_cast</span><br><span class="line"></span><br><span class="line">  - 只能改变运算对象底层的const，不能改变变量的类型</span><br><span class="line"></span><br><span class="line">  -</span><br></pre></td></tr></table></figure>
-const char *pc;
+</ul>
+</li>
+<li><p>const_cast</p>
+<ul>
+<li><p>只能改变运算对象底层的const，不能改变变量的类型</p>
+</li>
+<li><pre><code>const char *pc;
 char *p=const_cast&lt;char*&gt;(pc);
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 5.语句</span><br><span class="line"></span><br><span class="line">### 简单语句</span><br><span class="line"></span><br><span class="line">- 使用空语句应当加上注释</span><br><span class="line">- switch语句case关键字和它对应的值一起被称为case标签。case标签必须是整型常量表达式。</span><br><span class="line">- break语句负责终止离他最近的while、do while、for或switch语句，并从这些语句之后的第一条语句开始执行。</span><br><span class="line">- 不要在程序中使用goto语句。</span><br><span class="line">- 异常类型只定义了一个名为what的成员函数，该函数没有任何参数，返回值是一个指向C风格字符串的const char *</span><br><span class="line"></span><br><span class="line">## 6.函数</span><br><span class="line"></span><br><span class="line">### 函数基础</span><br><span class="line"></span><br><span class="line">- 可以使用void表示函数没有形参</span><br><span class="line"></span><br><span class="line">- ```c++</span><br><span class="line">  void f1()&#123;&#125;</span><br><span class="line">  void f2(void)&#123;&#125;</span><br></pre></td></tr></table></figure></code></pre></li>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 5.语句</span><br><span class="line"></span><br><span class="line">### 简单语句</span><br><span class="line"></span><br><span class="line">- 使用空语句应当加上注释</span><br><span class="line">- switch语句case关键字和它对应的值一起被称为case标签。case标签必须是整型常量表达式。</span><br><span class="line">- break语句负责终止离他最近的while、do while、for或switch语句，并从这些语句之后的第一条语句开始执行。</span><br><span class="line">- 不要在程序中使用goto语句。</span><br><span class="line">- 异常类型只定义了一个名为what的成员函数，该函数没有任何参数，返回值是一个指向C风格字符串的const char *</span><br><span class="line"></span><br><span class="line">## 6.函数</span><br><span class="line"></span><br><span class="line">### 函数基础</span><br><span class="line"></span><br><span class="line">- 可以使用void表示函数没有形参</span><br><span class="line"></span><br><span class="line">  ```c++</span><br><span class="line">  void f1()&#123;&#125;</span><br><span class="line">  void f2(void)&#123;&#125;</span><br></pre></td></tr></table></figure></code></pre></li>
 </ul>
 </li>
 <li><p>函数的返回类型不能是数组类型或函数类型，但可以是指向数组或函数的指针。</p>
@@ -310,18 +314,14 @@ char *p=const_cast&lt;char*&gt;(pc);
 <li><p>自动对象（在块末尾销毁）</p>
 </li>
 <li><p>局部静态对象（在程序的执行路径第一次经过对象定义的语句时初始化，并且直到程序终止时才被销毁，在此期间，即使对象所在的函数结束执行也不会对他有影响）</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">size_t</span> count_calls()&#123;</span><br><span class="line">	<span class="hljs-keyword">static</span> <span class="hljs-keyword">size_t</span> ctr = <span class="hljs-number">0</span>;</span><br><span class="line">	<span class="hljs-keyword">return</span> ++ctr;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">size_t</span> i=<span class="hljs-number">0</span>;i!=<span class="hljs-number">10</span>;++i)&#123;</span><br><span class="line">		<span class="hljs-built_in">cout</span>&lt;&lt;count_calls()&lt;&lt;<span class="hljs-built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><pre><code class="c++"><span class="keyword">size_t</span> count_calls(){
-    <span class="keyword">static</span> <span class="keyword">size_t</span> ctr = <span class="number">0</span>;
-    <span class="keyword">return</span> ++ctr;
-}
-<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>{
-    <span class="keyword">for</span> (<span class="keyword">size_t</span> i=<span class="number">0</span>;i!=<span class="number">10</span>;++i){
-        <span class="built_in">cout</span>&lt;&lt;count_calls()&lt;&lt;<span class="built_in">endl</span>;
-    }
-    <span class="keyword">return</span> <span class="number">0</span>;
-}
-&lt;!--￼<span class="number">3</span>--&gt;</code></pre>
+</ul>
+</li>
+<li><p>函数声明</p>
+<ul>
+<li><p><strong>函数的声明和函数的定义类似，唯一的区别是函数声明无需函数体，用一个分号替代即可</strong></p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sum</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;a, <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;b)</span></span>;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>变量为头文件中声明，源文件中定义</strong></p>
 </li>
@@ -332,34 +332,52 @@ char *p=const_cast&lt;char*&gt;(pc);
 </ul>
 </li>
 <li><p>分离式编译</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ main.cpp func.cpp -o mian //func函数在main中调用</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li><pre><code>g++ main.cpp func.cpp -o mian //func函数在main中调用
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 分离式编译</span><br><span class="line"></span><br><span class="line">-</span><br></pre></td></tr></table></figure>
-cc -c main.cpp # main编译到mian.o
-cc -c func.cpp #func编译到func.o
-cc main.o func.o -o main #生成main.exe
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 参数传递</span><br><span class="line"></span><br><span class="line">- **如果函数无需改变引用形参的值，最好将其声明为常量引用**</span><br><span class="line">- 当用实参初始化形参时会忽略掉顶层的const。换句话说，形参的顶层const被忽略掉了。</span><br><span class="line">- 不能将普通引用绑定到const对象上。</span><br><span class="line">- 不能把const对象、字面值或者需要类型转换的对象传递给普通的引用形参。</span><br><span class="line">- int main(int argc, char *argv[])&#123;&#125; 等价int main(int argc, char **argv)&#123;&#125;</span><br><span class="line"></span><br><span class="line">### 数组形参</span><br><span class="line"></span><br><span class="line">- const int ia[]等价于const int *ia</span><br><span class="line"></span><br><span class="line">- matrix指向数组的首元素，该数组的元素是由10个整数构成的数组</span><br><span class="line"></span><br><span class="line">-</span><br></pre></td></tr></table></figure>
-void print(int (*matrix)[10], int rowsize){}
-void print(int matrix[][10], int rowsize){}
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 含有可变形参的函数</span><br><span class="line"></span><br><span class="line">- 为了能够编写处理不同数量实参的函数，C++11新标准提供了两种主要的方法：如果所有的实参类型相同，可以传递一个名为initializer_list的标准库类型；如果实参的类型不同，可以编写一种特殊的函数，也就是所谓的可变参数模版。</span><br><span class="line">- `initializer_list&lt;string&gt; a `</span><br><span class="line">- 向initializer_list中传递一个值的序列，必须把序列放在花括号内。</span><br><span class="line"></span><br><span class="line">**不要返回局部对象的引用或指针**</span><br><span class="line"></span><br><span class="line">**调用一个返回引用的函数得到左值。可以像使用其他左值那样来使用返回引用的函数的调用**</span><br><span class="line"></span><br><span class="line">```c++</span><br><span class="line">char &amp;get_val(string &amp;str, string::size_type ix)&#123;</span><br><span class="line">  return str[ix];</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">  string s(&quot;a value&quot;);</span><br><span class="line">  cout &lt;&lt; s&lt;&lt;endl;    //输出为a value</span><br><span class="line">  get_val(s,0)=&apos;A&apos;;    //将s[0]改为A</span><br><span class="line">  cout &lt;&lt; s &lt;&lt; endl;   //输出为A value</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre></li>
+<li><p>分离式编译</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cc -c main.cpp # main编译到mian.o</span><br><span class="line">cc -c func.cpp #func编译到func.o</span><br><span class="line">cc main.o func.o -o main #生成main.exe</span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
 </li>
-<li><p>返回数组的指针</p>
+</ul>
+<h3 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h3><ul>
+<li><strong>如果函数无需改变引用形参的值，最好将其声明为常量引用</strong></li>
+<li>当用实参初始化形参时会忽略掉顶层的const。换句话说，形参的顶层const被忽略掉了。</li>
+<li>不能将普通引用绑定到const对象上。</li>
+<li>不能把const对象、字面值或者需要类型转换的对象传递给普通的引用形参。</li>
+<li>int main(int argc, char <em>argv[]){} 等价int main(int argc, char *</em>argv){}</li>
+</ul>
+<h3 id="数组形参"><a href="#数组形参" class="headerlink" title="数组形参"></a>数组形参</h3><ul>
+<li><p>const int ia[]等价于const int *ia</p>
 </li>
-<li><pre><code class="c++"><span class="keyword">int</span> (*func(<span class="keyword">int</span> i))[<span class="number">10</span>];
+<li><p>matrix指向数组的首元素，该数组的元素是由10个整数构成的数组</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void print(int (*matrix)[10], int rowsize)&#123;&#125;</span><br><span class="line">void print(int matrix[][10], int rowsize)&#123;&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="comment">//使用别名</span>
-<span class="keyword">typedef</span> <span class="keyword">int</span> arrT[<span class="number">10</span>];
-<span class="keyword">using</span> arrT=<span class="keyword">int</span>[<span class="number">10</span>];  <span class="comment">//与上句等价</span>
-<span class="function">arrT* <span class="title">func</span><span class="params">(<span class="keyword">int</span> i )</span></span>;
-&lt;!--￼<span class="number">7</span>--&gt;
+</li>
+</ul>
+<h3 id="含有可变形参的函数"><a href="#含有可变形参的函数" class="headerlink" title="含有可变形参的函数"></a>含有可变形参的函数</h3><ul>
+<li>为了能够编写处理不同数量实参的函数，C++11新标准提供了两种主要的方法：如果所有的实参类型相同，可以传递一个名为initializer_list的标准库类型；如果实参的类型不同，可以编写一种特殊的函数，也就是所谓的可变参数模版。</li>
+<li><code>initializer_list&lt;string&gt; a</code></li>
+<li>向initializer_list中传递一个值的序列，必须把序列放在花括号内。</li>
+</ul>
+<p><strong>不要返回局部对象的引用或指针</strong></p>
+<p><strong>调用一个返回引用的函数得到左值。可以像使用其他左值那样来使用返回引用的函数的调用</strong></p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">char</span> &amp;<span class="hljs-title">get_val</span><span class="hljs-params">(<span class="hljs-built_in">string</span> &amp;str, <span class="hljs-built_in">string</span>::size_type ix)</span></span>&#123;</span><br><span class="line">  <span class="hljs-keyword">return</span> str[ix];</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">  <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">s</span><span class="hljs-params">(<span class="hljs-string">"a value"</span>)</span></span>;</span><br><span class="line">  <span class="hljs-built_in">cout</span> &lt;&lt; s&lt;&lt;<span class="hljs-built_in">endl</span>;    <span class="hljs-comment">//输出为a value</span></span><br><span class="line">  get_val(s,<span class="hljs-number">0</span>)=<span class="hljs-string">'A'</span>;    <span class="hljs-comment">//将s[0]改为A</span></span><br><span class="line">  <span class="hljs-built_in">cout</span> &lt;&lt; s &lt;&lt; <span class="hljs-built_in">endl</span>;   <span class="hljs-comment">//输出为A value</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-对于接受引用或指针的函数来说，对象是常量还是非常量对应形参不同。
+<ul>
+<li><p>返回数组的指针</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">int</span> (*func(<span class="hljs-keyword">int</span> i))[<span class="hljs-number">10</span>];</span><br><span class="line">  </span><br><span class="line"><span class="hljs-comment">//使用别名</span></span><br><span class="line"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">int</span> arrT[<span class="hljs-number">10</span>];</span><br><span class="line"><span class="hljs-keyword">using</span> arrT=<span class="hljs-keyword">int</span>[<span class="hljs-number">10</span>];  <span class="hljs-comment">//与上句等价</span></span><br><span class="line"><span class="hljs-function">arrT* <span class="hljs-title">func</span><span class="hljs-params">(<span class="hljs-keyword">int</span> i )</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重载和const形参</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function">Record <span class="hljs-title">lookup</span><span class="hljs-params">(Phone)</span></span>;</span><br></pre></td></tr></table></figure>
 
-&lt;!--￼<span class="number">8</span>--&gt;
+<p>对于接受引用或指针的函数来说，对象是常量还是非常量对应形参不同。</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//四个独立的重载函数</span></span><br><span class="line"><span class="hljs-function">Record <span class="hljs-title">lookup</span><span class="hljs-params">(Account&amp;)</span></span>;        <span class="hljs-comment">//函数作用于Account的引用</span></span><br><span class="line"><span class="hljs-function">Record <span class="hljs-title">lookup</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Account&amp;)</span></span>;  <span class="hljs-comment">//新函数，作用于常量引用</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function">Record <span class="hljs-title">lookup</span><span class="hljs-params">(Account*)</span></span>;        <span class="hljs-comment">//新函数，作用于指向Account的指针</span></span><br><span class="line"><span class="hljs-function">Record <span class="hljs-title">lookup</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Account*)</span></span>;  <span class="hljs-comment">//新函数，作用于指向常量的指针</span></span><br></pre></td></tr></table></figure>
 
 
-</code></pre>
+
 </li>
 </ul>
 <ul>
@@ -374,10 +392,37 @@ void print(int matrix[][10], int rowsize){}
 </ul>
 <h3 id="constexpr函数"><a href="#constexpr函数" class="headerlink" title="constexpr函数"></a>constexpr函数</h3><ul>
 <li><p>定义constexpr与其他函数类似，但是要注意：函数的返回类型及所有形参的类型都得是字面值类型，而且函数体必须有且仅有一条return语句。</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">constexpr</span> <span class="hljs-keyword">int</span> <span class="hljs-title">new_sz</span><span class="hljs-params">()</span></span>&#123;<span class="hljs-keyword">return</span> <span class="hljs-number">42</span>;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 </li>
-<li><pre><code class="c++"><span class="function"><span class="keyword">constexpr</span> <span class="keyword">int</span> <span class="title">new_sz</span><span class="params">()</span></span>{<span class="keyword">return</span> <span class="number">42</span>;}
-&lt;!--￼<span class="number">9</span>--&gt;
-</code></pre>
+</ul>
+<ul>
+<li><p>constexpr被隐式的指定为内联函数。</p>
+</li>
+<li><p>constexpr函数体也可以包含其他语句，只要这些语句在运行时不执行任何操作就行。</p>
+</li>
+<li><p>constexpr函数不一定返回常量表达式。</p>
+</li>
+<li><p>对于某个给定的内联函数或者constexpr函数来说，他的多个定义必须完全一致。基于这个原因，内联函数和constexpr函数通常定义在头文件中。</p>
+</li>
+</ul>
+<h3 id="调试帮助"><a href="#调试帮助" class="headerlink" title="调试帮助"></a>调试帮助</h3><ul>
+<li><p>assert预处理宏</p>
+<ul>
+<li>assert宏定义在cassert头文件中。预处理名字由预处理器而非编译器管理，因此可以直接使用预处理名字而无需提供using声明。</li>
+</ul>
+</li>
+<li><p>NDEBUG预处理变量</p>
+<ul>
+<li><p>我们可以使用一个#define语句定义NDEBUG，从而关闭调试状态。</p>
+</li>
+<li><p>命令行关闭</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CC -D NDEBUG main.c</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
 </li>
 </ul>
 <h3 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h3><ul>
@@ -387,28 +432,19 @@ void print(int matrix[][10], int rowsize){}
 <li><p>当把函数名作为一个值使用时，函数自动的转换成指针。</p>
 </li>
 <li><p>使用重载函数的指针时，指针类型必须与重载函数中的一个精确匹配。</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ff</span><span class="hljs-params">(<span class="hljs-keyword">int</span>*)</span></span>;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ff</span><span class="hljs-params">(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">void</span> (*pf1)(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span>) = ff;</span><br></pre></td></tr></table></figure>
 </li>
-<li><pre><code class="c++"><span class="function"><span class="keyword">void</span> <span class="title">ff</span><span class="params">(<span class="keyword">int</span>*)</span></span>;
-<span class="function"><span class="keyword">void</span> <span class="title">ff</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span>)</span></span>;
-
-<span class="keyword">void</span> (*pf1)(<span class="keyword">unsigned</span> <span class="keyword">int</span>) = ff;
-
-&lt;!--￼<span class="number">11</span>--&gt;</code></pre>
+<li><p>形参可以是指向函数的指针</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//第三个参数是函数类型，他会自动转换成函数指针</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">useBigger</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span> &amp;s1,<span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span> &amp;s2,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">              <span class="hljs-keyword">bool</span> pf(<span class="hljs-keyword">const</span> stirng &amp;,<span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span> &amp;))</span></span>;</span><br><span class="line"><span class="hljs-comment">//等价的声明</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">useBigger</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span> &amp;s1,<span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span> &amp;s2,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">              <span class="hljs-keyword">bool</span> （*pf）(<span class="hljs-keyword">const</span> stirng &amp;,<span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span> &amp;))</span></span>;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>简化使用了函数指针的代码</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//Func和Func2是函数类型</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">Func</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span> &amp;, <span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span> &amp;)</span></span>;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">typedef</span> <span class="hljs-title">decltype</span><span class="hljs-params">(lengthCompare)</span> Func2</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//FuncP和FuncP2是函数指针</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">typedef</span> <span class="hljs-title">bool</span><span class="hljs-params">(*FuncP)</span><span class="hljs-params">(<span class="hljs-keyword">const</span> sting &amp;, <span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span> &amp;)</span></span>;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">typedef</span> <span class="hljs-title">decltype</span><span class="hljs-params">(lengthCompare)</span> *FuncP2</span>;</span><br></pre></td></tr></table></figure>
 </li>
-<li><pre><code class="c++"><span class="comment">//Func和Func2是函数类型</span>
-<span class="function"><span class="keyword">typedef</span> <span class="keyword">bool</span> <span class="title">Func</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span> &amp;, <span class="keyword">const</span> <span class="built_in">string</span> &amp;)</span></span>;
-<span class="function"><span class="keyword">typedef</span> <span class="title">decltype</span><span class="params">(lengthCompare)</span> Func2</span>;
-
-<span class="comment">//FuncP和FuncP2是函数指针</span>
-<span class="function"><span class="keyword">typedef</span> <span class="title">bool</span><span class="params">(*FuncP)</span><span class="params">(<span class="keyword">const</span> sting &amp;, <span class="keyword">const</span> <span class="built_in">string</span> &amp;)</span></span>;
-<span class="function"><span class="keyword">typedef</span> <span class="title">decltype</span><span class="params">(lengthCompare)</span> *FuncP2</span>;
-
-&lt;!--￼<span class="number">12</span>--&gt;
+<li><p>返回指向函数的指针</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">using</span> F = <span class="hljs-keyword">int</span>(<span class="hljs-keyword">int</span>*,<span class="hljs-keyword">int</span>); <span class="hljs-comment">//F是函数类型，不是指针</span></span><br><span class="line"><span class="hljs-keyword">using</span> PF = <span class="hljs-keyword">int</span> (*)(<span class="hljs-keyword">int</span>*, <span class="hljs-keyword">int</span>); <span class="hljs-comment">//PF是指针</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function">F *<span class="hljs-title">f1</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span></span>;</span><br><span class="line"><span class="hljs-function">PF <span class="hljs-title">f1</span><span class="hljs-params">(<span class="hljs-keyword">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">int</span> (*f1(<span class="hljs-keyword">int</span>))(<span class="hljs-keyword">int</span>*,<span class="hljs-keyword">int</span>);</span><br></pre></td></tr></table></figure>
 
 
-</code></pre>
+
 </li>
 </ul>
 <h2 id="7-类"><a href="#7-类" class="headerlink" title="7.类"></a>7.类</h2><ul>
@@ -440,35 +476,66 @@ void print(int matrix[][10], int rowsize){}
 <li><p>可变数据成员</p>
 <ul>
 <li><p>我们以往能改变类的某个数据成员，即使是在一个const成员函数内。可以通过在变量的声明中加入mutable关键字做到这一点。</p>
-</li>
-<li><pre><code class="c++"><span class="keyword">mutable</span> <span class="keyword">int</span> a;
-
-&lt;!--￼<span class="number">14</span>--&gt;</code></pre>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">mutable</span> <span class="hljs-keyword">int</span> a;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
-<li><p>一个类的成员类型不能是类自己。然而，一旦一个类的名字出现后，他就被认为是声明过了，因此类允许包含指向他自身类型的引用或指针。</p>
+<li><p>当我们提供一个类内初始值时，必须以符号=或或括号表示。</p>
 </li>
-<li><pre><code class="c++"><span class="class"><span class="keyword">class</span> <span class="title">Link_screen</span>{</span>
-  Screen window;
-  Link_screen *next;
-  Link_screen *prev;
-}
+<li><p>一个const 成员函数如果以引用的形式返回*this，那么他的返回类型将是一个常量引用。</p>
+</li>
+<li><p>类的声明</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Sales_data item1;</span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sales_data</span> <span class="hljs-title">item1</span>;</span> <span class="hljs-comment">//等价的声明</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>一个类的成员类型不能是类自己。然而，一旦一个类的名字出现后，他就被认为是声明过了，因此类允许包含指向他自身类型的引用或指针。</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Link_screen</span>&#123;</span></span><br><span class="line">  Screen window;</span><br><span class="line">  Link_screen *next;</span><br><span class="line">  Link_screen *prev;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果一个类指定了友元类，则友元类的成员函数可以访问此类包括非公有成员在内的所有成员。</p>
+</li>
+<li><p>友元关系不存在传递性。每个类负责控制自己的友元类或友元函数。</p>
+</li>
+<li><p>当把一个成员函数声明为友元时，必须明确指出该成员函数属于哪个类。</p>
+</li>
+<li><p>如果一个类想把一组重载函数声明为他的友元，他需要对这组函数中的每一个进行分别声明；</p>
+</li>
+<li><p>类型名的定义通常出现在类的开始处，这样就能确保所有使用该类型的成员都出现在类名的定义后。</p>
+</li>
+<li><p>使用全局作用域中的变量 <code>::a</code></p>
+</li>
+</ul>
+<h3 id="再探构造函数"><a href="#再探构造函数" class="headerlink" title="再探构造函数"></a>再探构造函数</h3><ul>
+<li><p>成员的初始化顺序与他们在<strong>类定义中出现的顺序一致</strong>。构造函数初始值列表中初始值的先后位置关系不会影响实际的初始化顺序。</p>
+</li>
+<li><p>最好令构造函数的初始值的顺序与成员声明的顺序一致。而且如果可能的话，尽量避免使用某些成员初始化另一些成员。</p>
+</li>
+<li><p>委托构造函数</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Sales_data</span>&#123;</span></span><br><span class="line">  <span class="hljs-keyword">public</span>:</span><br><span class="line">  	<span class="hljs-comment">//非委托构造函数使用对应的实参初始化成员</span></span><br><span class="line">  Sales_data(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> s, <span class="hljs-keyword">unsigned</span> cnt, <span class="hljs-keyword">double</span> price):</span><br><span class="line">  			bookNo(s),units_sold(cnt),revenue(cnt * price)&#123;&#125;</span><br><span class="line">  <span class="hljs-comment">//其余构造函数全部委托给另一个构造函数</span></span><br><span class="line">  Sales_data():Sales_data(<span class="hljs-string">""</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)&#123;&#125;</span><br><span class="line">  Sales_data(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> s):Sales_data(s, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)&#123;&#125;</span><br><span class="line">  Sales_data(<span class="hljs-built_in">std</span>:istream &amp;is):Sales_data()&#123;<span class="hljs-built_in">read</span>(is,*<span class="hljs-keyword">this</span>);&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-&lt;!--￼<span class="number">15</span>--&gt;
-
-- 当一个构造函数委托给另一个构造函数时，受委托的构造函数的初始值列表和函数体被依次执行。假如函数体包含有代码的话，将先执行这些代码，然后控制权才会交还给委托者的函数体。</code></pre>
+<ul>
+<li>当一个构造函数委托给另一个构造函数时，受委托的构造函数的初始值列表和函数体被依次执行。假如函数体包含有代码的话，将先执行这些代码，然后控制权才会交还给委托者的函数体。</li>
+</ul>
 </li>
 <li><p>如果定义了其他构造函数，最好也提供一个默认的构造函数。</p>
 </li>
 <li><p>使用默认构造函数</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Sales_data obj; <span class="hljs-comment">//正确</span></span><br><span class="line"><span class="hljs-function">Sales_data <span class="hljs-title">obj</span><span class="hljs-params">()</span></span>; <span class="hljs-comment">//错误，实际上定义了一个函数</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>抑制构造函数定义的隐式转换</p>
 <ul>
-<li><pre><code class="c++">Sales_data obj; <span class="comment">//正确</span>
-<span class="function">Sales_data <span class="title">obj</span><span class="params">()</span></span>; <span class="comment">//错误，实际上定义了一个函数</span>
-
-&lt;!--￼<span class="number">16</span>--&gt;</code></pre>
+<li>使用explicit 关键字</li>
+<li>explicit构造函数只能直接初始化不能使用拷贝形式的初始化。</li>
+</ul>
+</li>
+<li><p>聚合类</p>
 </li>
 </ul>
+<h3 id="类的静态成员"><a href="#类的静态成员" class="headerlink" title="类的静态成员"></a>类的静态成员</h3><ul>
+<li><p>类的静态成员存在于任何对象之外，对象中不包含任何与静态数据成员有关的数据。</p>
+</li>
+<li><p>静态成员函数不能声明称const 的，而且我们也不能在static函数体内使用this指针。</p>
+</li>
+<li><p>虽然静态成员不属于类的某个对象，但是我们仍然可以使用类的对象、引用或指针来访问静态成员。</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Account ac1;</span><br><span class="line">Account &amp;ac2;</span><br><span class="line"></span><br><span class="line">r = ac1.rate();</span><br><span class="line">r = ac2-&gt;rate();</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>当在类的外部定义静态成员时，不能重复static关键字，该关键字只出现在类内部的声明语句：</p>
 </li>
@@ -479,17 +546,10 @@ void print(int matrix[][10], int rowsize){}
 <li><p>即使一个常量静态数据成员在类内部被初始化了，通常情况下也应该在类的外部定义一下该成员。</p>
 </li>
 <li><p>静态数据成员的类型可以就是他所属的类类型。而非静态数据成员则受到限制，只能声明成他所属的类的指针或饮用。</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bar</span>&#123;</span></span><br><span class="line">  <span class="hljs-keyword">public</span>:</span><br><span class="line">  <span class="hljs-comment">//...</span></span><br><span class="line">  <span class="hljs-keyword">private</span>:</span><br><span class="line">  <span class="hljs-keyword">static</span> Bar mem1; <span class="hljs-comment">//正确：静态成员可以是不完全类型</span></span><br><span class="line">  Bar *mem2;  <span class="hljs-comment">//正确：指针成员可以是不完全类型</span></span><br><span class="line">  Bar mem3;   <span class="hljs-comment">//错误：数据成员必须是完全类型</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><pre><code class="c++"><span class="class"><span class="keyword">class</span> <span class="title">Bar</span>{</span>
-  <span class="keyword">public</span>:
-  <span class="comment">//...</span>
-  <span class="keyword">private</span>:
-  <span class="keyword">static</span> Bar mem1; <span class="comment">//正确：静态成员可以是不完全类型</span>
-  Bar *mem2;  <span class="comment">//正确：指针成员可以是不完全类型</span>
-  Bar mem3;   <span class="comment">//错误：数据成员必须是完全类型</span>
-}
-
-&lt;!--￼<span class="number">17</span>--&gt;</code></pre>
+<li><p>可以使用静态成员作为默认实参</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Screen</span>&#123;</span></span><br><span class="line">  <span class="hljs-keyword">public</span>:</span><br><span class="line">  	<span class="hljs-function">screen&amp; <span class="hljs-title">clear</span><span class="hljs-params">(<span class="hljs-keyword">char</span> = bkground)</span></span>;</span><br><span class="line">  <span class="hljs-keyword">private</span>:</span><br><span class="line">  	<span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> bkground;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>非静态数据成员不能作为默认实参，因为他的值本身属于对象的一部分，这么做的结果是无法真正提供一个对象以便从中获取成员的值，最终将引发错误。</p>
 </li>
