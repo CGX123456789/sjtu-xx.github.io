@@ -280,20 +280,39 @@
 </ul>
 </li>
 <li><strong>使用文件重定向</strong><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#</span><span class="hljs-bash"> addItems.exe是可执行文件，下面的命令将从一个infile的文件读取销售记录到cin，并将结果（cout）写入到一个名为outfile的文件中。</span></span><br><span class="line">addItems &lt;infile &gt;outfile</span><br></pre></td></tr></table></figure>
-<h2 id="2-变量和基本类型"><a href="#2-变量和基本类型" class="headerlink" title="2.变量和基本类型"></a>2.变量和基本类型</h2></li>
-<li>寻址的最小单元为byte</li>
-<li>存储的基本单元为字</li>
-<li>通常float以1个字（32比特）表示，double为2个字（64比特），long double以3/4个字表示。</li>
-<li>char类型会表现为带符号或者无符号的，具体视编译器而定。</li>
-<li>当我们给带符号类型一个超出他表示范围的值时，结果是<strong>未定义的</strong>。此时，可能可以继续工作也可能崩溃或产生垃圾数据。</li>
-<li>变量初始化<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">int</span> unit_sold = <span class="hljs-number">0</span>;</span><br><span class="line"><span class="hljs-keyword">int</span> unit_sold = &#123;<span class="hljs-number">0</span>&#125;;  <span class="hljs-comment">//列表初始化</span></span><br><span class="line"><span class="hljs-keyword">int</span> unit_sold&#123;<span class="hljs-number">0</span>&#125;;  <span class="hljs-comment">//列表初始化</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">unit_sold</span><span class="hljs-params">(<span class="hljs-number">0</span>)</span></span>;</span><br></pre></td></tr></table></figure></li>
-<li>在函数体内部，如果试图初始化一个extern关键字标记的变量，将引发错误。</li>
-<li>变量只能被定义一次，但可以被多次声明<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> i;  <span class="hljs-comment">//声明i</span></span><br><span class="line"><span class="hljs-keyword">int</span> i;   <span class="hljs-comment">//声明并定义i</span></span><br></pre></td></tr></table></figure></li>
-<li>在内层作用域中访问外层作用域可以使用操作域符<code>::value</code><h3 id="复合类型"><a href="#复合类型" class="headerlink" title="复合类型"></a>复合类型</h3></li>
-<li>一条声明语句由一个基本数据类型和一个紧随其后的声明符列表组成。<h4 id="amp-和-符号"><a href="#amp-和-符号" class="headerlink" title="&amp;和*符号"></a><code>&amp;和*符号</code></h4><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//&amp;和*的上下文决定了符号的意义</span></span><br><span class="line"><span class="hljs-comment">//在声明语句中，&amp;和*用于组成复合类型；在表达式中，他们的角色有转变成运算符。</span></span><br><span class="line">  <span class="hljs-keyword">int</span> i = <span class="hljs-number">42</span>;</span><br><span class="line">  <span class="hljs-keyword">int</span> &amp;r = i;    <span class="hljs-comment">//&amp;紧随类型名出现，因此是声明的一部分，r是一个引用</span></span><br><span class="line">  <span class="hljs-keyword">int</span> *p;        <span class="hljs-comment">//*紧随类型名出现，因此是声明的一部分，p是一个指针</span></span><br><span class="line">  p = &amp;i;        <span class="hljs-comment">//&amp;出现在表达式中，是一个取地址符</span></span><br><span class="line">  *p = i;        <span class="hljs-comment">//*出现在表达式中，是一个解引用符</span></span><br><span class="line">  <span class="hljs-keyword">int</span> &amp;r2 = *p;  <span class="hljs-comment">//&amp;是声明的一部分，*是解引用符。</span></span><br></pre></td></tr></table></figure>
-<h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4></li>
+
+</li>
+</ul>
+<h2 id="2-变量和基本类型"><a href="#2-变量和基本类型" class="headerlink" title="2.变量和基本类型"></a>2.变量和基本类型</h2><ul>
+<li><p>寻址的最小单元为byte</p>
+</li>
+<li><p>存储的基本单元为字</p>
+</li>
+<li><p>通常float以1个字（32比特）表示，double为2个字（64比特），long double以3/4个字表示。</p>
+</li>
+<li><p>char类型会表现为带符号或者无符号的，具体视编译器而定。</p>
+</li>
+<li><p>当我们给带符号类型一个超出他表示范围的值时，结果是<strong>未定义的</strong>。此时，可能可以继续工作也可能崩溃或产生垃圾数据。</p>
+</li>
+<li><p>变量初始化</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">int</span> unit_sold = <span class="hljs-number">0</span>;</span><br><span class="line"><span class="hljs-keyword">int</span> unit_sold = &#123;<span class="hljs-number">0</span>&#125;;  <span class="hljs-comment">//列表初始化</span></span><br><span class="line"><span class="hljs-keyword">int</span> unit_sold&#123;<span class="hljs-number">0</span>&#125;;  <span class="hljs-comment">//列表初始化</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">unit_sold</span><span class="hljs-params">(<span class="hljs-number">0</span>)</span></span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>在函数体内部，如果试图初始化一个extern关键字标记的变量，将引发错误。</p>
+</li>
+<li><p>变量只能被定义一次，但可以被多次声明</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> i;  <span class="hljs-comment">//声明i</span></span><br><span class="line"><span class="hljs-keyword">int</span> i;   <span class="hljs-comment">//声明并定义i</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在内层作用域中访问外层作用域可以使用操作域符<code>::value</code></p>
+<h3 id="复合类型"><a href="#复合类型" class="headerlink" title="复合类型"></a>复合类型</h3></li>
+<li><p>一条声明语句由一个基本数据类型和一个紧随其后的声明符列表组成。</p>
+<h4 id="amp-和-符号"><a href="#amp-和-符号" class="headerlink" title="&amp;和*符号"></a><code>&amp;和*符号</code></h4><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//&amp;和*的上下文决定了符号的意义</span></span><br><span class="line"><span class="hljs-comment">//在声明语句中，&amp;和*用于组成复合类型；在表达式中，他们的角色有转变成运算符。</span></span><br><span class="line">  <span class="hljs-keyword">int</span> i = <span class="hljs-number">42</span>;</span><br><span class="line">  <span class="hljs-keyword">int</span> &amp;r = i;    <span class="hljs-comment">//&amp;紧随类型名出现，因此是声明的一部分，r是一个引用</span></span><br><span class="line">  <span class="hljs-keyword">int</span> *p;        <span class="hljs-comment">//*紧随类型名出现，因此是声明的一部分，p是一个指针</span></span><br><span class="line">  p = &amp;i;        <span class="hljs-comment">//&amp;出现在表达式中，是一个取地址符</span></span><br><span class="line">  *p = i;        <span class="hljs-comment">//*出现在表达式中，是一个解引用符</span></span><br><span class="line">  <span class="hljs-keyword">int</span> &amp;r2 = *p;  <span class="hljs-comment">//&amp;是声明的一部分，*是解引用符。</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><ul>
 <li>引用必须被初始化，一旦初始化完成，引用将和他的初始值对象一直绑定在一在。</li>
-<li>因为引用本身不是一个对象，所以不能定义引用的引用。<h4 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h4></li>
+<li>因为引用本身不是一个对象，所以不能定义引用的引用。</li>
+</ul>
+<h4 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h4><ul>
 <li>建议初始化所有指针。</li>
 </ul>
 <h2 id="3-字符串、向量和数组"><a href="#3-字符串、向量和数组" class="headerlink" title="3.字符串、向量和数组"></a>3.字符串、向量和数组</h2><h3 id="命名空间using声明"><a href="#命名空间using声明" class="headerlink" title="命名空间using声明"></a>命名空间using声明</h3><ul>
