@@ -259,7 +259,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    26 分钟 读完 (大约 3894 个字)
+                    32 分钟 读完 (大约 4797 个字)
                 </span>
                 
                 
@@ -315,7 +315,50 @@
 </ul>
 <h4 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h4><ul>
 <li>建议初始化所有指针。</li>
+<li>指向指针的引用<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">int</span> i = <span class="hljs-number">42</span>;</span><br><span class="line"><span class="hljs-keyword">int</span> *p;</span><br><span class="line"><span class="hljs-keyword">int</span> *&amp;r = p;   <span class="hljs-comment">//离变量名最近的符号对变量的类型由最直接的影响，因此，r是一个引用</span></span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
+<h4 id="const限定符"><a href="#const限定符" class="headerlink" title="const限定符"></a>const限定符</h4><ul>
+<li><p>const对象必须初始化</p>
+<blockquote>
+<p>建议：对于const变量，不管是声明还是定义，都添加extern关键字，这样只需定义一次就可以了。</p>
+</blockquote>
+</li>
+<li><p>指针和const</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">double</span> pi = <span class="hljs-number">3.14</span>;</span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">double</span> *cptr = &amp;pi; <span class="hljs-comment">//指向常量的指针</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>顶层const</p>
+<ul>
+<li><strong>顶层const</strong>表示指针本身是个常量，<strong>底层const</strong>表示指针所指的对象是一个常量。<blockquote>
+<p>一般的，顶层const可以表示任意的对象是常量，这点对任意数据类型都适用。底层const则与指针和引用等复合类型的基本类型部分有关。比较特殊的是指针类型既可以是顶层const，也可以是底层const。</p>
+</blockquote>
+</li>
+<li>当执行对象的拷贝操作时，顶层const不受什么影响。底层const能忽视，非常量可以转换成常量，反之则不行。<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;</span><br><span class="line"><span class="hljs-keyword">int</span> *<span class="hljs-keyword">const</span> p1 = &amp;i;   <span class="hljs-comment">//不能改变p1的值，这是一个顶层const</span></span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> ci = <span class="hljs-number">42</span>;    <span class="hljs-comment">//不能改变ci的值，这是一个顶层const</span></span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *p2 = &amp;ci;  <span class="hljs-comment">//允许改变p2的值，这是一个底层const</span></span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *<span class="hljs-keyword">const</span> p3 = p2; <span class="hljs-comment">//靠右的const是顶层const，靠左的是底层const</span></span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r = ci;    <span class="hljs-comment">//用于引用的const都是底层const</span></span><br><span class="line"><span class="hljs-comment">// 拷贝ci的值</span></span><br><span class="line">i = ci;     <span class="hljs-comment">//正确，拷贝ci的值，ci是一个顶层const</span></span><br><span class="line">p2 = p3;    <span class="hljs-comment">//正确：p2和p3指向的对象类型相同，p3顶层const部分不受影响</span></span><br><span class="line"><span class="hljs-comment">// 底层const不能忽视。当执行对象的拷贝操作时，拷入和拷出的对象必须具有相同的底层const资格，或者两个对象的数据类型必须能够转换。一般来说，非常量可以转换成常量，反之则不行。</span></span><br><span class="line"><span class="hljs-keyword">int</span> *p = p3;     <span class="hljs-comment">//错误：p3包含底层const的定义，而p没有</span></span><br><span class="line">p2 = p3;         <span class="hljs-comment">//正确：p2和p3都是底层const</span></span><br><span class="line">p2 = &amp;i；       <span class="hljs-comment">//正确：int*能转换成const int *</span></span><br><span class="line"><span class="hljs-keyword">int</span> &amp;r = ci;    <span class="hljs-comment">//错误：不同的int&amp;不能绑定到int常量上</span></span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r2 = i; <span class="hljs-comment">//正确：const int&amp;可以绑定到一个普通int上</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="字面值类型"><a href="#字面值类型" class="headerlink" title="字面值类型"></a>字面值类型</h4><ul>
+<li>常量表达式的值在编译时就得到类型，因此对声明constexpr时用到的类型必须有所限制。算术类型、指针和引用都属于字面值类型。自定义类型，IO库和string类型不属于字面值类型</li>
+</ul>
+<h4 id="auto类型说明符"><a href="#auto类型说明符" class="headerlink" title="auto类型说明符"></a>auto类型说明符</h4><ul>
+<li><strong>auto一般会忽略顶层const，底层const会保留下来。</strong></li>
+</ul>
+<h4 id="decltype和引用"><a href="#decltype和引用" class="headerlink" title="decltype和引用"></a>decltype和引用</h4><ul>
+<li>如果decltype使用的是一个不加括号的变量，则得到的结果就是该变量的类型；如果给变量加上一层或多层括号，编译器就会把他当成一个表达式。<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//decltype((variable))的结果永远是引用，而decltype(variable)的结果只有当variable本身是引用时才是引用。</span></span><br><span class="line"><span class="hljs-keyword">decltype</span>((i)) &amp;d;    <span class="hljs-comment">//错误d是一个int&amp;, 必须初始化</span></span><br><span class="line"><span class="hljs-keyword">decltype</span>(i) e;       <span class="hljs-comment">//e是一个未初始化的int</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="自定义数据结构"><a href="#自定义数据结构" class="headerlink" title="自定义数据结构"></a>自定义数据结构</h3><p>struct 和 class定义时花括号后面要加分号</p>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Sales</span>&#123;</span>&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>类内初始化或者放在花括号里，或者放在等号右边，记住不能使用圆括号。</p>
+</blockquote>
+<h3 id="头文件保护符"><a href="#头文件保护符" class="headerlink" title="头文件保护符"></a>头文件保护符</h3><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> SALES_DATA_H</span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> SALES_DATA_H</span></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sales</span>&#123;</span>&#125;;</span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
 <h2 id="3-字符串、向量和数组"><a href="#3-字符串、向量和数组" class="headerlink" title="3.字符串、向量和数组"></a>3.字符串、向量和数组</h2><h3 id="命名空间using声明"><a href="#命名空间using声明" class="headerlink" title="命名空间using声明"></a>命名空间using声明</h3><ul>
 <li><p>每个名字都需要独立的using声明</p>
 </li>
