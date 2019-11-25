@@ -259,7 +259,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    32 分钟 读完 (大约 4797 个字)
+                    35 分钟 读完 (大约 5184 个字)
                 </span>
                 
                 
@@ -276,93 +276,7 @@
 <li>输出运算符和输入运算符类似，都返回其左侧运算对象作为其计算结果</li>
 <li>从键盘输入文件结束符<ul>
 <li>在windows系统中，Ctrl+Z，然后按Enter或Return键</li>
-<li>在Unix系统中，文件结束符是Ctrl+D</li>
-</ul>
-</li>
-<li><strong>使用文件重定向</strong><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#</span><span class="hljs-bash"> addItems.exe是可执行文件，下面的命令将从一个infile的文件读取销售记录到cin，并将结果（cout）写入到一个名为outfile的文件中。</span></span><br><span class="line">addItems &lt;infile &gt;outfile</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="2-变量和基本类型"><a href="#2-变量和基本类型" class="headerlink" title="2.变量和基本类型"></a>2.变量和基本类型</h2><ul>
-<li><p>寻址的最小单元为byte</p>
-</li>
-<li><p>存储的基本单元为字</p>
-</li>
-<li><p>通常float以1个字（32比特）表示，double为2个字（64比特），long double以3/4个字表示。</p>
-</li>
-<li><p>char类型会表现为带符号或者无符号的，具体视编译器而定。</p>
-</li>
-<li><p>当我们给带符号类型一个超出他表示范围的值时，结果是<strong>未定义的</strong>。此时，可能可以继续工作也可能崩溃或产生垃圾数据。</p>
-</li>
-<li><p>变量初始化</p>
-<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">int</span> unit_sold = <span class="hljs-number">0</span>;</span><br><span class="line"><span class="hljs-keyword">int</span> unit_sold = &#123;<span class="hljs-number">0</span>&#125;;  <span class="hljs-comment">//列表初始化</span></span><br><span class="line"><span class="hljs-keyword">int</span> unit_sold&#123;<span class="hljs-number">0</span>&#125;;  <span class="hljs-comment">//列表初始化</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">unit_sold</span><span class="hljs-params">(<span class="hljs-number">0</span>)</span></span>;</span><br></pre></td></tr></table></figure></li>
-<li><p>在函数体内部，如果试图初始化一个extern关键字标记的变量，将引发错误。</p>
-</li>
-<li><p>变量只能被定义一次，但可以被多次声明</p>
-<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">extern</span> <span class="hljs-keyword">int</span> i;  <span class="hljs-comment">//声明i</span></span><br><span class="line"><span class="hljs-keyword">int</span> i;   <span class="hljs-comment">//声明并定义i</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在内层作用域中访问外层作用域可以使用操作域符<code>::value</code></p>
-</li>
-</ul>
-<h3 id="复合类型"><a href="#复合类型" class="headerlink" title="复合类型"></a>复合类型</h3><ul>
-<li>一条声明语句由一个基本数据类型和一个紧随其后的声明符列表组成。</li>
-</ul>
-<h4 id="amp-和-符号"><a href="#amp-和-符号" class="headerlink" title="&amp;和*符号"></a><code>&amp;和*符号</code></h4><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//&amp;和*的上下文决定了符号的意义</span></span><br><span class="line"><span class="hljs-comment">//在声明语句中，&amp;和*用于组成复合类型；在表达式中，他们的角色有转变成运算符。</span></span><br><span class="line">  <span class="hljs-keyword">int</span> i = <span class="hljs-number">42</span>;</span><br><span class="line">  <span class="hljs-keyword">int</span> &amp;r = i;    <span class="hljs-comment">//&amp;紧随类型名出现，因此是声明的一部分，r是一个引用</span></span><br><span class="line">  <span class="hljs-keyword">int</span> *p;        <span class="hljs-comment">//*紧随类型名出现，因此是声明的一部分，p是一个指针</span></span><br><span class="line">  p = &amp;i;        <span class="hljs-comment">//&amp;出现在表达式中，是一个取地址符</span></span><br><span class="line">  *p = i;        <span class="hljs-comment">//*出现在表达式中，是一个解引用符</span></span><br><span class="line">  <span class="hljs-keyword">int</span> &amp;r2 = *p;  <span class="hljs-comment">//&amp;是声明的一部分，*是解引用符。</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><ul>
-<li>引用必须被初始化，一旦初始化完成，引用将和他的初始值对象一直绑定在一在。</li>
-<li>因为引用本身不是一个对象，所以不能定义引用的引用。</li>
-</ul>
-<h4 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h4><ul>
-<li>建议初始化所有指针。</li>
-<li>指向指针的引用<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">int</span> i = <span class="hljs-number">42</span>;</span><br><span class="line"><span class="hljs-keyword">int</span> *p;</span><br><span class="line"><span class="hljs-keyword">int</span> *&amp;r = p;   <span class="hljs-comment">//离变量名最近的符号对变量的类型由最直接的影响，因此，r是一个引用</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h4 id="const限定符"><a href="#const限定符" class="headerlink" title="const限定符"></a>const限定符</h4><ul>
-<li><p>const对象必须初始化</p>
-<blockquote>
-<p>建议：对于const变量，不管是声明还是定义，都添加extern关键字，这样只需定义一次就可以了。</p>
-</blockquote>
-</li>
-<li><p>指针和const</p>
-<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">double</span> pi = <span class="hljs-number">3.14</span>;</span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">double</span> *cptr = &amp;pi; <span class="hljs-comment">//指向常量的指针</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>顶层const</p>
-<ul>
-<li><strong>顶层const</strong>表示指针本身是个常量，<strong>底层const</strong>表示指针所指的对象是一个常量。<blockquote>
-<p>一般的，顶层const可以表示任意的对象是常量，这点对任意数据类型都适用。底层const则与指针和引用等复合类型的基本类型部分有关。比较特殊的是指针类型既可以是顶层const，也可以是底层const。</p>
-</blockquote>
-</li>
-<li>当执行对象的拷贝操作时，顶层const不受什么影响。底层const能忽视，非常量可以转换成常量，反之则不行。<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;</span><br><span class="line"><span class="hljs-keyword">int</span> *<span class="hljs-keyword">const</span> p1 = &amp;i;   <span class="hljs-comment">//不能改变p1的值，这是一个顶层const</span></span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> ci = <span class="hljs-number">42</span>;    <span class="hljs-comment">//不能改变ci的值，这是一个顶层const</span></span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *p2 = &amp;ci;  <span class="hljs-comment">//允许改变p2的值，这是一个底层const</span></span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> *<span class="hljs-keyword">const</span> p3 = p2; <span class="hljs-comment">//靠右的const是顶层const，靠左的是底层const</span></span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r = ci;    <span class="hljs-comment">//用于引用的const都是底层const</span></span><br><span class="line"><span class="hljs-comment">// 拷贝ci的值</span></span><br><span class="line">i = ci;     <span class="hljs-comment">//正确，拷贝ci的值，ci是一个顶层const</span></span><br><span class="line">p2 = p3;    <span class="hljs-comment">//正确：p2和p3指向的对象类型相同，p3顶层const部分不受影响</span></span><br><span class="line"><span class="hljs-comment">// 底层const不能忽视。当执行对象的拷贝操作时，拷入和拷出的对象必须具有相同的底层const资格，或者两个对象的数据类型必须能够转换。一般来说，非常量可以转换成常量，反之则不行。</span></span><br><span class="line"><span class="hljs-keyword">int</span> *p = p3;     <span class="hljs-comment">//错误：p3包含底层const的定义，而p没有</span></span><br><span class="line">p2 = p3;         <span class="hljs-comment">//正确：p2和p3都是底层const</span></span><br><span class="line">p2 = &amp;i；       <span class="hljs-comment">//正确：int*能转换成const int *</span></span><br><span class="line"><span class="hljs-keyword">int</span> &amp;r = ci;    <span class="hljs-comment">//错误：不同的int&amp;不能绑定到int常量上</span></span><br><span class="line"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> &amp;r2 = i; <span class="hljs-comment">//正确：const int&amp;可以绑定到一个普通int上</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="字面值类型"><a href="#字面值类型" class="headerlink" title="字面值类型"></a>字面值类型</h4><ul>
-<li>常量表达式的值在编译时就得到类型，因此对声明constexpr时用到的类型必须有所限制。算术类型、指针和引用都属于字面值类型。自定义类型，IO库和string类型不属于字面值类型</li>
-</ul>
-<h4 id="auto类型说明符"><a href="#auto类型说明符" class="headerlink" title="auto类型说明符"></a>auto类型说明符</h4><ul>
-<li><strong>auto一般会忽略顶层const，底层const会保留下来。</strong></li>
-</ul>
-<h4 id="decltype和引用"><a href="#decltype和引用" class="headerlink" title="decltype和引用"></a>decltype和引用</h4><ul>
-<li>如果decltype使用的是一个不加括号的变量，则得到的结果就是该变量的类型；如果给变量加上一层或多层括号，编译器就会把他当成一个表达式。<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">//decltype((variable))的结果永远是引用，而decltype(variable)的结果只有当variable本身是引用时才是引用。</span></span><br><span class="line"><span class="hljs-keyword">decltype</span>((i)) &amp;d;    <span class="hljs-comment">//错误d是一个int&amp;, 必须初始化</span></span><br><span class="line"><span class="hljs-keyword">decltype</span>(i) e;       <span class="hljs-comment">//e是一个未初始化的int</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="自定义数据结构"><a href="#自定义数据结构" class="headerlink" title="自定义数据结构"></a>自定义数据结构</h3><p>struct 和 class定义时花括号后面要加分号</p>
-<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Sales</span>&#123;</span>&#125;;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>类内初始化或者放在花括号里，或者放在等号右边，记住不能使用圆括号。</p>
-</blockquote>
-<h3 id="头文件保护符"><a href="#头文件保护符" class="headerlink" title="头文件保护符"></a>头文件保护符</h3><figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> SALES_DATA_H</span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> SALES_DATA_H</span></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sales</span>&#123;</span>&#125;;</span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-
-<h2 id="3-字符串、向量和数组"><a href="#3-字符串、向量和数组" class="headerlink" title="3.字符串、向量和数组"></a>3.字符串、向量和数组</h2><h3 id="命名空间using声明"><a href="#命名空间using声明" class="headerlink" title="命名空间using声明"></a>命名空间using声明</h3><ul>
-<li><p>每个名字都需要独立的using声明</p>
-</li>
-<li><p>头文件不应该使用using声明</p></li></ul>
+<li>在Unix系统中，文件结束符是Ctrl+D</li></ul></li></ul>
         </div>
         
         

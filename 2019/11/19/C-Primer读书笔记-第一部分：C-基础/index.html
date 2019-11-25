@@ -10,16 +10,16 @@
 <title>C++ Primer读书笔记(第一部分：C++基础) - 薛轩的个人博客</title>
 
 
-    <meta name="description" content="1.开始 输出运算符和输入运算符类似，都返回其左侧运算对象作为其计算结果 从键盘输入文件结束符 在windows系统中，Ctrl+Z，然后按Enter或Return键 在Unix系统中，文件结束符是Ctrl+D   使用文件重定向12# addItems.exe是可执行文件，下面的命令将从一个infile的文件读取销售记录到cin，并将结果（cout）写入到一个名为outfile的文件中。addI">
+    <meta name="description" content="1.开始 输出运算符和输入运算符类似，都返回其左侧运算对象作为其计算结果 从键盘输入文件结束符 在windows系统中，Ctrl+Z，然后按Enter或Return键 在Unix系统中，文件结束符是Ctrl+D">
 <meta name="keywords" content="c++,基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++ Primer读书笔记(第一部分：C++基础)">
 <meta property="og:url" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;2019&#x2F;11&#x2F;19&#x2F;C-Primer%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9AC-%E5%9F%BA%E7%A1%80&#x2F;index.html">
 <meta property="og:site_name" content="薛轩的个人博客">
-<meta property="og:description" content="1.开始 输出运算符和输入运算符类似，都返回其左侧运算对象作为其计算结果 从键盘输入文件结束符 在windows系统中，Ctrl+Z，然后按Enter或Return键 在Unix系统中，文件结束符是Ctrl+D   使用文件重定向12# addItems.exe是可执行文件，下面的命令将从一个infile的文件读取销售记录到cin，并将结果（cout）写入到一个名为outfile的文件中。addI">
+<meta property="og:description" content="1.开始 输出运算符和输入运算符类似，都返回其左侧运算对象作为其计算结果 从键盘输入文件结束符 在windows系统中，Ctrl+Z，然后按Enter或Return键 在Unix系统中，文件结束符是Ctrl+D">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
-<meta property="og:updated_time" content="2019-11-25T02:49:03.490Z">
+<meta property="og:updated_time" content="2019-11-25T07:14:35.302Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
 
@@ -146,7 +146,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    32 分钟 读完 (大约 4797 个字)
+                    35 分钟 读完 (大约 5184 个字)
                 </span>
                 
                 
@@ -168,7 +168,7 @@
 <li>输出运算符和输入运算符类似，都返回其左侧运算对象作为其计算结果</li>
 <li>从键盘输入文件结束符<ul>
 <li>在windows系统中，Ctrl+Z，然后按Enter或Return键</li>
-<li>在Unix系统中，文件结束符是Ctrl+D</li>
+<li>在Unix系统中，文件结束符是Ctrl+D<a id="more"></a></li>
 </ul>
 </li>
 <li><strong>使用文件重定向</strong><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#</span><span class="hljs-bash"> addItems.exe是可执行文件，下面的命令将从一个infile的文件读取销售记录到cin，并将结果（cout）写入到一个名为outfile的文件中。</span></span><br><span class="line">addItems &lt;infile &gt;outfile</span><br></pre></td></tr></table></figure>
@@ -255,7 +255,6 @@
 <li><p>每个名字都需要独立的using声明</p>
 </li>
 <li><p>头文件不应该使用using声明</p>
-<a id="more"></a>
 <h3 id="string类型"><a href="#string类型" class="headerlink" title="string类型"></a>string类型</h3></li>
 <li><p>string对象会自动忽略开头的空白，从第一个非空的字符开始读起，直到另一个空白为止。</p>
 </li>
@@ -310,10 +309,20 @@
 <td></td>
 </tr>
 </tbody></table>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;::iterator it;   <span class="hljs-comment">//读写元素</span></span><br><span class="line"><span class="hljs-built_in">string</span>::iterator s;          <span class="hljs-comment">//读写字符</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;::const_iterator cit; <span class="hljs-comment">//读元素</span></span><br><span class="line"><span class="hljs-built_in">string</span>::const_iterator cs;   <span class="hljs-comment">//读字符</span></span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>所有标准库和迭代器都定义了==和!=，有些没定义&lt;，因此使用迭代器时要习惯使用!=</li>
-<li>v.begin()，v.end()返回第一个元素的指针，尾后元素</li>
-<li>Iter1-iter2返回difference_type，为带符号整数</li>
+<li><p>所有标准库和迭代器都定义了==和!=，有些没定义&lt;，因此使用迭代器时要习惯使用!=</p>
+<blockquote>
+<p>养成使用!=的习惯</p>
+</blockquote>
+</li>
+<li><p>v.begin()，v.end()返回第一个元素的指针，尾后元素</p>
+</li>
+<li><p>v.cbegin(), v.cend()返回const_iterator</p>
+</li>
+<li><p>Iter1-iter2返回difference_type，为带符号整数</p>
+</li>
 </ul>
 <h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><ul>
 <li>数组大小固定</li>
@@ -397,10 +406,56 @@
 <h2 id="5-语句"><a href="#5-语句" class="headerlink" title="5.语句"></a>5.语句</h2><h3 id="简单语句"><a href="#简单语句" class="headerlink" title="简单语句"></a>简单语句</h3><ul>
 <li>使用空语句应当加上注释</li>
 <li>switch语句case关键字和它对应的值一起被称为case标签。case标签必须是整型常量表达式。</li>
+<li>每一个case都要加break;包括default。</li>
 <li>break语句负责终止离他最近的while、do while、for或switch语句，并从这些语句之后的第一条语句开始执行。</li>
 <li>不要在程序中使用goto语句。</li>
 <li>异常类型只定义了一个名为what的成员函数，该函数没有任何参数，返回值是一个指向C风格字符串的const char *</li>
 </ul>
+<h3 id="标准异常"><a href="#标准异常" class="headerlink" title="标准异常"></a>标准异常</h3><p>4个异常相关的头文件</p>
+<ol>
+<li>exception头文件定义了最通用的异常类exception。它只报告异常的发生，不提供任何额外的信息。</li>
+<li>stdexcept头文件定义了几种常用的异常类。</li>
+<li>new头文件定义了bad_alloc异常类型。</li>
+<li>type_info头文件定义了bad_cast异常类型。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>stdexcept头文件定义的异常列表</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>exception</td>
+</tr>
+<tr>
+<td>runtime_error</td>
+</tr>
+<tr>
+<td>range_error</td>
+</tr>
+<tr>
+<td>overflow_error</td>
+</tr>
+<tr>
+<td>underflow_error</td>
+</tr>
+<tr>
+<td>logic_error</td>
+</tr>
+<tr>
+<td>domain_error</td>
+</tr>
+<tr>
+<td>incalid_argument</td>
+</tr>
+<tr>
+<td>length_error</td>
+</tr>
+<tr>
+<td>out_of_range</td>
+</tr>
+</tbody></table>
+<p>异常类型只定义了一个名为what的成员函数，该函数没有任何参数，返回值是一个指向C风格字符串的const char *（内容为异常对象的字符串初始值）</p>
 <h2 id="6-函数"><a href="#6-函数" class="headerlink" title="6.函数"></a>6.函数</h2><h3 id="函数基础"><a href="#函数基础" class="headerlink" title="函数基础"></a>函数基础</h3><ul>
 <li><p>可以使用void表示函数没有形参</p>
 <figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f1</span><span class="hljs-params">()</span></span>&#123;&#125;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f2</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
@@ -448,17 +503,15 @@
 <li>int main(int argc, char <em>argv[]){} 等价int main(int argc, char *</em>argv){}</li>
 </ul>
 <h3 id="数组形参"><a href="#数组形参" class="headerlink" title="数组形参"></a>数组形参</h3><ul>
-<li><p>const int ia[]等价于const int *ia</p>
-</li>
-<li><p>matrix指向数组的首元素，该数组的元素是由10个整数构成的数组</p>
- <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void print(int (*matrix)[10], int rowsize)&#123;&#125;</span><br><span class="line">void print(int matrix[][10], int rowsize)&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
+<li><code>const int ia[]</code>等价于<code>const int *ia</code></li>
+<li>matrix指向数组的首元素，该数组的元素是由10个整数构成的数组</li>
 </ul>
+<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-keyword">int</span> (*matrix)[<span class="hljs-number">10</span>], <span class="hljs-keyword">int</span> rowsize)</span></span>&#123;&#125;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-params">(<span class="hljs-keyword">int</span> matrix[][<span class="hljs-number">10</span>], <span class="hljs-keyword">int</span> rowsize)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="含有可变形参的函数"><a href="#含有可变形参的函数" class="headerlink" title="含有可变形参的函数"></a>含有可变形参的函数</h3><ul>
 <li>为了能够编写处理不同数量实参的函数，C++11新标准提供了两种主要的方法：如果所有的实参类型相同，可以传递一个名为initializer_list的标准库类型；如果实参的类型不同，可以编写一种特殊的函数，也就是所谓的可变参数模版。</li>
 <li><code>initializer_list&lt;string&gt; a</code></li>
-<li>向initializer_list中传递一个值的序列，必须把序列放在花括号内。</li>
+<li>向initializer_list中传递一个值的序列，必须把序列放在花括号内。<figure class="highlight c++ hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">error_msg</span><span class="hljs-params">(<span class="hljs-built_in">initializer_list</span>&lt;<span class="hljs-built_in">string</span>&gt; il)</span></span>&#123;</span><br><span class="line">    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> beg = il.<span class="hljs-built_in">begin</span>(); beg != il.<span class="hljs-built_in">end</span>(); ++beg)</span><br><span class="line">        <span class="hljs-built_in">cout</span> &lt;&lt; *beg &lt;&lt; <span class="hljs-built_in">end</span>;</span><br><span class="line">    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <p><strong>不要返回局部对象的引用或指针</strong></p>
 <p><strong>调用一个返回引用的函数得到左值。可以像使用其他左值那样来使用返回引用的函数的调用</strong></p>
@@ -844,6 +897,10 @@
         <a class="is-flex" href="#简单语句">
         <span class="has-mr-6">5.1</span>
         <span>简单语句</span>
+        </a></li><li>
+        <a class="is-flex" href="#标准异常">
+        <span class="has-mr-6">5.2</span>
+        <span>标准异常</span>
         </a></li></ul></li><li>
         <a class="is-flex" href="#6-函数">
         <span class="has-mr-6">6</span>
