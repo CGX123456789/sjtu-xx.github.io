@@ -19,7 +19,7 @@
 <meta property="og:description" content="1.开始 输出运算符和输入运算符类似，都返回其左侧运算对象作为其计算结果 从键盘输入文件结束符 在windows系统中，Ctrl+Z，然后按Enter或Return键 在Unix系统中，文件结束符是Ctrl+D">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
-<meta property="og:updated_time" content="2019-11-25T07:14:35.302Z">
+<meta property="og:updated_time" content="2019-11-25T09:04:34.466Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
 
@@ -422,37 +422,48 @@
 <thead>
 <tr>
 <th>stdexcept头文件定义的异常列表</th>
+<th></th>
 </tr>
 </thead>
 <tbody><tr>
 <td>exception</td>
+<td>最常见的问题</td>
 </tr>
 <tr>
 <td>runtime_error</td>
+<td>只有在运行时才能检测出来的问题</td>
 </tr>
 <tr>
 <td>range_error</td>
+<td>运行时错误：生成的结果超出了范围</td>
 </tr>
 <tr>
 <td>overflow_error</td>
+<td>运行时错误：计算上溢</td>
 </tr>
 <tr>
 <td>underflow_error</td>
+<td>运行时错误：计算下溢</td>
 </tr>
 <tr>
 <td>logic_error</td>
+<td>程序逻辑错误</td>
 </tr>
 <tr>
 <td>domain_error</td>
+<td>逻辑错误：参数对应的值不存在</td>
 </tr>
 <tr>
 <td>incalid_argument</td>
+<td>逻辑错误：无效参数</td>
 </tr>
 <tr>
 <td>length_error</td>
+<td>逻辑错误：试图创建一个超出该类型最大长度的对象</td>
 </tr>
 <tr>
 <td>out_of_range</td>
+<td>逻辑错误：使用超出范围的值</td>
 </tr>
 </tbody></table>
 <p>异常类型只定义了一个名为what的成员函数，该函数没有任何参数，返回值是一个指向C风格字符串的const char *（内容为异常对象的字符串初始值）</p>
