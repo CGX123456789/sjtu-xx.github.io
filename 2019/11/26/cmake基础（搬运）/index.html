@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.0.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>cmake基础（搬运） - 薛轩的个人博客</title>
+
+
+    <meta name="description" content="原链接 ref 1. 编译单目录工程1.创建工程文件夹 1234mkdir hello #工程目录cd hellomkdir src   # 存放源代码的目录mkdir build # 存放编译中间代码和目标代码的目录">
+<meta name="keywords" content="c++,c,cmake">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cmake基础（搬运）">
+<meta property="og:url" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;2019&#x2F;11&#x2F;26&#x2F;cmake%E5%9F%BA%E7%A1%80%EF%BC%88%E6%90%AC%E8%BF%90%EF%BC%89&#x2F;index.html">
+<meta property="og:site_name" content="薛轩的个人博客">
+<meta property="og:description" content="原链接 ref 1. 编译单目录工程1.创建工程文件夹 1234mkdir hello #工程目录cd hellomkdir src   # 存放源代码的目录mkdir build # 存放编译中间代码和目标代码的目录">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
+<meta property="og:updated_time" content="2019-11-26T03:33:52.915Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/logo.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="cmake基础（搬运）" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/archives">Archives</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categories</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;" target="_blank" rel="noopener">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;" target="_blank" rel="noopener">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-11-26T03:30:12.000Z">2019-11-26</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    9 分钟 读完 (大约 1295 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span>次访问
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                cmake基础（搬运）
+            
+        </h1>
+        <div class="content">
+            <p><a href="https://www.jianshu.com/p/8df5b2aba316" target="_blank" rel="noopener">原链接 ref</a></p>
+<h1 id="1-编译单目录工程"><a href="#1-编译单目录工程" class="headerlink" title="1. 编译单目录工程"></a>1. 编译单目录工程</h1><p>1.创建工程文件夹</p>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">mkdir</span> hello #工程目录</span><br><span class="line">cd hello</span><br><span class="line"><span class="hljs-built_in">mkdir</span> src   # 存放源代码的目录</span><br><span class="line"><span class="hljs-built_in">mkdir</span> build # 存放编译中间代码和目标代码的目录</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>2.进入<code>src</code>目录，编写一个<code>main.c</code>文件</p>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="hljs-function"></span>&#123;</span><br><span class="line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"hello world\n"</span>);</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.编写工程顶层目录的<code>CMakeLists.txt</code></p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cmake_minumum_required(VERSION 2.6)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#指定项目名</span></span><br><span class="line">project(hello)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#指定子目录</span></span><br><span class="line">add_subdirectory(src)</span><br></pre></td></tr></table></figure>
+
+<p>4.编写子目录<code>src</code>的<code>CMakeLists.txt</code></p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">aux_source_directory(. SRC_LIST)</span><br><span class="line"></span><br><span class="line">add_executable(hello <span class="hljs-variable">$&#123;SRC_LIST&#125;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>5.编译工程</p>
+<blockquote>
+<p>1.进入<code>build</code> 目录<br> 2.执行命令<code>cmake ..</code>创建Makefile<br> 3.执行命令<code>make</code>编译工程<br> 4.在<code>build</code>的子目录<code>src</code>生成了执行文件</p>
+</blockquote>
+<h1 id="2-编译多目录工程"><a href="#2-编译多目录工程" class="headerlink" title="2. 编译多目录工程"></a>2. 编译多目录工程</h1><p>1.创建工程目录</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mkdir hello <span class="hljs-comment"># 工程目录</span></span><br><span class="line"><span class="hljs-built_in">cd</span> hello</span><br><span class="line">mkdir src   <span class="hljs-comment"># 存放源码目录</span></span><br><span class="line">mkdir build <span class="hljs-comment"># 存放编译产生的中间文件</span></span><br><span class="line"><span class="hljs-built_in">cd</span> src      </span><br><span class="line">mkdir hello <span class="hljs-comment"># 存放hello 模块</span></span><br><span class="line">mkdir world <span class="hljs-comment"># 存放world 模块</span></span><br></pre></td></tr></table></figure>
+
+<p>2.编写<code>hello</code>模块</p>
+<ul>
+<li>进入<code>hello</code>目录</li>
+<li>编写<code>hello.h</code>文件</li>
+</ul>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span>  HELLO_H</span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span>  HELLO_H</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Hello_Print</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>编写<code>hello.c</code>文件</li>
+</ul>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"hello.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Hello_Print</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span></span><br><span class="line"><span class="hljs-function"></span>&#123;</span><br><span class="line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"hello "</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>编写<code>CMakeLists.txt</code> 文件</li>
+</ul>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">aux_source_directory(. DIR_HELLO_SRC)</span><br><span class="line"></span><br><span class="line">add_library(hello_lib <span class="hljs-variable">$&#123;DIR_HELLO_SRC&#125;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>3.编写<code>world</code>模块</p>
+<ul>
+<li>进入<code>world</code>目录</li>
+<li>编写<code>world.h</code>文件</li>
+</ul>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span>  WORLD_H</span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span>  WORLD_H</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">World_Print</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>编写<code>world.c</code>文件</li>
+</ul>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"world.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">World_Print</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span></span><br><span class="line"><span class="hljs-function"></span>&#123;</span><br><span class="line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"world"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>编写<code>CMakeLists.txt</code> 文件</li>
+</ul>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">aux_source_directory(. DIR_WORLD_SRC)</span><br><span class="line"></span><br><span class="line">add_library(world_lib <span class="hljs-variable">$&#123;DIR_WORLD_SRC&#125;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>4.编写主模块</p>
+<ul>
+<li>进入<code>src</code>目录</li>
+<li>编写<code>main.c</code> 文件</li>
+</ul>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"hello/hello.h"</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"world/world.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="hljs-function"></span>&#123;</span><br><span class="line">    Hello_Print();</span><br><span class="line">    World_Print();</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>编写<code>CMakeLists.txt</code> 文件</li>
+</ul>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">add_source_directory(. DIR_SRC)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># 添加子目录</span></span><br><span class="line">add_subdirectory(hello)</span><br><span class="line">add_subdirectory(world)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># 执行文件</span></span><br><span class="line">add_executable(hello_prj <span class="hljs-variable">$&#123;DIR_SRC&#125;</span>)</span><br><span class="line">target_link_libraries(hello_prj ello_lib world_lib)</span><br></pre></td></tr></table></figure>
+
+<p>5.编写顶层目录的<code>CMakeLists.txt</code>文件</p>
+<figure class="highlight css hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-selector-tag">cmake_minumum_required</span>(<span class="hljs-selector-tag">VERSION</span> 2<span class="hljs-selector-class">.6</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-tag">project</span>(<span class="hljs-selector-tag">hello_prj</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-selector-tag">add_subdirectory</span>(<span class="hljs-selector-tag">src</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-动态库和静态库的构建和使用"><a href="#3-动态库和静态库的构建和使用" class="headerlink" title="3. 动态库和静态库的构建和使用"></a>3. 动态库和静态库的构建和使用</h1><p>1.使用一个<code>hello world</code>工程来展开说明<br> <strong>项目结构</strong></p>
+<figure class="highlight ruby hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-params">|-- CMakeLists.txt</span></span><br><span class="line"><span class="hljs-params">|</span>-- build</span><br><span class="line"><span class="hljs-params">|-- <span class="hljs-keyword">include</span></span></span><br><span class="line"><span class="hljs-params">|</span>   <span class="hljs-params">|-- hello</span></span><br><span class="line"><span class="hljs-params">|</span>   <span class="hljs-params">|   `-- hello.h</span></span><br><span class="line"><span class="hljs-params">|</span>   <span class="hljs-string">`-- world</span></span><br><span class="line"><span class="hljs-string">|       `</span>-- world.h</span><br><span class="line"><span class="hljs-params">|-- src</span></span><br><span class="line"><span class="hljs-params">|</span>   <span class="hljs-params">|-- CMakeLists.txt</span></span><br><span class="line"><span class="hljs-params">|</span>   <span class="hljs-params">|-- hello</span></span><br><span class="line"><span class="hljs-params">|</span>   <span class="hljs-params">|   `-- hello.c</span></span><br><span class="line"><span class="hljs-params">|</span>   <span class="hljs-string">`-- world</span></span><br><span class="line"><span class="hljs-string">|       `</span>-- world.c</span><br><span class="line"><span class="hljs-string">`-- test</span></span><br><span class="line"><span class="hljs-string">    |-- CMakeLists.txt</span></span><br><span class="line"><span class="hljs-string">        `</span>-- mytest.c</span><br></pre></td></tr></table></figure>
+
+<p>2.顶层目录<code>CMakeLists.txt</code></p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 2.6)</span><br><span class="line"></span><br><span class="line">project(helloworld)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#设置库文件存放路径</span></span><br><span class="line"><span class="hljs-built_in">set</span>(LIBRARY_OUTPUT_PATH <span class="hljs-variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/build/lib)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#设置执行文件存放路径</span></span><br><span class="line"><span class="hljs-built_in">set</span>(EXECUTABLE_OUTPUT_PATH <span class="hljs-variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/build/bin)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#获取当前目录及子目录(递归获取),添加到头文件搜索路径</span></span><br><span class="line"><span class="hljs-keyword">function</span>(include_sub_directories_recursively root_dir)</span><br><span class="line">    <span class="hljs-keyword">if</span> (IS_DIRECTORY <span class="hljs-variable">$&#123;root_dir&#125;</span>)               <span class="hljs-comment"># 当前路径是一个目录吗，是的话就加入到包含目录</span></span><br><span class="line">        message(<span class="hljs-string">"include dir: "</span> <span class="hljs-variable">$&#123;root_dir&#125;</span>)</span><br><span class="line">        include_directories(<span class="hljs-variable">$&#123;root_dir&#125;</span>)</span><br><span class="line">    endif()</span><br><span class="line"></span><br><span class="line">    file(GLOB ALL_SUB RELATIVE <span class="hljs-variable">$&#123;root_dir&#125;</span> <span class="hljs-variable">$&#123;root_dir&#125;</span>/*) <span class="hljs-comment"># 获得当前目录下的所有文件，让如ALL_SUB列表中</span></span><br><span class="line">    foreach(sub <span class="hljs-variable">$&#123;ALL_SUB&#125;</span>)</span><br><span class="line">        <span class="hljs-keyword">if</span> (IS_DIRECTORY <span class="hljs-variable">$&#123;root_dir&#125;</span>/<span class="hljs-variable">$&#123;sub&#125;</span>)</span><br><span class="line">            include_sub_directories_recursively(<span class="hljs-variable">$&#123;root_dir&#125;</span>/<span class="hljs-variable">$&#123;sub&#125;</span>) <span class="hljs-comment"># 对子目录递归调用，包含</span></span><br><span class="line">        endif()</span><br><span class="line">    endforeach()</span><br><span class="line">endfunction()</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#项目的所有目录都为头文件搜索路径</span></span><br><span class="line">include_sub_directories_recursively(<span class="hljs-variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#添加库文件搜索路径</span></span><br><span class="line">link_directories(</span><br><span class="line">    <span class="hljs-variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/build/lib</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#添加子目录</span></span><br><span class="line">add_subdirectory(src)</span><br><span class="line">add_subdirectory(<span class="hljs-built_in">test</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#设置安装目录</span></span><br><span class="line"><span class="hljs-built_in">set</span>(CMAKE_INSTALL_PREFIX <span class="hljs-variable">$&#123;PROJECT_SOURCE_DIR&#125;</span>/install)</span><br></pre></td></tr></table></figure>
+
+<p>3.<code>helloworld</code>库的源代码<br> <strong>hello.h文件</strong></p>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span>  HELLO_H</span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span>  HELLO_H</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Hello_Print</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>hello.c文件</strong></p>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"hello/hello.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Hello_Print</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span></span><br><span class="line"><span class="hljs-function"></span>&#123;</span><br><span class="line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"hello "</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>world.h文件</strong></p>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span>  WORLD_H</span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span>  WORLD_H</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">World_Print</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>world.c文件</strong></p>
+<figure class="highlight c hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"world/world.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">World_Print</span><span class="hljs-params">(<span class="hljs-keyword">void</span>)</span></span></span><br><span class="line"><span class="hljs-function"></span>&#123;</span><br><span class="line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"world"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.子目录<code>src</code>下的<code>CMakeLists.txt</code></p>
+<figure class="highlight ruby hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#递归获取当前目录及子目录下的所有c文件</span></span><br><span class="line">file(GLOB_RECURSE c_files <span class="hljs-string">"*.c"</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#生成动态库和静态库</span></span><br><span class="line">add_library(helloworld_lib_shared  SHARED $&#123;c_files&#125;)</span><br><span class="line">add_library(helloworld_lib_static STATIC $&#123;c_files&#125;)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#将动态库和静态库的名字设置为一致</span></span><br><span class="line">set_target_properties(helloworld_lib_shared PROPERTIES OUTPUT_NAME <span class="hljs-string">"helloworld"</span>)</span><br><span class="line">set_target_properties(helloworld_lib_static PROPERTIES OUTPUT_NAME <span class="hljs-string">"helloworld"</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#设置动态库版本</span></span><br><span class="line">set_target_properties(helloworld_lib_shared PROPERTIES VERSION <span class="hljs-number">1.2</span> SOVERSION <span class="hljs-number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#安装动态库和静态库</span></span><br><span class="line">INSTALL(TARGETS helloworld_lib_shared helloworld_lib_static</span><br><span class="line">    LIBRARY DESTINATION lib</span><br><span class="line">    ARCHIVE DESTINATION lib)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#安装头文件</span></span><br><span class="line">INSTALL(DIRECTORY $&#123;PROJECT_SOURCE_DIR&#125;/<span class="hljs-keyword">include</span>/ DESTINATION <span class="hljs-keyword">include</span>)</span><br></pre></td></tr></table></figure>
+
+<p>5.<code>mytest.c</code>文件测试生成的库文件<br> <strong>mytest.c文件</strong></p>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"hello/hello.h"</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"world/world.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="hljs-function"></span>&#123;</span><br><span class="line">    Hello_Print();</span><br><span class="line">    World_Print();</span><br><span class="line"></span><br><span class="line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"\n"</span>);</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>CMakeLists.txt文件</strong></p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#递归获取所有当前目录及子目录下的C文件</span></span><br><span class="line">file(GLOB_RECURSE c_files ./*.c)</span><br><span class="line">  </span><br><span class="line"><span class="hljs-comment">#生成执行文件</span></span><br><span class="line">add_executable(mytest <span class="hljs-variable">$&#123;c_files&#125;</span>)</span><br><span class="line">     </span><br><span class="line"><span class="hljs-comment">#链接外部库</span></span><br><span class="line">target_link_libraries(mytest libhelloworld.so)</span><br></pre></td></tr></table></figure>
+
+<p>6.构建工程</p>
+<figure class="highlight go hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-number">1.</span>进入目录build</span><br><span class="line"><span class="hljs-number">2.</span>执行命令: cmake ..</span><br><span class="line"><span class="hljs-number">3.</span>执行命令: <span class="hljs-built_in">make</span></span><br><span class="line"><span class="hljs-number">4.</span>执行命令: <span class="hljs-built_in">make</span> install</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-指定编译器和编译选项"><a href="#4-指定编译器和编译选项" class="headerlink" title="4. 指定编译器和编译选项"></a>4. 指定编译器和编译选项</h1><p>1.<code>CMAKE_C_COMPILER</code>: 指定C编译器<br> 2.<code>CMAKE_CXX_COMPILTER</code>:指定C++编译器<br> 3.<code>CMAKE_C_FLAGS</code>: 指定C编译选项<br> 4.<code>CMAKE_CXX_FLAGS</code>:指定C++编译选项<br> 5.<code>EXECUTABLE_OUTPUT_PATH</code>: 指定执行文件存放目录<br> 6.<code>LIBRARY_OUTPUT_PATH</code>: 指定库文件存放目录<br> 7.<code>CMAKE_BUILD_TYPE</code>:指定build类型[Debug|Release]<br> 8.<code>BUILD_SHARED_LIBS</code>: 指定默认库编译方式[OFF|ON]</p>
+<p><strong>上述内部变量使用说明</strong>:<br> 1.<code>CMakeLists.txt</code>文件上使用<code>set</code>命令<br> 2.cmake 命令中指定，如: <code>cmake -DCMAKE_C_COMPILER=gcc</code></p>
+<p><code>add_definitions</code>:添加编译参数</p>
+<h1 id="5-配置编译模块"><a href="#5-配置编译模块" class="headerlink" title="5. 配置编译模块"></a>5. 配置编译模块</h1><h1 id="6-CMake-常用变量和语句"><a href="#6-CMake-常用变量和语句" class="headerlink" title="6. CMake 常用变量和语句"></a>6. CMake 常用变量和语句</h1><p>1.<code>include_directories</code>:指定头文件搜索路径<br> 2.<code>link_directories</code>:指定库文件搜索路径<br> 3.<code>add_subdirectory</code>:添加子目录<br> 4.<code>target_link_libraries</code>:指定文件链接库文件</p>
+
+        </div>
+        
+            <ul class="post-copyright">
+            <li><strong>本文标题：</strong><a href="https://sjtu-xx.github.io/2019/11/26/cmake%E5%9F%BA%E7%A1%80%EF%BC%88%E6%90%AC%E8%BF%90%EF%BC%89/">cmake基础（搬运）</a></li>
+            <li><strong>本文作者：</strong><a href="https://sjtu-xx.github.io">Xue Xuan</a></li>
+            <li><strong>本文链接：</strong><a href="https://sjtu-xx.github.io/2019/11/26/cmake%E5%9F%BA%E7%A1%80%EF%BC%88%E6%90%AC%E8%BF%90%EF%BC%89/">https://sjtu-xx.github.io/2019/11/26/cmake%E5%9F%BA%E7%A1%80%EF%BC%88%E6%90%AC%E8%BF%90%EF%BC%89/</a></li>
+            <li><strong>发布时间：</strong>2019-11-26</li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+            </li>
+        </ul>
+        
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/c/" rel="tag">c</a>, <a class="has-link-grey -link" href="/tags/c/" rel="tag">c++</a>, <a class="has-link-grey -link" href="/tags/cmake/" rel="tag">cmake</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/11/26/cmake%E5%AE%98%E6%96%B9%E6%95%99%E7%A8%8B%EF%BC%88%E6%90%AC%E8%BF%90%EF%BC%89/">
+                <span class="level-item">cmake官方教程（搬运）</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#1-编译单目录工程">
+        <span class="has-mr-6">1</span>
+        <span>1. 编译单目录工程</span>
+        </a></li><li>
+        <a class="is-flex" href="#2-编译多目录工程">
+        <span class="has-mr-6">2</span>
+        <span>2. 编译多目录工程</span>
+        </a></li><li>
+        <a class="is-flex" href="#3-动态库和静态库的构建和使用">
+        <span class="has-mr-6">3</span>
+        <span>3. 动态库和静态库的构建和使用</span>
+        </a></li><li>
+        <a class="is-flex" href="#4-指定编译器和编译选项">
+        <span class="has-mr-6">4</span>
+        <span>4. 指定编译器和编译选项</span>
+        </a></li><li>
+        <a class="is-flex" href="#5-配置编译模块">
+        <span class="has-mr-6">5</span>
+        <span>5. 配置编译模块</span>
+        </a></li><li>
+        <a class="is-flex" href="#6-CMake-常用变量和语句">
+        <span class="has-mr-6">6</span>
+        <span>6. CMake 常用变量和语句</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+<!--     <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile"> -->
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="cmake基础（搬运）" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Xue Xuan&nbsp;
+                
+                <br>
+                <span id="busuanzi_container_site_uv"> 来访 <span id="busuanzi_value_site_uv"></span>人</span>
+                <span id="busuanzi_container_site_pv">, 总访问 <span id="busuanzi_value_site_pv"></span>次</span>
+
+                </span>
+                
+                </p>
+            <!-- </div> -->
+            <!-- <div class="level-end">
+            
+            </div> -->
+<!--         </div>
+    </div> -->
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+<script src="/js/animation.js"></script>
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+    
+    
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+    
+    
+<a target="_self" id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
