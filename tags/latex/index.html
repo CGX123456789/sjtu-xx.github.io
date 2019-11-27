@@ -162,15 +162,18 @@
             
         </h1>
         <div class="content">
-            <a id="more"></a>
-<h2 id="一般折线图的绘制"><a href="#一般折线图的绘制" class="headerlink" title="一般折线图的绘制"></a>一般折线图的绘制</h2><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt</span><br><span class="line"><span class="hljs-comment"># 省略读取部分</span></span><br><span class="line">fig,ax = plt.subplots()</span><br><span class="line">ax.plot(x_data,y_data,label=<span class="hljs-string">"线标签"</span>)  <span class="hljs-comment">#添加标签</span></span><br><span class="line">ax.set_title(<span class="hljs-string">r"$\sigma-\epsilon$"</span>)   <span class="hljs-comment">#设置图表名称  latex设置在r‘’中</span></span><br><span class="line">ax.set_xlabel(<span class="hljs-string">r"$\varepsilon$/%"</span>)   <span class="hljs-comment">#设置x轴标签</span></span><br><span class="line">ax.set_ylabel(<span class="hljs-string">r"$\sigma$/MPa"</span>)    <span class="hljs-comment">#设置y轴标签</span></span><br><span class="line">ax.set_xlim(<span class="hljs-number">0</span>,<span class="hljs-number">8</span>)   <span class="hljs-comment">#设置x轴范围</span></span><br><span class="line">ax.tick_params(direction=<span class="hljs-string">'in'</span>,colors=<span class="hljs-string">'black'</span>)   <span class="hljs-comment">#设置tick的参数  </span></span><br><span class="line">plt.rcParams[<span class="hljs-string">'font.sans-serif'</span>]=[<span class="hljs-string">'SimHei'</span>]  <span class="hljs-comment">#中文</span></span><br><span class="line">plt.rcParams[<span class="hljs-string">'axes.unicode_minus'</span>]=<span class="hljs-literal">False</span>  <span class="hljs-comment">#负号</span></span><br><span class="line">plt.legend()   <span class="hljs-comment">#显示标签（绘图时的label）</span></span><br><span class="line">plt.savefig(result_name,dpi=<span class="hljs-number">600</span>,bbox_inches=<span class="hljs-string">'tight'</span>,format=<span class="hljs-string">"png"</span>)  <span class="hljs-comment">#保存图片</span></span><br><span class="line">plt.show()  <span class="hljs-comment">#显示图片</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="绘图数据处理"><a href="#绘图数据处理" class="headerlink" title="绘图数据处理"></a>绘图数据处理</h2><h3 id="绘图时对数据进行三次样条插值："><a href="#绘图时对数据进行三次样条插值：" class="headerlink" title="绘图时对数据进行三次样条插值："></a>绘图时对数据进行三次样条插值：</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt</span><br><span class="line"><span class="hljs-keyword">from</span> scipy.interpolate <span class="hljs-keyword">import</span> BSpline,make_interp_spline</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#....省略数据读取</span></span><br><span class="line">xnew = np.linspace(np.min(x_data), np.max(x_data), <span class="hljs-number">300</span>)</span><br><span class="line">spl = make_interp_spline(x_data, y_data, k=<span class="hljs-number">3</span>)  <span class="hljs-comment"># type: BSpline</span></span><br><span class="line">ynew = spl(xnew)</span><br><span class="line"></span><br><span class="line">plt.plot(xnew,ynew)</span><br></pre></td></tr></table></figure>
-
-
+            <h2 id="一般折线图的绘制"><a href="#一般折线图的绘制" class="headerlink" title="一般折线图的绘制"></a>一般折线图的绘制</h2>
         </div>
         
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2019/11/27/Matplotlib%E7%BB%98%E5%9B%BE%E6%A1%88%E4%BE%8B/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
