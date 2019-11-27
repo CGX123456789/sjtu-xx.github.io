@@ -7,19 +7,19 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>github中的快速查找 - 薛轩的个人博客</title>
+<title>Matplotlib绘图案例 - 薛轩的个人博客</title>
 
 
-    <meta name="description" content="根据CodeSheep的视频进行总结： 123456789in:name example  &#x2F;&#x2F;名字中有“example”in:readme example  &#x2F;&#x2F;readme中有“example”in:description example &#x2F;&#x2F;描述中有“example”stars:&amp;gt;1000  star&amp;gt;1000forks:&amp;gt;1000  fork&amp;gt;1000pushed:">
-<meta name="keywords" content="github">
+    <meta name="description" content="一般折线图的绘制1234567891011121314import matplotlib.pyplot as plt# 省略读取部分fig,ax = plt.subplots()ax.plot(x_data,y_data,label=&quot;线标签&quot;)  #添加标签ax.set_title(r&quot;$\sigma-\epsilon$&quot;)   #设置图表名称  latex设置在r‘’中ax.set_xlab">
+<meta name="keywords" content="python,matplotlib,latex,绘图">
 <meta property="og:type" content="article">
-<meta property="og:title" content="github中的快速查找">
-<meta property="og:url" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;2019&#x2F;11&#x2F;26&#x2F;github%E4%B8%AD%E7%9A%84%E5%BF%AB%E9%80%9F%E6%9F%A5%E6%89%BE&#x2F;index.html">
+<meta property="og:title" content="Matplotlib绘图案例">
+<meta property="og:url" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;2019&#x2F;11&#x2F;27&#x2F;Matplotlib%E7%BB%98%E5%9B%BE%E6%A1%88%E4%BE%8B&#x2F;index.html">
 <meta property="og:site_name" content="薛轩的个人博客">
-<meta property="og:description" content="根据CodeSheep的视频进行总结： 123456789in:name example  &#x2F;&#x2F;名字中有“example”in:readme example  &#x2F;&#x2F;readme中有“example”in:description example &#x2F;&#x2F;描述中有“example”stars:&amp;gt;1000  star&amp;gt;1000forks:&amp;gt;1000  fork&amp;gt;1000pushed:">
+<meta property="og:description" content="一般折线图的绘制1234567891011121314import matplotlib.pyplot as plt# 省略读取部分fig,ax = plt.subplots()ax.plot(x_data,y_data,label=&quot;线标签&quot;)  #添加标签ax.set_title(r&quot;$\sigma-\epsilon$&quot;)   #设置图表名称  latex设置在r‘’中ax.set_xlab">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
-<meta property="og:updated_time" content="2019-11-26T08:23:49.855Z">
+<meta property="og:updated_time" content="2019-11-27T09:12:44.229Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
 
@@ -79,7 +79,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="github中的快速查找" height="28">
+                <img src="/images/logo.svg" alt="Matplotlib绘图案例" height="28">
             
             </a>
         </div>
@@ -136,17 +136,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-11-26T08:20:28.000Z">2019-11-26</time>
+                <time class="level-item has-text-grey" datetime="2019-11-27T09:01:00.000Z">2019-11-27</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/github/">github</a>
+                <a class="has-link-grey -link" href="/categories/python/">python</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/">数据处理</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    几秒 读完 (大约 62 个字)
+                    1 分钟 读完 (大约 223 个字)
                 </span>
                 
                 
@@ -160,20 +160,23 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                github中的快速查找
+                Matplotlib绘图案例
             
         </h1>
         <div class="content">
-            <p>根据CodeSheep的视频进行总结：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">in:name example  //名字中有“example”</span><br><span class="line">in:readme example  //readme中有“example”</span><br><span class="line">in:description example //描述中有“example”</span><br><span class="line"></span><br><span class="line">stars:&gt;1000  star&gt;1000</span><br><span class="line">forks:&gt;1000  fork&gt;1000</span><br><span class="line">pushed:&gt;2019-09-01  //2019年9月1日后有更新的</span><br><span class="line"></span><br><span class="line">language:java  //用Java编写的项目</span><br></pre></td></tr></table></figure>
+            <a id="more"></a>
+<h2 id="一般折线图的绘制"><a href="#一般折线图的绘制" class="headerlink" title="一般折线图的绘制"></a>一般折线图的绘制</h2><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt</span><br><span class="line"><span class="hljs-comment"># 省略读取部分</span></span><br><span class="line">fig,ax = plt.subplots()</span><br><span class="line">ax.plot(x_data,y_data,label=<span class="hljs-string">"线标签"</span>)  <span class="hljs-comment">#添加标签</span></span><br><span class="line">ax.set_title(<span class="hljs-string">r"$\sigma-\epsilon$"</span>)   <span class="hljs-comment">#设置图表名称  latex设置在r‘’中</span></span><br><span class="line">ax.set_xlabel(<span class="hljs-string">r"$\varepsilon$/%"</span>)   <span class="hljs-comment">#设置x轴标签</span></span><br><span class="line">ax.set_ylabel(<span class="hljs-string">r"$\sigma$/MPa"</span>)    <span class="hljs-comment">#设置y轴标签</span></span><br><span class="line">ax.set_xlim(<span class="hljs-number">0</span>,<span class="hljs-number">8</span>)   <span class="hljs-comment">#设置x轴范围</span></span><br><span class="line">ax.tick_params(direction=<span class="hljs-string">'in'</span>,colors=<span class="hljs-string">'black'</span>)   <span class="hljs-comment">#设置tick的参数  </span></span><br><span class="line">plt.rcParams[<span class="hljs-string">'font.sans-serif'</span>]=[<span class="hljs-string">'SimHei'</span>]  <span class="hljs-comment">#中文</span></span><br><span class="line">plt.rcParams[<span class="hljs-string">'axes.unicode_minus'</span>]=<span class="hljs-literal">False</span>  <span class="hljs-comment">#负号</span></span><br><span class="line">plt.legend()   <span class="hljs-comment">#显示标签（绘图时的label）</span></span><br><span class="line">plt.savefig(result_name,dpi=<span class="hljs-number">600</span>,bbox_inches=<span class="hljs-string">'tight'</span>,format=<span class="hljs-string">"png"</span>)  <span class="hljs-comment">#保存图片</span></span><br><span class="line">plt.show()  <span class="hljs-comment">#显示图片</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="绘图数据处理"><a href="#绘图数据处理" class="headerlink" title="绘图数据处理"></a>绘图数据处理</h2><h3 id="绘图时对数据进行三次样条插值："><a href="#绘图时对数据进行三次样条插值：" class="headerlink" title="绘图时对数据进行三次样条插值："></a>绘图时对数据进行三次样条插值：</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt</span><br><span class="line"><span class="hljs-keyword">from</span> scipy.interpolate <span class="hljs-keyword">import</span> BSpline,make_interp_spline</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#....省略数据读取</span></span><br><span class="line">xnew = np.linspace(np.min(x_data), np.max(x_data), <span class="hljs-number">300</span>)</span><br><span class="line">spl = make_interp_spline(x_data, y_data, k=<span class="hljs-number">3</span>)  <span class="hljs-comment"># type: BSpline</span></span><br><span class="line">ynew = spl(xnew)</span><br><span class="line"></span><br><span class="line">plt.plot(xnew,ynew)</span><br></pre></td></tr></table></figure>
+
 
         </div>
         
             <ul class="post-copyright">
-            <li><strong>本文标题：</strong><a href="https://sjtu-xx.github.io/2019/11/26/github%E4%B8%AD%E7%9A%84%E5%BF%AB%E9%80%9F%E6%9F%A5%E6%89%BE/">github中的快速查找</a></li>
+            <li><strong>本文标题：</strong><a href="https://sjtu-xx.github.io/2019/11/27/Matplotlib%E7%BB%98%E5%9B%BE%E6%A1%88%E4%BE%8B/">Matplotlib绘图案例</a></li>
             <li><strong>本文作者：</strong><a href="https://sjtu-xx.github.io">Xue Xuan</a></li>
-            <li><strong>本文链接：</strong><a href="https://sjtu-xx.github.io/2019/11/26/github%E4%B8%AD%E7%9A%84%E5%BF%AB%E9%80%9F%E6%9F%A5%E6%89%BE/">https://sjtu-xx.github.io/2019/11/26/github%E4%B8%AD%E7%9A%84%E5%BF%AB%E9%80%9F%E6%9F%A5%E6%89%BE/</a></li>
-            <li><strong>发布时间：</strong>2019-11-26</li>
+            <li><strong>本文链接：</strong><a href="https://sjtu-xx.github.io/2019/11/27/Matplotlib%E7%BB%98%E5%9B%BE%E6%A1%88%E4%BE%8B/">https://sjtu-xx.github.io/2019/11/27/Matplotlib%E7%BB%98%E5%9B%BE%E6%A1%88%E4%BE%8B/</a></li>
+            <li><strong>发布时间：</strong>2019-11-27</li>
             <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
             </li>
         </ul>
@@ -183,7 +186,7 @@
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/github/" rel="tag">github</a>
+                    <a class="has-link-grey -link" href="/tags/latex/" rel="tag">latex</a>, <a class="has-link-grey -link" href="/tags/matplotlib/" rel="tag">matplotlib</a>, <a class="has-link-grey -link" href="/tags/python/" rel="tag">python</a>, <a class="has-link-grey -link" href="/tags/%E7%BB%98%E5%9B%BE/" rel="tag">绘图</a>
                 </div>
             </div>
         </div>
@@ -223,17 +226,10 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/11/27/Matplotlib%E7%BB%98%E5%9B%BE%E6%A1%88%E4%BE%8B/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">Matplotlib绘图案例</span>
-            </a>
-        </div>
-        
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2019/11/26/cmake%E5%9F%BA%E7%A1%80%EF%BC%88%E6%90%AC%E8%BF%90%EF%BC%89/">
-                <span class="level-item">cmake基础（搬运）</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/11/26/github%E4%B8%AD%E7%9A%84%E5%BF%AB%E9%80%9F%E6%9F%A5%E6%89%BE/">
+                <span class="level-item">github中的快速查找</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -251,6 +247,29 @@
 <div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
     
         
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#一般折线图的绘制">
+        <span class="has-mr-6">1</span>
+        <span>一般折线图的绘制</span>
+        </a></li><li>
+        <a class="is-flex" href="#绘图数据处理">
+        <span class="has-mr-6">2</span>
+        <span>绘图数据处理</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#绘图时对数据进行三次样条插值：">
+        <span class="has-mr-6">2.1</span>
+        <span>绘图时对数据进行三次样条插值：</span>
+        </a></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
 
     
     
@@ -270,7 +289,7 @@
             <div class="level-start has-text-centered-mobile"> -->
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="github中的快速查找" height="28">
+                    <img src="/images/logo.svg" alt="Matplotlib绘图案例" height="28">
                 
                 </a>
                 <p class="is-size-7">
