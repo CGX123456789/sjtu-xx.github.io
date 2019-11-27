@@ -7,19 +7,19 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>Matplotlib绘图案例 - 薛轩的个人博客</title>
+<title>leetcode(1-10)记录 - 薛轩的个人博客</title>
 
 
-    <meta name="description" content="绘图数据处理绘图时对数据进行三次样条插值：">
-<meta name="keywords" content="python,matplotlib,latex,绘图">
+    <meta name="description" content="题目1-7为之前做过的题目，这里不再记录 8. 字符串转换整数 (atoi) 请你来实现一个 atoi 函数，使其能将字符串转换成整数。 首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。 当我们寻找到的第一个非空字符为正或者负号时，则将该符号与之后面尽可能多的连续数字组合起来，作为该整数的正负号；假如第一个非空字符是数字，则直接将其与之后连续的数字字符组合起来，形成">
+<meta name="keywords" content="leetcode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Matplotlib绘图案例">
-<meta property="og:url" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;2019&#x2F;11&#x2F;27&#x2F;Matplotlib%E7%BB%98%E5%9B%BE%E6%A1%88%E4%BE%8B&#x2F;index.html">
+<meta property="og:title" content="leetcode(1-10)记录">
+<meta property="og:url" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;2019&#x2F;11&#x2F;27&#x2F;leetcode-1-10-%E8%AE%B0%E5%BD%95&#x2F;index.html">
 <meta property="og:site_name" content="薛轩的个人博客">
-<meta property="og:description" content="绘图数据处理绘图时对数据进行三次样条插值：">
+<meta property="og:description" content="题目1-7为之前做过的题目，这里不再记录 8. 字符串转换整数 (atoi) 请你来实现一个 atoi 函数，使其能将字符串转换成整数。 首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。 当我们寻找到的第一个非空字符为正或者负号时，则将该符号与之后面尽可能多的连续数字组合起来，作为该整数的正负号；假如第一个非空字符是数字，则直接将其与之后连续的数字字符组合起来，形成">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
-<meta property="og:updated_time" content="2019-11-27T12:23:58.639Z">
+<meta property="og:updated_time" content="2019-11-27T13:57:02.421Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
 
@@ -79,7 +79,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="Matplotlib绘图案例" height="28">
+                <img src="/images/logo.svg" alt="leetcode(1-10)记录" height="28">
             
             </a>
         </div>
@@ -136,17 +136,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-11-27T09:01:00.000Z">2019-11-27</time>
+                <time class="level-item has-text-grey" datetime="2019-11-27T13:50:55.000Z">2019-11-27</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/python/">python</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/python/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/">数据处理</a>
+                <a class="has-link-grey -link" href="/categories/%E7%BC%96%E7%A8%8B%E7%AB%9E%E8%B5%9B/">编程竞赛</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/%E7%BC%96%E7%A8%8B%E7%AB%9E%E8%B5%9B/leetcode/">leetcode</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 352 个字)
+                    4 分钟 读完 (大约 591 个字)
                 </span>
                 
                 
@@ -160,23 +160,37 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                Matplotlib绘图案例
+                leetcode(1-10)记录
             
         </h1>
         <div class="content">
-            <h2 id="绘图数据处理"><a href="#绘图数据处理" class="headerlink" title="绘图数据处理"></a>绘图数据处理</h2><h3 id="绘图时对数据进行三次样条插值："><a href="#绘图时对数据进行三次样条插值：" class="headerlink" title="绘图时对数据进行三次样条插值："></a>绘图时对数据进行三次样条插值：</h3><a id="more"></a>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt</span><br><span class="line"><span class="hljs-keyword">from</span> scipy.interpolate <span class="hljs-keyword">import</span> BSpline,make_interp_spline</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#....省略数据读取</span></span><br><span class="line">xnew = np.linspace(np.min(x_data), np.max(x_data), <span class="hljs-number">300</span>)</span><br><span class="line">spl = make_interp_spline(x_data, y_data, k=<span class="hljs-number">3</span>)  <span class="hljs-comment"># type: BSpline</span></span><br><span class="line">ynew = spl(xnew)</span><br><span class="line"></span><br><span class="line">plt.plot(xnew,ynew)</span><br></pre></td></tr></table></figure>
+            <p>题目1-7为之前做过的题目，这里不再记录</p>
+<h2 id="8-字符串转换整数-atoi"><a href="#8-字符串转换整数-atoi" class="headerlink" title="8. 字符串转换整数 (atoi)"></a>8. 字符串转换整数 (atoi)</h2><blockquote>
+<p>请你来实现一个 atoi 函数，使其能将字符串转换成整数。</p>
+<p>首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。</p>
+<p>当我们寻找到的第一个非空字符为正或者负号时，则将该符号与之后面尽可能多的连续数字组合起来，作为该整数的正负号；假如第一个非空字符是数字，则直接将其与之后连续的数字字符组合起来，形成整数。</p>
+<p>该字符串除了有效的整数部分之后也可能会存在多余的字符，这些字符可以被忽略，它们对于函数不应该造成影响。</p>
+<p>注意：假如该字符串中的第一个非空格字符不是一个有效整数字符、字符串为空或字符串仅包含空白字符时，则你的函数不需要进行转换。</p>
+<p>在任何情况下，若函数不能进行有效的转换时，请返回 0。</p>
+<p>说明：</p>
+<p>假设我们的环境只能存储 32 位大小的有符号整数，那么其数值范围为 [−231,  231 − 1]。如果数值超过这个范围，请返回  INT_MAX (231 − 1) 或 INT_MIN (−231) 。</p>
+<p>示例 1:</p>
+<p>输入: “42”<br>输出: 42<br>示例 2:</p>
+<p>输入: “   -42”<br>输出: -42<br>解释: 第一个非空白字符为 ‘-‘, 它是一个负号。<br>    我们尽可能将负号与后面所有连续出现的数字组合起来，最后得到 -42 。<br>示例 3:</p>
+<p>输入: “4193 with words”<br>输出: 4193<br>解释: 转换截止于数字 ‘3’ ，因为它的下一个字符不为数字。<br>示例 4:</p>
+<p>输入: “words and 987”<br>输出: 0<br>解释: 第一个非空字符是 ‘w’, 但它不是数字或正、负号。<br>    因此无法执行有效的转换。<br>示例 5:</p>
+<p>输入: “-91283472332”<br>输出: -2147483648<br>解释: 数字 “-91283472332” 超过 32 位有符号整数范围。<br>    因此返回 INT_MIN (−231) 。</p>
+</blockquote>
+<h3 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h3><p>由于python中不存在字符限制，可以使用正则表达式进行解决</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">myAtoi</span><span class="hljs-params">(self, s: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="hljs-keyword">return</span> max(min(int(*re.findall(<span class="hljs-string">'^[\+\-]?\d+'</span>, s.lstrip())), <span class="hljs-number">2</span>**<span class="hljs-number">31</span> - <span class="hljs-number">1</span>), <span class="hljs-number">-2</span>**<span class="hljs-number">31</span>)</span><br></pre></td></tr></table></figure>
 
-<h2 id="一般折线图的绘制"><a href="#一般折线图的绘制" class="headerlink" title="一般折线图的绘制"></a>一般折线图的绘制</h2><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt</span><br><span class="line"><span class="hljs-comment"># 省略读取部分</span></span><br><span class="line">fig,ax = plt.subplots()</span><br><span class="line">ax.plot(x_data,y_data,label=<span class="hljs-string">"线标签"</span>)  <span class="hljs-comment">#添加标签</span></span><br><span class="line">ax.set_title(<span class="hljs-string">r"$\sigma-\epsilon$"</span>)   <span class="hljs-comment">#设置图表名称  latex设置在r‘’中</span></span><br><span class="line">ax.set_xlabel(<span class="hljs-string">r"$\varepsilon$/%"</span>)   <span class="hljs-comment">#设置x轴标签</span></span><br><span class="line">ax.set_ylabel(<span class="hljs-string">r"$\sigma$/MPa"</span>)    <span class="hljs-comment">#设置y轴标签</span></span><br><span class="line">ax.set_xlim(<span class="hljs-number">0</span>,<span class="hljs-number">8</span>)   <span class="hljs-comment">#设置x轴范围</span></span><br><span class="line">ax.set_xticks([])  <span class="hljs-comment">#关闭x坐标tick</span></span><br><span class="line">ax.tick_params(direction=<span class="hljs-string">'in'</span>,colors=<span class="hljs-string">'black'</span>)   <span class="hljs-comment">#设置tick的参数  </span></span><br><span class="line">plt.rcParams[<span class="hljs-string">'font.sans-serif'</span>]=[<span class="hljs-string">'SimHei'</span>]  <span class="hljs-comment">#中文</span></span><br><span class="line">plt.rcParams[<span class="hljs-string">'axes.unicode_minus'</span>]=<span class="hljs-literal">False</span>  <span class="hljs-comment">#负号</span></span><br><span class="line">plt.legend()   <span class="hljs-comment">#显示标签（绘图时的label）</span></span><br><span class="line">plt.xticks(x,labels,rotation=<span class="hljs-number">70</span>)   <span class="hljs-comment">#tick显示</span></span><br><span class="line"><span class="hljs-comment">#plt.xticks([])  #关闭tick</span></span><br><span class="line">plt.axis(<span class="hljs-string">"off"</span>)  <span class="hljs-comment">#关闭坐标轴</span></span><br><span class="line">plt.savefig(result_name,dpi=<span class="hljs-number">600</span>,bbox_inches=<span class="hljs-string">'tight'</span>,format=<span class="hljs-string">"png"</span>)  <span class="hljs-comment">#保存图片</span></span><br><span class="line">plt.show()  <span class="hljs-comment">#显示图片</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="直方图的绘制"><a href="#直方图的绘制" class="headerlink" title="直方图的绘制"></a>直方图的绘制</h2><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># 对于dataframe中的数据，直接使用下面的代码</span></span><br><span class="line">df[<span class="hljs-string">"column_name"</span>].hist(bins=<span class="hljs-number">20</span>)  </span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># 对于pyplot，使用时存在nan值可能会报错</span></span><br><span class="line"><span class="hljs-comment"># 方法1,选择非nan</span></span><br><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt</span><br><span class="line">data = [<span class="hljs-number">1</span>,<span class="hljs-number">23</span>,<span class="hljs-number">4214</span>,<span class="hljs-number">12</span>,<span class="hljs-number">4</span>,<span class="hljs-number">124</span>,<span class="hljs-number">1</span>,<span class="hljs-number">24</span>,np.nan]</span><br><span class="line">plt.hist(data[data <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> np.nan])</span><br><span class="line"><span class="hljs-comment"># 方法2，删除nan</span></span><br><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd</span><br><span class="line"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt</span><br><span class="line">data = pd.Series([<span class="hljs-number">1</span>,<span class="hljs-number">23</span>,<span class="hljs-number">4214</span>,<span class="hljs-number">12</span>,<span class="hljs-number">4</span>,<span class="hljs-number">124</span>,<span class="hljs-number">1</span>,<span class="hljs-number">24</span>,np.nan])</span><br><span class="line">plt.hist(data.dropna())</span><br></pre></td></tr></table></figure>
 
         </div>
         
             <ul class="post-copyright">
-            <li><strong>本文标题：</strong><a href="https://sjtu-xx.github.io/2019/11/27/Matplotlib%E7%BB%98%E5%9B%BE%E6%A1%88%E4%BE%8B/">Matplotlib绘图案例</a></li>
+            <li><strong>本文标题：</strong><a href="https://sjtu-xx.github.io/2019/11/27/leetcode-1-10-%E8%AE%B0%E5%BD%95/">leetcode(1-10)记录</a></li>
             <li><strong>本文作者：</strong><a href="https://sjtu-xx.github.io">Xue Xuan</a></li>
-            <li><strong>本文链接：</strong><a href="https://sjtu-xx.github.io/2019/11/27/Matplotlib%E7%BB%98%E5%9B%BE%E6%A1%88%E4%BE%8B/">https://sjtu-xx.github.io/2019/11/27/Matplotlib%E7%BB%98%E5%9B%BE%E6%A1%88%E4%BE%8B/</a></li>
+            <li><strong>本文链接：</strong><a href="https://sjtu-xx.github.io/2019/11/27/leetcode-1-10-%E8%AE%B0%E5%BD%95/">https://sjtu-xx.github.io/2019/11/27/leetcode-1-10-%E8%AE%B0%E5%BD%95/</a></li>
             <li><strong>发布时间：</strong>2019-11-27</li>
             <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
             </li>
@@ -187,7 +201,7 @@
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/latex/" rel="tag">latex</a>, <a class="has-link-grey -link" href="/tags/matplotlib/" rel="tag">matplotlib</a>, <a class="has-link-grey -link" href="/tags/python/" rel="tag">python</a>, <a class="has-link-grey -link" href="/tags/%E7%BB%98%E5%9B%BE/" rel="tag">绘图</a>
+                    <a class="has-link-grey -link" href="/tags/leetcode/" rel="tag">leetcode</a>
                 </div>
             </div>
         </div>
@@ -227,17 +241,10 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/11/27/leetcode-1-10-%E8%AE%B0%E5%BD%95/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">leetcode(1-10)记录</span>
-            </a>
-        </div>
-        
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2019/11/26/github%E4%B8%AD%E7%9A%84%E5%BF%AB%E9%80%9F%E6%9F%A5%E6%89%BE/">
-                <span class="level-item">github中的快速查找</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/11/27/Matplotlib%E7%BB%98%E5%9B%BE%E6%A1%88%E4%BE%8B/">
+                <span class="level-item">Matplotlib绘图案例</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -263,22 +270,18 @@
                     目录
                 </h3>
                 <ul class="menu-list"><li>
-        <a class="is-flex" href="#绘图数据处理">
+        <a class="is-flex" href="#8-字符串转换整数-atoi">
         <span class="has-mr-6">1</span>
-        <span>绘图数据处理</span>
+        <span>8. 字符串转换整数 (atoi)</span>
         </a><ul class="menu-list"><li>
-        <a class="is-flex" href="#绘图时对数据进行三次样条插值：">
+        <a class="is-flex" href="#解决思路">
         <span class="has-mr-6">1.1</span>
-        <span>绘图时对数据进行三次样条插值：</span>
-        </a></li></ul></li><li>
-        <a class="is-flex" href="#一般折线图的绘制">
-        <span class="has-mr-6">2</span>
-        <span>一般折线图的绘制</span>
+        <span>解决思路</span>
         </a></li><li>
-        <a class="is-flex" href="#直方图的绘制">
-        <span class="has-mr-6">3</span>
-        <span>直方图的绘制</span>
-        </a></li></ul>
+        <a class="is-flex" href="#解决方法">
+        <span class="has-mr-6">1.2</span>
+        <span>解决方法</span>
+        </a></li></ul></li></ul>
             </div>
         </div>
     </div>
@@ -301,7 +304,7 @@
             <div class="level-start has-text-centered-mobile"> -->
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="Matplotlib绘图案例" height="28">
+                    <img src="/images/logo.svg" alt="leetcode(1-10)记录" height="28">
                 
                 </a>
                 <p class="is-size-7">
