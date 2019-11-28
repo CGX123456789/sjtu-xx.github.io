@@ -129,6 +129,48 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-11-28T09:00:52.000Z">2019-11-28</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    几秒 读完 (大约 0 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/11/28/Abaqus%E5%90%8E%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/">Abaqus后处理常用技术</a>
+            
+        </h1>
+        <div class="content">
+            
+        </div>
+        
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2019-11-27T13:50:55.000Z">2019-11-27</time>
                 
                 <div class="level-item">
@@ -139,7 +181,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    4 分钟 读完 (大约 591 个字)
+                    4 分钟 读完 (大约 592 个字)
                 </span>
                 
                 
@@ -153,29 +195,18 @@
         </h1>
         <div class="content">
             <p>题目1-7为之前做过的题目，这里不再记录</p>
-<h2 id="8-字符串转换整数-atoi"><a href="#8-字符串转换整数-atoi" class="headerlink" title="8. 字符串转换整数 (atoi)"></a>8. 字符串转换整数 (atoi)</h2><blockquote>
-<p>请你来实现一个 atoi 函数，使其能将字符串转换成整数。</p>
-<p>首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。</p>
-<p>当我们寻找到的第一个非空字符为正或者负号时，则将该符号与之后面尽可能多的连续数字组合起来，作为该整数的正负号；假如第一个非空字符是数字，则直接将其与之后连续的数字字符组合起来，形成整数。</p>
-<p>该字符串除了有效的整数部分之后也可能会存在多余的字符，这些字符可以被忽略，它们对于函数不应该造成影响。</p>
-<p>注意：假如该字符串中的第一个非空格字符不是一个有效整数字符、字符串为空或字符串仅包含空白字符时，则你的函数不需要进行转换。</p>
-<p>在任何情况下，若函数不能进行有效的转换时，请返回 0。</p>
-<p>说明：</p>
-<p>假设我们的环境只能存储 32 位大小的有符号整数，那么其数值范围为 [−231,  231 − 1]。如果数值超过这个范围，请返回  INT_MAX (231 − 1) 或 INT_MIN (−231) 。</p>
-<p>示例 1:</p>
-<p>输入: “42”<br>输出: 42<br>示例 2:</p>
-<p>输入: “   -42”<br>输出: -42<br>解释: 第一个非空白字符为 ‘-‘, 它是一个负号。<br>    我们尽可能将负号与后面所有连续出现的数字组合起来，最后得到 -42 。<br>示例 3:</p>
-<p>输入: “4193 with words”<br>输出: 4193<br>解释: 转换截止于数字 ‘3’ ，因为它的下一个字符不为数字。<br>示例 4:</p>
-<p>输入: “words and 987”<br>输出: 0<br>解释: 第一个非空字符是 ‘w’, 但它不是数字或正、负号。<br>    因此无法执行有效的转换。<br>示例 5:</p>
-<p>输入: “-91283472332”<br>输出: -2147483648<br>解释: 数字 “-91283472332” 超过 32 位有符号整数范围。<br>    因此返回 INT_MIN (−231) 。</p>
-</blockquote>
-<h3 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h3><p>由于python中不存在字符限制，可以使用正则表达式进行解决</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">myAtoi</span><span class="hljs-params">(self, s: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="hljs-keyword">return</span> max(min(int(*re.findall(<span class="hljs-string">'^[\+\-]?\d+'</span>, s.lstrip())), <span class="hljs-number">2</span>**<span class="hljs-number">31</span> - <span class="hljs-number">1</span>), <span class="hljs-number">-2</span>**<span class="hljs-number">31</span>)</span><br></pre></td></tr></table></figure>
-
-
+<h2 id="8-字符串转换整数-atoi"><a href="#8-字符串转换整数-atoi" class="headerlink" title="8. 字符串转换整数 (atoi)"></a>8. 字符串转换整数 (atoi)</h2>
         </div>
         
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2019/11/27/leetcode-1-10-%E8%AE%B0%E5%BD%95/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -205,7 +236,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 352 个字)
+                    2 分钟 读完 (大约 363 个字)
                 </span>
                 
                 
@@ -621,64 +652,6 @@
 
 
 
-    
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-11-19T05:58:54.000Z">2019-11-19</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/c/">c++</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/c/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    35 分钟 读完 (大约 5184 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/11/19/C-Primer%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9AC-%E5%9F%BA%E7%A1%80/">C++ Primer读书笔记(第一部分：C++基础)</a>
-            
-        </h1>
-        <div class="content">
-            <h2 id="1-开始"><a href="#1-开始" class="headerlink" title="1.开始"></a>1.开始</h2><ul>
-<li>输出运算符和输入运算符类似，都返回其左侧运算对象作为其计算结果</li>
-<li>从键盘输入文件结束符<ul>
-<li>在windows系统中，Ctrl+Z，然后按Enter或Return键</li>
-<li>在Unix系统中，文件结束符是Ctrl+D</li></ul></li></ul>
-        </div>
-        
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/11/19/C-Primer%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9AC-%E5%9F%BA%E7%A1%80/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -743,7 +716,7 @@
                     </p>
                     <a href="/archives">
                         <p class="title has-text-weight-normal">
-                            11
+                            12
                         </p>
                     </a>
                 </div>
@@ -926,6 +899,25 @@
         
         <article class="media">
             
+            <a href="/2019/11/28/Abaqus%E5%90%8E%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Abaqus后处理常用技术">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-28T09:00:52.000Z">2019-11-28</time></div>
+                    <a href="/2019/11/28/Abaqus%E5%90%8E%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Abaqus后处理常用技术</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/11/27/leetcode-1-10-%E8%AE%B0%E5%BD%95/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="leetcode(1-10)记录">
@@ -1000,25 +992,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/11/26/cmake%E5%AE%98%E6%96%B9%E6%95%99%E7%A8%8B%EF%BC%88%E6%90%AC%E8%BF%90%EF%BC%89/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="cmake官方教程（搬运）">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-26T03:14:47.000Z">2019-11-26</time></div>
-                    <a href="/2019/11/26/cmake%E5%AE%98%E6%96%B9%E6%95%99%E7%A8%8B%EF%BC%88%E6%90%AC%E8%BF%90%EF%BC%89/" class="title has-link-black-ter is-size-6 has-text-weight-normal">cmake官方教程（搬运）</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/c/">c++</a> / <a class="has-link-grey -link" href="/categories/c/cmake/">cmake</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
         
@@ -1036,7 +1009,7 @@
                     <span class="level-item">十一月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">11</span>
+                    <span class="level-item tag">12</span>
                 </span>
             </a>
         </li>
@@ -1169,6 +1142,25 @@
         
         <article class="media">
             
+            <a href="/2019/11/28/Abaqus%E5%90%8E%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Abaqus后处理常用技术">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-28T09:00:52.000Z">2019-11-28</time></div>
+                    <a href="/2019/11/28/Abaqus%E5%90%8E%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Abaqus后处理常用技术</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/11/27/leetcode-1-10-%E8%AE%B0%E5%BD%95/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="leetcode(1-10)记录">
@@ -1243,25 +1235,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/11/26/cmake%E5%AE%98%E6%96%B9%E6%95%99%E7%A8%8B%EF%BC%88%E6%90%AC%E8%BF%90%EF%BC%89/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="cmake官方教程（搬运）">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-11-26T03:14:47.000Z">2019-11-26</time></div>
-                    <a href="/2019/11/26/cmake%E5%AE%98%E6%96%B9%E6%95%99%E7%A8%8B%EF%BC%88%E6%90%AC%E8%BF%90%EF%BC%89/" class="title has-link-black-ter is-size-6 has-text-weight-normal">cmake官方教程（搬运）</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/c/">c++</a> / <a class="has-link-grey -link" href="/categories/c/cmake/">cmake</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
     
@@ -1279,7 +1252,7 @@
                     <span class="level-item">十一月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">11</span>
+                    <span class="level-item tag">12</span>
                 </span>
             </a>
         </li>
