@@ -19,7 +19,7 @@
 <meta property="og:description" content="绘图数据处理绘图时对数据进行三次样条插值：">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
-<meta property="og:updated_time" content="2019-11-28T09:29:47.457Z">
+<meta property="og:updated_time" content="2019-11-28T09:31:38.559Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
 
@@ -146,7 +146,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 363 个字)
+                    2 分钟 读完 (大约 367 个字)
                 </span>
                 
                 
@@ -171,7 +171,7 @@
 
 <h2 id="直方图的绘制"><a href="#直方图的绘制" class="headerlink" title="直方图的绘制"></a>直方图的绘制</h2><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># 对于dataframe中的数据，直接使用下面的代码</span></span><br><span class="line">df[<span class="hljs-string">"column_name"</span>].hist(bins=<span class="hljs-number">20</span>)  </span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># 对于pyplot，使用时存在nan值可能会报错</span></span><br><span class="line"><span class="hljs-comment"># 方法1,选择非nan</span></span><br><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt</span><br><span class="line">data = [<span class="hljs-number">1</span>,<span class="hljs-number">23</span>,<span class="hljs-number">4214</span>,<span class="hljs-number">12</span>,<span class="hljs-number">4</span>,<span class="hljs-number">124</span>,<span class="hljs-number">1</span>,<span class="hljs-number">24</span>,np.nan]</span><br><span class="line">plt.hist(data[data <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> np.nan])</span><br><span class="line"><span class="hljs-comment"># 方法2，删除nan</span></span><br><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd</span><br><span class="line"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt</span><br><span class="line">data = pd.Series([<span class="hljs-number">1</span>,<span class="hljs-number">23</span>,<span class="hljs-number">4214</span>,<span class="hljs-number">12</span>,<span class="hljs-number">4</span>,<span class="hljs-number">124</span>,<span class="hljs-number">1</span>,<span class="hljs-number">24</span>,np.nan])</span><br><span class="line">plt.hist(data.dropna())</span><br></pre></td></tr></table></figure>
 
-<h2 id="内置的colorbar"><a href="#内置的colorbar" class="headerlink" title="内置的colorbar"></a>内置的colorbar</h2><p><a href="https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html" target="_blank" rel="noopener"></a></p>
+<h2 id="内置的colorbar"><a href="#内置的colorbar" class="headerlink" title="内置的colorbar"></a>内置的colorbar</h2><p><a href="https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html" target="_blank" rel="noopener">官方网站</a></p>
 
         </div>
         
