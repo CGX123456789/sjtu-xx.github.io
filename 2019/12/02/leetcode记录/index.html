@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.0.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>leetcode记录 - 薛轩的个人博客</title>
+
+
+    <meta name="description" content="题51.八皇后问题">
+<meta name="keywords" content="leetcode,八皇后问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode记录">
+<meta property="og:url" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;2019&#x2F;12&#x2F;02&#x2F;leetcode%E8%AE%B0%E5%BD%95&#x2F;index.html">
+<meta property="og:site_name" content="薛轩的个人博客">
+<meta property="og:description" content="题51.八皇后问题">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
+<meta property="og:updated_time" content="2019-12-02T13:24:07.613Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/logo.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    <script async="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="leetcode记录" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/categories">目录</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/archives">时间线</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;" target="_blank" rel="noopener">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;" target="_blank" rel="noopener">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-9-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-12-02T11:17:32.000Z">2019-12-02</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/%E7%BC%96%E7%A8%8B%E7%AB%9E%E8%B5%9B/">编程竞赛</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/%E7%BC%96%E7%A8%8B%E7%AB%9E%E8%B5%9B/leetcode/">leetcode</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 读完 (大约 449 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span>次访问
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                leetcode记录
+            
+        </h1>
+        <div class="content">
+            <h3 id="题51-八皇后问题"><a href="#题51-八皇后问题" class="headerlink" title="题51.八皇后问题"></a>题51.八皇后问题</h3><a id="more"></a>
+<h4 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h4><p>可以理解为一个坐标系，0，0是原点，N*N里面的每个点有两个函数，斜率分别是1，-1，（y=-x+b, y=-x+b）xy_sum中记录的是y=x+b里面的b xy_dif记录的是y=-x+b里面的b 如果之后的点里面有相同的元素在这两个列表里面就说明在这条线上已经有另一个皇后在了。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">solveNQueens</span><span class="hljs-params">(self, n: int)</span> -&gt; List[List[str]]:</span></span><br><span class="line">        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">DFS</span><span class="hljs-params">(queens:List[int],xy_dif:List[int],xy_sum:List[int])</span>:</span></span><br><span class="line">            q = len(queens)</span><br><span class="line">            <span class="hljs-comment"># 终止条件</span></span><br><span class="line">            <span class="hljs-keyword">if</span> len(queens) == n:</span><br><span class="line">                result.append(queens)</span><br><span class="line">                <span class="hljs-keyword">return</span></span><br><span class="line"></span><br><span class="line">            <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> range(n):</span><br><span class="line">                <span class="hljs-keyword">if</span> p <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> queens <span class="hljs-keyword">and</span> q-p <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> xy_dif <span class="hljs-keyword">and</span> q+p <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> xy_sum:</span><br><span class="line">                    DFS(queens+[p],xy_dif+[q-p],xy_sum+[q+p])</span><br><span class="line"></span><br><span class="line">        result = []</span><br><span class="line">        DFS([],[],[])</span><br><span class="line">        <span class="hljs-keyword">return</span> [[<span class="hljs-string">"."</span>*i+<span class="hljs-string">"Q"</span>+<span class="hljs-string">"."</span>*(n-i<span class="hljs-number">-1</span>) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> sol] <span class="hljs-keyword">for</span> sol <span class="hljs-keyword">in</span> result]</span><br></pre></td></tr></table></figure>
+
+<h3 id="题49-字母异位词分组"><a href="#题49-字母异位词分组" class="headerlink" title="题49.字母异位词分组"></a>题49.字母异位词分组</h3><blockquote>
+<p>python中的集合操作符<br>S | T 返回一个新的集合，包括在集合S和T的所有元素<br>S - T 返回一个新集合，包括在集合S但不在T中的元素<br>S &amp; T 返回一个新集合，包括同时在集合S和T中的元素<br>S ^ T 返回一个新集合， 包括集合S和T中非相同元素<br>S &lt;= T 或 S &lt; T 返回True/False， 判断S和T的子集关系<br>S &gt;= T 或 S &gt; T 返回True/False， 判断S和T的包括关系</p>
+</blockquote>
+<h4 id="解法："><a href="#解法：" class="headerlink" title="解法："></a>解法：</h4><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#方法1</span></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span><span class="hljs-params">(object)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">groupAnagrams</span><span class="hljs-params">(self, strs)</span>:</span></span><br><span class="line">        <span class="hljs-string">"""</span></span><br><span class="line"><span class="hljs-string">        :type strs: List[str]</span></span><br><span class="line"><span class="hljs-string">        :rtype: List[List[str]]</span></span><br><span class="line"><span class="hljs-string">        """</span></span><br><span class="line">        dic = &#123;&#125;</span><br><span class="line">        <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> strs:</span><br><span class="line">            dic[tuple(sorted(s))] = dic.get(tuple(sorted(s)), []) + [s]</span><br><span class="line">        <span class="hljs-keyword">return</span> dic.values()</span><br><span class="line"><span class="hljs-comment"># 方法2</span></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span><span class="hljs-params">(object)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">groupAnagrams</span><span class="hljs-params">(self, strs)</span>:</span></span><br><span class="line">        <span class="hljs-string">"""</span></span><br><span class="line"><span class="hljs-string">        :type strs: List[str]</span></span><br><span class="line"><span class="hljs-string">        :rtype: List[List[str]]</span></span><br><span class="line"><span class="hljs-string">        """</span></span><br><span class="line">        dic = &#123;&#125;</span><br><span class="line">        <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> strs:</span><br><span class="line">            count = [<span class="hljs-number">0</span>] * <span class="hljs-number">26</span></span><br><span class="line">            <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> s:</span><br><span class="line">                count[ord(c) - ord(<span class="hljs-string">'a'</span>)] += <span class="hljs-number">1</span></span><br><span class="line">            dic[tuple(count)] = dic.get(tuple(count), []) + [s]</span><br><span class="line">        <span class="hljs-keyword">return</span> dic.values()</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+            <ul class="post-copyright">
+            <li><strong>本文标题：</strong><a href="https://sjtu-xx.github.io/2019/12/02/leetcode%E8%AE%B0%E5%BD%95/">leetcode记录</a></li>
+            <li><strong>本文作者：</strong><a href="https://sjtu-xx.github.io">Xue Xuan</a></li>
+            <li><strong>本文链接：</strong><a href="https://sjtu-xx.github.io/2019/12/02/leetcode%E8%AE%B0%E5%BD%95/">https://sjtu-xx.github.io/2019/12/02/leetcode%E8%AE%B0%E5%BD%95/</a></li>
+            <li><strong>发布时间：</strong>2019-12-02</li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！
+            </li>
+        </ul>
+        
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/leetcode/" rel="tag">leetcode</a>, <a class="has-link-grey -link" href="/tags/%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" rel="tag">八皇后问题</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/12/02/leetcode%E6%89%93%E5%8D%A1/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">leetcode打卡</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/12/01/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E7%A1%80/">
+                <span class="level-item">数据库基础</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+
+    <div class="card widget" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#题51-八皇后问题">
+        <span class="has-mr-6">1</span>
+        <span>题51.八皇后问题</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#解题思路：">
+        <span class="has-mr-6">1.1</span>
+        <span>解题思路：</span>
+        </a></li><li>
+        <a class="is-flex" href="#代码">
+        <span class="has-mr-6">1.2</span>
+        <span>代码</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#题49-字母异位词分组">
+        <span class="has-mr-6">2</span>
+        <span>题49.字母异位词分组</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#解法：">
+        <span class="has-mr-6">2.1</span>
+        <span>解法：</span>
+        </a></li></ul></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+<!--     <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile"> -->
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="leetcode记录" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 Xue Xuan&nbsp;
+                
+                <br>
+                <span id="busuanzi_container_site_uv"> 来访 <span id="busuanzi_value_site_uv"></span>人</span>
+                <span id="busuanzi_container_site_pv">, 总访问 <span id="busuanzi_value_site_pv"></span>次</span>
+
+                </span>
+                
+                </p>
+            <!-- </div> -->
+            <!-- <div class="level-end">
+            
+            </div> -->
+<!--         </div>
+    </div> -->
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+<script src="/js/animation.js"></script>
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+    
+    
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+    
+    
+<a target="_self" id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
