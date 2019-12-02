@@ -19,7 +19,7 @@
 <meta property="og:description" content="题51.八皇后问题">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
-<meta property="og:updated_time" content="2019-12-02T14:54:18.014Z">
+<meta property="og:updated_time" content="2019-12-02T15:57:19.200Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
 
@@ -146,7 +146,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 510 个字)
+                    5 分钟 读完 (大约 694 个字)
                 </span>
                 
                 
@@ -173,7 +173,9 @@
 </blockquote>
 <h4 id="解法："><a href="#解法：" class="headerlink" title="解法："></a>解法：</h4><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#方法1</span></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span><span class="hljs-params">(object)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">groupAnagrams</span><span class="hljs-params">(self, strs)</span>:</span></span><br><span class="line">        <span class="hljs-string">"""</span></span><br><span class="line"><span class="hljs-string">        :type strs: List[str]</span></span><br><span class="line"><span class="hljs-string">        :rtype: List[List[str]]</span></span><br><span class="line"><span class="hljs-string">        """</span></span><br><span class="line">        dic = &#123;&#125;</span><br><span class="line">        <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> strs:</span><br><span class="line">            dic[tuple(sorted(s))] = dic.get(tuple(sorted(s)), []) + [s]</span><br><span class="line">        <span class="hljs-keyword">return</span> dic.values()</span><br><span class="line"><span class="hljs-comment"># 方法2</span></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span><span class="hljs-params">(object)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">groupAnagrams</span><span class="hljs-params">(self, strs)</span>:</span></span><br><span class="line">        <span class="hljs-string">"""</span></span><br><span class="line"><span class="hljs-string">        :type strs: List[str]</span></span><br><span class="line"><span class="hljs-string">        :rtype: List[List[str]]</span></span><br><span class="line"><span class="hljs-string">        """</span></span><br><span class="line">        dic = &#123;&#125;</span><br><span class="line">        <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> strs:</span><br><span class="line">            count = [<span class="hljs-number">0</span>] * <span class="hljs-number">26</span></span><br><span class="line">            <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> s:</span><br><span class="line">                count[ord(c) - ord(<span class="hljs-string">'a'</span>)] += <span class="hljs-number">1</span></span><br><span class="line">            dic[tuple(count)] = dic.get(tuple(count), []) + [s]</span><br><span class="line">        <span class="hljs-keyword">return</span> dic.values()</span><br></pre></td></tr></table></figure>
 
-<h3 id="题141"><a href="#题141" class="headerlink" title="题141"></a>题141</h3><p>快慢指针法判断循环：快指针每次前进2步，慢指针每次1步，如果快指针指向None表示不存在循环，如果慢指针追上快指针，表示存在循环。</p>
+<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><h3 id="快慢指针"><a href="#快慢指针" class="headerlink" title="快慢指针"></a>快慢指针</h3><p>快慢指针法判断循环：快指针每次前进2步，慢指针每次1步，如果快指针指向None表示不存在循环，如果慢指针追上快指针，表示存在循环。</p>
+<h3 id="python中哈希表的时间复杂符"><a href="#python中哈希表的时间复杂符" class="headerlink" title="python中哈希表的时间复杂符"></a>python中哈希表的时间复杂符</h3><p>散列表（Hash table，也叫哈希表），是根据关键码值(Key value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做散列函数，存放记录的数组叫做散列表。</p>
+<p>若关键字为k，则其值存放在f(k)的存储位置上。由此，不需比较便可直接取得所查记录。称这个对应关系f为散列函数，按这个思想建立的表为散列表。</p>
 
         </div>
         
@@ -266,31 +268,39 @@
                 <h3 class="menu-label">
                     目录
                 </h3>
-                <ul class="menu-list"><li>
+                <ul class="menu-list"><ul class="menu-list"><li>
         <a class="is-flex" href="#题51-八皇后问题">
-        <span class="has-mr-6">1</span>
+        <span class="has-mr-6">1.1</span>
         <span>题51.八皇后问题</span>
         </a><ul class="menu-list"><li>
         <a class="is-flex" href="#解题思路：">
-        <span class="has-mr-6">1.1</span>
+        <span class="has-mr-6">1.1.1</span>
         <span>解题思路：</span>
         </a></li><li>
         <a class="is-flex" href="#代码">
-        <span class="has-mr-6">1.2</span>
+        <span class="has-mr-6">1.1.2</span>
         <span>代码</span>
         </a></li></ul></li><li>
         <a class="is-flex" href="#题49-字母异位词分组">
-        <span class="has-mr-6">2</span>
+        <span class="has-mr-6">1.2</span>
         <span>题49.字母异位词分组</span>
         </a><ul class="menu-list"><li>
         <a class="is-flex" href="#解法：">
-        <span class="has-mr-6">2.1</span>
+        <span class="has-mr-6">1.2.1</span>
         <span>解法：</span>
-        </a></li></ul></li><li>
-        <a class="is-flex" href="#题141">
-        <span class="has-mr-6">3</span>
-        <span>题141</span>
-        </a></li></ul>
+        </a></li></ul></li></ul><li>
+        <a class="is-flex" href="#知识点">
+        <span class="has-mr-6">2</span>
+        <span>知识点</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#快慢指针">
+        <span class="has-mr-6">2.1</span>
+        <span>快慢指针</span>
+        </a></li><li>
+        <a class="is-flex" href="#python中哈希表的时间复杂符">
+        <span class="has-mr-6">2.2</span>
+        <span>python中哈希表的时间复杂符</span>
+        </a></li></ul></li></ul>
             </div>
         </div>
     </div>
