@@ -19,7 +19,7 @@
 <meta property="og:description" content="题51.八皇后问题">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
-<meta property="og:updated_time" content="2019-12-02T15:57:19.200Z">
+<meta property="og:updated_time" content="2019-12-03T03:51:11.793Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
 
@@ -146,7 +146,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    5 分钟 读完 (大约 694 个字)
+                    6 分钟 读完 (大约 864 个字)
                 </span>
                 
                 
@@ -176,6 +176,13 @@
 <h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><h3 id="快慢指针"><a href="#快慢指针" class="headerlink" title="快慢指针"></a>快慢指针</h3><p>快慢指针法判断循环：快指针每次前进2步，慢指针每次1步，如果快指针指向None表示不存在循环，如果慢指针追上快指针，表示存在循环。</p>
 <h3 id="python中哈希表的时间复杂符"><a href="#python中哈希表的时间复杂符" class="headerlink" title="python中哈希表的时间复杂符"></a>python中哈希表的时间复杂符</h3><p>散列表（Hash table，也叫哈希表），是根据关键码值(Key value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做散列函数，存放记录的数组叫做散列表。</p>
 <p>若关键字为k，则其值存放在f(k)的存储位置上。由此，不需比较便可直接取得所查记录。称这个对应关系f为散列函数，按这个思想建立的表为散列表。</p>
+<h3 id="异或操作"><a href="#异或操作" class="headerlink" title="异或操作"></a>异或操作</h3><p>按位进行异或操作的性质：</p>
+<ul>
+<li>如果a、b两个值不相同，则异或结果为1(不同的位为1)。如果a、b两个值相同，异或结果为0（这里假设a、b 只能包含 1、0 两值，但别忘了，每个比特恰好是表示零和一的。也可以这么说：真 xor 假 = 真；真 xor 真 = 假；假 xor 假 = 假）。</li>
+<li>满足交换律。</li>
+</ul>
+<p>即：<br>有a、b不等两值<br>a xor a = 0<br>b xor 0 = b<br>所以：(a xor a) xor b = a xor b xor a = b xor 0 = b</p>
+<h3 id="python中sort的实现算法timsort"><a href="#python中sort的实现算法timsort" class="headerlink" title="python中sort的实现算法timsort"></a>python中sort的实现算法timsort</h3><p><a href="https://www.cnblogs.com/clement-jiao/p/9243066.html#_label1" target="_blank" rel="noopener">https://www.cnblogs.com/clement-jiao/p/9243066.html#_label1</a></p>
 
         </div>
         
@@ -300,6 +307,14 @@
         <a class="is-flex" href="#python中哈希表的时间复杂符">
         <span class="has-mr-6">2.2</span>
         <span>python中哈希表的时间复杂符</span>
+        </a></li><li>
+        <a class="is-flex" href="#异或操作">
+        <span class="has-mr-6">2.3</span>
+        <span>异或操作</span>
+        </a></li><li>
+        <a class="is-flex" href="#python中sort的实现算法timsort">
+        <span class="has-mr-6">2.4</span>
+        <span>python中sort的实现算法timsort</span>
         </a></li></ul></li></ul>
             </div>
         </div>
