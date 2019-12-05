@@ -19,7 +19,7 @@
 <meta property="og:description" content="1.开始 输出运算符和输入运算符类似，都返回其左侧运算对象作为其计算结果 从键盘输入文件结束符 在windows系统中，Ctrl+Z，然后按Enter或Return键 在Unix系统中，文件结束符是Ctrl+D">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
-<meta property="og:updated_time" content="2019-11-26T08:44:47.763Z">
+<meta property="og:updated_time" content="2019-12-05T02:46:01.605Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
 
@@ -146,7 +146,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    35 分钟 读完 (大约 5184 个字)
+                    36 分钟 读完 (大约 5453 个字)
                 </span>
                 
                 
@@ -716,7 +716,14 @@
 <li><p>非静态数据成员不能作为默认实参，因为他的值本身属于对象的一部分，这么做的结果是无法真正提供一个对象以便从中获取成员的值，最终将引发错误。</p>
 </li>
 </ul>
-
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><h3 id="size-t和size-type"><a href="#size-t和size-type" class="headerlink" title="size_t和size_type"></a>size_t和size_type</h3><p>为了使自己的程序有很好的移植性，c++程序员应该尽量使用size_t和size_type而不是int, unsigned</p>
+<p>size_t是全局定义的类型；size_type是STL类中定义的类型属性，用以保存任意string和vector类对象的长度</p>
+<p>string::size_type 制类型一般就是unsigned int, 但是不同机器环境长度可能不同 win32 和win64上长度差别;size_type一般也是unsigned int</p>
+<p>使用的时候可以参考：<br>string::size_type a =123;<br>vectorsize_type b=234;<br>size_t b=456;<br>size_t 使用的时候头文件需要 cstddef ；size_type 使用的时候需要string或者vector<br>sizeof(string::size_type)<br>sizeof(vector::size_type)<br>sizeof(vector::size_type)<br>sizeof(size_t)<br>上述长度均相等，长度为win32:4 win64:8<br>二者联系：在用下标访问元素时，vector使用vector::size_type作为下标类型，而数组下标的正确类型则是size_t</p>
+<blockquote>
+<p>总结：在STL容器中使用size_type，其余情况使用size_t</p>
+</blockquote>
+<h3 id="使用-代替-gt-、-lt-号"><a href="#使用-代替-gt-、-lt-号" class="headerlink" title="使用!=代替&gt;、&lt;号"></a>使用!=代替&gt;、&lt;号</h3><h3 id><a href="#" class="headerlink" title></a></h3>
         </div>
         
             <ul class="post-copyright">
@@ -972,6 +979,22 @@
         <a class="is-flex" href="#类的静态成员">
         <span class="has-mr-6">7.5</span>
         <span>类的静态成员</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#补充">
+        <span class="has-mr-6">8</span>
+        <span>补充</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#size-t和size-type">
+        <span class="has-mr-6">8.1</span>
+        <span>size_t和size_type</span>
+        </a></li><li>
+        <a class="is-flex" href="#使用-代替-gt-、-lt-号">
+        <span class="has-mr-6">8.2</span>
+        <span>使用!=代替&gt;、&lt;号</span>
+        </a></li><li>
+        <a class="is-flex" href="#">
+        <span class="has-mr-6">8.3</span>
+        <span></span>
         </a></li></ul></li></ul>
             </div>
         </div>
