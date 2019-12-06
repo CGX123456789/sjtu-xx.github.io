@@ -19,7 +19,7 @@
 <meta property="og:description" content="题目记录题51.八皇后问题">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
-<meta property="og:updated_time" content="2019-12-05T12:22:35.523Z">
+<meta property="og:updated_time" content="2019-12-06T14:11:44.602Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;sjtu-xx.github.io&#x2F;images&#x2F;og_image.png">
 
@@ -146,7 +146,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    8 分钟 读完 (大约 1169 个字)
+                    10 分钟 读完 (大约 1472 个字)
                 </span>
                 
                 
@@ -188,12 +188,18 @@
 <li>考虑左右边界，如果target不在目标数组的范围内，则会报错</li>
 <li>当数组元素个数是偶数个时，存在左中位数和右中位数；当数组元素个数是奇数时，则只存在确定的中位数。</li>
 </ol>
+<h3 id="分治法"><a href="#分治法" class="headerlink" title="分治法"></a>分治法</h3><p>在计算机科学中，分治法是建基于多项分支递归的一种很重要的算法范式。字面上的解释是“分而治之”，就是把一个复杂的问题分成两个或更多的相同或相似的子问题，直到最后子问题可以简单的直接求解，原问题的解即子问题的解的合并。 这个技巧是很多高效算法的基础，如排序算法、傅立叶变换。</p>
+<h3 id="贪心法"><a href="#贪心法" class="headerlink" title="贪心法"></a>贪心法</h3><p>贪心算法（英語：greedy algorithm），又称贪婪算法，是一种在每一步选择中都采取在当前状态下最好或最优（即最有利）的选择，从而希望导致结果是最好或最优的算法。 比如在旅行推销员问题中，如果旅行员每次都选择最近的城市，那这就是一种贪心算法。</p>
 <h2 id="python中的操作"><a href="#python中的操作" class="headerlink" title="python中的操作"></a>python中的操作</h2><h3 id="python中sort的实现算法timsort"><a href="#python中sort的实现算法timsort" class="headerlink" title="python中sort的实现算法timsort"></a>python中sort的实现算法timsort</h3><p><a href="https://www.cnblogs.com/clement-jiao/p/9243066.html#_label1" target="_blank" rel="noopener">https://www.cnblogs.com/clement-jiao/p/9243066.html#_label1</a></p>
 <h3 id="python中哈希表的时间复杂符"><a href="#python中哈希表的时间复杂符" class="headerlink" title="python中哈希表的时间复杂符"></a>python中哈希表的时间复杂符</h3><p>散列表（Hash table，也叫哈希表），是根据关键码值(Key value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做散列函数，存放记录的数组叫做散列表。</p>
 <p>若关键字为k，则其值存放在f(k)的存储位置上。由此，不需比较便可直接取得所查记录。称这个对应关系f为散列函数，按这个思想建立的表为散列表。</p>
 <h3 id="python中的位操作"><a href="#python中的位操作" class="headerlink" title="python中的位操作"></a>python中的位操作</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x &lt;&lt; y</span><br><span class="line">Returns x <span class="hljs-keyword">with</span> the bits shifted to the left by y places (<span class="hljs-keyword">and</span> new bits on the right-hand-side are zeros). This <span class="hljs-keyword">is</span> the same <span class="hljs-keyword">as</span> multiplying x by <span class="hljs-number">2</span>**y.</span><br><span class="line">x &gt;&gt; y</span><br><span class="line">Returns x <span class="hljs-keyword">with</span> the bits shifted to the right by y places. This <span class="hljs-keyword">is</span> the same <span class="hljs-keyword">as</span> //<span class="hljs-string">'ing x by 2**y.</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="python中的无穷大"><a href="#python中的无穷大" class="headerlink" title="python中的无穷大"></a>python中的无穷大</h3><p>python中不存在直接的无穷大表示，但可以通过<code>float(&#39;inf&#39;)</code>来创建，可以使用<br><code>isinf()</code>来验证</p>
+<h3 id="python中生成器和迭代器的联合使用"><a href="#python中生成器和迭代器的联合使用" class="headerlink" title="python中生成器和迭代器的联合使用"></a>python中生成器和迭代器的联合使用</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">yield</span> <span class="hljs-keyword">from</span> generator</span><br><span class="line"><span class="hljs-comment">#等价于</span></span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> generator:</span><br><span class="line">    <span class="hljs-keyword">yield</span> i</span><br></pre></td></tr></table></figure>
+
+<h3 id="python中的字符编码"><a href="#python中的字符编码" class="headerlink" title="python中的字符编码"></a>python中的字符编码</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ord(<span class="hljs-string">"A"</span>) <span class="hljs-comment">#将A转换为整数</span></span><br><span class="line">chr(<span class="hljs-number">123</span>) <span class="hljs-comment">#将整数转换为字符</span></span><br></pre></td></tr></table></figure>
+
 
         </div>
         
@@ -330,6 +336,14 @@
         <a class="is-flex" href="#二分查找">
         <span class="has-mr-6">2.3</span>
         <span>二分查找</span>
+        </a></li><li>
+        <a class="is-flex" href="#分治法">
+        <span class="has-mr-6">2.4</span>
+        <span>分治法</span>
+        </a></li><li>
+        <a class="is-flex" href="#贪心法">
+        <span class="has-mr-6">2.5</span>
+        <span>贪心法</span>
         </a></li></ul></li><li>
         <a class="is-flex" href="#python中的操作">
         <span class="has-mr-6">3</span>
@@ -350,6 +364,14 @@
         <a class="is-flex" href="#python中的无穷大">
         <span class="has-mr-6">3.4</span>
         <span>python中的无穷大</span>
+        </a></li><li>
+        <a class="is-flex" href="#python中生成器和迭代器的联合使用">
+        <span class="has-mr-6">3.5</span>
+        <span>python中生成器和迭代器的联合使用</span>
+        </a></li><li>
+        <a class="is-flex" href="#python中的字符编码">
+        <span class="has-mr-6">3.6</span>
+        <span>python中的字符编码</span>
         </a></li></ul></li></ul>
             </div>
         </div>
