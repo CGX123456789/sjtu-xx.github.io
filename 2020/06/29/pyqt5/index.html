@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sjtu-xx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="PYQT5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pyqt5">
+<meta property="og:url" content="https://sjtu-xx.github.io/2020/06/29/pyqt5/index.html">
+<meta property="og:site_name" content="薛轩的个人博客">
+<meta property="og:description" content="PYQT5">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-29T13:24:56.000Z">
+<meta property="article:modified_time" content="2021-02-03T15:59:45.996Z">
+<meta property="article:author" content="Xue Xuan">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://sjtu-xx.github.io/2020/06/29/pyqt5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>pyqt5 | 薛轩的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">薛轩的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">XueXuan's blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sjtu-xx.github.io/2020/06/29/pyqt5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Xue Xuan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="薛轩的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          pyqt5
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-29 21:24:56" itemprop="dateCreated datePublished" datetime="2020-06-29T21:24:56+08:00">2020-06-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-03 23:59:45" itemprop="dateModified" datetime="2021-02-03T23:59:45+08:00">2021-02-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">第三方库</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/06/29/pyqt5/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/29/pyqt5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="PYQT5"><a href="#PYQT5" class="headerlink" title="PYQT5"></a>PYQT5</h2><a id="more"></a>
+<p>pyqt5下，dialog用exec_()方法，widget用show()方法;</p>
+<h4 id="1-QDockWidget"><a href="#1-QDockWidget" class="headerlink" title="1.QDockWidget"></a>1.QDockWidget</h4><p><a href="https://blog.csdn.net/czyt1988/article/details/51209619" target="_blank" rel="noopener">Dock嵌套布局</a></p>
+<p>QDockWidget是一个可以停靠在QMainWindow内的窗口控件，它可以保持浮动状态或在指定位置作为子窗口附加到主窗口中。其常用方法有：<br>setWidget()，用于设置在DockWidget内显示的QWidget及其子类对象。<br>setFloating()，设置DockWidget是否可以浮动，参数为True或False。<br>setAllowedArea()，设置可以停靠的区域，可用参数为Qt.DockWidgetAreas{LeftDockWidgetArea, RightDockWidgetArea, TopDockWidgetArea, BottomDockWidgetArea, AllDockWidgetAreas, NoDockWidgetArea}。<br>setFeatures()，设置停靠窗口的功能属性（有些属性决定了显示哪些按钮），可用参数为QDockWidget.DockWidgetFeatures{DockWidgetClosable, DockWidgetMovable, DockWidgetFloatable, DockWidgetVerticalTitleBar, AllDockWidgetFeatures, NoDockWidgetFeatures}。<br>其常用信号有：<br>topLevelChanged(bool topLevel)：当浮动状态变化时发生，参数为True时为浮动状态。<br>void visibilityChanged(bool visible)：当显示状态变化时发生（一般是在以Tab方式显示时使用），参数为True时可见。</p>
+<p>QMainWindow类中包含了有关DockWidget的一些函数方法，主要有：<br>addDockWidget(Qt.DockWidgetArea area, QDockWidget dockwidget)，将DockWidget添加到主窗口，第一个参数为停靠位置，第二个参数为要添加的DockWidget。<br>setDockOptions()，设置停靠属性，参数类型为QMainWindow.DockOptions { AnimatedDocks, AllowNestedDocks, AllowTabbedDocks, ForceTabbedDocks, VerticalTabs, GroupedDragging }<br>setTabPosition(Qt.DockWidgetAreas areas, QTabWidget.TabPosition position)，设置停靠和标题位置，第一个参数为停靠位置，第二个参数为标题位置，取值范围QtabWidget.TabPosition { North, South, West, East }。<br>tabifyDockWidget(QDockWidget first, QDockWidget second)，以Tab方式显示DockWidget，其中第二个窗体排在第一个之后。<br>setTabShape(QTabWidget.TabShape shape)，设置Tab标签样式，取值范围QTabWidget.TabShape { Rounded, Triangular }。</p>
+<h4 id="2-右键菜单"><a href="#2-右键菜单" class="headerlink" title="2.右键菜单"></a>2.右键菜单</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">item_widget.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)</span><br><span class="line">item_widget.customContextMenuRequested[QtCore.QPoint].connect(lambda pos: main_window.cad_item_right_click_menu(pos, item, item_widget))</span><br></pre></td></tr></table></figure>
+<p><strong>将菜单在当前位置显示</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">方法一：</span><br><span class="line">	self.TextContextMenu.move(QtGui.QCursor.pos()) </span><br><span class="line">       self.TextContextMenu.show()  </span><br><span class="line">    方法二：</span><br><span class="line">       <span class="comment">#在当前坐标下显示，但是菜单停止不走动</span></span><br><span class="line">       self.TextContextMenu.exec_(QtGui.QCursor.pos())        </span><br><span class="line">       </span><br><span class="line">       <span class="comment">#将菜单在右上方显示</span></span><br><span class="line">       self.TextContextMenu.move(self.pos() + pos)</span><br></pre></td></tr></table></figure>
+<h4 id="3-自定义list-item"><a href="#3-自定义list-item" class="headerlink" title="3.自定义list item"></a>3.自定义list item</h4><p><a href="https://stackoverflow.com/questions/25187444/pyqt-qlistwidget-custom-items" target="_blank" rel="noopener">https://stackoverflow.com/questions/25187444/pyqt-qlistwidget-custom-items</a></p>
+<h4 id="4-Margin"><a href="#4-Margin" class="headerlink" title="4.Margin"></a>4.Margin</h4><p>(left, top, right, bottom)</p>
+<h4 id="5-信号额外参数传递"><a href="#5-信号额外参数传递" class="headerlink" title="5.信号额外参数传递"></a>5.信号额外参数传递</h4><p><a href="https://blog.csdn.net/fengyu09/article/details/39498777" target="_blank" rel="noopener">https://blog.csdn.net/fengyu09/article/details/39498777</a></p>
+<p><a href="https://codeday.me/bug/20190326/831567.html" target="_blank" rel="noopener">传递额外参数但是不影响默认信号</a></p>
+<h4 id="6-拖放技术"><a href="#6-拖放技术" class="headerlink" title="6.拖放技术"></a>6.拖放技术</h4><p><a href="https://www.jianshu.com/p/378ee9b63d48" target="_blank" rel="noopener">拖放技术</a></p>
+<p>使用拖放技术可实现在不同控件或应用之间的数据交换。使用该技术的典型示例是在Windows资源管理器中移动文件。要将文件移动到另一个目录，只需用鼠标左键单击文件图标差按住不放，将文件拖动到目标目录图标，然后释放鼠标按钮。如果要复制文件，而不是移动文件，则还要按住键。<br><strong>1.拖动</strong><br>(1) 在<code>mousePressEvent()</code>中，记录鼠标按下时的位置；<br>(2) 在<code>mouseMoveEvent ()</code>中，计算鼠标移动的距离，可用来防止无意的拖动。QApplication的下列静态方法可用来控制延迟量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">setstartDragDistance (Distance) - 拖动开始的最小移动量；</span><br><span class="line">startDragDistance() - 返回拖动开始的最小移动量；</span><br><span class="line">setstartDragTime (Time) -拖动开始的按压毫秒数；</span><br><span class="line">startDragTime () - 返回拖动开始的按压毫秒数；</span><br></pre></td></tr></table></figure>
+<p>(3) 鼠标移动超过最小移动值或按压鼠标超过最小毫秒数，拖动操作开始。此时，创建一个QDrag对象，调用exce()方法进行相关操作。QDrag有以下方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">exec( ) -  开始拖放操作,返回一个代表放置操作的枚举值。有两个格式：</span><br><span class="line">exec(supportedActions &#x3D; Qt.MoveAction)</span><br><span class="line">exec(supportedActions, defaultDropAction)</span><br><span class="line">详细用法参见http:&#x2F;&#x2F;doc.qt.io&#x2F;qt-5&#x2F;qdrag.html#exec</span><br><span class="line">setMimeData (QMimeData qmd) - 设置拖放中传输的数据, 参数为QMimeData类型。传输文本的例子：</span><br><span class="line">data &#x3D; QtCore.QMimeData ()</span><br><span class="line">data.setText (&quot;Drag text&quot;)</span><br><span class="line">drag &#x3D; QtGui.QDrag (self)</span><br><span class="line">drag.setMimeData (data)</span><br><span class="line">mimeData () - 返回拖放过程中传输数据的QMimeData 对象；</span><br><span class="line">setPixmap(QPixmap qpix) - 设定拖放过程鼠标显示的图像。如：</span><br><span class="line">drag.setPixmap (QtGui.QPixmap (&quot;dd representer.png&quot;))</span><br><span class="line">pixmap() - 返回拖放过程中鼠标显示图像的QPixmap对象；</span><br><span class="line">setHotSpot (QPoint pt) - 设置图像的热点位置。</span><br><span class="line">drag.setHotSpot (QtCore.QPoint (20, 20))</span><br><span class="line">hotSpot() - 返回热点位置的QPoint对象；</span><br><span class="line">setDragCursor (QPixmap pix, Qt.DropAction dact) - 设置拖放的鼠标形状。第一个参数为鼠标形状的QPixmap对象；第二参数为相关操作的枚举值，只能是 CopyAction, MoveAction 或LinkAction。drag.setDragCursor (QtGui.QPixmap (&quot;move_cursor.png&quot;), QtCore.Qt.MoveAction)</span><br><span class="line">dragCursor ( Qt.DropAction dact) - 返回dact操作的鼠标形状的QPixmap对象;</span><br><span class="line">source() - 返回源控件的引用；</span><br><span class="line">target() - 返回目标控件的引用。如果拖放的目标对象为另一应用，返回值为None.</span><br><span class="line">supportedActions () - 返回当前有效操作的组合值。</span><br><span class="line">defaultAction () - 返回缺省的操作。</span><br></pre></td></tr></table></figure><br>QDrag有两个信号：<br><code>actionChanged (Qt.DropAction dact)</code> - 当拖放的行为被该变时，发射该信号；<br><code>targetchanged (QWidget obj)</code> - 当目标控件被改变时，将会发射该信号；</p>
+<p><strong>2.QMineData类</strong><br>拖放过过程中的MIME类型的数据传递通过将QMineData对象作为参数调用QDrag的setMimeData()函数实现。<br>创建QMimeData方法：<br>data=QtCore.QMimeData()<br>QMimeData类支持以下方法（详见<a href="http://doc.qt.io/qt-5/qmimedata.html" target="_blank" rel="noopener">http://doc.qt.io/qt-5/qmimedata.html</a>):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">setText(text) - 设置文本数据（MIME型文本&#x2F;文本格式）:</span><br><span class="line">data.setText(&quot;拖动文本&quot;)</span><br><span class="line">text( ) - 返回文本数据;</span><br><span class="line">hasText( ) - 如果对象包含文本数据，则返回True，否则返回False。</span><br><span class="line">setHtml(HTML-text) - 以HTML格式设置文本数据（MIME型文本 &#x2F; html格式）:</span><br><span class="line">data.setHtml(&quot;拖动HTML文本&lt;&#x2F; b&gt;&quot;)</span><br><span class="line">html( ) - 返回HTML格式的文本数据;</span><br><span class="line">hasHtml( ) - 如果对象包含HTML格式的文本数据，则返回True，否则为False.</span><br><span class="line">setUrls( QList  url) - 设置地址列表，参数为QUrl类的列表；</span><br><span class="line">data.setUrls ([QtCore.QUrl (&quot;http:&#x2F;&#x2F;www.google.com&#x2F;&quot;)])</span><br><span class="line">urls () - 返回地址列表:</span><br><span class="line">url &#x3D; e.mimeData (). urls () [0] .toString ()</span><br><span class="line">hasUrls () - 如果对象包Url地址，则返回True，否则为False.</span><br><span class="line">setlmageData(QVarinat  img) - 设置图像数据，可以是QImage或QPixmap实例：</span><br><span class="line">data.setlmageData (QtGui.Qlmage(&quot;pixmap.png&quot;))</span><br><span class="line">data.setlmageData (QtGui.QPixmap(&quot;pixmap.png&quot;))</span><br><span class="line">imageData( ) - 返回图像对象;</span><br><span class="line">haslmage( ) - 如果对象包含图像数据，则返回True，否则为False.</span><br><span class="line">setData(QString mimetype, QCore.QByteData data) 设置任意类型的MIME类型数据；参数1为QString类型，指定MIME类型；参数2为QByteData类实例。该方法可以用MIME不同类型，多次调用：</span><br><span class="line">data.setData(&quot;text&#x2F;plain&quot;,QtCore.QByteArray (bytes (&quot;Data&quot;, &quot;utf-8&quot;)))</span><br><span class="line">data(QString mimetype) -  返回mimetype类型的QByteData数据对象;</span><br><span class="line">hasFormat(QString mimetype) -  如果对象包含mimetype类型数据，则返回True，否则为False.</span><br><span class="line">formats ( ) - 返回包括的mimetype类型列表；</span><br><span class="line">removeFormat (QString mimetype) - 删除mimetype类型的数据;</span><br><span class="line">clear ( ) - 删除所有数据。</span><br></pre></td></tr></table></figure>
+<p>如果要实现特殊类型数据的拖放，需要创建一个QMimeData子类，并重载retrieveData( ) 和 formats ( )方法。详细内容，请参考Qt文档。</p>
+<p><strong>3.放置操作</strong><br>在处理拖放对象之前，必须告诉系统该组件可以处理这些事件。 为此，要在组件的构造函数中，调用继承自QWidget类的setAcceptDrops方法，参数值为True：<br><code>self.setAcceptDrops（True）</code><br>拖放对象的过程执行如下：<br>在控件的dragEnterEvent()方法中，检查拖动的MIME类型数据。如果该控件能处理此类型数据，则调用事件对象的acceptProposedAction( )方法。如果要变更操作，则将新事件传递给事件对象的setDropAction( )方法，然后调用accept( )方法，而不是调用acceptProposedAction( )方法。<br>如果要限制控件的特定区域才能放置操作，必须在dragMoveEvent( )方法中处理。即当拖放进入到特定的区域，调用accept( QRect rect)方法，参数rect为特定区域的QRect对象。<br>在控件的dropEvent()方法中，完成相关操作。</p>
+<p>QWidget类的下列方法可以处理在拖放过程中发生的事件：</p>
+<pre><code>dragEnterEvent (self,event) - 当拖动进入到控件区域时调用。通过event参数， 可取得QDragEnterEvent实例;
+dragLeaveEvent(self,event) - 当拖动离开控件区域时调用。通过event参数， 可取得QDragLeaveEvent实例;
+dragMoveEvent (self, event) -当拖动在控件区域移动时调用。通过event参数， 可取得QDragMoveEvent实例;
+dropEvent (self, event) - 当拖动在控件区域放开时调用。通过event参数， 可取得QDropEvent实例;
+</code></pre><p>QDragLeaveEvent类继承自QEvent类，不附带任何其他信息。因为在该类中只要知道拖动的对象已经离开组件区域就够了。<br>相关类的继承顺序为：<br>QEvent - QDropEvent - QDragMoveEvent - QDragEnterEvent<br>QDragEnterEvent类中没有增加新方法。<br>QDropEvent类有下列方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mimeData( ) - 返回含有所传输数据和MIME类型信息的QMimeData类的实例；</span><br><span class="line">pos( ) - 返回QPoint类的实例，为拖放对象放置的整数坐标;</span><br><span class="line">posF( ) - 返回QPointF类的实例，为拖放对象放置的浮点坐标;</span><br><span class="line">possibleAction( ) - 返回拖放可能的操作组合,如:</span><br><span class="line">if e.possibleActions () &amp; QtCore.Qt.MoveAction:</span><br><span class="line">    print (&quot;MoveAction&quot;)</span><br><span class="line">if e.possibleActions () &amp; QtCore.Qt.CopyAction:</span><br><span class="line">    print (&quot;CopyAction&quot;)</span><br><span class="line">proposedAction( ) - 返回默认的放置操作；</span><br><span class="line">acceptProposedAction( ) - 表示已准备好接受传输的数据和由proposalAction( )返回的默认操作。该方法(或者accept()方法)必须在dragEnterEvent()中调用，否则，dropEvent()不会被调用。</span><br><span class="line">setDropAction (action) - 允许在放置时指定为action. 作了此设置后，必须调用accept( )方法, 而不是acceptProposedAction( )方法;</span><br><span class="line">dropAction( ) - 返回放置时进行的操作。如果用setDropAction( )进行了更改，可能与proposedAction ()的返回值不一致。</span><br><span class="line">keyboardModifiers( ) - 用于判断按下了哪些修饰键 (, , , 等.) ，可参考“PyQt5编程(18)：键盘事件”中的对应函数。</span><br><span class="line">mouseButtons () - 用于判断在拖放过程中按下的鼠标键;</span><br><span class="line">source( ) - 如果拖放是从另一个应用程来的，返回为None；否则，返回对拖放源控件的引用。</span><br></pre></td></tr></table></figure>
+<p>QDragMoveEvent类的方法有：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">accept (QRect rect) - 表明允许后续的移动操作。 rect用来指定可接受拖放操作的区域；</span><br><span class="line">ignore (QRect rect) - 表明不允许后续的移动操作。 rect用来指定不接受拖放操作的区域；;</span><br><span class="line">answerRect () - 返回可接受拖放操作区域的QRect对象。</span><br></pre></td></tr></table></figure><br>PyQt中的有些控件，如单行文本控件，已有拖放功能。因此，在自己实现拖放功能之前，请仔细阅读相关控件的文档。</p>
+<h4 id="7-List和Tree之间的拖拽事件"><a href="#7-List和Tree之间的拖拽事件" class="headerlink" title="7.List和Tree之间的拖拽事件"></a>7.List和Tree之间的拖拽事件</h4><p><a href="https://stackoverflow.com/questions/54837869/drag-items-between-qtreewidget-and-qlistwidget-in-pyqt5#comment96451219_54838206" target="_blank" rel="noopener">list和tree之间的拖拽</a></p>
+<p><a href="https://stackoverflow.com/questions/41595014/dragndrop-custom-widget-items-between-qlistwidgets" target="_blank" rel="noopener">listwidget中自定义widget的drag&amp;drop</a></p>
+<p><a href="http://www.xdbcb8.com/archives/701.html" target="_blank" rel="noopener">listview的使用</a></p>
+<p><a href="http://rowinggolfer.blogspot.com/2010/04/pyqt4-modelview-drag-drop-example.html" target="_blank" rel="noopener">pyqt model/view drag&amp;drop example</a></p>
+<h4 id="8-show和exec的区别"><a href="#8-show和exec的区别" class="headerlink" title="8. show和exec的区别"></a>8. show和exec的区别</h4><p>Pyqt中 QDialog  show和exec的区别</p>
+<p>QDialog的显示有两个函数show()和exec()。他们的区别在参考文档上的解释如下：</p>
+<p><strong>show():</strong><br>显示一个<strong>非模式</strong>对话框。控制权即刻返回给调用函数。<br>弹出窗口是否模式对话框，取决于modal属性的值。</p>
+<p>原文：Shows the dialog as a modeless dialog. Control returns immediately to the calling code.<br>The dialog will be modal or modeless according to the value of the modal property.</p>
+<p><strong>exec():</strong><br>显示一个<strong>模式</strong>对话框，并且锁住程序直到用户关闭该对话框为止。函数返回一个DialogCode结果。<br>在对话框弹出期间，用户不可以切换同程序下的其它窗口，直到该对话框被关闭。<br>原文：Shows the dialog as a modal dialog, blocking until the user closes it. The function returns a DialogCode result.<br>Users cannot interact with any other window in the same application until they close the dialog. </p>
+<p><strong>模式与非模式</strong></p>
+<p>模式对话框，就是在弹出窗口的时候，整个程序就被锁定了，处于等待状态，直到对话框被关闭。这时往往是需要对话框的返回值进行下面的操作。如：确认窗口（选择“是”或“否”）。<br>非模式对话框，在调用弹出窗口之后，调用即刻返回，继续下面的操作。这里只是一个调用指令的发出，不等待也不做任何处理。如：查找框。</p>
+<p>简单的理解：</p>
+<p><strong>首先这两个方法返回值不同。exec()有返回值，show()没有返回值。</strong></p>
+<p><strong>其次这两个方法的作用也不同。调用show()的作用仅仅是将widget及其上的内容都显示出来，控制权即刻返回给调用函数。而调用exec()后，调用线程将会被阻塞，锁住程序直到用户关闭该对话框，期间用户不可以切换同程序下的其它窗口直到Dialog关闭。</strong></p>
+<h4 id="9-只接受数字-amp-密文"><a href="#9-只接受数字-amp-密文" class="headerlink" title="9.只接受数字&amp;密文"></a>9.只接受数字&amp;密文</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">self.kernel1_size_text &#x3D; QtWidgets.QLineEdit()</span><br><span class="line">self.kernel1_size_text.setPlaceholderText(&#39;k-size&#39;)</span><br><span class="line">self.kernel1_size_text.setToolTip(&#39;kernel size(odd,odd)&#39;)</span><br><span class="line">self.kernel1_size_text.setValidator(QtGui.QIntValidator())  QtGui.QDoubleValidata</span><br><span class="line">self.kernel1_size_text.setEchoMode(QtWidgets.QLineEdit.Password)</span><br><span class="line">self.kernel1_size_text.setText(&#39;3&#39;)</span><br></pre></td></tr></table></figure>
+<h4 id="10-自定义信号和槽"><a href="#10-自定义信号和槽" class="headerlink" title="10.自定义信号和槽"></a>10.自定义信号和槽</h4><p><a href="https://blog.csdn.net/zhulove86/article/details/52563131" target="_blank" rel="noopener">自定义信号槽</a></p>
+<p><a href="https://stackoverflow.com/questions/2970312/pyqt4-qtcore-pyqtsignal-object-has-no-attribute-connect" target="_blank" rel="noopener">自定义信号必须放在类中函数的定义外</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">_signal = QtCore.pyqtSignal(str)  <span class="comment"># 定义信号,定义参数为str类型</span></span><br><span class="line">self._signal.emit(<span class="string">"正在打印，请稍候..."</span>)</span><br><span class="line">self._signal.connect(self.mySignal)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mySignal</span><span class="params">(self, string)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/29/git%E5%91%BD%E4%BB%A4/" rel="prev" title="git命令">
+      <i class="fa fa-chevron-left"></i> git命令
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/29/JavaScript/" rel="next" title="JavaScript">
+      JavaScript <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PYQT5"><span class="nav-number">1.</span> <span class="nav-text">PYQT5</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-QDockWidget"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.QDockWidget</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-右键菜单"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.右键菜单</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-自定义list-item"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.自定义list item</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Margin"><span class="nav-number">1.0.4.</span> <span class="nav-text">4.Margin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-信号额外参数传递"><span class="nav-number">1.0.5.</span> <span class="nav-text">5.信号额外参数传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-拖放技术"><span class="nav-number">1.0.6.</span> <span class="nav-text">6.拖放技术</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-List和Tree之间的拖拽事件"><span class="nav-number">1.0.7.</span> <span class="nav-text">7.List和Tree之间的拖拽事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-show和exec的区别"><span class="nav-number">1.0.8.</span> <span class="nav-text">8. show和exec的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-只接受数字-amp-密文"><span class="nav-number">1.0.9.</span> <span class="nav-text">9.只接受数字&amp;密文</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-自定义信号和槽"><span class="nav-number">1.0.10.</span> <span class="nav-text">10.自定义信号和槽</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xue Xuan"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Xue Xuan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sjtu-xx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sjtu-xx" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuexuan1997@gmail.com" title="E-Mail → mailto:xuexuan1997@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xue Xuan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'eMthrkXxWi9VDSG39hpPXkOi-gzGzoHsz',
+      appKey     : '40yWQRY3985h43auodOGjsIQ',
+      placeholder: "欢迎畅所欲言",
+      avatar     : 'ヾﾉ≧∀≦)o来啊，快活啊!',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

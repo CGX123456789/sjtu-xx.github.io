@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sjtu-xx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="常见的模型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kaggle笔记-2（常见模型）">
+<meta property="og:url" content="https://sjtu-xx.github.io/2020/02/06/kaggle%E7%AC%94%E8%AE%B0-2/index.html">
+<meta property="og:site_name" content="薛轩的个人博客">
+<meta property="og:description" content="常见的模型">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-06T07:11:56.000Z">
+<meta property="article:modified_time" content="2021-02-03T15:59:45.953Z">
+<meta property="article:author" content="Xue Xuan">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="kaggle">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://sjtu-xx.github.io/2020/02/06/kaggle%E7%AC%94%E8%AE%B0-2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>kaggle笔记-2（常见模型） | 薛轩的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">薛轩的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">XueXuan's blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sjtu-xx.github.io/2020/02/06/kaggle%E7%AC%94%E8%AE%B0-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Xue Xuan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="薛轩的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          kaggle笔记-2（常见模型）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-06 15:11:56" itemprop="dateCreated datePublished" datetime="2020-02-06T15:11:56+08:00">2020-02-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-03 23:59:45" itemprop="dateModified" datetime="2021-02-03T23:59:45+08:00">2021-02-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/06/kaggle%E7%AC%94%E8%AE%B0-2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/06/kaggle%E7%AC%94%E8%AE%B0-2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="常见的模型"><a href="#常见的模型" class="headerlink" title="常见的模型"></a>常见的模型</h1><a id="more"></a>
+<h2 id="监督模型"><a href="#监督模型" class="headerlink" title="监督模型"></a>监督模型</h2><h3 id="线性回归"><a href="#线性回归" class="headerlink" title="线性回归"></a>线性回归</h3><p>文本分类中线性模型具有很好的准确性。<br>对XOR问题线性模型难以区分<br>对于非线性问题，支持向量机往往结果更好</p>
+<h3 id="支持向量机"><a href="#支持向量机" class="headerlink" title="支持向量机"></a>支持向量机</h3><h3 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h3><p>回归和分类树</p>
+<h3 id="集成学习方法"><a href="#集成学习方法" class="headerlink" title="集成学习方法"></a>集成学习方法</h3><p>通过多个模型集成来获得最终结果</p>
+<ul>
+<li>随机森林</li>
+<li>Adaboost</li>
+<li>xgboost</li>
+</ul>
+<h2 id="无监督模型"><a href="#无监督模型" class="headerlink" title="无监督模型"></a>无监督模型</h2><h3 id="主成分分析"><a href="#主成分分析" class="headerlink" title="主成分分析"></a>主成分分析</h3><ol>
+<li>PCA<br>有线性约束<br>用法:<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> decomposition</span><br><span class="line">pca = decomposition.PCA(n_components=<span class="number">2</span>)</span><br><span class="line">pca.fit(data_x)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li>t-SNE<br>没有线性约束<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklean.manifold <span class="keyword">import</span> TSNE</span><br><span class="line">tsne = TSNE(random_state=<span class="number">20</span>)</span><br><span class="line">tsne.fit(data_x)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="聚类算法"><a href="#聚类算法" class="headerlink" title="聚类算法"></a>聚类算法</h3><ol>
+<li>KMeans<br>簇个数的选择,选择inertia下降慢的簇个数<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.cluster <span class="keyword">import</span> KMeans</span><br><span class="line">kmeans = KMeans(n_cluster=<span class="number">3</span>).fit(X)</span><br><span class="line">inertia = np.sqrt(kmeans.inertia_)</span><br></pre></td></tr></table></figure></li>
+<li><p>Affinity Propagation（近邻传播聚类）<br>不需要设置簇的个数，将每个数据视为一个节点，观察与其他节点的相似性。不断更新吸引度和归属度进行分析。</p>
+</li>
+<li><p>Spectral Clustering（谱聚类）<br>首先定义相似矩阵（用来确定两个数据之间的距离），该矩阵描述了一个以观测值为顶点，以观测值对间的估计相似度值为边权的完整图。对于上面定义的度量和二维观测，这是非常直观的-如果两个观测之间的边较短，则两个观测是相似的。我们想把图分解成两个子图，这样每个子图中的每个观察都与该子图中的另一个观察相似。</p>
+</li>
+<li><p>Agglomerative clustering（层次聚类）<br>将每个观测值赋给不同的簇，计算簇之间的距离，不断的合并最近邻的簇</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scipy.cluster <span class="keyword">import</span> hierarchy</span><br><span class="line"><span class="keyword">from</span> scipy.spatial.distance <span class="keyword">import</span> pdist</span><br><span class="line"></span><br><span class="line">X = np.zeros((<span class="number">150</span>,<span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">np.random.seed(seed=<span class="number">42</span>)</span><br><span class="line">X[:<span class="number">50</span>, <span class="number">0</span>] = np.random.normal(loc=<span class="number">0.0</span>, scale=<span class="number">.3</span>, size=<span class="number">50</span>)</span><br><span class="line">X[:<span class="number">50</span>, <span class="number">1</span>] = np.random.normal(loc=<span class="number">0.0</span>, scale=<span class="number">.3</span>, size=<span class="number">50</span>)</span><br><span class="line"></span><br><span class="line">X[<span class="number">50</span>:<span class="number">100</span>, <span class="number">0</span>] = np.random.normal(loc=<span class="number">2.0</span>, scale=<span class="number">.5</span>, size=<span class="number">50</span>)</span><br><span class="line">X[<span class="number">50</span>:<span class="number">100</span>, <span class="number">1</span>] = np.random.normal(loc=<span class="number">-1.0</span>, scale=<span class="number">.2</span>, size=<span class="number">50</span>)</span><br><span class="line"></span><br><span class="line">X[<span class="number">100</span>:<span class="number">150</span>, <span class="number">0</span>] = np.random.normal(loc=<span class="number">-1.0</span>, scale=<span class="number">.2</span>, size=<span class="number">50</span>)</span><br><span class="line">X[<span class="number">100</span>:<span class="number">150</span>, <span class="number">1</span>] = np.random.normal(loc=<span class="number">2.0</span>, scale=<span class="number">.5</span>, size=<span class="number">50</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># pdist will calculate the upper triangle of the pairwise distance matrix</span></span><br><span class="line">distance_mat = pdist(X) </span><br><span class="line"><span class="comment"># linkage — is an implementation if agglomerative algorithm</span></span><br><span class="line">Z = hierarchy.linkage(distance_mat, <span class="string">'single'</span>)</span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">5</span>))</span><br><span class="line">dn = hierarchy.dendrogram(Z, color_threshold=<span class="number">0.5</span>)</span><br></pre></td></tr></table></figure></li>
+<li>聚类结果的判定</li>
+</ol>
+<ul>
+<li>Adjusted Rand Index (ARI)</li>
+<li>Adjusted Mutual Information (AMI)</li>
+<li>Homogeneity, completeness, V-measure</li>
+<li>Silhouette</li>
+</ul>
+<ol>
+<li>聚类算法的使用<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> metrics</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> sklearn.cluster <span class="keyword">import</span> KMeans, AgglomerativeClustering, AffinityPropagation, SpectralClustering</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">data = datasets.load_digits()</span><br><span class="line">X, y = data.data, data.target</span><br><span class="line"></span><br><span class="line">algorithms = []</span><br><span class="line">algorithms.append(KMeans(n_clusters=<span class="number">10</span>, random_state=<span class="number">1</span>))</span><br><span class="line">algorithms.append(AffinityPropagation())</span><br><span class="line">algorithms.append(SpectralClustering(n_clusters=<span class="number">10</span>, random_state=<span class="number">1</span>,</span><br><span class="line">                                     affinity=<span class="string">'nearest_neighbors'</span>))</span><br><span class="line">algorithms.append(AgglomerativeClustering(n_clusters=<span class="number">10</span>))</span><br><span class="line"></span><br><span class="line">data = []</span><br><span class="line"><span class="keyword">for</span> algo <span class="keyword">in</span> algorithms:</span><br><span class="line">    algo.fit(X)</span><br><span class="line">    data.append((&#123;</span><br><span class="line">        <span class="string">'ARI'</span>: metrics.adjusted_rand_score(y, algo.labels_),</span><br><span class="line">        <span class="string">'AMI'</span>: metrics.adjusted_mutual_info_score(y, algo.labels_,</span><br><span class="line">                                                 average_method=<span class="string">'arithmetic'</span>),</span><br><span class="line">        <span class="string">'Homogenity'</span>: metrics.homogeneity_score(y, algo.labels_),</span><br><span class="line">        <span class="string">'Completeness'</span>: metrics.completeness_score(y, algo.labels_),</span><br><span class="line">        <span class="string">'V-measure'</span>: metrics.v_measure_score(y, algo.labels_),</span><br><span class="line">        <span class="string">'Silhouette'</span>: metrics.silhouette_score(X, algo.labels_)&#125;))</span><br><span class="line"></span><br><span class="line">results = pd.DataFrame(data=data, columns=[<span class="string">'ARI'</span>, <span class="string">'AMI'</span>, <span class="string">'Homogenity'</span>,</span><br><span class="line">                                           <span class="string">'Completeness'</span>, <span class="string">'V-measure'</span>, </span><br><span class="line">                                           <span class="string">'Silhouette'</span>],</span><br><span class="line">                       index=[<span class="string">'K-means'</span>, <span class="string">'Affinity'</span>, </span><br><span class="line">                              <span class="string">'Spectral'</span>, <span class="string">'Agglomerative'</span>])</span><br><span class="line"></span><br><span class="line">results</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="图像分类"><a href="#图像分类" class="headerlink" title="图像分类"></a>图像分类</h2><h3 id="普通卷积模型"><a href="#普通卷积模型" class="headerlink" title="普通卷积模型"></a>普通卷积模型</h3><p>两个卷积层+一个池化层</p>
+<h2 id="图像分割"><a href="#图像分割" class="headerlink" title="图像分割"></a>图像分割</h2><h3 id="U-NET：用于图像分割的卷积神经网路"><a href="#U-NET：用于图像分割的卷积神经网路" class="headerlink" title="U-NET：用于图像分割的卷积神经网路"></a>U-NET：用于图像分割的卷积神经网路</h3><p><a href="https://blog.csdn.net/Formlsl/article/details/80373200" target="_blank" rel="noopener">https://blog.csdn.net/Formlsl/article/details/80373200</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+              <a href="/tags/kaggle/" rel="tag"># kaggle</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/04/%E8%AE%AD%E7%BB%83%E6%B7%B1%E5%B1%82%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="prev" title="训练深层神经网络">
+      <i class="fa fa-chevron-left"></i> 训练深层神经网络
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/13/vtk%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%BA%BF/" rel="next" title="vtk流水线">
+      vtk流水线 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#常见的模型"><span class="nav-number">1.</span> <span class="nav-text">常见的模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#监督模型"><span class="nav-number">1.1.</span> <span class="nav-text">监督模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线性回归"><span class="nav-number">1.1.1.</span> <span class="nav-text">线性回归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支持向量机"><span class="nav-number">1.1.2.</span> <span class="nav-text">支持向量机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#决策树"><span class="nav-number">1.1.3.</span> <span class="nav-text">决策树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集成学习方法"><span class="nav-number">1.1.4.</span> <span class="nav-text">集成学习方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#无监督模型"><span class="nav-number">1.2.</span> <span class="nav-text">无监督模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主成分分析"><span class="nav-number">1.2.1.</span> <span class="nav-text">主成分分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚类算法"><span class="nav-number">1.2.2.</span> <span class="nav-text">聚类算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图像分类"><span class="nav-number">1.3.</span> <span class="nav-text">图像分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#普通卷积模型"><span class="nav-number">1.3.1.</span> <span class="nav-text">普通卷积模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图像分割"><span class="nav-number">1.4.</span> <span class="nav-text">图像分割</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#U-NET：用于图像分割的卷积神经网路"><span class="nav-number">1.4.1.</span> <span class="nav-text">U-NET：用于图像分割的卷积神经网路</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xue Xuan"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Xue Xuan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sjtu-xx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sjtu-xx" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuexuan1997@gmail.com" title="E-Mail → mailto:xuexuan1997@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xue Xuan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'eMthrkXxWi9VDSG39hpPXkOi-gzGzoHsz',
+      appKey     : '40yWQRY3985h43auodOGjsIQ',
+      placeholder: "欢迎畅所欲言",
+      avatar     : 'ヾﾉ≧∀≦)o来啊，快活啊!',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

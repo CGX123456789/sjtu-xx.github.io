@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sjtu-xx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="http:&#x2F;&#x2F;www.cnblogs.com&#x2F;linhaifeng&#x2F;articles&#x2F;5937962.html#_label4">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络">
+<meta property="og:url" content="https://sjtu-xx.github.io/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/index.html">
+<meta property="og:site_name" content="薛轩的个人博客">
+<meta property="og:description" content="http:&#x2F;&#x2F;www.cnblogs.com&#x2F;linhaifeng&#x2F;articles&#x2F;5937962.html#_label4">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image/1036857-20161008115246442-867569611.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image/1036857-20161008115341598-934171433.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image/1036857-20161008131010254-430615122.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image/1036857-20161008131301051-196580728.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image/1036857-20161008131410957-1579746437.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image/1036857-20161008145544426-736439132.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image/1036857-20161008144925254-1398507493.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image/1036857-20161008154500754-704720294.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image/1036857-20161008164852129-1597186542.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image/1036857-20161008171118317-164674895.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image/1036857-20161008172732957-102296982.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image/1036857-20161008185553973-1895926477.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image/1036857-20161008185648160-191189690.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image/1036857-20161008190023098-992049015.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image/1036857-20161013091647484-1707663286.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image/1036857-20161008191742160-1888861499.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image/640.jpg">
+<meta property="article:published_time" content="2020-06-29T12:49:08.000Z">
+<meta property="article:modified_time" content="2021-02-03T15:59:46.486Z">
+<meta property="article:author" content="Xue Xuan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sjtu-xx.github.io/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/image/1036857-20161008115246442-867569611.png">
+
+<link rel="canonical" href="https://sjtu-xx.github.io/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>计算机网络 | 薛轩的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">薛轩的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">XueXuan's blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sjtu-xx.github.io/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Xue Xuan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="薛轩的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计算机网络
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-29 20:49:08" itemprop="dateCreated datePublished" datetime="2020-06-29T20:49:08+08:00">2020-06-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-03 23:59:46" itemprop="dateModified" datetime="2021-02-03T23:59:46+08:00">2021-02-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">计算机基础</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/29/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a href="http://www.cnblogs.com/linhaifeng/articles/5937962.html#_label4" target="_blank" rel="noopener">http://www.cnblogs.com/linhaifeng/articles/5937962.html#_label4</a><br><a id="more"></a></p>
+<h1 id="一-操作系统基础"><a href="#一-操作系统基础" class="headerlink" title="一.操作系统基础"></a>一.操作系统基础</h1><p>  操作系统:(Operating System，简称OS)是管理和控制计算机硬件与软件资源的计算机程序，是直接运行在“裸机”上的最基本的系统软件，任何其他软件都必须在操作系统的支持下才能运行。</p>
+<p>注：计算机(硬件)－&gt;os－&gt;应用软件</p>
+<h1 id="二-网络通信原理"><a href="#二-网络通信原理" class="headerlink" title="二.网络通信原理"></a>二.网络通信原理</h1><h2 id="2-1-互联网的本质就是一系列的网络协议"><a href="#2-1-互联网的本质就是一系列的网络协议" class="headerlink" title="2.1 互联网的本质就是一系列的网络协议"></a>2.1 互联网的本质就是一系列的网络协议</h2><p>一台硬设有了操作系统，然后装上软件你就可以正常使用了，然而你也只能自己使用</p>
+<p>像这样，每个人都拥有一台自己的机器，然而彼此孤立</p>
+<p><img src="image/1036857-20161008115246442-867569611.png" alt="img"></p>
+<p>如何能大家一起玩耍</p>
+<p><img src="image/1036857-20161008115341598-934171433.png" alt="img"></p>
+<p>然而internet为何物？</p>
+<p>其实两台计算机之间通信与两个人打电话之间通信的原理是一样的（中国有很多地区，不同的地区有不同的方言，为了全中国人都可以听懂，大家统一讲普通话）</p>
+<p><img src="image/1036857-20161008131010254-430615122.png" alt="img"></p>
+<p>普通话属于中国国内人与人之间通信的标准，那如果是两个国家的人交流呢？</p>
+<p><img src="image/1036857-20161008131301051-196580728.png" alt="img"></p>
+<p>问题是，你不可能要求一个人／计算机掌握全世界的语言／标准，于是有了世界统一的通信标准：英语</p>
+<p><img src="image/1036857-20161008131410957-1579746437.png" alt="img"></p>
+<p>结论：英语成为世界上所有人通信的统一标准，如果把计算机看成分布于世界各地的人，那么连接两台计算机之间的internet实际上就是</p>
+<p>一系列统一的标准，这些标准称之为互联网协议，互联网的本质就是一系列的协议，总称为‘互联网协议’（Internet Protocol Suite).</p>
+<p>互联网协议的功能：定义计算机如何接入internet，以及接入internet的计算机通信的标准。</p>
+<h2 id="2-2-osi七层协议"><a href="#2-2-osi七层协议" class="headerlink" title="2.2 osi七层协议"></a>2.2 osi七层协议</h2><p>互联网协议按照功能不同分为osi七层或tcp/ip五层或tcp/ip四层</p>
+<p><img src="image/1036857-20161008145544426-736439132.png" alt="img"></p>
+<p>每层运行常见物理设备</p>
+<p><img src="image/1036857-20161008144925254-1398507493.png" alt="img"></p>
+<h2 id="2-3-tcp-ip五层模型讲解"><a href="#2-3-tcp-ip五层模型讲解" class="headerlink" title="2.3 tcp/ip五层模型讲解"></a>2.3 tcp/ip五层模型讲解</h2><p>我们将应用层，表示层，会话层并作应用层，从tcp／ip五层协议的角度来阐述每层的由来与功能，搞清楚了每层的主要协议</p>
+<p>就理解了整个互联网通信的原理。</p>
+<p>首先，用户感知到的只是最上面一层应用层，自上而下每层都依赖于下一层，所以我们从最下一层开始切入，比较好理解</p>
+<p>每层都运行特定的协议，越往上越靠近用户，越往下越靠近硬件</p>
+<h3 id="2-3-1-物理层"><a href="#2-3-1-物理层" class="headerlink" title="2.3.1 物理层"></a>2.3.1 物理层</h3><p>物理层由来：上面提到，孤立的计算机之间要想一起玩，就必须接入internet，言外之意就是计算机之间必须完成组网</p>
+<p><img src="image/1036857-20161008154500754-704720294.png" alt="img"></p>
+<p>物理层功能：主要是基于电器特性发送高低电压(电信号)，高电压对应数字1，低电压对应数字0</p>
+<h3 id="2-3-2-数据链路层"><a href="#2-3-2-数据链路层" class="headerlink" title="2.3.2 数据链路层"></a>2.3.2 数据链路层</h3><p>数据链路层由来：单纯的电信号0和1没有任何意义，必须规定电信号多少位一组，每组什么意思</p>
+<p>数据链路层的功能：定义了电信号的分组方式</p>
+<p><strong><em>以太网协议：</em></strong></p>
+<p>早期的时候各个公司都有自己的分组方式，后来形成了统一的标准，即以太网协议ethernet</p>
+<p>ethernet规定</p>
+<ul>
+<li>一组电信号构成一个数据包，叫做‘帧’</li>
+<li>每一数据帧分成：报头head和数据data两部分</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>head</th>
+<th>data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>head包含：(固定18个字节)</p>
+<ul>
+<li>发送者／源地址，6个字节</li>
+<li>接收者／目标地址，6个字节</li>
+<li>数据类型，6个字节</li>
+</ul>
+<p>data包含：(最短46字节，最长1500字节)</p>
+<ul>
+<li>数据包的具体内容</li>
+</ul>
+<p>head长度＋data长度＝最短64字节，最长1518字节，超过最大限制就分片发送</p>
+<p><strong><em>mac地址：</em></strong></p>
+<p>head中包含的源和目标地址由来：ethernet规定接入internet的设备都必须具备网卡，发送端和接收端的地址便是指网卡的地址，即mac地址</p>
+<p>mac地址：每块网卡出厂时都被烧制上一个世界唯一的mac地址，长度为48位2进制，通常由12位16进制数表示（前六位是厂商编号，后六位是流水线号）</p>
+<p><img src="image/1036857-20161008164852129-1597186542.png" alt="img"></p>
+<p><strong>广播：</strong></p>
+<p>有了mac地址，同一网络内的两台主机就可以通信了（一台主机通过arp协议获取另外一台主机的mac地址）</p>
+<p>ethernet采用最原始的方式，广播的方式进行通信，即计算机通信基本靠吼</p>
+<p><img src="image/1036857-20161008171118317-164674895.png" alt="img"></p>
+<h3 id="2-3-3-网络层"><a href="#2-3-3-网络层" class="headerlink" title="2.3.3 网络层"></a>2.3.3 网络层</h3><p>网络层由来：有了ethernet、mac地址、广播的发送方式，世界上的计算机就可以彼此通信了，问题是世界范围的互联网是由</p>
+<p>一个个彼此隔离的小的局域网组成的，那么如果所有的通信都采用以太网的广播方式，那么一台机器发送的包全世界都会收到，</p>
+<p>这就不仅仅是效率低的问题了，这会是一种灾难</p>
+<p><img src="image/1036857-20161008172732957-102296982.png" alt="img"></p>
+<p>上图结论：必须找出一种方法来区分哪些计算机属于同一广播域，哪些不是，如果是就采用广播的方式发送，如果不是，</p>
+<p>就采用路由的方式（向不同广播域／子网分发数据包），mac地址是无法区分的，它只跟厂商有关</p>
+<p>网络层功能：引入一套新的地址用来区分不同的广播域／子网，这套地址即网络地址</p>
+<p><strong><em>IP协议：</em></strong></p>
+<ul>
+<li>规定网络地址的协议叫ip协议，它定义的地址称之为ip地址，广泛采用的v4版本即ipv4，它规定网络地址由32位2进制表示</li>
+<li>范围0.0.0.0-255.255.255.255</li>
+<li>一个ip地址通常写成四段十进制数，例：172.16.10.1</li>
+</ul>
+<p><strong>ip地址分成两部分</strong></p>
+<ul>
+<li>网络部分：标识子网</li>
+<li>主机部分：标识主机</li>
+</ul>
+<p>注意：单纯的ip地址段只是标识了ip地址的种类，从网络部分或主机部分都无法辨识一个ip所处的子网</p>
+<p>例：172.16.10.1与172.16.10.2并不能确定二者处于同一子网</p>
+<p><strong><em>子网掩码</em></strong></p>
+<p>所谓”子网掩码”，就是表示子网络特征的一个参数。它在形式上等同于IP地址，也是一个32位二进制数字，它的网络部分全部为1，主机部分全部为0。比如，IP地址172.16.10.1，如果已知网络部分是前24位，主机部分是后8位，那么子网络掩码就是11111111.11111111.11111111.00000000，写成十进制就是255.255.255.0。</p>
+<p>知道”子网掩码”，我们就能判断，任意两个IP地址是否处在同一个子网络。方法是将两个IP地址与子网掩码分别进行AND运算（两个数位都为1，运算结果为1，否则为0），然后比较结果是否相同，如果是的话，就表明它们在同一个子网络中，否则就不是。</p>
+<p>比如，已知IP地址172.16.10.1和172.16.10.2的子网掩码都是255.255.255.0，请问它们是否在同一个子网络？两者与子网掩码分别进行AND运算，</p>
+<p>172.16.10.1：10101100.00010000.00001010.000000001</p>
+<p>255255.255.255.0:11111111.11111111.11111111.00000000</p>
+<p>AND运算得网络地址结果：10101100.00010000.00001010.000000001-&gt;172.16.10.0</p>
+<p>172.16.10.2：10101100.00010000.00001010.000000010</p>
+<p>255255.255.255.0:11111111.11111111.11111111.00000000</p>
+<p>AND运算得网络地址结果：10101100.00010000.00001010.000000001-&gt;172.16.10.0</p>
+<p>结果都是172.16.10.0，因此它们在同一个子网络。</p>
+<p>总结一下，IP协议的作用主要有两个，一个是为每一台计算机分配IP地址，另一个是确定哪些地址在同一个子网络。</p>
+<p><strong><em>ip数据包</em></strong></p>
+<p>ip数据包也分为head和data部分，无须为ip包定义单独的栏位，直接放入以太网包的data部分</p>
+<p>head：长度为20到60字节</p>
+<p>data：最长为65,515字节。</p>
+<p>而以太网数据包的”数据”部分，最长只有1500字节。因此，如果IP数据包超过了1500字节，它就需要分割成几个以太网数据包，分开发送了。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>以太网头</th>
+<th>ip 头</th>
+<th>ip数据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p> <strong><em>ARP协议</em></strong></p>
+<p>arp协议由来：计算机通信基本靠吼，即广播的方式，所有上层的包到最后都要封装上以太网头，然后通过以太网协议发送，在谈及以太网协议时候，我门了解到</p>
+<p>通信是基于mac的广播方式实现，计算机在发包时，获取自身的mac是容易的，如何获取目标主机的mac，就需要通过arp协议</p>
+<p>arp协议功能：广播的方式发送数据包，获取目标主机的mac地址</p>
+<p>协议工作方式：每台主机ip都是已知的</p>
+<p>例如：主机172.16.10.10/24访问172.16.10.11/24</p>
+<p>一：首先通过ip地址和子网掩码区分出自己所处的子网</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>数据包地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>同一子网</td>
+<td>目标主机mac，目标主机ip</td>
+</tr>
+<tr>
+<td>不同子网</td>
+<td>网关mac，目标主机ip</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>二：分析172.16.10.10/24与172.16.10.11/24处于同一网络(如果不是同一网络，那么下表中目标ip为172.16.10.1,通过arp获取的是网关的mac)</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>源mac</th>
+<th>目标mac</th>
+<th>源ip</th>
+<th>目标ip</th>
+<th>数据部分</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>发送端主机</td>
+<td>发送端mac</td>
+<td>FF:FF:FF:FF:FF:FF</td>
+<td>172.16.10.10/24</td>
+<td>172.16.10.11/24</td>
+<td>数据</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>三：这个包会以广播的方式在发送端所处的自网内传输，所有主机接收后拆开包，发现目标ip为自己的，就响应，返回自己的mac</p>
+<h3 id="2-3-4-传输层"><a href="#2-3-4-传输层" class="headerlink" title="2.3.4 传输层"></a>2.3.4 传输层</h3><p>传输层的由来：网络层的ip帮我们区分子网，以太网层的mac帮我们找到主机，然后大家使用的都是应用程序，你的电脑上可能同时开启qq，暴风影音，等多个应用程序，</p>
+<p>那么我们通过ip和mac找到了一台特定的主机，如何标识这台主机上的应用程序，答案就是端口，端口即应用程序与网卡关联的编号。</p>
+<p>传输层功能：建立端口到端口的通信</p>
+<p>补充：端口范围0-65535，0-1023为系统占用端口</p>
+<p>tcp协议：</p>
+<p>可靠传输，TCP数据包没有长度限制，理论上可以无限长，但是为了保证网络的效率，通常TCP数据包的长度不会超过IP数据包的长度，以确保单个TCP数据包不必再分割。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>以太网头</th>
+<th>ip 头</th>
+<th>tcp头</th>
+<th>数据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>udp协议：</p>
+<p>不可靠传输，”报头”部分一共只有8个字节，总长度不超过65,535字节，正好放进一个IP数据包。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>以太网头</th>
+<th>ip头</th>
+<th>udp头</th>
+<th>数据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>tcp报文</p>
+<p><img src="image/1036857-20161008185553973-1895926477.png" alt="img"></p>
+<p>tcp三次握手和四次挥手</p>
+<p><img src="image/1036857-20161008185648160-191189690.png" alt="img"></p>
+<p>发送端接受到接收端的ack响应后才会清空发送端内核态的缓存。</p>
+<h3 id="TCP协议与UDP协议的区别"><a href="#TCP协议与UDP协议的区别" class="headerlink" title="TCP协议与UDP协议的区别"></a><strong>TCP协议与UDP协议的区别</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">首先咱们弄清楚，TCP协议和UCP协议与TCP&#x2F;IP协议的联系，很多人犯糊涂了，</span><br><span class="line">一直都是说TCP协议与UDP协议的区别，我觉得这是没有从本质上弄清楚网络通信！</span><br></pre></td></tr></table></figure>
+<p>TCP/IP协议是一个协议簇。里面包括很多协议的，UDP只是其中的一个， 之所以命名为TCP/IP协议，因为TCP、IP协议是两个很重要的协议，就用他两命名了。</p>
+<p>TCP/IP协议集包括应用层,传输层，网络层，网络访问层。</p>
+<h4 id="其中应用层包括"><a href="#其中应用层包括" class="headerlink" title="其中应用层包括:"></a>其中应用层包括:</h4><p>1、超文本传输协议（HTTP）:万维网的基本协议；<br>2、文件传输（TFTP简单文件传输协议）；<br>3、远程登录（Telnet），提供远程访问其它主机功能, 它允许用户登录internet主机，并在这台主机上执行命令；<br>4、网络管理（SNMP简单网络管理协议），该协议提供了监控网络设备的方法， 以及配置管理,统计信息收集,性能管理及安全管理等；<br>5、域名系统（DNS），该系统用于在internet中将域名及其公共广播的网络节点转换成IP地址。</p>
+<h4 id="其次网络层包括"><a href="#其次网络层包括" class="headerlink" title="其次网络层包括:"></a>其次网络层包括:</h4><p>1、Internet协议（IP）；<br>2、Internet控制信息协议（ICMP）；<br>3、地址解析协议（ARP）；<br>4、反向地址解析协议（RARP）。</p>
+<h4 id="最后说网络访问层"><a href="#最后说网络访问层" class="headerlink" title="最后说网络访问层:"></a>最后说网络访问层:</h4><p>网络访问层又称作主机到网络层（host-to-network），网络访问层的功能包括IP地址与物理地址硬件的映射， 以及将IP封装成帧.基于不同硬件类型的网络接口，网络访问层定义了和物理介质的连接. 当然我这里说得不够完善，TCP/IP协议本来就是一门学问，每一个分支都是一个很复杂的流程， 但我相信每位学习软件开发的同学都有必要去仔细了解一番。</p>
+<h2 id="下面着重讲解一下TCP协议和UDP协议的区别"><a href="#下面着重讲解一下TCP协议和UDP协议的区别" class="headerlink" title="下面着重讲解一下TCP协议和UDP协议的区别"></a><strong>下面着重讲解一下TCP协议和UDP协议的区别</strong></h2><p>TCP（Transmission Control Protocol，传输控制协议）是面向连接的协议，也就是说，在收发数据前，必须和对方建立可靠的连接。 一个TCP连接必须要经过三次“对话”才能建立起来，其中的过程非常复杂， 只简单的描述下这三次对话的简单过程：</p>
+<p>1）主机A向主机B发出连接请求数据包：“我想给你发数据，可以吗？”，这是第一次对话；</p>
+<p>2）主机B向主机A发送同意连接和要求同步 （同步就是两台主机一个在发送，一个在接收，协调工作）的数据包 ：“可以，你什么时候发？”，这是第二次对话；</p>
+<p>3）主机A再发出一个数据包确认主机B的要求同步：“我现在就发，你接着吧！”， 这是第三次对话。</p>
+<p>三次“对话”的目的是使数据包的发送和接收同步， 经过三次“对话”之后，主机A才向主机B正式发送数据。</p>
+<h4 id="TCP三次握手过程"><a href="#TCP三次握手过程" class="headerlink" title="TCP三次握手过程"></a><strong>TCP三次握手过程</strong></h4><p>第一次握手：主机A通过向主机B 发送一个含有同步序列号的标志位的数据段给主机B，向主机B 请求建立连接，通过这个数据段， 主机A告诉主机B 两件事：我想要和你通信；你可以用哪个序列号作为起始数据段来回应我。</p>
+<p>第二次握手：主机B 收到主机A的请求后，用一个带有确认应答（ACK）和同步序列号（SYN）标志位的数据段响应主机A，也告诉主机A两件事：我已经收到你的请求了，你可以传输数据了；你要用那个序列号作为起始数据段来回应我</p>
+<p>第三次握手：主机A收到这个数据段后，再发送一个确认应答，确认已收到主机B 的数据段：”我已收到回复，我现在要开始传输实际数据了，这样3次握手就完成了，主机A和主机B 就可以传输数据了。</p>
+<h4 id="3次握手的特点"><a href="#3次握手的特点" class="headerlink" title="3次握手的特点"></a><strong>3次握手的特点</strong></h4><p>没有应用层的数据 ,SYN这个标志位只有在TCP建立连接时才会被置1 ,握手完成后SYN标志位被置0。</p>
+<p>、</p>
+<h4 id="TCP建立连接要进行3次握手，而断开连接要进行4次"><a href="#TCP建立连接要进行3次握手，而断开连接要进行4次" class="headerlink" title="TCP建立连接要进行3次握手，而断开连接要进行4次"></a><strong>TCP建立连接要进行3次握手，而断开连接要进行4次</strong></h4><p>第一次： 当主机A完成数据传输后,将控制位FIN置1，提出停止TCP连接的请求 ；</p>
+<p>第二次： 主机B收到FIN后对其作出响应，确认这一方向上的TCP连接将关闭,将ACK置1；</p>
+<p>第三次： 由B 端再提出反方向的关闭请求,将FIN置1 ；</p>
+<p>第四次： 主机A对主机B的请求进行确认，将ACK置1，双方向的关闭结束.。</p>
+<p>由TCP的三次握手和四次断开可以看出，TCP使用面向连接的通信方式， 大大提高了数据通信的可靠性，使发送数据端和接收端在数据正式传输前就有了交互， 为数据正式传输打下了可靠的基础。</p>
+<h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><p>1、ACK 是TCP报头的控制位之一，对数据进行确认。确认由目的端发出， 用它来告诉发送端这个序列号之前的数据段都收到了。 比如确认号为X，则表示前X-1个数据段都收到了，只有当ACK=1时,确认号才有效，当ACK=0时，确认号无效，这时会要求重传数据，保证数据的完整性。</p>
+<p>2、SYN 同步序列号，TCP建立连接时将这个位置1。</p>
+<p>3、FIN 发送端完成发送任务位，当TCP完成数据传输需要断开时,，提出断开连接的一方将这位置1。</p>
+<h4 id="TCP的包头结构："><a href="#TCP的包头结构：" class="headerlink" title="TCP的包头结构："></a>TCP的包头结构：</h4><p>源端口 16位；</p>
+<p>目标端口 16位；</p>
+<p>序列号 32位；</p>
+<p>回应序号 32位；</p>
+<p>TCP头长度 4位；</p>
+<p>reserved 6位；</p>
+<p>控制代码 6位；</p>
+<p>窗口大小 16位；</p>
+<p>偏移量 16位；</p>
+<p>校验和 16位；</p>
+<p>选项 32位(可选)；</p>
+<p>这样我们得出了TCP包头的最小长度，为20字节。</p>
+<h4 id="UDP（User-Data-Protocol，用户数据报协议）"><a href="#UDP（User-Data-Protocol，用户数据报协议）" class="headerlink" title="UDP（User Data Protocol，用户数据报协议）"></a><strong>UDP（User Data Protocol，用户数据报协议）</strong></h4><p>1、UDP是一个非连接的协议，传输数据之前源端和终端不建立连接， 当它想传送时就简单地去抓取来自应用程序的数据，并尽可能快地把它扔到网络上。 在发送端，UDP传送数据的速度仅仅是受应用程序生成数据的速度、 计算机的能力和传输带宽的限制； 在接收端，UDP把每个消息段放在队列中，应用程序每次从队列中读一个消息段。</p>
+<p>2、 由于传输数据不建立连接，因此也就不需要维护连接状态，包括收发状态等， 因此一台服务机可同时向多个客户机传输相同的消息。</p>
+<p>3、UDP信息包的标题很短，只有8个字节，相对于TCP的20个字节信息包的额外开销很小。</p>
+<p>4、吞吐量不受拥挤控制算法的调节，只受应用软件生成数据的速率、传输带宽、 源端和终端主机性能的限制。</p>
+<p>5、UDP使用尽最大努力交付，即不保证可靠交付， 因此主机不需要维持复杂的链接状态表（这里面有许多参数）。</p>
+<p>6、UDP是面向报文的。发送方的UDP对应用程序交下来的报文， 在添加首部后就向下交付给IP层。既不拆分，也不合并，而是保留这些报文的边界， 因此，应用程序需要选择合适的报文大小。</p>
+<p>我们经常使用“ping”命令来测试两台主机之间TCP/IP通信是否正常， 其实“ping”命令的原理就是向对方主机发送UDP数据包，然后对方主机确认收到数据包， 如果数据包是否到达的消息及时反馈回来，那么网络就是通的。</p>
+<p><strong>ping命令</strong>是用来探测主机到主机之间是否可通信，如果不能<strong>ping</strong>到某台主机，表明不能和这台主机建立连接。<strong>ping命令</strong>是使用 IP 和网络控制信息协议 (ICMP)，因而没有涉及到任何传输协议(UDP/TCP) 和应用程序。它发送icmp回送请求消息给目的主机。</p>
+<p>ICMP协议规定：目的主机必须返回ICMP回送应答消息给源主机。如果源主机在一定时间内收到应答，则认为主机可达。</p>
+<h4 id="UDP的包头结构："><a href="#UDP的包头结构：" class="headerlink" title="UDP的包头结构："></a><strong>UDP的包头结构：</strong></h4><p>源端口 16位</p>
+<p>目的端口 16位</p>
+<p>长度 16位</p>
+<p>校验和 16位</p>
+<h4 id="小结TCP与UDP的区别："><a href="#小结TCP与UDP的区别：" class="headerlink" title="小结TCP与UDP的区别："></a><strong>小结TCP与UDP的区别：</strong></h4><p>1、基于连接与无连接；</p>
+<p>2、对系统资源的要求（TCP较多，UDP少）；</p>
+<p>3、UDP程序结构较简单；</p>
+<p>4、流模式与数据报模式 ；</p>
+<p>5、TCP保证数据正确性，UDP可能丢包；</p>
+<p>6、TCP保证数据顺序，UDP不保证。</p>
+<h3 id="2-3-5-应用层"><a href="#2-3-5-应用层" class="headerlink" title="2.3.5 应用层"></a>2.3.5 应用层</h3><p>应用层由来：用户使用的都是应用程序，均工作于应用层，互联网是开发的，大家都可以开发自己的应用程序，数据多种多样，必须规定好数据的组织形式 </p>
+<p>应用层功能：规定应用程序的数据格式。</p>
+<p>例：TCP协议可以为各种各样的程序传递数据，比如Email、WWW、FTP等等。那么，必须有不同协议规定电子邮件、网页、FTP数据的格式，这些应用程序协议就构成了”应用层”。</p>
+<p> <img src="image/1036857-20161008190023098-992049015.png" alt="img"></p>
+<h3 id="2-3-6-socket"><a href="#2-3-6-socket" class="headerlink" title="2.3.6 socket"></a>2.3.6 socket</h3><p>我们知道两个进程如果需要进行通讯最基本的一个前提能能够唯一的标示一个进程，在本地进程通讯中我们可以使用PID来唯一标示一个进程，但PID只在本地唯一，网络中的两个进程PID冲突几率很大，这时候我们需要另辟它径了，我们知道IP层的ip地址可以唯一标示主机，而TCP层协议和端口号可以唯一标示主机的一个进程，这样我们可以利用ip地址＋协议＋端口号唯一标示网络中的一个进程。</p>
+<p>能够唯一标示网络中的进程后，它们就可以利用socket进行通信了，什么是socket呢？我们经常把socket翻译为套接字，socket是在应用层和传输层之间的一个抽象层，它把TCP/IP层复杂的操作抽象为几个简单的接口供应用层调用已实现进程在网络中通信。</p>
+<p><img src="image/1036857-20161013091647484-1707663286.png" alt="img"></p>
+<p>socket起源于UNIX，在Unix一切皆文件哲学的思想下，socket是一种”打开—读/写—关闭”模式的实现，服务器和客户端各自维护一个”文件”，在建立连接打开后，可以向自己文件写入内容供对方读取或者读取对方内容，通讯结束时关闭文件。</p>
+<h1 id="三-网络通信实现"><a href="#三-网络通信实现" class="headerlink" title="三.网络通信实现"></a>三.网络通信实现</h1><p>想实现网络通信，每台主机需具备四要素</p>
+<ul>
+<li>本机的IP地址</li>
+<li>子网掩码</li>
+<li>网关的IP地址</li>
+<li>DNS的IP地址</li>
+</ul>
+<p>获取这四要素分两种方式</p>
+<p>1.静态获取</p>
+<p>即手动配置</p>
+<p>2.动态获取</p>
+<p>通过dhcp获取</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>以太网头</th>
+<th>ip头</th>
+<th>udp头</th>
+<th>dhcp数据包</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>（1）最前面的”以太网标头”，设置发出方（本机）的MAC地址和接收方（DHCP服务器）的MAC地址。前者就是本机网卡的MAC地址，后者这时不知道，就填入一个广播地址：FF-FF-FF-FF-FF-FF。</p>
+<p>（2）后面的”IP标头”，设置发出方的IP地址和接收方的IP地址。这时，对于这两者，本机都不知道。于是，发出方的IP地址就设为0.0.0.0，接收方的IP地址设为255.255.255.255。</p>
+<p>（3）最后的”UDP标头”，设置发出方的端口和接收方的端口。这一部分是DHCP协议规定好的，发出方是68端口，接收方是67端口。</p>
+<p>这个数据包构造完成后，就可以发出了。以太网是广播发送，同一个子网络的每台计算机都收到了这个包。因为接收方的MAC地址是FF-FF-FF-FF-FF-FF，看不出是发给谁的，所以每台收到这个包的计算机，还必须分析这个包的IP地址，才能确定是不是发给自己的。当看到发出方IP地址是0.0.0.0，接收方是255.255.255.255，于是DHCP服务器知道”这个包是发给我的”，而其他计算机就可以丢弃这个包。</p>
+<p> 接下来，DHCP服务器读出这个包的数据内容，分配好IP地址，发送回去一个”DHCP响应”数据包。这个响应包的结构也是类似的，以太网标头的MAC地址是双方的网卡地址，IP标头的IP地址是DHCP服务器的IP地址（发出方）和255.255.255.255（接收方），UDP标头的端口是67（发出方）和68（接收方），分配给请求端的IP地址和本网络的具体参数则包含在Data部分。</p>
+<p>新加入的计算机收到这个响应包，于是就知道了自己的IP地址、子网掩码、网关地址、DNS服务器等等参数</p>
+<h1 id="四-网络通信流程"><a href="#四-网络通信流程" class="headerlink" title="四.网络通信流程"></a>四.网络通信流程</h1><p>1.本机获取</p>
+<ul>
+<li>本机的IP地址：192.168.1.100</li>
+<li>子网掩码：255.255.255.0</li>
+<li>网关的IP地址：192.168.1.1</li>
+<li>DNS的IP地址：8.8.8.8</li>
+</ul>
+<p>2.打开浏览器，想要访问Google，在地址栏输入了网址：www.google.com。</p>
+<p>3.dns协议(基于udp协议)</p>
+<p><img src="image/1036857-20161008191742160-1888861499.png" alt="img"></p>
+<p>13台根dns：</p>
+<p>A.root-servers.net198.41.0.4美国<br>B.root-servers.net192.228.79.201美国（另支持<a href="https://www.baidu.com/s?wd=IPv6&amp;tn=44039180_cpr&amp;fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1d9ryR4nhnsn1b3ujfYPAfk0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3ErH0YPW6snH0" target="_blank" rel="noopener">IPv6</a>）<br>C.root-servers.net192.33.4.12法国<br>D.root-servers.net128.8.10.90美国<br>E.root-servers.net192.203.230.10美国<br>F.root-servers.net192.5.5.241美国（另支持<a href="https://www.baidu.com/s?wd=IPv6&amp;tn=44039180_cpr&amp;fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1d9ryR4nhnsn1b3ujfYPAfk0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3ErH0YPW6snH0" target="_blank" rel="noopener">IPv6</a>）<br>G.root-servers.net192.112.36.4美国<br>H.root-servers.net128.63.2.53美国（另支持<a href="https://www.baidu.com/s?wd=IPv6&amp;tn=44039180_cpr&amp;fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1d9ryR4nhnsn1b3ujfYPAfk0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3ErH0YPW6snH0" target="_blank" rel="noopener">IPv6</a>）<br>I.root-servers.net192.36.148.17瑞典<br>J.root-servers.net192.58.128.30美国<br>K.root-servers.net193.0.14.129英国（另支持IPv6）<br>L.root-servers.net198.32.64.12美国<br>M.root-servers.net202.12.27.33日本（另支持IPv6） </p>
+<p>域名定义：<a href="http://jingyan.baidu.com/article/1974b289a649daf4b1f774cb.html" target="_blank" rel="noopener">http://jingyan.baidu.com/article/1974b289a649daf4b1f774cb.html</a></p>
+<p>顶级域名：以.com,.net,.org,.cn等等属于国际顶级域名，根据目前的国际互联网域名体系，国际顶级域名分为两类：类别顶级域名(gTLD)和地理顶级域名(ccTLD)两种。类别顶级域名是　　　　　　　　            以”COM”、”NET”、”ORG”、”BIZ”、”INFO”等结尾的域名，均由国外公司负责管理。地理顶级域名是以国家或地区代码为结尾的域名，如”CN”代表中国，”UK”代表英国。地理顶级域名一般由各个国家或地区负责管理。</p>
+<p>二级域名：二级域名是以顶级域名为基础的地理域名，比喻中国的二级域有，.com.cn,.net.cn,.org.cn,.gd.cn等.子域名是其父域名的子域名，比喻父域名是abc.com,子域名就是www.abc.com或者<em>.abc.com.<br>一般来说，二级域名是域名的一条记录，比如alidiedie.com是一个域名，www.alidiedie.com是其中比较常用的记录，一般默认是用这个，但是类似</em>.alidiedie.com的域名全部称作是alidiedie.com的二级</p>
+<p>4.HTTP部分的内容，类似于下面这样：</p>
+<blockquote>
+<p>GET / HTTP/1.1<br>Host: www.google.com<br>Connection: keep-alive<br>User-Agent: Mozilla/5.0 (Windows NT 6.1) ……<br>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,<em>/</em>;q=0.8<br>Accept-Encoding: gzip,deflate,sdch<br>Accept-Language: zh-CN,zh;q=0.8<br>Accept-Charset: GBK,utf-8;q=0.7,*;q=0.3<br>Cookie: … …</p>
+</blockquote>
+<p>我们假定这个部分的长度为4960字节，它会被嵌在TCP数据包之中。</p>
+<p>5 TCP协议</p>
+<p>TCP数据包需要设置端口，接收方（Google）的HTTP端口默认是80，发送方（本机）的端口是一个随机生成的1024-65535之间的整数，假定为51775。</p>
+<p>TCP数据包的标头长度为20字节，加上嵌入HTTP的数据包，总长度变为4980字节。</p>
+<p>6 IP协议</p>
+<p>然后，TCP数据包再嵌入IP数据包。IP数据包需要设置双方的IP地址，这是已知的，发送方是192.168.1.100（本机），接收方是172.194.72.105（Google）。</p>
+<p>IP数据包的标头长度为20字节，加上嵌入的TCP数据包，总长度变为5000字节。</p>
+<p>7 以太网协议 </p>
+<p>最后，IP数据包嵌入以太网数据包。以太网数据包需要设置双方的MAC地址，发送方为本机的网卡MAC地址，接收方为网关192.168.1.1的MAC地址（通过ARP协议得到）。</p>
+<p>以太网数据包的数据部分，最大长度为1500字节，而现在的IP数据包长度为5000字节。因此，IP数据包必须分割成四个包。因为每个包都有自己的IP标头（20字节），所以四个包的IP数据包的长度分别为1500、1500、1500、560。 </p>
+<p><img src="image/640.jpg" alt="img"></p>
+<p>8 服务器端响应</p>
+<p>经过多个网关的转发，Google的服务器172.194.72.105，收到了这四个以太网数据包。</p>
+<p>根据IP标头的序号，Google将四个包拼起来，取出完整的TCP数据包，然后读出里面的”HTTP请求”，接着做出”HTTP响应”，再用TCP协议发回来。</p>
+<p>本机收到HTTP响应以后，就可以将网页显示出来，完成一次网络通信。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/29/html/" rel="prev" title="html">
+      <i class="fa fa-chevron-left"></i> html
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/29/git%E5%91%BD%E4%BB%A4/" rel="next" title="git命令">
+      git命令 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-操作系统基础"><span class="nav-number">1.</span> <span class="nav-text">一.操作系统基础</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-网络通信原理"><span class="nav-number">2.</span> <span class="nav-text">二.网络通信原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-互联网的本质就是一系列的网络协议"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 互联网的本质就是一系列的网络协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-osi七层协议"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 osi七层协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-tcp-ip五层模型讲解"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 tcp&#x2F;ip五层模型讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-物理层"><span class="nav-number">2.3.1.</span> <span class="nav-text">2.3.1 物理层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2-数据链路层"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.3.2 数据链路层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3-网络层"><span class="nav-number">2.3.3.</span> <span class="nav-text">2.3.3 网络层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-4-传输层"><span class="nav-number">2.3.4.</span> <span class="nav-text">2.3.4 传输层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP协议与UDP协议的区别"><span class="nav-number">2.3.5.</span> <span class="nav-text">TCP协议与UDP协议的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#其中应用层包括"><span class="nav-number">2.3.5.1.</span> <span class="nav-text">其中应用层包括:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其次网络层包括"><span class="nav-number">2.3.5.2.</span> <span class="nav-text">其次网络层包括:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最后说网络访问层"><span class="nav-number">2.3.5.3.</span> <span class="nav-text">最后说网络访问层:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下面着重讲解一下TCP协议和UDP协议的区别"><span class="nav-number">2.4.</span> <span class="nav-text">下面着重讲解一下TCP协议和UDP协议的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP三次握手过程"><span class="nav-number">2.4.0.1.</span> <span class="nav-text">TCP三次握手过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3次握手的特点"><span class="nav-number">2.4.0.2.</span> <span class="nav-text">3次握手的特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP建立连接要进行3次握手，而断开连接要进行4次"><span class="nav-number">2.4.0.3.</span> <span class="nav-text">TCP建立连接要进行3次握手，而断开连接要进行4次</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#名词解释"><span class="nav-number">2.5.</span> <span class="nav-text">名词解释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP的包头结构："><span class="nav-number">2.5.0.1.</span> <span class="nav-text">TCP的包头结构：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UDP（User-Data-Protocol，用户数据报协议）"><span class="nav-number">2.5.0.2.</span> <span class="nav-text">UDP（User Data Protocol，用户数据报协议）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UDP的包头结构："><span class="nav-number">2.5.0.3.</span> <span class="nav-text">UDP的包头结构：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结TCP与UDP的区别："><span class="nav-number">2.5.0.4.</span> <span class="nav-text">小结TCP与UDP的区别：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-5-应用层"><span class="nav-number">2.5.1.</span> <span class="nav-text">2.3.5 应用层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-6-socket"><span class="nav-number">2.5.2.</span> <span class="nav-text">2.3.6 socket</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三-网络通信实现"><span class="nav-number">3.</span> <span class="nav-text">三.网络通信实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四-网络通信流程"><span class="nav-number">4.</span> <span class="nav-text">四.网络通信流程</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xue Xuan"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Xue Xuan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sjtu-xx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sjtu-xx" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuexuan1997@gmail.com" title="E-Mail → mailto:xuexuan1997@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xue Xuan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'eMthrkXxWi9VDSG39hpPXkOi-gzGzoHsz',
+      appKey     : '40yWQRY3985h43auodOGjsIQ',
+      placeholder: "欢迎畅所欲言",
+      avatar     : 'ヾﾉ≧∀≦)o来啊，快活啊!',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

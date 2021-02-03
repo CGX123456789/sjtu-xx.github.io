@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sjtu-xx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="ipynb案例：推荐使用https:&#x2F;&#x2F;github.com&#x2F;sjtu-xx&#x2F;scientific-packages-for-python&#x2F; 一、numpy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用python进行数据分析1（numpy和pandas基础）">
+<meta property="og:url" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%901%EF%BC%88numpy%E5%92%8Cpandas%E5%9F%BA%E7%A1%80%EF%BC%89/index.html">
+<meta property="og:site_name" content="薛轩的个人博客">
+<meta property="og:description" content="ipynb案例：推荐使用https:&#x2F;&#x2F;github.com&#x2F;sjtu-xx&#x2F;scientific-packages-for-python&#x2F; 一、numpy">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-17T10:09:40.000Z">
+<meta property="article:modified_time" content="2021-02-03T15:59:46.155Z">
+<meta property="article:author" content="Xue Xuan">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="numpy">
+<meta property="article:tag" content="pandas">
+<meta property="article:tag" content="数据分析">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%901%EF%BC%88numpy%E5%92%8Cpandas%E5%9F%BA%E7%A1%80%EF%BC%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>利用python进行数据分析1（numpy和pandas基础） | 薛轩的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">薛轩的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">XueXuan's blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%901%EF%BC%88numpy%E5%92%8Cpandas%E5%9F%BA%E7%A1%80%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Xue Xuan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="薛轩的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          利用python进行数据分析1（numpy和pandas基础）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 18:09:40" itemprop="dateCreated datePublished" datetime="2020-02-17T18:09:40+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-03 23:59:46" itemprop="dateModified" datetime="2021-02-03T23:59:46+08:00">2021-02-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">第三方库</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%901%EF%BC%88numpy%E5%92%8Cpandas%E5%9F%BA%E7%A1%80%EF%BC%89/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%901%EF%BC%88numpy%E5%92%8Cpandas%E5%9F%BA%E7%A1%80%EF%BC%89/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>ipynb案例：推荐使用<a href="https://github.com/sjtu-xx/scientific-packages-for-python/" target="_blank" rel="noopener">https://github.com/sjtu-xx/scientific-packages-for-python/</a></p>
+<h1 id="一、numpy"><a href="#一、numpy" class="headerlink" title="一、numpy"></a>一、numpy</h1><a id="more"></a>
+<h2 id="1-ndarray"><a href="#1-ndarray" class="headerlink" title="1.ndarray"></a>1.ndarray</h2><h3 id="（1）生成ndarray"><a href="#（1）生成ndarray" class="headerlink" title="（1）生成ndarray"></a>（1）生成ndarray</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">np.array （将输入转换为ndarray，自动复制）</span><br><span class="line">np.asarray (输入转换为ndarray，已经为ndarray不再复制)</span><br><span class="line">np.arange  np.arange(<span class="number">32</span>).reshape((<span class="number">8</span>,<span class="number">4</span>)</span><br><span class="line">np.ones</span><br><span class="line">np.ones_like</span><br><span class="line">np.zeros</span><br><span class="line">np.zeros_like</span><br><span class="line">np.empty</span><br><span class="line">np.empty_like</span><br><span class="line">np.full</span><br><span class="line">np.full_like</span><br><span class="line">np.eye,np.identity (单位矩阵)</span><br><span class="line">np.random.randn(<span class="number">6</span>,<span class="number">3</span>) 	生成正态分布的<span class="number">6</span>*<span class="number">3</span>的数组</span><br></pre></td></tr></table></figure>
+<h3 id="（2）数据类型和大小"><a href="#（2）数据类型和大小" class="headerlink" title="（2）数据类型和大小"></a>（2）数据类型和大小</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">设定</span><br><span class="line">a&#x3D; np.array([1,2,3],dtype&#x3D;np.int32)</span><br><span class="line">查看</span><br><span class="line">a.dtype</span><br><span class="line">更改</span><br><span class="line">a.astype()</span><br><span class="line"></span><br><span class="line">a.shape 数组的尺寸</span><br><span class="line">a.ndim 数组的维度</span><br><span class="line"></span><br><span class="line">&gt; means ‘big-endian’</span><br></pre></td></tr></table></figure>
+<p>删除：np.delete(a,[0,3])     删除索引处的值</p>
+<p>插入：np.append(ndarray, elements, axis)\np.insert(ndarray, index, elements, axis)</p>
+<h3 id="（3）数组算数"><a href="#（3）数组算数" class="headerlink" title="（3）数组算数"></a>（3）数组算数</h3><p>1.相同尺寸的数组操作：对应元素操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr + arr</span><br><span class="line">arr - arr</span><br><span class="line">arr * arr</span><br></pre></td></tr></table></figure>
+<p>2.带有标量计算的操作：将参数传递给每个元素</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>/arr</span><br><span class="line">arr**<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>3.同尺寸数组比较：产生同尺寸布尔数组</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr2 &gt; arr1</span><br></pre></td></tr></table></figure>
+<h3 id="（4）索引和切片"><a href="#（4）索引和切片" class="headerlink" title="（4）索引和切片"></a>（4）索引和切片</h3><p><strong>索引返回的是对象的视图（自己认为是返回对象的引用）</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">索引与赋值：</span><br><span class="line">arr[<span class="number">5</span>:<span class="number">8</span>] = <span class="number">12</span></span><br><span class="line"></span><br><span class="line">arr[::<span class="number">2</span>] 从<span class="number">0</span>开始，步长为<span class="number">2</span></span><br><span class="line">索引数组的变化会体现在原数组上</span><br><span class="line">arr_slice = arr[<span class="number">5</span>:<span class="number">8</span>]</span><br><span class="line">arr_slice[<span class="number">1</span>] = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">复制：</span><br><span class="line">arr_copy = arr[<span class="number">5</span>:<span class="number">8</span>].copy()</span><br><span class="line"></span><br><span class="line">二维索引(两种方法等价)：</span><br><span class="line">arr[<span class="number">2</span>][<span class="number">1</span>]</span><br><span class="line">arr[<span class="number">2</span>,<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">arr[:<span class="number">2</span>] 前两行</span><br><span class="line">arr[<span class="number">1</span>,:<span class="number">2</span>] 	第一行前两列</span><br><span class="line"></span><br><span class="line">布尔索引</span><br><span class="line">data == <span class="number">1</span> 	返回与data同尺寸的布尔数组</span><br><span class="line">data[data==<span class="number">1</span>]   </span><br><span class="line">类似的有 </span><br><span class="line">取反操作： ~(data==<span class="number">1</span>)   data!=<span class="number">1</span> </span><br><span class="line">或操作： (data==<span class="number">1</span>)|(data==<span class="number">2</span>)</span><br><span class="line">与操作： (data==<span class="number">1</span>)&amp;(data==<span class="number">2</span>)</span><br><span class="line">比较： data&lt;<span class="number">0</span></span><br><span class="line"></span><br><span class="line">data[name == <span class="string">'Bob'</span>] 若name是一维数组，且大小与data数组轴索引长度一致，则返回<span class="literal">True</span>对应的行</span><br><span class="line"></span><br><span class="line">神奇索引</span><br><span class="line">arr[[<span class="number">4</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">2</span>]] 将依次返回对应的行</span><br><span class="line">arr[[<span class="number">4</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]] 	将返回(<span class="number">4</span>，<span class="number">1</span>)，(<span class="number">2</span>，<span class="number">2</span>)，(<span class="number">3</span>，<span class="number">3</span>)对应的值</span><br><span class="line"></span><br><span class="line">查找：</span><br><span class="line">arr.searchsorted(<span class="number">0.5</span>) 在已经排序的数组中查找<span class="number">0.5</span></span><br></pre></td></tr></table></figure>
+<h3 id="（5）数组的转置和换轴"><a href="#（5）数组的转置和换轴" class="headerlink" title="（5）数组的转置和换轴"></a>（5）数组的转置和换轴</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr.T 转置</span><br><span class="line">arr.transpose(<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>) （<span class="number">0</span>，<span class="number">1</span>，<span class="number">2</span>）轴替换为（<span class="number">1</span>，<span class="number">0</span>，<span class="number">2</span>）轴</span><br><span class="line">arr.swapaxes(<span class="number">1</span>,<span class="number">2</span>) 交换<span class="number">1</span>，<span class="number">2</span>轴，返回数组的视图，没有对原数组进行复制</span><br></pre></td></tr></table></figure>
+<h2 id="2-通用函数：快速的逐元素数组函数"><a href="#2-通用函数：快速的逐元素数组函数" class="headerlink" title="2.通用函数：快速的逐元素数组函数"></a>2.通用函数：快速的逐元素数组函数</h2><h3 id="（1）一元ufunc"><a href="#（1）一元ufunc" class="headerlink" title="（1）一元ufunc"></a>（1）一元ufunc</h3><ol>
+<li><p><code>abs、fabs</code>计算整数、浮点数或复数的绝对值。对于非复数值，可以使用更快的fabs。</p>
+</li>
+<li><p><code>log10，log2，log1p</code>，其底数分别为，10,2；以及log（1+ P)</p>
+</li>
+<li><p><code>singn</code> 计算个元素正负号，1（正数），0（零），-1（负数）</p>
+</li>
+<li><p><code>ceil</code>返回大于等于该值的最小整数。</p>
+</li>
+<li><p><code>floor</code> 返回小于等于该值的最大整数。</p>
+</li>
+<li><p><code>rint</code>四舍五入，保留dtype。</p>
+</li>
+<li><p><code>modf</code>将数组的小数和整数部分一两个独立数组的形式返回。</p>
+</li>
+<li><p><code>isnan</code>返回布尔型数组，表示哪些值是NaN（非数字）。</p>
+</li>
+<li><p><code>isfinite/isinf</code>返回布尔型数组，表示哪些元素是有穷的（非inf，非NaN）或那些是无穷的。</p>
+</li>
+<li><p><code>cos,cosh,sin,sinh,tan,tanh</code>普通型和双曲型三角函数。</p>
+</li>
+<li><p><code>arccos,arccosh,arcsin,arcsinh,asrtan,arctanh</code>反三角函数。</p>
+</li>
+<li><p><code>logical_not</code>计算个元素的not x的真值，相当于-arr。</p>
+</li>
+</ol>
+<h3 id="（2）二元ufunc"><a href="#（2）二元ufunc" class="headerlink" title="（2）二元ufunc"></a>（2）二元ufunc</h3><ol>
+<li><p><code>add</code>   元素对应相加。</p>
+</li>
+<li><p><code>subtract</code>   第一个数组元素减去第二个的元素。</p>
+</li>
+<li><p><code>multiply</code> 数组元素相乘。</p>
+</li>
+<li><p><code>divide,floor_divide</code>    除法，或向下整除（丢弃余数）。</p>
+</li>
+<li><p><code>power</code>第一个数组中的元素A，第二个数组中的元素B，返回A的B次方。</p>
+</li>
+<li><p><code>maximum,fmax</code>返回两个数组中较大值组成的数组。fmax忽略NaN。</p>
+</li>
+<li><p><code>minimum,fmin</code>同上。</p>
+</li>
+<li><p><code>mod</code>求模，即求余数。</p>
+</li>
+<li><p><code>copysign</code>第二个数组的符号，复制给第一个数组。</p>
+</li>
+<li><p><code>greater,greater_equal,less,less_equal,equal,not_euqal</code>元素级比较运算，最终产生布尔型数组，相当于&gt;,&gt;=,&lt;,&lt;=,==,!=。</p>
+</li>
+<li><p><code>logical_and,logical_or,logical_xor</code>元素级真值运算，相当于&amp;，|，^。</p>
+</li>
+</ol>
+<h2 id="3-使用数组进行面向数组编程"><a href="#3-使用数组进行面向数组编程" class="headerlink" title="3.使用数组进行面向数组编程"></a>3.使用数组进行面向数组编程</h2><h3 id="（1）将条件逻辑作为数组操作"><a href="#（1）将条件逻辑作为数组操作" class="headerlink" title="（1）将条件逻辑作为数组操作"></a>（1）将条件逻辑作为数组操作</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">np.where(cond,xarr,yarr)  等价于 x <span class="keyword">if</span> condition <span class="keyword">else</span> y, cond布尔数组，xarr，yarr同大小数组</span><br><span class="line">np.where(a&gt;<span class="number">0</span>,<span class="number">2</span>,<span class="number">-2</span>) 大于<span class="number">0</span>填<span class="number">2</span>，否则<span class="number">-2</span></span><br></pre></td></tr></table></figure>
+<h3 id="（2）数学和统计方法"><a href="#（2）数学和统计方法" class="headerlink" title="（2）数学和统计方法"></a>（2）数学和统计方法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">均值</span><br><span class="line">np.mean(arr)</span><br><span class="line">arr.mean()</span><br><span class="line">arr.mean(axis=<span class="number">1</span>) 指定轴的操作</span><br><span class="line"></span><br><span class="line">sum 求和</span><br><span class="line">mean 平均</span><br><span class="line">std，var  标准差和方差</span><br><span class="line">min，max 最值</span><br><span class="line">argmin，argmax 最值的位置</span><br><span class="line">cumsum 累加和，可以对指定的轴进行累加</span><br><span class="line">cumprod 累乘，可以对指定的轴进行累乘</span><br></pre></td></tr></table></figure>
+<h3 id="（3）布尔数组的方法"><a href="#（3）布尔数组的方法" class="headerlink" title="（3）布尔数组的方法"></a>（3）布尔数组的方法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = np.array([<span class="literal">True</span>,<span class="literal">False</span>])</span><br><span class="line">a.sum()  计算<span class="literal">True</span>的个数</span><br><span class="line">a.any()   <span class="literal">True</span>，any可以接受axis参数</span><br><span class="line">a.all()   <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<h3 id="（4）排序"><a href="#（4）排序" class="headerlink" title="（4）排序"></a>（4）排序</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arr.sort()</span><br><span class="line">arr.sort(<span class="number">1</span>) 对维度<span class="number">1</span>的数据进行排序</span><br></pre></td></tr></table></figure>
+<h3 id="（5）唯一值与其他集合逻辑"><a href="#（5）唯一值与其他集合逻辑" class="headerlink" title="（5）唯一值与其他集合逻辑"></a>（5）唯一值与其他集合逻辑</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">np.unique(arr) 计算唯一值，并排序</span><br><span class="line">intersect1d(x,y) 计算交集并排序</span><br><span class="line">union1d(x,y)  计算并集并排序</span><br><span class="line">in1d(x,y) 计算在x中元素是否在y中，返回布尔数组</span><br><span class="line">setdiff1d(x,y) 计算在x但不在y中的元素</span><br><span class="line">setxor1d(x,y)  在x,y但不在交集中的元素</span><br></pre></td></tr></table></figure>
+<h2 id="4-使用数组进行文件的输入和输出"><a href="#4-使用数组进行文件的输入和输出" class="headerlink" title="4.使用数组进行文件的输入和输出"></a>4.使用数组进行文件的输入和输出</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">np.save(<span class="string">'test.npy'</span>,arr)</span><br><span class="line">np.load(<span class="string">'test.npy'</span>)</span><br><span class="line">np.savez(<span class="string">'test.npz'</span>,a=arr1,b=arr2)</span><br></pre></td></tr></table></figure>
+<h2 id="5-线性代数"><a href="#5-线性代数" class="headerlink" title="5. 线性代数"></a>5. 线性代数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">点乘：</span><br><span class="line">np.dot(x,y)</span><br><span class="line">x.dot(y)</span><br><span class="line">x @ y</span><br></pre></td></tr></table></figure>
+<p><strong>np.linalg中的函数</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>diag</td>
+<td>将对角元素作为一维数组返回</td>
+</tr>
+<tr>
+<td>dot</td>
+<td>点乘</td>
+</tr>
+<tr>
+<td>trace</td>
+<td>对角元素和</td>
+</tr>
+<tr>
+<td>det</td>
+<td>行列式</td>
+</tr>
+<tr>
+<td>eig</td>
+<td>特征值和特征向量</td>
+</tr>
+<tr>
+<td>inv</td>
+<td>逆矩阵</td>
+</tr>
+<tr>
+<td>pinv</td>
+<td>Moore-Penrose伪逆</td>
+</tr>
+<tr>
+<td>qr</td>
+<td>QR分解</td>
+</tr>
+<tr>
+<td>svd</td>
+<td>计算奇异值分解（SVD）</td>
+</tr>
+<tr>
+<td>solve</td>
+<td>求解Ax=b，其中A是方阵</td>
+</tr>
+<tr>
+<td>lstsq</td>
+<td>计算Ax=b的最小二乘解</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="6-伪随机数的生成"><a href="#6-伪随机数的生成" class="headerlink" title="6.伪随机数的生成"></a>6.伪随机数的生成</h2><p>np.random的数据生成函数公用了一个随机数种子 即，np.random.seed(1234)</p>
+<p>可以生成一个自定义种子的随机数生成器，rng = np.random.RandomState(1234)   rng.randn(10)</p>
+<p>np.random下的部分函数</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>seed</td>
+<td>随机数种子</td>
+</tr>
+<tr>
+<td>permutation</td>
+<td>返回一个序列的随机排列</td>
+</tr>
+<tr>
+<td>shuffle</td>
+<td>随机排列一个序列</td>
+</tr>
+<tr>
+<td>rand</td>
+<td>从均匀分布中抽取样本</td>
+</tr>
+<tr>
+<td>randint</td>
+<td>随机整数</td>
+</tr>
+<tr>
+<td>randn</td>
+<td>从均值0方差1的正态分布中抽取样本</td>
+</tr>
+<tr>
+<td>binomial</td>
+<td>从二项分布中抽取样本</td>
+</tr>
+<tr>
+<td>normal</td>
+<td>从正态分布中抽取样本</td>
+</tr>
+<tr>
+<td>beta</td>
+<td>从beta分布中抽取样本</td>
+</tr>
+<tr>
+<td>chisquare</td>
+<td>从卡方分布中抽取样本</td>
+</tr>
+<tr>
+<td>gamma</td>
+<td>从伽马分布中。。。。</td>
+</tr>
+<tr>
+<td>uniform</td>
+<td>从（0，1）中抽取样本</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="二、pandas"><a href="#二、pandas" class="headerlink" title="二、pandas"></a>二、pandas</h1><h2 id="1-pandas中的数据结构"><a href="#1-pandas中的数据结构" class="headerlink" title="1.pandas中的数据结构"></a>1.pandas中的数据结构</h2><h3 id="（1）Series"><a href="#（1）Series" class="headerlink" title="（1）Series"></a>（1）Series</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">obj = pd.Series([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])</span><br><span class="line">obj.values 返回值</span><br><span class="line">obj.index 	返回索引</span><br><span class="line">obj.add(item,fill_value=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">obj = pd.Series([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],index=[<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'x'</span>,<span class="string">'e'</span>])</span><br><span class="line">obj[<span class="string">'a'</span>]	可以使用标签索引</span><br><span class="line"></span><br><span class="line">obj = pd.Series(&#123;<span class="string">'a'</span>:<span class="number">12</span>,<span class="string">'b'</span>:<span class="number">1</span>&#125;)</span><br><span class="line">字典参数时，obj将按照value从大到小进行排列</span><br><span class="line">obj = pd.Series(&#123;<span class="string">'a'</span>:<span class="number">12</span>,<span class="string">'b'</span>:<span class="number">1</span>&#125;，index=[<span class="string">"a"</span>,<span class="string">"b"</span>])</span><br><span class="line">这样可以按照index中的键进行排序</span><br><span class="line"></span><br><span class="line">Series可以使用numpy中的函数</span><br><span class="line"></span><br><span class="line">obj.isnull() 返回布尔Series</span><br><span class="line">obj.notnull()</span><br><span class="line"></span><br><span class="line">Series对象和其索引都有name属性</span><br><span class="line">obj.name</span><br><span class="line">obj.index.name </span><br><span class="line"></span><br><span class="line">obj.index = [<span class="string">'b'</span>,<span class="string">'a'</span>] 	可以改变元素顺序</span><br></pre></td></tr></table></figure>
+<h3 id="（2）DataFrame"><a href="#（2）DataFrame" class="headerlink" title="（2）DataFrame"></a>（2）DataFrame</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">构造：</span><br><span class="line">data = &#123;<span class="string">'a'</span>:[<span class="number">1</span>,<span class="number">312</span>,<span class="number">3</span>,<span class="number">4</span>],<span class="string">'n'</span>:[<span class="number">23</span>,<span class="number">123</span>,<span class="number">4</span>,<span class="number">32</span>]&#125;</span><br><span class="line">frame = pd.DataFrame(data)</span><br><span class="line">指定列顺序</span><br><span class="line">frame = pd.DataFrame(data,columns=[<span class="string">'n'</span>,<span class="string">'a'</span>])</span><br><span class="line">指定index</span><br><span class="line">frame = pd.DataFrame(data,columns=[<span class="string">'n'</span>,<span class="string">'a'</span>],index=[<span class="string">'asd'</span>,<span class="string">'asdf'</span>,<span class="string">'asdfasdf'</span>])</span><br><span class="line"></span><br><span class="line">frame.head() 前五行</span><br><span class="line">frame.tail()</span><br><span class="line"></span><br><span class="line">返回名为a的列:</span><br><span class="line">frame.a </span><br><span class="line">frame[<span class="string">'a'</span>] </span><br><span class="line"></span><br><span class="line">行的选取：</span><br><span class="line">frame.loc[<span class="string">'asd'</span>]</span><br><span class="line"></span><br><span class="line">返回所有的列名</span><br><span class="line">frame.column</span><br><span class="line"></span><br><span class="line">删除列</span><br><span class="line"><span class="keyword">del</span> frame[<span class="string">'a'</span>]</span><br><span class="line"></span><br><span class="line">转置</span><br><span class="line">frame.T</span><br><span class="line"></span><br><span class="line">返回数据</span><br><span class="line">frame.values 以二维数组ndarray的方式返回</span><br></pre></td></tr></table></figure>
+<p>注意：选取列/行返回的是列的索引。</p>
+<h4 id="（3）索引对象"><a href="#（3）索引对象" class="headerlink" title="（3）索引对象"></a>（3）索引对象</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">obj.index 索引对象不可变，用户不可修改</span><br><span class="line">pd.Index([<span class="string">'a'</span>,<span class="string">'b'</span>])  创建索引对象</span><br></pre></td></tr></table></figure>
+<p><strong>索引对象的方法</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>append</td>
+<td></td>
+</tr>
+<tr>
+<td>difference</td>
+<td>差集</td>
+</tr>
+<tr>
+<td>intersection</td>
+<td>交集</td>
+</tr>
+<tr>
+<td>union</td>
+<td>并集</td>
+</tr>
+<tr>
+<td>isin</td>
+<td>表示每一个值是否在传值容器中的布尔数组</td>
+</tr>
+<tr>
+<td>Delete</td>
+<td>将位置i处的元素删除</td>
+</tr>
+<tr>
+<td>delete</td>
+<td></td>
+</tr>
+<tr>
+<td>insert</td>
+<td>在位置i处插入元素</td>
+</tr>
+<tr>
+<td>is_monotonic</td>
+<td>如果索引递增返回True</td>
+</tr>
+<tr>
+<td>is_unique</td>
+<td>如果索引序列唯一返回True</td>
+</tr>
+<tr>
+<td>unique</td>
+<td>计算索引的唯一值序列</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="2-基本功能"><a href="#2-基本功能" class="headerlink" title="2.基本功能"></a>2.基本功能</h2><h3 id="（1）重建索引"><a href="#（1）重建索引" class="headerlink" title="（1）重建索引"></a>（1）重建索引</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">行重建索引</span><br><span class="line">obj.reindex([<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'x'</span>]) 不存在的索引会引入缺省值</span><br><span class="line">列重建索引</span><br><span class="line">obj.reindex(column=[<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>])</span><br><span class="line">查看</span><br><span class="line">obj.loc[[<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>],[<span class="string">'aw'</span>,<span class="string">'qwer'</span>]]  行，列</span><br></pre></td></tr></table></figure>
+<h3 id="（2）轴向上删除数据"><a href="#（2）轴向上删除数据" class="headerlink" title="（2）轴向上删除数据"></a>（2）轴向上删除数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">data.drop(<span class="string">'a'</span>)</span><br><span class="line">data.drop(<span class="string">'a'</span>,axis=<span class="number">1</span>)</span><br><span class="line">data.drop([<span class="string">'a'</span>,<span class="string">'b'</span>],axis=<span class="string">'column'</span>)</span><br></pre></td></tr></table></figure>
+<p>注意：凡是会对原数组作出修改并返回一个新数组的，往往都有一个 inplace可选参数。如果手动设定为True（默认为False），那么原数组直接就被替换。也就是说，采用inplace=True之后，原数组名（如2和3情况所示）对应的内存值直接改变；</p>
+<p>而采用inplace=False之后，原数组名对应的内存值并不改变，需要将新的结果赋给一个新的数组或者覆盖原数组的内存位置（如1情况所示）。</p>
+<h3 id="（3）索引，选择，过滤"><a href="#（3）索引，选择，过滤" class="headerlink" title="（3）索引，选择，过滤"></a>（3）索引，选择，过滤</h3><p>注意：标签索引包含尾部，整数索引不包含尾部</p>
+<p>索引</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Series</span><br><span class="line">obj = pd.Series([<span class="number">0</span>,<span class="number">1</span>,<span class="number">12</span>,<span class="number">34</span>]，index=[<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>])</span><br><span class="line">obj[<span class="number">2</span>:<span class="number">3</span>] 不包含尾部</span><br><span class="line">obj[<span class="string">'b'</span>:<span class="string">'c'</span>]包含尾部</span><br><span class="line"></span><br><span class="line">DataFrame</span><br><span class="line">data[<span class="string">'a'</span>] 使用单个值或序列索引列</span><br><span class="line">data[[<span class="string">'a'</span>,<span class="string">'b'</span>]]</span><br><span class="line">data[:<span class="number">2</span>] 选择前两行</span><br><span class="line">data[data[<span class="string">'three'</span>]&gt;<span class="number">5</span>]选择three大于<span class="number">5</span>的行</span><br></pre></td></tr></table></figure>
+<p>选择</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">轴标签loc,整数标签iloc</span><br><span class="line">data.loc[[<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>],[<span class="string">'as'</span>,<span class="string">'ear'</span>,<span class="string">'ear'</span>]]</span><br><span class="line">支持切片</span><br><span class="line"></span><br><span class="line">选择单个标签</span><br><span class="line">df.at[<span class="string">'a'</span>,<span class="string">'b'</span>]</span><br><span class="line">df.iat[<span class="number">1</span>,<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">get_value,set_value 根据标签设置单个值</span><br></pre></td></tr></table></figure>
+<h3 id="（4）算数和数据对齐"><a href="#（4）算数和数据对齐" class="headerlink" title="（4）算数和数据对齐"></a>（4）算数和数据对齐</h3><p>两个Series或DataFrame运算时，不重叠的部分会产生缺省值NaN</p>
+<p>r开头的方法有fill_value关键字参数</p>
+<p>df1.radd(df2,fill_value=0)</p>
+<h3 id="（5）DataFrame和Series数据之间的操作"><a href="#（5）DataFrame和Series数据之间的操作" class="headerlink" title="（5）DataFrame和Series数据之间的操作"></a>（5）DataFrame和Series数据之间的操作</h3><p>默认情况下，DataFrame和Series的数学操作会将Series的索引和DataFrame的列进行匹配并广播到各行。</p>
+<p>如果要在列上广播，使用df.sub(series,axis=”index”)</p>
+<h3 id="（6）函数应用和映射"><a href="#（6）函数应用和映射" class="headerlink" title="（6）函数应用和映射"></a>（6）函数应用和映射</h3><p>将函数应用到某一行或某一列的数组上。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">f = <span class="keyword">lambda</span> x:x.max()-x.min()</span><br><span class="line">frame.apply(f)  对每一列调用一次，有axis参数</span><br><span class="line"></span><br><span class="line">也可以返回序列</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(series)</span>:</span></span><br><span class="line">  <span class="keyword">return</span> pd.Series([series.max(),series.min()],index=[<span class="string">'max'</span>,<span class="string">'min'</span>])</span><br></pre></td></tr></table></figure>
+<h3 id="（7）排序和排名"><a href="#（7）排序和排名" class="headerlink" title="（7）排序和排名"></a>（7）排序和排名</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">obj.sort_index(axis=<span class="number">0</span>,ascending=<span class="literal">False</span>)  将对应的数据也进行排序，默认是升序</span><br><span class="line">obj.sort_values(by=[<span class="string">'a'</span>,<span class="string">'b'</span>],axis=<span class="number">0</span>)  按照a,b,两列进行排序</span><br><span class="line">obj.rank()  返回排名值，对并列的取平均</span><br><span class="line">obj.rank(method=<span class="string">'first'</span>)  返回排名，当时对并列的不取平均</span><br></pre></td></tr></table></figure>
+<p>rank的方法</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>average</td>
+<td>默认，平均值</td>
+</tr>
+<tr>
+<td>min</td>
+<td>最小值</td>
+</tr>
+<tr>
+<td>max</td>
+<td>最大值</td>
+</tr>
+<tr>
+<td>first</td>
+<td>按照在数据中出现的次序进行排序</td>
+</tr>
+<tr>
+<td>dense</td>
+<td>类似于method=‘min’，但组间排名总是加一，而不是一个组中的相等元素的数量。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="（8）含有重复标签的轴索引"><a href="#（8）含有重复标签的轴索引" class="headerlink" title="（8）含有重复标签的轴索引"></a>（8）含有重复标签的轴索引</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">obj.index.is_unique 	判断是否存在重复</span><br></pre></td></tr></table></figure>
+<h2 id="3-描述性统计的概述与计算"><a href="#3-描述性统计的概述与计算" class="headerlink" title="3.描述性统计的概述与计算"></a>3.描述性统计的概述与计算</h2><p>skipna参数默认为True，</p>
+<p>描述性统计和汇总统计</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>count</td>
+<td>非NA值的个数</td>
+</tr>
+<tr>
+<td>describe</td>
+<td>计算Series或DataFrame各列的汇总统计集合</td>
+</tr>
+<tr>
+<td>min，max</td>
+<td>计算最小值，最大值</td>
+</tr>
+<tr>
+<td>argmin，argmax</td>
+<td>计算最大值，最小值的索引位置</td>
+</tr>
+<tr>
+<td>idxmin，idxmax</td>
+<td>计算最大值，最小值的索引</td>
+</tr>
+<tr>
+<td>quantile</td>
+<td>计算样本从0-1之间的分位数</td>
+</tr>
+<tr>
+<td>sum</td>
+<td></td>
+</tr>
+<tr>
+<td>mean</td>
+<td></td>
+</tr>
+<tr>
+<td>median</td>
+<td></td>
+</tr>
+<tr>
+<td>mad</td>
+<td>平均值的平均绝对偏差</td>
+</tr>
+<tr>
+<td>prod</td>
+<td>所有值的积</td>
+</tr>
+<tr>
+<td>var</td>
+<td>方差</td>
+</tr>
+<tr>
+<td>std</td>
+<td>标准差</td>
+</tr>
+<tr>
+<td>skew</td>
+<td>样本偏度值（第三时刻）</td>
+</tr>
+<tr>
+<td>kurt</td>
+<td>样本峰度值（第四时刻）</td>
+</tr>
+<tr>
+<td>cumsum</td>
+<td>累加</td>
+</tr>
+<tr>
+<td>cummin，cummax</td>
+<td>累计的最小，最大</td>
+</tr>
+<tr>
+<td>cumprod</td>
+<td>累乘</td>
+</tr>
+<tr>
+<td>diff</td>
+<td>计算第一个算数差值<br />将数据作某种移动后与原数据的差值</td>
+</tr>
+<tr>
+<td>pct_change</td>
+<td>计算百分比改变，相比前一项</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="（1）相关性和协方差"><a href="#（1）相关性和协方差" class="headerlink" title="（1）相关性和协方差"></a>（1）相关性和协方差</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">'col1'</span>].corr(df1[<span class="string">'col2'</span>]) 	计算两个Series中重叠的，非NA的，按照索引对齐的值的相关性。</span><br><span class="line">df[<span class="string">'col1'</span>].cov(df1[<span class="string">'col2'</span>])</span><br><span class="line"></span><br><span class="line">返回所有列之间相互的相关性</span><br><span class="line">df1.corr()</span><br><span class="line">df1.cov()</span><br><span class="line"></span><br><span class="line">返回所有列和IBM列的相关性</span><br><span class="line">df1.corrwith(df1.IBM)</span><br></pre></td></tr></table></figure>
+<h3 id="（2）唯一值，计数和成员属性检查"><a href="#（2）唯一值，计数和成员属性检查" class="headerlink" title="（2）唯一值，计数和成员属性检查"></a>（2）唯一值，计数和成员属性检查</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Series方法</span><br><span class="line">obj.unique() 返回唯一值</span><br><span class="line">obj.value_count() 数据计数</span><br><span class="line"></span><br><span class="line">pd.value_count(obj.values,sort=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">obj.isin([<span class="string">'a'</span>,<span class="string">'b'</span>]) 	成员属性检查</span><br></pre></td></tr></table></figure>
+<h3 id="4-索引"><a href="#4-索引" class="headerlink" title="4.索引"></a>4.索引</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.reindex(columns&#x3D;&#39;xx&#39;,level&#x3D;&#39;ess&#39;)</span><br></pre></td></tr></table></figure>
+<h3 id="5-map"><a href="#5-map" class="headerlink" title="5.map"></a>5.map</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[&#39;name&#39;].map(func) 对name列的对象执行func操作</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/numpy/" rel="tag"># numpy</a>
+              <a href="/tags/pandas/" rel="tag"># pandas</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="tag"># 数据分析</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/16/OpenCV%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" rel="prev" title="OpenCV人脸检测">
+      <i class="fa fa-chevron-left"></i> OpenCV人脸检测
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%902%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%9F%BA%E7%A1%80%EF%BC%89/" rel="next" title="利用python进行数据分析2（pandas数据处理基础）">
+      利用python进行数据分析2（pandas数据处理基础） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、numpy"><span class="nav-number">1.</span> <span class="nav-text">一、numpy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-ndarray"><span class="nav-number">1.1.</span> <span class="nav-text">1.ndarray</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）生成ndarray"><span class="nav-number">1.1.1.</span> <span class="nav-text">（1）生成ndarray</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）数据类型和大小"><span class="nav-number">1.1.2.</span> <span class="nav-text">（2）数据类型和大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（3）数组算数"><span class="nav-number">1.1.3.</span> <span class="nav-text">（3）数组算数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（4）索引和切片"><span class="nav-number">1.1.4.</span> <span class="nav-text">（4）索引和切片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（5）数组的转置和换轴"><span class="nav-number">1.1.5.</span> <span class="nav-text">（5）数组的转置和换轴</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-通用函数：快速的逐元素数组函数"><span class="nav-number">1.2.</span> <span class="nav-text">2.通用函数：快速的逐元素数组函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）一元ufunc"><span class="nav-number">1.2.1.</span> <span class="nav-text">（1）一元ufunc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）二元ufunc"><span class="nav-number">1.2.2.</span> <span class="nav-text">（2）二元ufunc</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-使用数组进行面向数组编程"><span class="nav-number">1.3.</span> <span class="nav-text">3.使用数组进行面向数组编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）将条件逻辑作为数组操作"><span class="nav-number">1.3.1.</span> <span class="nav-text">（1）将条件逻辑作为数组操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）数学和统计方法"><span class="nav-number">1.3.2.</span> <span class="nav-text">（2）数学和统计方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（3）布尔数组的方法"><span class="nav-number">1.3.3.</span> <span class="nav-text">（3）布尔数组的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（4）排序"><span class="nav-number">1.3.4.</span> <span class="nav-text">（4）排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（5）唯一值与其他集合逻辑"><span class="nav-number">1.3.5.</span> <span class="nav-text">（5）唯一值与其他集合逻辑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-使用数组进行文件的输入和输出"><span class="nav-number">1.4.</span> <span class="nav-text">4.使用数组进行文件的输入和输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-线性代数"><span class="nav-number">1.5.</span> <span class="nav-text">5. 线性代数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-伪随机数的生成"><span class="nav-number">1.6.</span> <span class="nav-text">6.伪随机数的生成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、pandas"><span class="nav-number">2.</span> <span class="nav-text">二、pandas</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-pandas中的数据结构"><span class="nav-number">2.1.</span> <span class="nav-text">1.pandas中的数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）Series"><span class="nav-number">2.1.1.</span> <span class="nav-text">（1）Series</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）DataFrame"><span class="nav-number">2.1.2.</span> <span class="nav-text">（2）DataFrame</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（3）索引对象"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">（3）索引对象</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-基本功能"><span class="nav-number">2.2.</span> <span class="nav-text">2.基本功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）重建索引"><span class="nav-number">2.2.1.</span> <span class="nav-text">（1）重建索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）轴向上删除数据"><span class="nav-number">2.2.2.</span> <span class="nav-text">（2）轴向上删除数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（3）索引，选择，过滤"><span class="nav-number">2.2.3.</span> <span class="nav-text">（3）索引，选择，过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（4）算数和数据对齐"><span class="nav-number">2.2.4.</span> <span class="nav-text">（4）算数和数据对齐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（5）DataFrame和Series数据之间的操作"><span class="nav-number">2.2.5.</span> <span class="nav-text">（5）DataFrame和Series数据之间的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（6）函数应用和映射"><span class="nav-number">2.2.6.</span> <span class="nav-text">（6）函数应用和映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（7）排序和排名"><span class="nav-number">2.2.7.</span> <span class="nav-text">（7）排序和排名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（8）含有重复标签的轴索引"><span class="nav-number">2.2.8.</span> <span class="nav-text">（8）含有重复标签的轴索引</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-描述性统计的概述与计算"><span class="nav-number">2.3.</span> <span class="nav-text">3.描述性统计的概述与计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）相关性和协方差"><span class="nav-number">2.3.1.</span> <span class="nav-text">（1）相关性和协方差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）唯一值，计数和成员属性检查"><span class="nav-number">2.3.2.</span> <span class="nav-text">（2）唯一值，计数和成员属性检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-索引"><span class="nav-number">2.3.3.</span> <span class="nav-text">4.索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-map"><span class="nav-number">2.3.4.</span> <span class="nav-text">5.map</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xue Xuan"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Xue Xuan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sjtu-xx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sjtu-xx" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuexuan1997@gmail.com" title="E-Mail → mailto:xuexuan1997@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xue Xuan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'eMthrkXxWi9VDSG39hpPXkOi-gzGzoHsz',
+      appKey     : '40yWQRY3985h43auodOGjsIQ',
+      placeholder: "欢迎畅所欲言",
+      avatar     : 'ヾﾉ≧∀≦)o来啊，快活啊!',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

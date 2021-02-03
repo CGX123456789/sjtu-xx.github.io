@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sjtu-xx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="17.标准库特殊实施">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C-Primer读书笔记-第四部分：高级主题">
+<meta property="og:url" content="https://sjtu-xx.github.io/2020/01/05/C-Primer%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98/index.html">
+<meta property="og:site_name" content="薛轩的个人博客">
+<meta property="og:description" content="17.标准库特殊实施">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-01-05T15:45:38.000Z">
+<meta property="article:modified_time" content="2021-02-03T15:59:45.563Z">
+<meta property="article:author" content="Xue Xuan">
+<meta property="article:tag" content="c++">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://sjtu-xx.github.io/2020/01/05/C-Primer%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>C-Primer读书笔记-第四部分：高级主题 | 薛轩的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">薛轩的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">XueXuan's blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sjtu-xx.github.io/2020/01/05/C-Primer%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Xue Xuan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="薛轩的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C-Primer读书笔记-第四部分：高级主题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-05 23:45:38" itemprop="dateCreated datePublished" datetime="2020-01-05T23:45:38+08:00">2020-01-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-03 23:59:45" itemprop="dateModified" datetime="2021-02-03T23:59:45+08:00">2021-02-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/01/05/C-Primer%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/05/C-Primer%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="17-标准库特殊实施"><a href="#17-标准库特殊实施" class="headerlink" title="17.标准库特殊实施"></a>17.标准库特殊实施</h1><a id="more"></a>
+<h2 id="tuple类型"><a href="#tuple类型" class="headerlink" title="tuple类型"></a>tuple类型</h2><p>tuple支持的操作</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tuple<T1,T2,...,Tn> t;</td>
+<td>t是一个tuple，成员数为n，所有成员都进行值初始化</td>
+</tr>
+<tr>
+<td>tuple<T1,T2,...,Tn> t(v1,v2,…,vn);</td>
+<td>t是一个tuple，成员类型为T1…Tn。每个成员都用对应的vi进行初始化。此函数是explicit的。</td>
+</tr>
+<tr>
+<td>make_tuple(v1,v2,…,vn);</td>
+<td>返回一个用给定初始值初始化的tuple。tuple的类型从初始值的类型判断。</td>
+</tr>
+<tr>
+<td>t1==t2</td>
+<td></td>
+</tr>
+<tr>
+<td>t1!=t2</td>
+<td></td>
+</tr>
+<tr>
+<td><code>get&lt;i&gt;(t)</code></td>
+<td>返回t的第i个数据成员的引用；如果t是一个左值，结果返回一个左值引用；如果t是一个右值，结果返回一个右值引用。tuple所有成员都是public的。</td>
+</tr>
+<tr>
+<td><code>tuple_size&lt;tupleType&gt;::value</code></td>
+<td>一个类模板，可以通过一个tuple类型来初始化。她有一个名为value的public constexpr static数据成员，类型为size_t,表示给定tuple类型中成员的数量。</td>
+</tr>
+<tr>
+<td>tuple_element<i,tupleType>::type</td>
+<td>一个类模板，可以通过一个整型常量和一个tuple类型来初始化。她有一个名为type的public成员，表示给定tuple类型中指定成员的类型。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>tuple的一个常见用途是从一个函数返回多个值。</p>
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>类</th>
+<th>类说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>regex</td>
+<td>表示有一个正则表达式的类</td>
+</tr>
+<tr>
+<td>regex_match</td>
+<td>讲一个字符序列与一个正则表达式匹配</td>
+</tr>
+<tr>
+<td>regex_search</td>
+<td>寻找第一个与正则表达式匹配的子序列</td>
+</tr>
+<tr>
+<td>regex_replace</td>
+<td>是用给定格式替换一个正则表达式</td>
+</tr>
+<tr>
+<td>sregex_iterator</td>
+<td>迭代器适配器，调用regex_search来遍历一个string中所有匹配的字串</td>
+</tr>
+<tr>
+<td>smatch</td>
+<td>容器类，保存在string中搜索的结果</td>
+</tr>
+<tr>
+<td>ssub_match</td>
+<td>string中匹配的表达式的结果</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>默认情况，regex使用的正则表达式语言是ECMAScript。在ECMAScript中，模式[[:alpha:]]匹配任意字母。</p>
+<p>regex选项：定义在regex和regex_constants::syntax_option_type</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>标志</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>icase</td>
+<td>在匹配过程中忽略大小写</td>
+</tr>
+<tr>
+<td>nosubs</td>
+<td>不保存匹配的子表达式</td>
+</tr>
+<tr>
+<td>optimize</td>
+<td>执行速度优先与构造速度</td>
+</tr>
+<tr>
+<td>ECMAScript</td>
+<td>使用ECMA-262指定的语法</td>
+</tr>
+<tr>
+<td>basic</td>
+<td>使用POSIX基本的正则表达式语法</td>
+</tr>
+<tr>
+<td>extended</td>
+<td>使用POSIX扩展的正则表达式语法</td>
+</tr>
+<tr>
+<td>awk</td>
+<td>使用POSIX版本的awk语言的语法</td>
+</tr>
+<tr>
+<td>grep</td>
+<td>使用POSIX版本的grep的语法</td>
+</tr>
+<tr>
+<td>egrep</td>
+<td>使用POSIX版本的egrep的语法</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>使用<code>regex r(&quot;[[:alnum:]]+\\.(cpp|cxx|xx)$&quot;,regex::icase)</code></p>
+<blockquote>
+<p>一个正则表达式所表示的“程序”是在运行时而非编译时编译的。正则表达式的编译是一个非常慢的操作，特别是在你使用了扩展的正则表达式语法或是复杂的正则表达式时。应该努力避免创建很多不必要的regex。</p>
+</blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>迭代器</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sregex_iterator it(b,e,r)</td>
+<td>一个sregex_iterator,遍历迭代器b和e表示的string。他调用sregex_search(b,e,r)将it定位到输入中第一个匹配的位置。</td>
+</tr>
+<tr>
+<td>sregex_iterator end;</td>
+<td>sregex_iterator的尾后迭代器。</td>
+</tr>
+<tr>
+<td>*it</td>
+<td></td>
+</tr>
+<tr>
+<td>it-&gt;</td>
+<td></td>
+</tr>
+<tr>
+<td>++it</td>
+<td></td>
+</tr>
+<tr>
+<td>it++</td>
+<td></td>
+</tr>
+<tr>
+<td>it1==it2</td>
+<td></td>
+</tr>
+<tr>
+<td>it1!=it2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="随机数"><a href="#随机数" class="headerlink" title="随机数"></a>随机数</h2><p>定义在头文件random中：随机数引擎类和随机数分布类</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">default_random_engine e; <span class="comment">//生成随机无符号数</span></span><br><span class="line">e();</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>引擎操作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Engine e</td>
+<td>默认构造函数，使用默认种子</td>
+</tr>
+<tr>
+<td>Engine e(s)</td>
+<td>使用整数值s作为种子</td>
+</tr>
+<tr>
+<td>e.seed(s)</td>
+<td></td>
+</tr>
+<tr>
+<td>e.min()</td>
+<td>该引擎可生成的最小值和最大值</td>
+</tr>
+<tr>
+<td>e.max()</td>
+<td></td>
+</tr>
+<tr>
+<td>Engine::result_type</td>
+<td>该引擎生成的unsigned整型类型</td>
+</tr>
+<tr>
+<td>e.discard(u)</td>
+<td>将引擎推进u步，u的类型为unsigned long long</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>分布</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uniform_int_distribution<unsigned> u(0,9)</td>
+<td>生成0到9之间均匀分布的随机数</td>
+</tr>
+<tr>
+<td>uniform_real_distribution<unsigned> u(0,1)</td>
+<td>生成0到1之间的随机实数</td>
+</tr>
+<tr>
+<td>normal_distribution&lt;&gt; n(4,1.5)</td>
+<td>均值4，标准差1.5</td>
+</tr>
+<tr>
+<td>bernoulli_distribution(0.55)</td>
+<td>是一个普通类，返回bool值</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">unsigned</span>&gt; good_randVec()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//由于我们希望引擎和分布对象保持状态，因此应该将他们定义为static的，从而每次调用都生成新的数</span></span><br><span class="line">    <span class="keyword">static</span> default_random_engine e;</span><br><span class="line">    <span class="keyword">static</span> uniform_int_distribution&lt;<span class="keyword">unsigned</span>&gt; u(<span class="number">0</span>,<span class="number">9</span>);</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">unsigned</span>&gt; ret;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i=<span class="number">0</span>;i&lt;<span class="number">100</span>;++i)</span><br><span class="line">        ret.push_back(u(e));</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="IO库再探"><a href="#IO库再探" class="headerlink" title="IO库再探"></a>IO库再探</h2><p>格式化输入输出</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>boolalpha</td>
+<td>将true和false输出为字符串</td>
+</tr>
+<tr>
+<td>noboolalpha</td>
+<td>将true和false输出为0，1</td>
+</tr>
+<tr>
+<td>showbase</td>
+<td>对整型值输出表示进制的前缀</td>
+</tr>
+<tr>
+<td>noshowbase</td>
+<td>不生成表示进制的前缀</td>
+</tr>
+<tr>
+<td>showpoint</td>
+<td>对浮点值总是显示小数点</td>
+</tr>
+<tr>
+<td>noshowpoint</td>
+<td>只有当浮点值包含小数部分时才显示小数点</td>
+</tr>
+<tr>
+<td>showpos</td>
+<td>对非负数显示+</td>
+</tr>
+<tr>
+<td>noshowpos</td>
+<td>对非负数不显示+</td>
+</tr>
+<tr>
+<td>uppercase</td>
+<td>在十六进制中打印0X，在科学计数法中打印E</td>
+</tr>
+<tr>
+<td>nouppercase</td>
+<td>在十六进制中打印0x，在科学计数法中打印e</td>
+</tr>
+<tr>
+<td>dec</td>
+<td>整数显示为十进制</td>
+</tr>
+<tr>
+<td>hex</td>
+<td>整数显示为十六进制</td>
+</tr>
+<tr>
+<td>oct</td>
+<td>整数显示为八进制</td>
+</tr>
+<tr>
+<td>left</td>
+<td>在值的右侧添加填充字符</td>
+</tr>
+<tr>
+<td>right</td>
+<td>在值的左侧添加填充字符</td>
+</tr>
+<tr>
+<td>internal</td>
+<td>在符号和值之间添加填充字符</td>
+</tr>
+<tr>
+<td>fixed</td>
+<td>浮点值显示为定点十进制</td>
+</tr>
+<tr>
+<td>scientific</td>
+<td>浮点值现实为科学计数法</td>
+</tr>
+<tr>
+<td>hexfloat</td>
+<td>浮点值显示为十六进制</td>
+</tr>
+<tr>
+<td>defaultfloat</td>
+<td>重置浮点数格式为十进制</td>
+</tr>
+<tr>
+<td>unitbuf</td>
+<td>每次输出操作后都刷新缓存区</td>
+</tr>
+<tr>
+<td>nounitbuf</td>
+<td>恢复正常的缓冲区刷新方式</td>
+</tr>
+<tr>
+<td>skipws</td>
+<td>输入运算符跳过空白符</td>
+</tr>
+<tr>
+<td>noskipws</td>
+<td>输入运算符不跳过空白符</td>
+</tr>
+<tr>
+<td>flush</td>
+<td>刷新ostream缓冲区</td>
+</tr>
+<tr>
+<td>ends</td>
+<td>插入空字符，然后刷新ostream缓冲区</td>
+</tr>
+<tr>
+<td>endl</td>
+<td>插入换行，然后刷新ostream缓冲区</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>iomanio中的操作符</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>setfill(ch)</td>
+<td>用ch填充空白</td>
+</tr>
+<tr>
+<td>setprecision(n)</td>
+<td>将浮点精度设置为n</td>
+</tr>
+<tr>
+<td>setw(w)</td>
+<td>读或写值的宽度为w个字符</td>
+</tr>
+<tr>
+<td>setbase(b)</td>
+<td>将整数输出为b进制</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="流随机访问"><a href="#流随机访问" class="headerlink" title="流随机访问"></a>流随机访问</h3><p>seek和tell函数</p>
+<p>g输入，p输出</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tellg()</td>
+<td>返回一个输入流中（tellg）或输出流中（tellp）标记当前位置</td>
+</tr>
+<tr>
+<td>tellp()</td>
+<td></td>
+</tr>
+<tr>
+<td>seekg(pos)</td>
+<td></td>
+</tr>
+<tr>
+<td>seekp(pos)</td>
+<td></td>
+</tr>
+<tr>
+<td>seekg(off,from)</td>
+<td>定位到from之前或之后off个字符：from可以是(beg,cur,end)</td>
+</tr>
+<tr>
+<td>seekp(off,from)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="18-用于大型程序的工具"><a href="#18-用于大型程序的工具" class="headerlink" title="18.用于大型程序的工具"></a>18.用于大型程序的工具</h1><h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><ul>
+<li>一个异常如果没有被捕获，则它将终止当前的程序。程序将调用标准库函数terminate</li>
+<li>通常情况下，如果catch接收的异常与某个继承体系有关，最好将该catch的参数定义成引用类型。</li>
+<li><p>重新抛出仍然是一个throw语句，只不过不包含表达式<code>throw;</code>。</p>
+</li>
+<li><p>处理构造函数初始值异常的唯一方法是将构造函数写成函数try语句块。</p>
+</li>
+<li>一旦一个noexcept函数抛出了异常，程序就会调用terminate以确保遵守不在运行时抛出异常的承诺。</li>
+</ul>
+<h2 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h2><ul>
+<li><p>一个命名空间的定义包含两部分：首先是关键字namespace，随后是命名空间的名字。在命名空间名字后面是一系列由花括号括起来的声明和定义。</p>
+</li>
+<li><p>命名空间结束后无需分号。</p>
+</li>
+<li><p>命名空间可以是不连续的，命名空间可以定义在几个不同的部分。</p>
+</li>
+<li>命名空间中定义的成员可以直接使用名字，无须前缀；命名空间之外定义的成员必须使用含有前缀的名字</li>
+<li>未命名的命名空间仅在特定的文件内部有效，其作用范围不会横跨多个不同的文件。</li>
+<li>命名空间的别名：<code>namespace primer=cplusplusprimer</code></li>
+<li><code>using namespace A;</code> 把A中的名字</li>
+<li>对于using声明，只是简单的令名字在局部作用域内有效。using指示是令整个命名空间的所有内容变得有效。通常情况下，命名空间中会有一些不能出现在局部作用域中的定义。因此，using指令一般被看做是出现在最近的外层作用域中。</li>
+</ul>
+<h1 id="特殊工具与技术"><a href="#特殊工具与技术" class="headerlink" title="特殊工具与技术"></a>特殊工具与技术</h1><h2 id="控制内存分配"><a href="#控制内存分配" class="headerlink" title="控制内存分配"></a>控制内存分配</h2><h3 id="重载new和delete"><a href="#重载new和delete" class="headerlink" title="重载new和delete"></a>重载new和delete</h3><ol>
+<li>new</li>
+</ol>
+<p>执行new实际上执行了三步操作。</p>
+<ul>
+<li>new表达式调用一个名为<code>operator new（或者operator new[]）</code>的标准库函数。该函数分配一块足够大的、原始的、未命名的内存空间 以便存储特定类型的对象。</li>
+<li>编译器运行响应的构造函数以构造这些对象，并为其传入初始值。</li>
+<li>对象被分配了空间并构造完成，返回一个指向该对象的指针。</li>
+</ul>
+<ol>
+<li>delete</li>
+</ol>
+<p>两步操作。</p>
+<ul>
+<li>对所指的对象或者数组中的元素执行对应的析构函数</li>
+<li>编译器调用名为<code>operator delete(或 operator delete[])</code>的标准库函数释放内存空间。</li>
+</ul>
+<h4 id="malloc函数和free函数"><a href="#malloc函数和free函数" class="headerlink" title="malloc函数和free函数"></a>malloc函数和free函数</h4><h3 id="dynamic-cast"><a href="#dynamic-cast" class="headerlink" title="dynamic_cast"></a>dynamic_cast</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">dynamic_cast</span>&lt;type*&gt;(e); <span class="comment">//e必须是指针，如果转换失败返回0</span></span><br><span class="line"><span class="keyword">dynamic_cast</span>&lt;type&amp;&gt;(e);  <span class="comment">//e必须是左值，如果转换失败抛出bad_cast异常</span></span><br><span class="line"><span class="keyword">dynamic_cast</span>&lt;type&amp;&amp;&gt;(e); <span class="comment">//e不能是左值，如果转换失败抛出bad_cast异常</span></span><br></pre></td></tr></table></figure>
+<h3 id="typeid"><a href="#typeid" class="headerlink" title="typeid"></a>typeid</h3><p>typeid运算符允许程序向表达式提问，你的对象是什么类型？</p>
+<p><code>typeid(e)</code>返回<code>type_info</code>类型的对象</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/c/" rel="tag"># c++</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/02/C-Primer%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0-%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E7%B1%BB%E8%AE%BE%E8%AE%A1%E8%80%85%E7%9A%84%E5%B7%A5%E5%85%B7/" rel="prev" title="C-Primer读书笔记-第三部分：类设计者的工具">
+      <i class="fa fa-chevron-left"></i> C-Primer读书笔记-第三部分：类设计者的工具
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/01/06/Effective-C-%E7%AC%94%E8%AE%B0/" rel="next" title="Effective C++笔记">
+      Effective C++笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#17-标准库特殊实施"><span class="nav-number">1.</span> <span class="nav-text">17.标准库特殊实施</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#tuple类型"><span class="nav-number">1.1.</span> <span class="nav-text">tuple类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则表达式"><span class="nav-number">1.2.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机数"><span class="nav-number">1.3.</span> <span class="nav-text">随机数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IO库再探"><span class="nav-number">1.4.</span> <span class="nav-text">IO库再探</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流随机访问"><span class="nav-number">1.4.1.</span> <span class="nav-text">流随机访问</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#18-用于大型程序的工具"><span class="nav-number">2.</span> <span class="nav-text">18.用于大型程序的工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#异常处理"><span class="nav-number">2.1.</span> <span class="nav-text">异常处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命名空间"><span class="nav-number">2.2.</span> <span class="nav-text">命名空间</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特殊工具与技术"><span class="nav-number">3.</span> <span class="nav-text">特殊工具与技术</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#控制内存分配"><span class="nav-number">3.1.</span> <span class="nav-text">控制内存分配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重载new和delete"><span class="nav-number">3.1.1.</span> <span class="nav-text">重载new和delete</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#malloc函数和free函数"><span class="nav-number">3.1.1.1.</span> <span class="nav-text">malloc函数和free函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dynamic-cast"><span class="nav-number">3.1.2.</span> <span class="nav-text">dynamic_cast</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#typeid"><span class="nav-number">3.1.3.</span> <span class="nav-text">typeid</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xue Xuan"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Xue Xuan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sjtu-xx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sjtu-xx" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuexuan1997@gmail.com" title="E-Mail → mailto:xuexuan1997@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xue Xuan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'eMthrkXxWi9VDSG39hpPXkOi-gzGzoHsz',
+      appKey     : '40yWQRY3985h43auodOGjsIQ',
+      placeholder: "欢迎畅所欲言",
+      avatar     : 'ヾﾉ≧∀≦)o来啊，快活啊!',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

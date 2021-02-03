@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sjtu-xx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="七、数据聚合和分组操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用python进行数据分析4（pandas数据处理进阶）">
+<meta property="og:url" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/index.html">
+<meta property="og:site_name" content="薛轩的个人博客">
+<meta property="og:description" content="七、数据聚合和分组操作">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707151329772-2483609-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707153301322-2484781-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707153502518-2484902-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707154602162-2485562-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707154624660-2485584-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707154809186-2485689-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707155643473-2486203-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707155600334-2486160-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707155616480-2486176-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707155729260-2486249-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707155745929-2486265-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707160358983-2486639-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707160412210-2486652-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707161508864-2487308-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707164001487-2488801-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707164047780-2488847-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707164145159-2488905-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707165346518-2489626-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707165403700-2489643-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707165456115-2489696-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707172634853-2491594-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707172657002-2491617-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707190118479-2497278-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707190313148-2497393-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707190438413-2497478-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707190453233-2497493-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707190558121-2497558-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707190808858-2497688-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707191141642-2497901-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707191649370-2498209-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707191748664-2498268-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707191838407-2498318-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707191932392-2498372-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707191957091-2498397-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707192308408-2498588-1934894.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707193307614-2499187.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707193811689-2499491.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707193847245-2499527.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707194308970-2499789.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707194657856-2500017.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707195000813-2500200.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707195032012-2500232.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707195118522-2500278.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707195140170-2500300.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707200326507-2501006.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707200340558-2501020.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707203721264-2503041.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707204059651-2503259.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707210848754-2504928.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707210900725-2504940.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707211003754-2505003.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707211015462-2505015.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707211320833-2505200.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707211422094-2505262.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707212549393-2505949.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707214825897-2507305.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707215347390-2507627.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707215409912-2507649.png">
+<meta property="article:published_time" content="2020-02-17T10:19:09.000Z">
+<meta property="article:modified_time" content="2021-02-03T15:59:46.170Z">
+<meta property="article:author" content="Xue Xuan">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="pandas">
+<meta property="article:tag" content="数据分析">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/image/image-20190707151329772-2483609-1934894.png">
+
+<link rel="canonical" href="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>利用python进行数据分析4（pandas数据处理进阶） | 薛轩的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">薛轩的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">XueXuan's blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Xue Xuan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="薛轩的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          利用python进行数据分析4（pandas数据处理进阶）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 18:19:09" itemprop="dateCreated datePublished" datetime="2020-02-17T18:19:09+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-03 23:59:46" itemprop="dateModified" datetime="2021-02-03T23:59:46+08:00">2021-02-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">第三方库</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="七、数据聚合和分组操作"><a href="#七、数据聚合和分组操作" class="headerlink" title="七、数据聚合和分组操作"></a>七、数据聚合和分组操作</h1><a id="more"></a>
+<h2 id="1-GroupBy机制"><a href="#1-GroupBy机制" class="headerlink" title="1.GroupBy机制"></a>1.GroupBy机制</h2><p>groupby的结果会自动过滤掉非数值列</p>
+<p><img src="image/image-20190707151329772-2483609-1934894.png" alt="image-20190707151329772"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">####以自身的列作为键</span><br><span class="line">grouped &#x3D; df[&#39;data1&#39;].groupby(df[key1])</span><br><span class="line">grouped 是一个GroupBy对象</span><br><span class="line">grouped.mean() 返回对应键的均值</span><br><span class="line"></span><br><span class="line">grouped &#x3D; df[&#39;data1&#39;].groupby([df[&#39;key1&#39;],df[&#39;key2&#39;]]).mean()  #多层</span><br><span class="line"></span><br><span class="line"># 还可以直接使用列名进行分组</span><br><span class="line">df[&#39;data1&#39;].groupby(&#39;key1&#39;).mean()</span><br><span class="line">df[&#39;data1&#39;].groupby([&#39;key1&#39;,&#39;key2&#39;]).mean()</span><br></pre></td></tr></table></figure>
+<p><img src="image/image-20190707153301322-2484781-1934894.png" alt="image-20190707153301322"></p>
+<p>分组的键还可以是正确长度的任何数组：</p>
+<p><img src="image/image-20190707153502518-2484902-1934894.png" alt="image-20190707153502518"></p>
+<p><code>grouped.size()</code>返回一个包含组大小信息的Series。</p>
+<h3 id="（1）遍历各分组"><a href="#（1）遍历各分组" class="headerlink" title="（1）遍历各分组"></a>（1）遍历各分组</h3><p>1.</p>
+<p><img src="image/image-20190707154602162-2485562-1934894.png" alt="image-20190707154602162"></p>
+<p>2.</p>
+<p><img src="image/image-20190707154624660-2485584-1934894.png" alt="image-20190707154624660"></p>
+<p>3.</p>
+<p><img src="image/image-20190707154809186-2485689-1934894.png" alt="image-20190707154809186"></p>
+<p>4.</p>
+<p>​    axis=1 表示将每一列分给不同的组</p>
+<p>​    默认axis=1表示将每一行分给不同的组</p>
+<h3 id="（2）使用字典-Series分组"><a href="#（2）使用字典-Series分组" class="headerlink" title="（2）使用字典/Series分组"></a>（2）使用字典/Series分组</h3><p>1.使用字典作为索引</p>
+<p><img src="image/image-20190707155643473-2486203-1934894.png" alt="image-20190707155643473"></p>
+<p><img src="image/image-20190707155600334-2486160-1934894.png" alt="image-20190707155600334"></p>
+<p><img src="image/image-20190707155616480-2486176-1934894.png" alt="image-20190707155616480"></p>
+<p>2.使用Series作为索引</p>
+<p><img src="image/image-20190707155729260-2486249-1934894.png" alt="image-20190707155729260"></p>
+<p><img src="image/image-20190707155745929-2486265-1934894.png" alt="image-20190707155745929"></p>
+<h3 id="（3）使用函数分组"><a href="#（3）使用函数分组" class="headerlink" title="（3）使用函数分组"></a>（3）使用函数分组</h3><p>将行索引作为调用函数的参数，以返回值作为分组依据</p>
+<p><code>df.groupby(len).sum()</code></p>
+<h3 id="（4）以索引层级进行分组"><a href="#（4）以索引层级进行分组" class="headerlink" title="（4）以索引层级进行分组"></a>（4）以索引层级进行分组</h3><p><img src="image/image-20190707160358983-2486639-1934894.png" alt="image-20190707160358983"></p>
+<p><img src="image/image-20190707160412210-2486652-1934894.png" alt="image-20190707160412210"></p>
+<h2 id="2-数据聚合"><a href="#2-数据聚合" class="headerlink" title="2.数据聚合"></a>2.数据聚合</h2><p>apply方法传入的是整个dataframe，而agg方法传入的是每一列数据</p>
+<p>常用的聚合方法</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>count</td>
+<td>非NA值的数量</td>
+</tr>
+<tr>
+<td>sum</td>
+<td>非NA值的和</td>
+</tr>
+<tr>
+<td>mean</td>
+<td>非NA值的均值</td>
+</tr>
+<tr>
+<td>median</td>
+<td>非NA值的中位数</td>
+</tr>
+<tr>
+<td>std，var</td>
+<td>无偏的（分母n-1）标准差和方差</td>
+</tr>
+<tr>
+<td>min，max</td>
+<td>非NA值的最值</td>
+</tr>
+<tr>
+<td>prod</td>
+<td>非NA值的乘积</td>
+</tr>
+<tr>
+<td>first，last</td>
+<td>非NA值的第一个，最后一个</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Series的方法生来就可以用于聚合</p>
+<p>自定义聚合方法：</p>
+<p><img src="image/image-20190707161508864-2487308-1934894.png" alt="image-20190707161508864"></p>
+<p>同时使用多个聚合函数：传入函数名列表</p>
+<p>​        <code>grouped.agg([&#39;sum&#39;,&#39;std&#39;,peak_to_peak])</code></p>
+<p>使用多个聚合函数时的列名难以辨认：可以通过传入元组列表（name，function）</p>
+<p>​        <code>grouped.agg([(&#39;mean&#39;,&#39;foo&#39;)])</code>    </p>
+<p>对不同的列使用不同的聚合函数：传入字典列表{列名：函数名}</p>
+<p>​    <code>grouped.agg({&#39;tip&#39;:np.max})</code></p>
+<p>​    <code>grouped.agg({&#39;tip&#39;:[np.max,&#39;sum&#39;]})</code></p>
+<p>返回不含行索引的聚合数据：</p>
+<p>​        <code>df.groupby(&#39;key1&#39;,as_index=False)</code></p>
+<p>也可以将结果进行reset_index()获得，但as_index方法可以避免不必要的计算</p>
+<h2 id="3-应用（split-apply-combine）"><a href="#3-应用（split-apply-combine）" class="headerlink" title="3.应用（split-apply-combine）"></a>3.应用（split-apply-combine）</h2><p>对分组后的df采用apply（）方法，函数必须返回标量值或pandas对象</p>
+<p><img src="image/image-20190707164001487-2488801-1934894.png" alt="image-20190707164001487"></p>
+<p><img src="image/image-20190707164047780-2488847-1934894.png" alt="image-20190707164047780"></p>
+<p>apply方法可以传入关键字参数：</p>
+<p><img src="image/image-20190707164145159-2488905-1934894.png" alt="image-20190707164145159"></p>
+<h3 id="（1）压缩分组键"><a href="#（1）压缩分组键" class="headerlink" title="（1）压缩分组键"></a>（1）压缩分组键</h3><p>不显示分组的键：</p>
+<p><code>df.groupby(&#39;key1&#39;,group_keys=False)</code></p>
+<h3 id="（2）分位数与桶分析"><a href="#（2）分位数与桶分析" class="headerlink" title="（2）分位数与桶分析"></a>（2）分位数与桶分析</h3><p>cut后的对象可直接传入groupby方法。</p>
+<p><img src="image/image-20190707165346518-2489626-1934894.png" alt="image-20190707165346518"></p>
+<p><img src="image/image-20190707165403700-2489643-1934894.png" alt="image-20190707165403700"></p>
+<p><img src="image/image-20190707165456115-2489696-1934894.png" alt="image-20190707165456115"></p>
+<h2 id="4-数据透视表与交叉表"><a href="#4-数据透视表与交叉表" class="headerlink" title="4.数据透视表与交叉表"></a>4.数据透视表与交叉表</h2><p><code>df.pivot_table(index=[&#39;day&#39;,&#39;smoker&#39;])</code></p>
+<p>如果只想在tip_pct和size上聚合，并根据time分组。把day放入行，smoker放入列。</p>
+<p><code>df.pivot_table([&#39;tip_pct&#39;,&#39;size&#39;],index=[&#39;time&#39;,&#39;day&#39;],columns=&#39;smoker&#39;)</code></p>
+<p>添加margins=True会添加All行和列表标签，这会返回单层中所有数据的分组统计值。All为均值</p>
+<p>可以添加aggfunc参数：</p>
+<p><img src="image/image-20190707172634853-2491594-1934894.png" alt="image-20190707172634853"></p>
+<p>参数：</p>
+<p><img src="image/image-20190707172657002-2491617-1934894.png" alt="image-20190707172657002"></p>
+<h3 id="（1）交叉表"><a href="#（1）交叉表" class="headerlink" title="（1）交叉表"></a><strong>（1）交叉表</strong></h3><p>计算的是分组中的数据出现的次数。</p>
+<p><code>pd.crosstab([df.time,df.dat],tips.smoker,margins=True)</code></p>
+<p>参数依次为：index，columms，</p>
+<h1 id="八、时间序列"><a href="#八、时间序列" class="headerlink" title="八、时间序列"></a>八、时间序列</h1><p><code>pd.read_csv(filename,parse_dates=True,index_col=0)</code></p>
+<h3 id="1-日期和时间数据的类型及工具"><a href="#1-日期和时间数据的类型及工具" class="headerlink" title="1.日期和时间数据的类型及工具"></a>1.日期和时间数据的类型及工具</h3><p>常用的python库：<code>time,datetime,calendar</code></p>
+<p><img src="image/image-20190707190118479-2497278-1934894.png" alt="image-20190707190118479"></p>
+<h3 id="1-字符串与datetime的转化"><a href="#1-字符串与datetime的转化" class="headerlink" title="(1)字符串与datetime的转化"></a>(1)字符串与datetime的转化</h3><p>str方法和strftime方法</p>
+<p><img src="image/image-20190707190313148-2497393-1934894.png" alt="image-20190707190313148"></p>
+<p>datetime格式</p>
+<p><img src="image/image-20190707190438413-2497478-1934894.png" alt="image-20190707190438413"></p>
+<p><img src="image/image-20190707190453233-2497493-1934894.png" alt="image-20190707190453233"></p>
+<p>使用相同的方法可以将str转换为datetime格式</p>
+<p><img src="image/image-20190707190558121-2497558-1934894.png" alt="image-20190707190558121"></p>
+<p>dateutil库能够自动解析日期并转换为datetime格式（日期在月份前可以使用dayfirst=True参数）：</p>
+<p><img src="image/image-20190707190808858-2497688-1934894.png" alt="image-20190707190808858"></p>
+<p>pandas中的日期：</p>
+<p><img src="image/image-20190707191141642-2497901-1934894.png" alt="image-20190707191141642"></p>
+<h2 id="2-时间序列基础"><a href="#2-时间序列基础" class="headerlink" title="2.时间序列基础"></a>2.时间序列基础</h2><p>不同索引的时间序列之间的算术运算在日期上自动对齐</p>
+<p><img src="image/image-20190707191649370-2498209-1934894.png" alt="image-20190707191649370"></p>
+<h3 id="（1）索引、选择、子集"><a href="#（1）索引、选择、子集" class="headerlink" title="（1）索引、选择、子集"></a>（1）索引、选择、子集</h3><p>索引：</p>
+<p>1）基于标签索引</p>
+<p><img src="image/image-20190707191748664-2498268-1934894.png" alt="image-20190707191748664"></p>
+<p>2）使用能解释为日期的字符串</p>
+<p><img src="image/image-20190707191838407-2498318-1934894.png" alt="image-20190707191838407"></p>
+<p>3）使用切片：通过传递年份或年份加月份（可以使用不在索引中的时间戳进行切片）</p>
+<p><img src="image/image-20190707191932392-2498372-1934894.png" alt="image-20190707191932392"></p>
+<p><img src="image/image-20190707191957091-2498397-1934894.png" alt="image-20190707191957091"></p>
+<p>​    使用truncate切片：</p>
+<p><img src="image/image-20190707192308408-2498588-1934894.png" alt="image-20190707192308408"></p>
+<h2 id="3-日期范围、频率和移位"><a href="#3-日期范围、频率和移位" class="headerlink" title="3.日期范围、频率和移位"></a>3.日期范围、频率和移位</h2><h3 id="（1）生成日期范围"><a href="#（1）生成日期范围" class="headerlink" title="（1）生成日期范围"></a>（1）生成日期范围</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pd.date_range(&#39;2012-04-01&#39;,&#39;2012-06-01&#39;)  #默认以天为间隔</span><br><span class="line">pd.date_range(start&#x3D;&#39;2012-04-01&#39;,periods&#x3D;20)  #生成20个时间</span><br><span class="line">pd.date_range(end&#x3D;&#39;2012-04-01&#39;,periods&#x3D;20)  #生成20个时间</span><br><span class="line">pd.date_range(&#39;2000-01-01&#39;,&#39;2000-12-01&#39;,freq&#x3D;&#39;BM&#39;) #在区间内按照频率生成</span><br><span class="line">pd.date_range(&#39;2012-05-06 12:56:31&#39;,periods&#x3D;5,normalize&#x3D;True) #生成的列表中不包含时刻，只有日期</span><br></pre></td></tr></table></figure>
+<p><img src="image/image-20190707193307614-2499187.png" alt="image-20190707193307614"></p>
+<h3 id="（2）频率和日期offset"><a href="#（2）频率和日期offset" class="headerlink" title="（2）频率和日期offset"></a>（2）频率和日期offset</h3><p><code>pandas.tseries.offsets</code>中有Hour，Minute等对象，大多数情况下不需要主动创建</p>
+<p>可以传递的freq参数：‘4h‘，’1h30min‘</p>
+<p><img src="image/image-20190707193811689-2499491.png" alt="image-20190707193811689"></p>
+<p>offset可以通过加法结合：</p>
+<p><img src="image/image-20190707193847245-2499527.png" alt="image-20190707193847245"></p>
+<h3 id="3-移位"><a href="#3-移位" class="headerlink" title="(3)移位"></a>(3)移位</h3><p>将时间戳对应的数据前移或后移。</p>
+<p><img src="image/image-20190707194308970-2499789.png" alt="image-20190707194308970"></p>
+<p>指定freq后，将会改变时间戳，而不会改变数据</p>
+<p><img src="image/image-20190707194657856-2500017.png" alt="image-20190707194657856"></p>
+<p>使用offset：    <img src="image/image-20190707195000813-2500200.png" alt="image-20190707195000813"></p>
+<p><img src="image/image-20190707195032012-2500232.png" alt="image-20190707195032012"></p>
+<p>rowback和rollforward：</p>
+<p><img src="image/image-20190707195118522-2500278.png" alt="image-20190707195118522"></p>
+<p>offset与groupby结合</p>
+<p><img src="image/image-20190707195140170-2500300.png" alt="image-20190707195140170"></p>
+<h2 id="4-时区处理"><a href="#4-时区处理" class="headerlink" title="4.时区处理"></a>4.时区处理</h2><h3 id="（1）时区的本地化和转换"><a href="#（1）时区的本地化和转换" class="headerlink" title="（1）时区的本地化和转换"></a>（1）时区的本地化和转换</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">df.index.tz      查看当前的index的时区属性</span><br><span class="line">生成时直接设定</span><br><span class="line">rng &#x3D; pd.data_range(&#39;2012-01-01 12:01&#39;,period&#x3D;10,tz&#x3D;&#39;UTC&#39;)</span><br><span class="line">ts &#x3D; pd.Series(np.random.randn(len(rng)),index&#x3D;rng)</span><br><span class="line"></span><br><span class="line">将时区转化为本地化时区</span><br><span class="line">ts.tz_localize(&#39;UTC&#39;)</span><br><span class="line">ts_shanghai &#x3D; ts.tz_localize(&#39;Asia&#x2F;Shanghai&#39;)</span><br><span class="line">ts_shanghai.tz_convert(&#39;UTC&#39;)</span><br></pre></td></tr></table></figure>
+<h3 id="2-时区感知时间戳对象的操作"><a href="#2-时区感知时间戳对象的操作" class="headerlink" title="(2)时区感知时间戳对象的操作"></a>(2)时区感知时间戳对象的操作</h3><p>时间戳对象也可直接进行时区操作</p>
+<p><img src="image/image-20190707200326507-2501006.png" alt="image-20190707200326507"></p>
+<p><img src="image/image-20190707200340558-2501020.png" alt="image-20190707200340558"></p>
+<h3 id="（3）不同时区间的操作"><a href="#（3）不同时区间的操作" class="headerlink" title="（3）不同时区间的操作"></a>（3）不同时区间的操作</h3><p>两个时区不同的时间序列联合时，结果为UTC时间</p>
+<h2 id="5-时间区间和区间算数"><a href="#5-时间区间和区间算数" class="headerlink" title="5.时间区间和区间算数"></a>5.时间区间和区间算数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">pandas区间：</span><br><span class="line">p &#x3D; pd.Period(2007,freq&#x3D;&#39;A-DEC&#39;)</span><br><span class="line">p+2</span><br><span class="line">p-5</span><br><span class="line">p - pd.Period(2005,freq&#x3D;&#39;A-DEC&#39;)  # 2</span><br><span class="line"></span><br><span class="line">pandas区间序列：</span><br><span class="line">pd.period_range(&#39;2000-01-01&#39;,&#39;2000-06-30&#39;,freq&#x3D;&#39;M&#39;)</span><br><span class="line">使用数组生成区间序列：</span><br><span class="line">pd.PeriodIndex([&#39;200103&#39;,&#39;200104&#39;],freq&#x3D;&#39;Q-DEC&#39;)</span><br><span class="line">pd.PeriodIndex(year&#x3D;yearlist,quarter&#x3D;quaterlist,freq&#x3D;&#39;Q-DEC&#39;)</span><br><span class="line"></span><br><span class="line">区间频率的转换</span><br><span class="line">p.asfreq(&#39;M&#39;,how&#x3D;&#39;start&#39;)  # 低频率向高频率转换</span><br><span class="line"># 高频率向低频率转换时，直接根据自区间所属决定父区间</span><br><span class="line"></span><br><span class="line"># 时间戳转化为区间</span><br><span class="line">pts &#x3D; ts.to_period(&#39;M&#39;)  #转换的频率可以不指定</span><br><span class="line"># 区间转换为时间戳</span><br><span class="line">ts &#x3D; pts.to_timestamp(how&#x3D;&#39;end&#39;)</span><br><span class="line"></span><br><span class="line"># 从数组生成PeriodIndex</span><br></pre></td></tr></table></figure>
+<h2 id="6-重采样"><a href="#6-重采样" class="headerlink" title="6.重采样"></a>6.重采样</h2><p>从低频率转换到高频率：向上采样</p>
+<p>从高频率转换到低频率：向下采样</p>
+<p>resample方法的参数：</p>
+<p><img src="image/image-20190707203721264-2503041.png" alt="image-20190707203721264"></p>
+<h3 id="（1）下采样"><a href="#（1）下采样" class="headerlink" title="（1）下采样"></a>（1）下采样</h3><p><img src="image/image-20190707204059651-2503259.png" alt="image-20190707204059651"></p>
+<h3 id="（2）开高低收"><a href="#（2）开高低收" class="headerlink" title="（2）开高低收"></a>（2）开高低收</h3><p><code>ts.resample(&#39;5min&#39;).ohlc()</code></p>
+<h3 id="3-向上采样与差值"><a href="#3-向上采样与差值" class="headerlink" title="(3)向上采样与差值"></a>(3)向上采样与差值</h3><p>使用asfreq()在不聚合的情况下转到高频率</p>
+<p><code>df.resample(&#39;D&#39;).asfreq()</code></p>
+<p>差值或向前填充</p>
+<p><code>df.resample(&#39;D&#39;).ffill()</code></p>
+<h3 id="4-使用时间区间进行重采样"><a href="#4-使用时间区间进行重采样" class="headerlink" title="(4)使用时间区间进行重采样"></a>(4)使用时间区间进行重采样</h3><p>由于区间涉及时间范围：</p>
+<ul>
+<li>在向下采样中，目标频率必须是原频率的子区间</li>
+<li>在向上采样中，目标频率必须是原频率的父区间</li>
+</ul>
+<h2 id="7-移动窗口函数"><a href="#7-移动窗口函数" class="headerlink" title="7.移动窗口函数"></a>7.移动窗口函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">df.COL1.rolling(250,min_periods&#x3D;10).mean()</span><br><span class="line">df.COL1.expanding().mean()</span><br><span class="line">df.COL1.ewm(span&#x3D;30).mean() #指数加权函数，给近期的观测值更高的权重,span为跨度</span><br><span class="line"></span><br><span class="line">二元移动窗口</span><br><span class="line">pd.COL2.rolling(125,min_period&#x3D;10).corr(pd.COL1)</span><br><span class="line">pd.rolling(125,min_period&#x3D;10).corr(pd.COL1)</span><br><span class="line"></span><br><span class="line">自定义窗口函数只要输入为一个序列返回一个单值即可</span><br></pre></td></tr></table></figure>
+<h1 id="九、高阶Pandas"><a href="#九、高阶Pandas" class="headerlink" title="九、高阶Pandas"></a>九、高阶Pandas</h1><h2 id="1-分类数据"><a href="#1-分类数据" class="headerlink" title="1.分类数据"></a>1.分类数据</h2><h3 id="（1）Categorical对象"><a href="#（1）Categorical对象" class="headerlink" title="（1）Categorical对象"></a>（1）Categorical对象</h3><p><img src="image/image-20190707210848754-2504928.png" alt="image-20190707210848754"></p>
+<p>Series转换为category类型的数据</p>
+<p><img src="image/image-20190707210900725-2504940.png" alt="image-20190707210900725"></p>
+<p>category.value对象有两个属性：codes和categories。</p>
+<p><img src="image/image-20190707211003754-2505003.png" alt="image-20190707211003754"></p>
+<p><img src="image/image-20190707211015462-2505015.png" alt="image-20190707211015462"></p>
+<p>可以通过python序列直接创建pandas.Categorical对象</p>
+<p><img src="image/image-20190707211320833-2505200.png" alt="image-20190707211320833"></p>
+<p>通过codes和categories构建</p>
+<p><img src="image/image-20190707211422094-2505262.png" alt="image-20190707211422094"></p>
+<p>访问category对象的分类方法(通过cat)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df1.cat.codes</span><br><span class="line">df1.cat.categories</span><br><span class="line">df2.cat.set_categories([&#39;a&#39;,&#39;b&#39;,&#39;c&#39;])</span><br></pre></td></tr></table></figure>
+<p>Categories方法</p>
+<p><img src="image/image-20190707212549393-2505949.png" alt="image-20190707212549393"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.Categorical(df[<span class="string">'thal'</span>]).cat.codes  <span class="comment">#Categorial对应的index值</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-GroupBy高阶应用"><a href="#2-GroupBy高阶应用" class="headerlink" title="2.GroupBy高阶应用"></a>2.GroupBy高阶应用</h2><h3 id="（1）分组转换和展开Groupby"><a href="#（1）分组转换和展开Groupby" class="headerlink" title="（1）分组转换和展开Groupby"></a>（1）分组转换和展开Groupby</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">df &#x3D; pd.DataFrame(&#123;&#39;key&#39;:[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;]*4,&#39;value&#39;:np.arange(12)&#125;)</span><br><span class="line">gdf &#x3D; df.groupby(&#39;key&#39;).value  #返回的是Series对象</span><br><span class="line">gdf.mean()  #	每一组的平均值</span><br><span class="line">gdf.transform(&#39;mean&#39;)  #将每一组的平均值赋值给该组每一个元素，然后返回</span><br><span class="line">gdf.transform(lambda x:x.mean())</span><br></pre></td></tr></table></figure>
+<h3 id="（2）方法链技术"><a href="#（2）方法链技术" class="headerlink" title="（2）方法链技术"></a>（2）方法链技术</h3><p>方法链可以减少中间变量</p>
+<p>两种等价的赋值方式</p>
+<p><img src="image/image-20190707214825897-2507305.png" alt="image-20190707214825897"></p>
+<h3 id="（3）pipe方法"><a href="#（3）pipe方法" class="headerlink" title="（3）pipe方法"></a>（3）pipe方法</h3><p>两种等价形式</p>
+<p><img src="image/image-20190707215347390-2507627.png" alt="image-20190707215347390"></p>
+<p><img src="image/image-20190707215409912-2507649.png" alt="image-20190707215409912"></p>
+<h2 id="十、Python建模库"><a href="#十、Python建模库" class="headerlink" title="十、Python建模库"></a>十、Python建模库</h2><p>将pandas的DataFrame对象转换为numpy数组：df1.value</p>
+<p>Patsy库</p>
+<p>Statsmodels库</p>
+<p>scikit-learn库</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/pandas/" rel="tag"># pandas</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="tag"># 数据分析</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%903%EF%BC%88%E7%BB%98%E5%9B%BE%E4%B8%8E%E5%8F%AF%E8%A7%86%E5%8C%96%EF%BC%89/" rel="prev" title="利用python进行数据分析3（绘图与可视化）">
+      <i class="fa fa-chevron-left"></i> 利用python进行数据分析3（绘图与可视化）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/17/numpy%E4%B8%AD%E7%9A%84axis%E5%92%8C%E5%B9%BF%E6%92%AD/" rel="next" title="numpy中的axis和广播">
+      numpy中的axis和广播 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#七、数据聚合和分组操作"><span class="nav-number">1.</span> <span class="nav-text">七、数据聚合和分组操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-GroupBy机制"><span class="nav-number">1.1.</span> <span class="nav-text">1.GroupBy机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）遍历各分组"><span class="nav-number">1.1.1.</span> <span class="nav-text">（1）遍历各分组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）使用字典-Series分组"><span class="nav-number">1.1.2.</span> <span class="nav-text">（2）使用字典&#x2F;Series分组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（3）使用函数分组"><span class="nav-number">1.1.3.</span> <span class="nav-text">（3）使用函数分组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（4）以索引层级进行分组"><span class="nav-number">1.1.4.</span> <span class="nav-text">（4）以索引层级进行分组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-数据聚合"><span class="nav-number">1.2.</span> <span class="nav-text">2.数据聚合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-应用（split-apply-combine）"><span class="nav-number">1.3.</span> <span class="nav-text">3.应用（split-apply-combine）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）压缩分组键"><span class="nav-number">1.3.1.</span> <span class="nav-text">（1）压缩分组键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）分位数与桶分析"><span class="nav-number">1.3.2.</span> <span class="nav-text">（2）分位数与桶分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-数据透视表与交叉表"><span class="nav-number">1.4.</span> <span class="nav-text">4.数据透视表与交叉表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）交叉表"><span class="nav-number">1.4.1.</span> <span class="nav-text">（1）交叉表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#八、时间序列"><span class="nav-number">2.</span> <span class="nav-text">八、时间序列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-日期和时间数据的类型及工具"><span class="nav-number">2.0.1.</span> <span class="nav-text">1.日期和时间数据的类型及工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-字符串与datetime的转化"><span class="nav-number">2.0.2.</span> <span class="nav-text">(1)字符串与datetime的转化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-时间序列基础"><span class="nav-number">2.1.</span> <span class="nav-text">2.时间序列基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）索引、选择、子集"><span class="nav-number">2.1.1.</span> <span class="nav-text">（1）索引、选择、子集</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-日期范围、频率和移位"><span class="nav-number">2.2.</span> <span class="nav-text">3.日期范围、频率和移位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）生成日期范围"><span class="nav-number">2.2.1.</span> <span class="nav-text">（1）生成日期范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）频率和日期offset"><span class="nav-number">2.2.2.</span> <span class="nav-text">（2）频率和日期offset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-移位"><span class="nav-number">2.2.3.</span> <span class="nav-text">(3)移位</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-时区处理"><span class="nav-number">2.3.</span> <span class="nav-text">4.时区处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）时区的本地化和转换"><span class="nav-number">2.3.1.</span> <span class="nav-text">（1）时区的本地化和转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-时区感知时间戳对象的操作"><span class="nav-number">2.3.2.</span> <span class="nav-text">(2)时区感知时间戳对象的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（3）不同时区间的操作"><span class="nav-number">2.3.3.</span> <span class="nav-text">（3）不同时区间的操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-时间区间和区间算数"><span class="nav-number">2.4.</span> <span class="nav-text">5.时间区间和区间算数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-重采样"><span class="nav-number">2.5.</span> <span class="nav-text">6.重采样</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）下采样"><span class="nav-number">2.5.1.</span> <span class="nav-text">（1）下采样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）开高低收"><span class="nav-number">2.5.2.</span> <span class="nav-text">（2）开高低收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-向上采样与差值"><span class="nav-number">2.5.3.</span> <span class="nav-text">(3)向上采样与差值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-使用时间区间进行重采样"><span class="nav-number">2.5.4.</span> <span class="nav-text">(4)使用时间区间进行重采样</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-移动窗口函数"><span class="nav-number">2.6.</span> <span class="nav-text">7.移动窗口函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#九、高阶Pandas"><span class="nav-number">3.</span> <span class="nav-text">九、高阶Pandas</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-分类数据"><span class="nav-number">3.1.</span> <span class="nav-text">1.分类数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）Categorical对象"><span class="nav-number">3.1.1.</span> <span class="nav-text">（1）Categorical对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-GroupBy高阶应用"><span class="nav-number">3.2.</span> <span class="nav-text">2.GroupBy高阶应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）分组转换和展开Groupby"><span class="nav-number">3.2.1.</span> <span class="nav-text">（1）分组转换和展开Groupby</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）方法链技术"><span class="nav-number">3.2.2.</span> <span class="nav-text">（2）方法链技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（3）pipe方法"><span class="nav-number">3.2.3.</span> <span class="nav-text">（3）pipe方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十、Python建模库"><span class="nav-number">3.3.</span> <span class="nav-text">十、Python建模库</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xue Xuan"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Xue Xuan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sjtu-xx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sjtu-xx" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuexuan1997@gmail.com" title="E-Mail → mailto:xuexuan1997@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xue Xuan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'eMthrkXxWi9VDSG39hpPXkOi-gzGzoHsz',
+      appKey     : '40yWQRY3985h43auodOGjsIQ',
+      placeholder: "欢迎畅所欲言",
+      avatar     : 'ヾﾉ≧∀≦)o来啊，快活啊!',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

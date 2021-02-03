@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sjtu-xx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Pytorch基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pytorch教程（七月在线笔记）">
+<meta property="og:url" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/index.html">
+<meta property="og:site_name" content="薛轩的个人博客">
+<meta property="og:description" content="Pytorch基础">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/1.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/4.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/2.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/3.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/5.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/6.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/7.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/8.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/9.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/16.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/11.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/12.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/13.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/14.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/15.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/17.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/18.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/19.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/20.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/21.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/22.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/23.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/24.png">
+<meta property="article:published_time" content="2020-03-15T02:09:39.000Z">
+<meta property="article:modified_time" content="2021-02-03T15:59:46.028Z">
+<meta property="article:author" content="Xue Xuan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/1.png">
+
+<link rel="canonical" href="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>pytorch教程（七月在线笔记） | 薛轩的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">薛轩的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">XueXuan's blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sjtu-xx.github.io/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Xue Xuan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="薛轩的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          pytorch教程（七月在线笔记）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-15 10:09:39" itemprop="dateCreated datePublished" datetime="2020-03-15T10:09:39+08:00">2020-03-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-03 23:59:46" itemprop="dateModified" datetime="2021-02-03T23:59:46+08:00">2021-02-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">基础理论</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/15/pytorch%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%83%E6%9C%88%E5%9C%A8%E7%BA%BF%E7%AC%94%E8%AE%B0%EF%BC%89/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Pytorch基础"><a href="#Pytorch基础" class="headerlink" title="Pytorch基础"></a>Pytorch基础</h1><a id="more"></a>
+<ol>
+<li>原位修改<br>函数后加下划线“<code>_</code>”表示原位修改:<code>y.add_(x)</code>。</li>
+<li>numpy和tensor的转化<br>numpy转换为tensor-》<code>torch.from_array(a)</code><br>tensor转换为numpy-》<code>a.numpy()</code></li>
+<li>cuda向量<br><code>a.cuda()</code><br><code>a.to(&quot;cuda&quot;)</code><br><code>a.to(torch.device(&quot;cuda&quot;))</code><br><code>torch.ones_like(device=torch.device(&quot;cuda&quot;))</code></li>
+<li>简单的双层神经网络案例<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="comment"># N is batch size; D_in is input dimension;</span></span><br><span class="line"><span class="comment"># H is hidden dimension; D_out is output dimension.</span></span><br><span class="line">N, D_in, H, D_out = <span class="number">64</span>, <span class="number">1000</span>, <span class="number">100</span>, <span class="number">10</span></span><br><span class="line">x = torch.randn(N,D_in)</span><br><span class="line">y = torch.randn(N,D_out)</span><br><span class="line"></span><br><span class="line">model = nn.Sequential(</span><br><span class="line">    nn.Linear(D_in,H),</span><br><span class="line">    nn.ReLU(),</span><br><span class="line">    nn.Linear(H,D_out))</span><br><span class="line"></span><br><span class="line">loss_fn = nn.MSELoss(reduction=<span class="string">"sum"</span>)</span><br><span class="line">learning_rate = <span class="number">1e-4</span></span><br><span class="line">optimizer = torch.optim.Adam(model.parameters(),lr=learning_rate)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">500</span>):</span><br><span class="line">    <span class="comment"># forward：构建模型</span></span><br><span class="line">    y_pred = model(x)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># loss</span></span><br><span class="line">    loss = loss_fn(y_pred,y)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 默认情况下grad是叠加，zero_grad用来重置参数列表</span></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># backward：计算梯度</span></span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    print(i,<span class="string">":"</span>,loss.item())</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意：验证时要no_grad</span></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    testY = model(testX)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>FizzBuzz游戏简单案例<br>游戏规则如下：从1开始往上数数，当遇到3的倍数的时候，说fizz，当遇到5的倍数，说buzz，当遇到15的倍数，就说fizzbuzz，其他情况下则正常数数。</li>
+</ol>
+<h2 id="Pytorch模型的建立"><a href="#Pytorch模型的建立" class="headerlink" title="Pytorch模型的建立"></a>Pytorch模型的建立</h2><p>模型的建立包括几个步骤：</p>
+<ol>
+<li>处理数据</li>
+<li>搭建模型</li>
+<li>forward pass</li>
+<li>optimizer</li>
+<li>backward pass</li>
+</ol>
+<h1 id="词向量和语言模型"><a href="#词向量和语言模型" class="headerlink" title="词向量和语言模型"></a>词向量和语言模型</h1><h2 id="词向量"><a href="#词向量" class="headerlink" title="词向量"></a>词向量</h2><p><a href="https://github.com/sjtu-xx/pytorch_course/blob/master/notebooks/2.word-embedding.ipynb" target="_blank" rel="noopener">github</a><br>资料地址 链接: <a href="https://pan.baidu.com/s/1QEFLWKRkMh-wh2nE5kD4Xw" target="_blank" rel="noopener">https://pan.baidu.com/s/1QEFLWKRkMh-wh2nE5kD4Xw</a> 提取码: x8iw<br>分布式表示：用一个词附近的其他词来表示该词。<br>Word2Vec：Skip-Gram<br><img src="1.png" alt=""></p>
+<h2 id="DataLoader"><a href="#DataLoader" class="headerlink" title="DataLoader"></a>DataLoader</h2><p><strong>实现Dataloader</strong><br>一个dataloader需要以下内容：</p>
+<ul>
+<li>把所有text编码成数字，然后用subsampling预处理这些文字。</li>
+<li>保存vocabulary，单词count，normalized word frequency</li>
+<li>每个iteration sample一个中心词</li>
+<li>根据当前的中心词返回context单词</li>
+<li>根据中心词sample一些negative单词</li>
+<li>返回单词的counts<br>这里有一个好的tutorial介绍如何使用<a href="https://pytorch.org/tutorials/beginner/data_loading_tutorial.html" target="_blank" rel="noopener">PyTorch dataloader</a>. 为了使用dataloader，我们需要定义以下两个function:</li>
+</ul>
+<p><strong>len</strong> function需要返回整个数据集中有多少个item<br><strong>getitem</strong> 根据给定的index返回一个item<br>有了dataloader之后，我们可以轻松随机打乱整个数据集，拿到一个batch的数据等等。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WordEmbeddingDataset</span><span class="params">(tud.Dataset)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,text,word_to_idx,idx_to_word,word_freqs)</span>:</span></span><br><span class="line">        super(WordEmbeddingDataset,self).__init__()</span><br><span class="line">        self.word_to_idx = word_to_idx</span><br><span class="line">        self.idx_to_word = idx_to_word</span><br><span class="line">        self.word_freqs = torch.Tensor(word_freqs)</span><br><span class="line">        self.text_encoded = torch.Tensor([self.word_to_idx.get(w,self.word_to_idx[<span class="string">"&lt;unk&gt;"</span>]) <span class="keyword">for</span> w <span class="keyword">in</span> text])</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__len__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> len(self.text_encoded)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getitem__</span><span class="params">(self,idx)</span>:</span></span><br><span class="line">        center_word = self.text_encoded[idx]</span><br><span class="line">        pos_indices = list(range(idx-C,idx))+list(range(idx+<span class="number">1</span>,idx+C+<span class="number">1</span>))</span><br><span class="line">        pos_indices = [i%len(self.word_to_idx) <span class="keyword">for</span> i <span class="keyword">in</span> pos_indices]</span><br><span class="line">        pos_words = torch.Tensor([self.text_encoded[i] <span class="keyword">for</span> i <span class="keyword">in</span> pos_indices])</span><br><span class="line">        neg_words = torch.multinomial(self.word_freqs,K*pos_words.shape[<span class="number">0</span>],<span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">return</span> center_word,pos_words,neg_words</span><br><span class="line"></span><br><span class="line">dataset = WordEmbeddingDataset(text,word_to_idx,idx_to_word,word_freqs)</span><br><span class="line">dataloader = tud.DataLoader(dataset,batch_size=BATCH_SIZE,shuffle=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="model"><a href="#model" class="headerlink" title="model"></a>model</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EmbeddingModel</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,vocab_size,embed_size)</span>:</span></span><br><span class="line">        super(EmbeddingModel,self).__init__()</span><br><span class="line">        self.vocab_size = vocab_size</span><br><span class="line">        self.embed_size = embed_size</span><br><span class="line">        </span><br><span class="line">        self.in_embed = nn.Embedding(self.vocab_size,self.embed_size)</span><br><span class="line">        self.out_embed = nn.Embedding(self.vocab_size,self.embed_size)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self,input_label,pos_labels,neg_labels)</span>:</span></span><br><span class="line">        <span class="comment"># input_label : [batch_size]</span></span><br><span class="line">        <span class="comment"># pos_label : [batch_size,window_size*2]</span></span><br><span class="line">        <span class="comment"># neg_label : [batch_size,window_size*2*K]</span></span><br><span class="line">        input_embed = self.in_embed(input_label) <span class="comment"># [batch_size,embed_size]</span></span><br><span class="line">        pos_embed = self.out_embed(pos_labels) <span class="comment"># [batch_size,window_size*2,embed_size]</span></span><br><span class="line">        neg_embed = self.out_embed(neg_labels) <span class="comment"># [batch_size,window_size*2*K,embed_size]</span></span><br><span class="line">        </span><br><span class="line">        input_embed = input_embed.unsqueeze(<span class="number">2</span>)</span><br><span class="line">        pos_dot = torch.bmm(pos_embed,input_embed).squeeze(<span class="number">2</span>) <span class="comment"># [batch_size,window_size*2]</span></span><br><span class="line">        neg_dot = torch.bmm(neg_embed,-input_embed).squeeze(<span class="number">2</span>) <span class="comment"># [batch_size,window_size*2*K]</span></span><br><span class="line">        </span><br><span class="line">        pos_loss = F.logsigmoid(pos_dot).sum(<span class="number">1</span>) <span class="comment">#.sum(1)</span></span><br><span class="line">        neg_loss = F.logsigmoid(neg_dot).sum(<span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">        loss = pos_loss+neg_loss</span><br><span class="line">        <span class="keyword">return</span> -loss</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">input_embeddings</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.in_embed.weight.data.cpu().numpy()</span><br></pre></td></tr></table></figure>
+<h2 id="training"><a href="#training" class="headerlink" title="training"></a>training</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">model = EmbeddingModel(VOCAB_SIZE,EMBEDDING_SIZE)</span><br><span class="line"><span class="keyword">if</span> USE_CUDA:</span><br><span class="line">    model = model.cuda()</span><br><span class="line">optimizer = torch.optim.SGD(model.parameters(),lr=LEARNING_RATE)</span><br><span class="line"><span class="keyword">for</span> e <span class="keyword">in</span> range(NUM_EPOCHS):</span><br><span class="line">    <span class="keyword">for</span> i,(input_label,pos_labels,neg_labels) <span class="keyword">in</span> enumerate(dataloader):</span><br><span class="line">        <span class="keyword">if</span> USE_CUDA:</span><br><span class="line">            input_label = input_label.long().cuda()</span><br><span class="line">            pos_labels = pos_labels.long().cuda()</span><br><span class="line">            neg_labels = neg_labels.long().cuda()</span><br><span class="line">            </span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line">        loss = model(input_label,pos_labels,neg_labels).mean()</span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step()</span><br><span class="line">        <span class="keyword">if</span> i % <span class="number">100</span> == <span class="number">0</span>:</span><br><span class="line">            print(<span class="string">"epoch: &#123;&#125;, iter: &#123;&#125;, loss: &#123;&#125;"</span>.format(e, i, loss.item()))</span><br></pre></td></tr></table></figure>
+<h2 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">evaluate</span><span class="params">(filename, embedding_weights)</span>:</span> </span><br><span class="line">    <span class="keyword">if</span> filename.endswith(<span class="string">".csv"</span>):</span><br><span class="line">        data = pd.read_csv(filename, sep=<span class="string">","</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        data = pd.read_csv(filename, sep=<span class="string">"\t"</span>)</span><br><span class="line">    human_similarity = []</span><br><span class="line">    model_similarity = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> data.iloc[:, <span class="number">0</span>:<span class="number">2</span>].index:</span><br><span class="line">        word1, word2 = data.iloc[i, <span class="number">0</span>], data.iloc[i, <span class="number">1</span>]</span><br><span class="line">        <span class="keyword">if</span> word1 <span class="keyword">not</span> <span class="keyword">in</span> word_to_idx <span class="keyword">or</span> word2 <span class="keyword">not</span> <span class="keyword">in</span> word_to_idx:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            word1_idx, word2_idx = word_to_idx[word1], word_to_idx[word2]</span><br><span class="line">            word1_embed, word2_embed = embedding_weights[[word1_idx]], embedding_weights[[word2_idx]]</span><br><span class="line">            model_similarity.append(float(sklearn.metrics.pairwise.cosine_similarity(word1_embed, word2_embed)))</span><br><span class="line">            human_similarity.append(float(data.iloc[i, <span class="number">2</span>]))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> scipy.stats.spearmanr(human_similarity, model_similarity)<span class="comment"># , model_similarity</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_nearest</span><span class="params">(word)</span>:</span></span><br><span class="line">    index = word_to_idx[word]</span><br><span class="line">    embedding = embedding_weights[index]</span><br><span class="line">    cos_dis = np.array([scipy.spatial.distance.cosine(e, embedding) <span class="keyword">for</span> e <span class="keyword">in</span> embedding_weights])</span><br><span class="line">    <span class="keyword">return</span> [idx_to_word[i] <span class="keyword">for</span> i <span class="keyword">in</span> cos_dis.argsort()[:<span class="number">10</span>]]</span><br></pre></td></tr></table></figure>
+<h1 id="语言模型"><a href="#语言模型" class="headerlink" title="语言模型"></a>语言模型</h1><h2 id="常见的语言模型"><a href="#常见的语言模型" class="headerlink" title="常见的语言模型"></a>常见的语言模型</h2><h3 id="RNN（Recurrent-neural-network）"><a href="#RNN（Recurrent-neural-network）" class="headerlink" title="RNN（Recurrent neural network）"></a>RNN（Recurrent neural network）</h3><h3 id="Long-short-term-memory-LSTM-："><a href="#Long-short-term-memory-LSTM-：" class="headerlink" title="Long short-term memory(LSTM)："></a>Long short-term memory(LSTM)：</h3><p><img src="4.png" alt=""><br>几个门来控制输入输出：<br>忘记门、输入门、更新门、输出门<br>原始的LSTM：<br><img src="2.png" alt=""><br>优化的LSTM（Pytorch中的LSTM）：<br><img src="3.png" alt=""></p>
+<p>训练时训练CrossEntropy</p>
+<h3 id="Gated-Recurrent-unit"><a href="#Gated-Recurrent-unit" class="headerlink" title="Gated Recurrent unit"></a>Gated Recurrent unit</h3><p><img src="5.png" alt=""></p>
+<h2 id="模型建立"><a href="#模型建立" class="headerlink" title="模型建立"></a>模型建立</h2><p>这些循环神经网络都可能出现梯度爆炸的问题。因此最好做一个gradient clipping<br><a href="https://github.com/sjtu-xx/pytorch_course/blob/master/notebooks/3.language-model.ipynb" target="_blank" rel="noopener">github</a></p>
+<ol>
+<li>文本处理<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">TEXT = torchtext.data.Field(lower=<span class="literal">True</span>)</span><br><span class="line">train, val, test = torchtext.datasets.LanguageModelingDataset.splits(path=<span class="string">"."</span>, </span><br><span class="line">    train=<span class="string">"word2vec/text8.train.txt"</span>, validation=<span class="string">"word2vec/text8.dev.txt"</span>, test=<span class="string">"word2vec/text8.test.txt"</span>, text_field=TEXT)</span><br><span class="line">TEXT.build_vocab(train, max_size=MAX_VOCAB_SIZE)</span><br><span class="line">print(<span class="string">"vocabulary size: &#123;&#125;"</span>.format(len(TEXT.vocab)))</span><br><span class="line"></span><br><span class="line">VOCAB_SIZE = len(TEXT.vocab)</span><br><span class="line">TEXT.vocab.itos <span class="comment"># index to string. type:list 包含两个特殊字符&lt;unk&gt; &lt;pad&gt;</span></span><br><span class="line">TEXT.vocab.stoi <span class="comment"># string to index. type:dict 包含两个特殊字符&lt;unk&gt; &lt;pad&gt;</span></span><br><span class="line">train_iter, val_iter, test_iter = torchtext.data.BPTTIterator.splits(</span><br><span class="line">    (train, val, test), batch_size=BATCH_SIZE, device=<span class="number">-1</span>, bptt_len=<span class="number">32</span>, repeat=<span class="literal">False</span>, shuffle=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure></li>
+<li>模型保存<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">val_loss = evaluate(model, val_iter)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> len(val_losses) == <span class="number">0</span> <span class="keyword">or</span> val_loss &lt; min(val_losses):</span><br><span class="line">    print(<span class="string">"best model, val loss: "</span>, val_loss)</span><br><span class="line">    torch.save(model.state_dict(), <span class="string">"lm-best.th"</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    scheduler.step()</span><br><span class="line">    optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)</span><br><span class="line">val_losses.append(val_loss) <span class="comment"># scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, 0.5)</span></span><br></pre></td></tr></table></figure></li>
+<li>模型加载<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">best_model = RNNModel(<span class="string">"LSTM"</span>, VOCAB_SIZE, EMBEDDING_SIZE, EMBEDDING_SIZE, <span class="number">2</span>, dropout=<span class="number">0.5</span>)</span><br><span class="line"><span class="keyword">if</span> USE_CUDA:</span><br><span class="line">    best_model = best_model.cuda()</span><br><span class="line">best_model.load_state_dict(torch.load(<span class="string">"lm-best.th"</span>))</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="文本分类模型"><a href="#文本分类模型" class="headerlink" title="文本分类模型"></a>文本分类模型</h2><p><img src="6.png" alt=""><br><img src="7.png" alt=""><br><img src="8.png" alt=""><br><img src="9.png" alt=""></p>
+<p>logits : 任何数字<br>sigmoid处理后： probability</p>
+<p>BCEWithLogitsLoss()  binary cross entropy: 二分类问题<br>文本分类模型中，dropout很重要，特别是数据量比较少的时候。（可以dropout，或把部分单词的word调成<code>&lt;unk&gt;</code>）<br>WordAVG 很强。</p>
+<h1 id="卷积网络"><a href="#卷积网络" class="headerlink" title="卷积网络"></a>卷积网络</h1><p>local feature detect</p>
+<blockquote>
+<p>Batchnormalization<br><img src="16.png" alt=""></p>
+<h2 id="常见的卷积网络"><a href="#常见的卷积网络" class="headerlink" title="常见的卷积网络"></a>常见的卷积网络</h2><p><img src="11.png" alt=""><br><img src="12.png" alt=""><br><img src="13.png" alt=""><br><img src="14.png" alt=""><br><img src="15.png" alt=""></p>
+</blockquote>
+<h2 id="迁移学习"><a href="#迁移学习" class="headerlink" title="迁移学习"></a>迁移学习</h2><p>我们常用以下两种方法做迁移学习。</p>
+<ul>
+<li>fine tuning: 从一个预训练模型开始，我们改变一些模型的架构，然后继续训练整个模型的参数。</li>
+<li>feature extraction: 我们不再改变预训练模型的参数，而是只更新我们改变过的部分模型参数。我们之所以叫它feature extraction是因为我们把预训练的CNN模型当做一个特征提取模型，利用提取出来的特征做来完成我们的训练任务。<br>通过requires_grad = False 来冻结层<br><strong>以下是构建和训练迁移学习模型的基本步骤</strong>：</li>
+<li>初始化预训练模型</li>
+<li>把最后一层的输出层改变成我们想要分的类别总数</li>
+<li>定义一个optimizer来更新参数</li>
+<li>模型训练</li>
+</ul>
+<h1 id="图片风格迁移和GAN"><a href="#图片风格迁移和GAN" class="headerlink" title="图片风格迁移和GAN"></a>图片风格迁移和GAN</h1><h2 id="风格迁移"><a href="#风格迁移" class="headerlink" title="风格迁移"></a>风格迁移</h2><p><strong>content loss</strong><br><img src="17.png" alt=""><br><strong>style</strong><br>Gram Matrix可以被拿来表示两张图片的texture相似度<br><img src="18.png" alt=""><br><strong>style loss</strong><br><img src="19.png" alt=""></p>
+<h2 id="GAN-Generative-Adversarial-Networks"><a href="#GAN-Generative-Adversarial-Networks" class="headerlink" title="GAN(Generative Adversarial Networks)"></a>GAN(Generative Adversarial Networks)</h2><p>Generator: 生成器，目标是让生成的数据接近真实数据<br>Discriminator: 判别器，目标是能够鉴别真实数据和生成的假数据</p>
+<p>论文：style transfer from non-parallel text by cross-alignment</p>
+<h2 id="DCGAN"><a href="#DCGAN" class="headerlink" title="DCGAN"></a>DCGAN</h2><p>使用deconv层作为图片生成器<br>Deconvolutional Layer <a href="https://datascience.stackexchange.com/questions/6107/what-are-deconvolutional-layers" target="_blank" rel="noopener">https://datascience.stackexchange.com/questions/6107/what-are-deconvolutional-layers</a><br>介绍deconv<br><a href="https://arxiv.org/pdf/1603.07285.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1603.07285.pdf</a></p>
+<h1 id="Seq2Seq和Attention"><a href="#Seq2Seq和Attention" class="headerlink" title="Seq2Seq和Attention"></a>Seq2Seq和Attention</h1><p><img src="20.png" alt=""><br><img src="21.png" alt=""><br><img src="22.png" alt=""></p>
+<h1 id="大规模预训练语言模型"><a href="#大规模预训练语言模型" class="headerlink" title="大规模预训练语言模型"></a>大规模预训练语言模型</h1><p><a href="https://zhuanlan.zhihu.com/p/46652512" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/46652512</a><br>BERT、ELMO、OpenAI GPT</p>
+<h2 id="ELMO"><a href="#ELMO" class="headerlink" title="ELMO"></a>ELMO</h2><p>一个预训练两层双向LSTM语言模型：-》得到的是词向量-&gt;用来替代embedding层，通常能提高很多<br><a href="https://www.aclweb.org/anthology/N18-1202" target="_blank" rel="noopener">https://www.aclweb.org/anthology/N18-1202</a><br><a href="https://github.com/allenai/allennlp" target="_blank" rel="noopener">https://github.com/allenai/allennlp</a><br><img src="23.png" alt=""><br><img src="24.png" alt=""><br><strong>AllenNLP</strong><br>一个很好的构建NLP模型的package，基于PyTorch<br>AllenAI在2018 EMNLP上的一个tutorial<br><a href="https://github.com/allenai/writing-code-for-nlp-research-emnlp2018/blob/master/writing_code_for_nlp_research.pdf" target="_blank" rel="noopener">https://github.com/allenai/writing-code-for-nlp-research-emnlp2018/blob/master/writing_code_for_nlp_research.pdf</a></p>
+<p>elmo的训练代码：<a href="https://github.com/allenai/bilm-tf" target="_blank" rel="noopener">bilm-tf</a><br>elmo使用tensorflow训练再导出到pytorch中</p>
+<h2 id="BERT"><a href="#BERT" class="headerlink" title="BERT"></a>BERT</h2><p>不是一个语言模型，目标是预测masked word</p>
+<h2 id="OpenAI-GPT-2"><a href="#OpenAI-GPT-2" class="headerlink" title="OpenAI GPT-2"></a>OpenAI GPT-2</h2><p>一种<a href="https://zhuanlan.zhihu.com/p/39034683" target="_blank" rel="noopener">Transformer模型</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/14/tensorflow%E5%92%8Cpytorch%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2%EF%BC%88windows%E4%B8%8B%EF%BC%89/" rel="prev" title="tensorflow和pytorch环境部署（windows下）">
+      <i class="fa fa-chevron-left"></i> tensorflow和pytorch环境部署（windows下）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/17/%E4%BA%A4%E5%8F%89%E7%86%B5%E5%92%8CKL%E6%95%A3%E5%BA%A6/" rel="next" title="交叉熵和负对数损失">
+      交叉熵和负对数损失 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pytorch基础"><span class="nav-number">1.</span> <span class="nav-text">Pytorch基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pytorch模型的建立"><span class="nav-number">1.1.</span> <span class="nav-text">Pytorch模型的建立</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#词向量和语言模型"><span class="nav-number">2.</span> <span class="nav-text">词向量和语言模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#词向量"><span class="nav-number">2.1.</span> <span class="nav-text">词向量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DataLoader"><span class="nav-number">2.2.</span> <span class="nav-text">DataLoader</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#model"><span class="nav-number">2.3.</span> <span class="nav-text">model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#training"><span class="nav-number">2.4.</span> <span class="nav-text">training</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评估"><span class="nav-number">2.5.</span> <span class="nav-text">评估</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语言模型"><span class="nav-number">3.</span> <span class="nav-text">语言模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的语言模型"><span class="nav-number">3.1.</span> <span class="nav-text">常见的语言模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RNN（Recurrent-neural-network）"><span class="nav-number">3.1.1.</span> <span class="nav-text">RNN（Recurrent neural network）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Long-short-term-memory-LSTM-："><span class="nav-number">3.1.2.</span> <span class="nav-text">Long short-term memory(LSTM)：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gated-Recurrent-unit"><span class="nav-number">3.1.3.</span> <span class="nav-text">Gated Recurrent unit</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型建立"><span class="nav-number">3.2.</span> <span class="nav-text">模型建立</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本分类模型"><span class="nav-number">3.3.</span> <span class="nav-text">文本分类模型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#卷积网络"><span class="nav-number">4.</span> <span class="nav-text">卷积网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的卷积网络"><span class="nav-number">4.1.</span> <span class="nav-text">常见的卷积网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迁移学习"><span class="nav-number">4.2.</span> <span class="nav-text">迁移学习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图片风格迁移和GAN"><span class="nav-number">5.</span> <span class="nav-text">图片风格迁移和GAN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#风格迁移"><span class="nav-number">5.1.</span> <span class="nav-text">风格迁移</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GAN-Generative-Adversarial-Networks"><span class="nav-number">5.2.</span> <span class="nav-text">GAN(Generative Adversarial Networks)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCGAN"><span class="nav-number">5.3.</span> <span class="nav-text">DCGAN</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Seq2Seq和Attention"><span class="nav-number">6.</span> <span class="nav-text">Seq2Seq和Attention</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#大规模预训练语言模型"><span class="nav-number">7.</span> <span class="nav-text">大规模预训练语言模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ELMO"><span class="nav-number">7.1.</span> <span class="nav-text">ELMO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BERT"><span class="nav-number">7.2.</span> <span class="nav-text">BERT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenAI-GPT-2"><span class="nav-number">7.3.</span> <span class="nav-text">OpenAI GPT-2</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xue Xuan"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Xue Xuan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sjtu-xx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sjtu-xx" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuexuan1997@gmail.com" title="E-Mail → mailto:xuexuan1997@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xue Xuan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'eMthrkXxWi9VDSG39hpPXkOi-gzGzoHsz',
+      appKey     : '40yWQRY3985h43auodOGjsIQ',
+      placeholder: "欢迎畅所欲言",
+      avatar     : 'ヾﾉ≧∀≦)o来啊，快活啊!',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

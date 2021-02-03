@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sjtu-xx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="型别推导">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Effective_Modern_C++笔记">
+<meta property="og:url" content="https://sjtu-xx.github.io/2020/01/12/Effective-Modern-C-%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="薛轩的个人博客">
+<meta property="og:description" content="型别推导">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-01-12T08:55:43.000Z">
+<meta property="article:modified_time" content="2021-02-03T15:59:45.648Z">
+<meta property="article:author" content="Xue Xuan">
+<meta property="article:tag" content="c++">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://sjtu-xx.github.io/2020/01/12/Effective-Modern-C-%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Effective_Modern_C++笔记 | 薛轩的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">薛轩的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">XueXuan's blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sjtu-xx.github.io/2020/01/12/Effective-Modern-C-%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Xue Xuan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="薛轩的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Effective_Modern_C++笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-12 16:55:43" itemprop="dateCreated datePublished" datetime="2020-01-12T16:55:43+08:00">2020-01-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-03 23:59:45" itemprop="dateModified" datetime="2021-02-03T23:59:45+08:00">2021-02-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/01/12/Effective-Modern-C-%E7%AC%94%E8%AE%B0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/12/Effective-Modern-C-%E7%AC%94%E8%AE%B0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="型别推导"><a href="#型别推导" class="headerlink" title="型别推导"></a>型别推导</h1><a id="more"></a>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> x1 = <span class="number">27</span>;  <span class="comment">//型别是int，值是27</span></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">x2</span><span class="params">(<span class="number">27</span>)</span></span>; <span class="comment">//型别是int，值是27</span></span><br><span class="line"><span class="keyword">auto</span> x3 = &#123;<span class="number">27</span>&#125;; <span class="comment">//型别是std::initializer_list&lt;int&gt;,值是27</span></span><br><span class="line"><span class="keyword">auto</span> x4&#123;<span class="number">27</span>&#125;; <span class="comment">//同上</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//错误</span></span><br><span class="line"><span class="keyword">auto</span> x5 =&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3.0</span>&#125;;  推导不出<span class="built_in">std</span>::<span class="built_in">initializer_list</span>&lt;T&gt;中的T</span><br></pre></td></tr></table></figure>
+<p>当用于auto声明变量的初始化表达式是用大括号扩起时，推导所得的型别就属于std::initializer_list.</p>
+<p>带有auto返回值的函数若要返回一个大括号括起来的初始化表达式是通不过编译的。<br>用auto来制定c++14中的lambda式的星灿类被是，也不能使用大括号括起来的初始化表达式。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//C++11 返回值型别尾序语法：</span></span><br><span class="line"><span class="comment">// 尾序返回值的好处在于，在指定返回值型别时，可以使用函数形参。</span></span><br><span class="line">auto authAndAccess(Container &amp;c, Index i)-&gt;decltype(c[i])&#123;return c[i]&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Widget w;</span><br><span class="line"><span class="keyword">const</span> Widget&amp; cw = w;</span><br><span class="line"><span class="keyword">auto</span> myWidget1 = cw;  <span class="comment">//Widget</span></span><br><span class="line"><span class="keyword">decltype</span>(<span class="keyword">auto</span>) myWidget2 = cw;  <span class="comment">//const Widget &amp;</span></span><br></pre></td></tr></table></figure>
+<h1 id="转向现代c"><a href="#转向现代c" class="headerlink" title="转向现代c++"></a>转向现代c++</h1><ul>
+<li>优先选用nullptr，而非0或NULL</li>
+<li>优先选用using别名声明，而非typedef</li>
+<li>优先选用限定作用域的枚举类别<ul>
+<li>限定作用域的枚举类别可以进行前置声明<br><code>enum class Color; //正确</code><br><code>enum Color; //错误</code></li>
+<li>默认型别<br><code>enum class Status: std::uint32_t;</code></li>
+</ul>
+</li>
+<li>优先选用删除函数，而非private未定义函数</li>
+<li>为意在改写的函数添加override声明</li>
+<li>优先选用const_iterator,而非iterator</li>
+<li>只要函数不会发射异常，就为其加上noexcept声明</li>
+<li>只要有可能使用constexpr，就使用他，</li>
+</ul>
+<h1 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h1><ul>
+<li>使用unique_ptr管理具备专属所有权的资源</li>
+<li>使用shared_ptr管理具备共享所有权的资源</li>
+<li>对于类似shared_ptr但有可能空悬的指针使用weak_ptr</li>
+<li>优先选用make_unique和make_shared，而非直接使用new</li>
+</ul>
+<h1 id="右值引用、移动语义和完美转发"><a href="#右值引用、移动语义和完美转发" class="headerlink" title="右值引用、移动语义和完美转发"></a>右值引用、移动语义和完美转发</h1><p><strong>形参总是左值，即使其型别是右值引用</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(Widget&amp;&amp; w)</span></span>;</span><br><span class="line"><span class="comment">//w 是左值</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="std-move-和-std-forward"><a href="#std-move-和-std-forward" class="headerlink" title="std::move 和 std::forward"></a>std::move 和 std::forward</h2><p>std::move无条件的将实参强制转换成右值，而std::forward则仅在某个特定条件满足时才执行同一个强制转换。</p>
+<p>如果想要取得某个对象执行移动操作的能力，不要将其声明为常量，因为针对常量对象执行的移动操作将一声不响的变换成复制操作；其次，std::move不仅不实际移动任何东西，甚至不保证经过其强制型别转换后的对象具备可移动能力。std::move的结果唯一可以确定的是，该结果是个右值。</p>
+<p>std::forward是有条件的强制型别转换，仅当其实参是使用右值完成初始化时，他才会执行向右值型别的强制型别转换。</p>
+<h2 id="区分万能引用和右值引用"><a href="#区分万能引用和右值引用" class="headerlink" title="区分万能引用和右值引用"></a>区分万能引用和右值引用</h2><p>如果看到了<code>T&amp;&amp;</code>，却没有其涉及的型别推导，则其为右值引用<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(Widget&amp;&amp; param)</span></span>; <span class="comment">//右值引用</span></span><br><span class="line">Widget&amp;&amp; var1 = Widget(); <span class="comment">//右值引用</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;T&gt;&amp;&amp; param)</span></span>;  <span class="comment">//右值引用</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span>&amp;&amp; var2 = var1;  <span class="comment">//万能引用</span></span><br><span class="line"><span class="keyword">template</span>&lt;typername T&gt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(T&amp;&amp; param)</span></span>; <span class="comment">//万能引用</span></span><br></pre></td></tr></table></figure><br>万能引用的初始化物会决定他代表的是一个左值还是右值引用：如果初始化物是右值，万能应用就会对应到一个右值引用；如果初始化物是一个左值，则万能引用就会对应到一个右值引用</p>
+<h2 id="针对右值引用实施std-move-针对万能指针实施std-forward"><a href="#针对右值引用实施std-move-针对万能指针实施std-forward" class="headerlink" title="针对右值引用实施std::move,针对万能指针实施std::forward"></a>针对右值引用实施std::move,针对万能指针实施std::forward</h2><h2 id="避免依万能引用型别进行重载"><a href="#避免依万能引用型别进行重载" class="headerlink" title="避免依万能引用型别进行重载"></a>避免依万能引用型别进行重载</h2><p>把重载和万能引用这两者结合起来几乎总是一个馊主意：一旦万能引用成为重载候选，他就会吸引走大批的实参型别，远比撰写重载代码的程序员期望的要多。</p>
+<h2 id="假定移动操作不存在，成本高，未使用"><a href="#假定移动操作不存在，成本高，未使用" class="headerlink" title="假定移动操作不存在，成本高，未使用"></a>假定移动操作不存在，成本高，未使用</h2><p>std::array的复制和移动有相同的时间复杂度</p>
+<h1 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h1><p>c++14标准中，捕获成员变量的一种较好的方法是使用广义lambda捕获：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> Widget::addFilter() <span class="keyword">const</span></span><br><span class="line">&#123;</span><br><span class="line">	filter.emplace_back(</span><br><span class="line">	[divisor = divisor](<span class="keyword">int</span> value)&#123;<span class="keyword">return</span> value % divisor == <span class="number">0</span>;&#125;) <span class="comment">//将divisor复制入闭包，使用副本</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="优先使用lambda表达式而不是std-bind"><a href="#优先使用lambda表达式而不是std-bind" class="headerlink" title="优先使用lambda表达式而不是std::bind"></a>优先使用lambda表达式而不是std::bind</h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/c/" rel="tag"># c++</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/01/06/Effective-C-%E7%AC%94%E8%AE%B0/" rel="prev" title="Effective C++笔记">
+      <i class="fa fa-chevron-left"></i> Effective C++笔记
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/01/12/QT%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88C-%EF%BC%89/" rel="next" title="QT学习笔记（C++）">
+      QT学习笔记（C++） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#型别推导"><span class="nav-number">1.</span> <span class="nav-text">型别推导</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#转向现代c"><span class="nav-number">2.</span> <span class="nav-text">转向现代c++</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#智能指针"><span class="nav-number">3.</span> <span class="nav-text">智能指针</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#右值引用、移动语义和完美转发"><span class="nav-number">4.</span> <span class="nav-text">右值引用、移动语义和完美转发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#std-move-和-std-forward"><span class="nav-number">4.1.</span> <span class="nav-text">std::move 和 std::forward</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区分万能引用和右值引用"><span class="nav-number">4.2.</span> <span class="nav-text">区分万能引用和右值引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#针对右值引用实施std-move-针对万能指针实施std-forward"><span class="nav-number">4.3.</span> <span class="nav-text">针对右值引用实施std::move,针对万能指针实施std::forward</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免依万能引用型别进行重载"><span class="nav-number">4.4.</span> <span class="nav-text">避免依万能引用型别进行重载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#假定移动操作不存在，成本高，未使用"><span class="nav-number">4.5.</span> <span class="nav-text">假定移动操作不存在，成本高，未使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lambda表达式"><span class="nav-number">5.</span> <span class="nav-text">lambda表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#优先使用lambda表达式而不是std-bind"><span class="nav-number">5.1.</span> <span class="nav-text">优先使用lambda表达式而不是std::bind</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xue Xuan"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Xue Xuan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sjtu-xx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sjtu-xx" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuexuan1997@gmail.com" title="E-Mail → mailto:xuexuan1997@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xue Xuan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'eMthrkXxWi9VDSG39hpPXkOi-gzGzoHsz',
+      appKey     : '40yWQRY3985h43auodOGjsIQ',
+      placeholder: "欢迎畅所欲言",
+      avatar     : 'ヾﾉ≧∀≦)o来啊，快活啊!',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

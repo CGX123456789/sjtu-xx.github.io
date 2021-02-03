@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sjtu-xx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="通俗易懂的解释numpy中的广播">
+<meta property="og:type" content="article">
+<meta property="og:title" content="numpy中的axis和广播">
+<meta property="og:url" content="https://sjtu-xx.github.io/2020/02/17/numpy%E4%B8%AD%E7%9A%84axis%E5%92%8C%E5%B9%BF%E6%92%AD/index.html">
+<meta property="og:site_name" content="薛轩的个人博客">
+<meta property="og:description" content="通俗易懂的解释numpy中的广播">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/numpy%E4%B8%AD%E7%9A%84axis%E5%92%8C%E5%B9%BF%E6%92%AD/image/123.gif">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/02/17/numpy%E4%B8%AD%E7%9A%84axis%E5%92%8C%E5%B9%BF%E6%92%AD/image/70-2401463.png">
+<meta property="article:published_time" content="2020-02-17T10:23:26.000Z">
+<meta property="article:modified_time" content="2021-02-03T15:59:45.993Z">
+<meta property="article:author" content="Xue Xuan">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="numpy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sjtu-xx.github.io/2020/02/17/numpy%E4%B8%AD%E7%9A%84axis%E5%92%8C%E5%B9%BF%E6%92%AD/image/123.gif">
+
+<link rel="canonical" href="https://sjtu-xx.github.io/2020/02/17/numpy%E4%B8%AD%E7%9A%84axis%E5%92%8C%E5%B9%BF%E6%92%AD/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>numpy中的axis和广播 | 薛轩的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">薛轩的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">XueXuan's blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sjtu-xx.github.io/2020/02/17/numpy%E4%B8%AD%E7%9A%84axis%E5%92%8C%E5%B9%BF%E6%92%AD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Xue Xuan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="薛轩的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          numpy中的axis和广播
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 18:23:26" itemprop="dateCreated datePublished" datetime="2020-02-17T18:23:26+08:00">2020-02-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-03 23:59:45" itemprop="dateModified" datetime="2021-02-03T23:59:45+08:00">2021-02-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">第三方库</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/17/numpy%E4%B8%AD%E7%9A%84axis%E5%92%8C%E5%B9%BF%E6%92%AD/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/numpy%E4%B8%AD%E7%9A%84axis%E5%92%8C%E5%B9%BF%E6%92%AD/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="通俗易懂的解释numpy中的广播"><a href="#通俗易懂的解释numpy中的广播" class="headerlink" title="通俗易懂的解释numpy中的广播"></a>通俗易懂的解释numpy中的广播</h1><a id="more"></a>
+<p>原连接： <a href="https://blog.csdn.net/xiang_freedom/article/details/77968164" target="_blank" rel="noopener">https://blog.csdn.net/xiang_freedom/article/details/77968164</a></p>
+<p>广播是numpy对不同shape的array进行数值计算的方式，符合一定规则的前提下，将较小的array“广播”成更大的、可以计算的array。广播意味着一种向量化操作，从而在类似C语言中产生大量循环，这会导致内存和计算效率的低效。在Python中，广播不会做大量的数据复制并且通常使计算更加高效。</p>
+<p>标准的数组计算形式为两个shape形状一样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a &#x3D; np.array([1.0, 2.0, 3.0])</span><br><span class="line">&gt;&gt;&gt; b &#x3D; np.array([2.0, 2.0, 2.0])</span><br><span class="line">&gt;&gt;&gt; a * b</span><br><span class="line">array([ 2.,  4.,  6.])</span><br><span class="line">1234</span><br></pre></td></tr></table></figure>
+<p>如果shape不一致，需要满足一定规则，可以使用广播。</p>
+<h2 id="广播规则"><a href="#广播规则" class="headerlink" title="广播规则"></a>广播规则</h2><p>网上很多文章的写法都是：</p>
+<ol>
+<li>让所有输入数组都向其中shape最长的数组看齐，shape中不足的部分都通过在前面加1补齐</li>
+<li>输出数组的shape是输入数组shape的各个轴上的最大值</li>
+<li>如果输入数组的某个轴和输出数组的对应轴的长度相同或者其长度为1时，这个数组能够用来计算，否则出错</li>
+<li>当输入数组的某个轴的长度为1时，沿着此轴运算时都用此轴上的第一组值</li>
+</ol>
+<p>我看的时候看了很久都没有看懂。其实可以更简单的描述：<br>对两个数组，分别比较他们的每一个维度（若其中一个数组没有当前维度则忽略），满足：</p>
+<ol>
+<li>当前维度的值相等</li>
+<li>当前维度的值有一个是1</li>
+</ol>
+<p>若条件不满足，抛出“ValueError: frames are not aligned”异常。<br>输出数组的维度是每一个维度的最大值，广播将值为1的维度进行“复制”、“拉伸”，如图所示</p>
+<p><img src="image/123.gif" alt="img"><br>需要注意的是这里的“复制”只是一个抽象概念，Python并不会对数据进行真实复制。</p>
+<p>举例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Image  (3d array): 256 x 256 x 3</span><br><span class="line">Scale  (1d array):             3</span><br><span class="line">Result (3d array): 256 x 256 x 3</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+<p>在第三个维度相等</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A      (4d array):  8 x 1 x 6 x 1</span><br><span class="line">B      (3d array):      7 x 1 x 5</span><br><span class="line">Result (4d array):  8 x 7 x 6 x 5</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+<p>在第2、3、4维度满足第2个条件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A      (2d array):      2 x 1</span><br><span class="line">B      (3d array):  8 x 4 x 3</span><br><span class="line">12</span><br></pre></td></tr></table></figure>
+<p>错误的情况，在第二个维度不满足条件。</p>
+<p>参考资料<br>numpy文档 ：<a href="https://docs.scipy.org/doc/numpy-1.13.0/user/basics.broadcasting.html" target="_blank" rel="noopener">https://docs.scipy.org/doc/numpy-1.13.0/user/basics.broadcasting.html</a><br>图形化描述：<a href="http://scipy.github.io/old-wiki/pages/EricsBroadcastingDoc" target="_blank" rel="noopener">http://scipy.github.io/old-wiki/pages/EricsBroadcastingDoc</a></p>
+<h1 id="Python之NumPy（axis-0-与axis-1）区分"><a href="#Python之NumPy（axis-0-与axis-1）区分" class="headerlink" title="Python之NumPy（axis=0 与axis=1）区分"></a>Python之NumPy（axis=0 与axis=1）区分</h1><p>2018年06月23日 15:42:06 <a href="https://me.csdn.net/hlang8160" target="_blank" rel="noopener">hlang8160</a> 阅读数 237</p>
+<p>转自：<a href="http://blog.csdn.net/wangying19911991/article/details/73928172" target="_blank" rel="noopener">http://blog.csdn.net/wangying19911991/article/details/73928172</a></p>
+<p><a href="https://www.zhihu.com/question/58993137" target="_blank" rel="noopener">https://www.zhihu.com/question/58993137</a><br><a href="https://www.cnblogs.com/rrttp/p/8028421.html" target="_blank" rel="noopener">https://www.cnblogs.com/rrttp/p/8028421.html</a></p>
+<p>python中的axis究竟是如何定义的呢？他们究竟代表是DataFrame的行还是列？考虑以下代码：</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>df = pd.DataFrame([[1, 1, 1, 1], [2, 2, 2, 2], [3, 3, 3, 3]], \<br>columns=[“col1”, “col2”, “col3”, “col4”])<br>df<br>col1 col2 col3 col4<br>0 1 1 1 1<br>1 2 2 2 2<br>2 3 3 3 3<br>如果我们调用df.mean(axis=1),我们将得到按行计算的均值</p>
+<p>df.mean(axis=1)<br>0 1<br>1 2<br>2 3<br>然而，如果我们调用 df.drop((name, axis=1),我们实际上删掉了一列，而不是一行：</p>
+<p>df.drop(“col4”, axis=1)<br>col1 col2 col3<br>0 1 1 1<br>1 2 2 2<br>2 3 3 3</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Can someone help me understand what is meant by an “axis” in pandas/numpy/scipy?<br>有人能帮我理解一下，在pandas、numpy、scipy三都当中axis参数的真实含义吗？</p>
+<p>投票最高的答案揭示了问题的本质：</p>
+<p>其实问题理解axis有问题，df.mean其实是在每一行上取所有列的均值，而不是保留每一列的均值。也许简单的来记就是axis=0代表往跨行（down)，而axis=1代表跨列（across)，作为方法动作的副词（译者注）</p>
+<p>换句话说:</p>
+<p>使用0值表示沿着每一列或行标签\索引值向下执行方法<br>使用1值表示沿着每一行或者列标签模向执行对应的方法<br>下图代表在DataFrame当中axis为0和1时分别代表的含义:</p>
+<p>axis参数作用方向图示</p>
+<p><img src="image/70-2401463.png" alt="这里写图片描述"></p>
+<p>另外，记住，Pandas保持了Numpy对关键字axis的用法，用法在Numpy库的词汇表当中有过解释：</p>
+<p>轴用来为超过一维的数组定义的属性，二维数据拥有两个轴：第0轴沿着行的垂直往下，第1轴沿着列的方向水平延伸。</p>
+<p>所以问题当中第一个列子 df.mean(axis=1)代表沿着列水平方向计算均值，而第二个列子df.drop(name, axis=1) 代表将name对应的列标签（们）沿着水平的方向依次删掉。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/numpy/" rel="tag"># numpy</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%904%EF%BC%88pandas%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%BF%9B%E9%98%B6%EF%BC%89/" rel="prev" title="利用python进行数据分析4（pandas数据处理进阶）">
+      <i class="fa fa-chevron-left"></i> 利用python进行数据分析4（pandas数据处理进阶）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/17/%E9%95%BF%E7%9F%AD%E8%AE%B0%E5%BF%86%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="next" title="长短记忆神经网络">
+      长短记忆神经网络 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#通俗易懂的解释numpy中的广播"><span class="nav-number">1.</span> <span class="nav-text">通俗易懂的解释numpy中的广播</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#广播规则"><span class="nav-number">1.1.</span> <span class="nav-text">广播规则</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python之NumPy（axis-0-与axis-1）区分"><span class="nav-number">2.</span> <span class="nav-text">Python之NumPy（axis&#x3D;0 与axis&#x3D;1）区分</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xue Xuan"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Xue Xuan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sjtu-xx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sjtu-xx" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuexuan1997@gmail.com" title="E-Mail → mailto:xuexuan1997@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xue Xuan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'eMthrkXxWi9VDSG39hpPXkOi-gzGzoHsz',
+      appKey     : '40yWQRY3985h43auodOGjsIQ',
+      placeholder: "欢迎畅所欲言",
+      avatar     : 'ヾﾉ≧∀≦)o来啊，快活啊!',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sjtu-xx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="把fortran的语法简单总结一下,方便以后查阅">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fortran语法">
+<meta property="og:url" content="https://sjtu-xx.github.io/2020/04/04/fortran%E8%AF%AD%E6%B3%95/index.html">
+<meta property="og:site_name" content="薛轩的个人博客">
+<meta property="og:description" content="把fortran的语法简单总结一下,方便以后查阅">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-04T12:30:05.000Z">
+<meta property="article:modified_time" content="2021-02-03T15:59:45.910Z">
+<meta property="article:author" content="Xue Xuan">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://sjtu-xx.github.io/2020/04/04/fortran%E8%AF%AD%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>fortran语法 | 薛轩的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">薛轩的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">XueXuan's blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sjtu-xx.github.io/2020/04/04/fortran%E8%AF%AD%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Xue Xuan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="薛轩的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          fortran语法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-04 20:30:05" itemprop="dateCreated datePublished" datetime="2020-04-04T20:30:05+08:00">2020-04-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-03 23:59:45" itemprop="dateModified" datetime="2021-02-03T23:59:45+08:00">2021-02-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Fortran/" itemprop="url" rel="index"><span itemprop="name">Fortran</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/04/04/fortran%E8%AF%AD%E6%B3%95/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/04/04/fortran%E8%AF%AD%E6%B3%95/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>把fortran的语法简单总结一下,方便以后查阅<br><a id="more"></a></p>
+<h1 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h1><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">program</span></span> program_name</span><br><span class="line"><span class="keyword">implicit</span> <span class="keyword">none</span>      </span><br><span class="line"></span><br><span class="line"><span class="comment">! type declaration statements      </span></span><br><span class="line"><span class="comment">! executable statements  </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">program</span></span> program_name</span><br></pre></td></tr></table></figure>
+<h2 id="加法fortran程序"><a href="#加法fortran程序" class="headerlink" title="加法fortran程序"></a>加法fortran程序</h2><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">program</span></span> addNumbers</span><br><span class="line"></span><br><span class="line"><span class="comment">! This simple program adds two numbers     </span></span><br><span class="line">   <span class="keyword">implicit</span> <span class="keyword">none</span></span><br><span class="line">   </span><br><span class="line"><span class="comment">! Type declarations</span></span><br><span class="line">   <span class="keyword">real</span> :: a, b, result </span><br><span class="line">   </span><br><span class="line"><span class="comment">! Executable statements </span></span><br><span class="line">   a = <span class="number">12.0</span></span><br><span class="line">   b = <span class="number">15.0</span></span><br><span class="line">   result = a + b</span><br><span class="line">   <span class="built_in">print</span> *, <span class="string">'The total is '</span>, result                   </span><br><span class="line">   </span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">program</span></span> addNumbers</span><br></pre></td></tr></table></figure>
+<ul>
+<li>所有Fortran程序start关键字程序和end关键字结束程序，然后是该程序的名称。        </li>
+<li>隐无语句允许编译器检查所有的变量类型是正确声明。必须始终使用无隐在每个程序的开始。</li>
+<li>在Fortran语言注释开始使用感叹号（！），因为在这之后的所有字符（除字符串）被编译器忽略。</li>
+<li>print*命令在屏幕上显示数据。</li>
+<li>代码行缩进，是保持一个程序读取一个很好的做法。</li>
+<li>Fortran语言允许大写和小写字母。 Fortran语言是区分大小写的，除了字符串常量。</li>
+</ul>
+<h1 id="内置数据类型"><a href="#内置数据类型" class="headerlink" title="内置数据类型"></a>内置数据类型</h1><p>Fortran语言提供了五种内在数据类型：整型(integer),实型(real),复杂类型(complex，储存复数)，逻辑类型(logical)，字符类型(character)<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">program</span></span> testing</span><br><span class="line"><span class="keyword">implicit</span> <span class="keyword">none</span></span><br><span class="line">    <span class="comment">!4bytes整数</span></span><br><span class="line">    <span class="keyword">integer</span>(<span class="keyword">kind</span>=<span class="number">4</span>)::largeval</span><br><span class="line">    <span class="comment">!输出integer允许的最大值</span></span><br><span class="line">    <span class="built_in">print</span> *,<span class="built_in">huge</span>(largeval)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">real</span>::p,q</span><br><span class="line"></span><br><span class="line">    <span class="comment">!如果不指定长度，默认为1</span></span><br><span class="line">    <span class="keyword">character</span>(len=<span class="number">40</span>)::<span class="keyword">name</span></span><br><span class="line">    <span class="keyword">name</span> = <span class="string">"zara ali"</span></span><br><span class="line">    <span class="comment">!name(1:4)得到zara</span></span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">program</span></span> testing</span><br></pre></td></tr></table></figure></p>
+<h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><p>变量声明<code>type-specifier :: variable_name</code><br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">integer</span> :: total  	</span><br><span class="line"><span class="keyword">real</span> :: average </span><br><span class="line"><span class="keyword">complex</span> :: cx  </span><br><span class="line"><span class="keyword">logical</span> :: done </span><br><span class="line"><span class="keyword">character</span>(len=<span class="number">80</span>) :: message <span class="comment">! a string of 80 characters</span></span><br></pre></td></tr></table></figure></p>
+<p>变量赋值<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">total = <span class="number">20000</span>  </span><br><span class="line">average = <span class="number">1666.67</span>   </span><br><span class="line">done = .true.   </span><br><span class="line">message = “A big Hello from Tutorials Point” </span><br><span class="line">cx = (<span class="number">3.0</span>, <span class="number">5.0</span>) <span class="comment">! cx = 3.0 + 5.0i</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h1><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">!parameter 表示常量</span></span><br><span class="line"><span class="keyword">real</span>, <span class="keyword">parameter</span> :: pi = <span class="number">3.1415927</span></span><br></pre></td></tr></table></figure>
+<h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">!算术运算符</span></span><br><span class="line">+,-,*,/,**</span><br><span class="line"></span><br><span class="line"><span class="comment">!关系运算符</span></span><br><span class="line">== <span class="comment">!等于</span></span><br><span class="line">/= <span class="comment">!不等</span></span><br><span class="line">&gt;</span><br><span class="line">&lt;</span><br><span class="line">&gt;=</span><br><span class="line">&lt;=</span><br><span class="line"></span><br><span class="line"><span class="comment">!逻辑运算符</span></span><br><span class="line">.and.</span><br><span class="line">.or.</span><br><span class="line">.not.</span><br><span class="line">.eqv.</span><br><span class="line">.neqv.</span><br></pre></td></tr></table></figure>
+<h1 id="fortran选择决策"><a href="#fortran选择决策" class="headerlink" title="fortran选择决策"></a>fortran选择决策</h1><h2 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h2><p>普通if<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">logical</span> expression) <span class="keyword">then</span>      </span><br><span class="line">   statement  </span><br><span class="line"><span class="keyword">end</span> <span class="keyword">if</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">logical</span> expression) <span class="keyword">then</span>      </span><br><span class="line">   statement(s)  </span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   other_statement(s)</span><br><span class="line"><span class="keyword">end</span> <span class="keyword">if</span></span><br><span class="line"></span><br><span class="line">[<span class="keyword">name</span>:] </span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">logical</span> expression <span class="number">1</span>) <span class="keyword">then</span> </span><br><span class="line">   <span class="comment">! block 1   </span></span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">logical</span> expression <span class="number">2</span>) <span class="keyword">then</span>       </span><br><span class="line">   <span class="comment">! block 2   </span></span><br><span class="line"><span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">logical</span> expression <span class="number">3</span>) <span class="keyword">then</span>       </span><br><span class="line">   <span class="comment">! block 3  </span></span><br><span class="line"><span class="keyword">else</span>       </span><br><span class="line">   <span class="comment">! block 4   </span></span><br><span class="line"><span class="keyword">end</span> <span class="keyword">if</span> [<span class="keyword">name</span>]</span><br></pre></td></tr></table></figure></p>
+<p>命名if例子：<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">program</span></span> markGradeA  </span><br><span class="line"><span class="keyword">implicit</span> <span class="keyword">none</span>  </span><br><span class="line">   <span class="keyword">real</span> :: marks</span><br><span class="line">   <span class="comment">! assign marks   </span></span><br><span class="line">   marks = <span class="number">90.4</span></span><br><span class="line">   <span class="comment">! use an if statement to give grade</span></span><br><span class="line">  </span><br><span class="line">   gr: <span class="keyword">if</span> (marks &gt; <span class="number">90.0</span>) <span class="keyword">then</span>  </span><br><span class="line">   <span class="built_in">print</span> *, <span class="string">" Grade A"</span></span><br><span class="line">   <span class="keyword">end</span> <span class="keyword">if</span> gr</span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">program</span></span> markGradeA</span><br></pre></td></tr></table></figure></p>
+<h1 id="select-case结构"><a href="#select-case结构" class="headerlink" title="select case结构"></a>select case结构</h1><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">name</span>:] <span class="keyword">select</span> <span class="keyword">case</span> (expression) </span><br><span class="line">   <span class="keyword">case</span> (selector1)          </span><br><span class="line">   <span class="comment">! some statements          </span></span><br><span class="line">   ... <span class="keyword">case</span> (selector2)           </span><br><span class="line">   <span class="comment">! other statements           </span></span><br><span class="line">   ...       </span><br><span class="line">   <span class="keyword">case</span> <span class="keyword">default</span>          </span><br><span class="line">   <span class="comment">! more statements          </span></span><br><span class="line">   ...   </span><br><span class="line"><span class="keyword">end</span> <span class="keyword">select</span> [<span class="keyword">name</span>]</span><br></pre></td></tr></table></figure>
+<p>也可以指定为一个范围<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">program</span></span> selectCaseProg</span><br><span class="line"><span class="keyword">implicit</span> <span class="keyword">none</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">! local variable declaration</span></span><br><span class="line">   <span class="keyword">integer</span> :: marks = <span class="number">78</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">select</span> <span class="keyword">case</span> (marks)</span><br><span class="line">   </span><br><span class="line">      <span class="keyword">case</span> (<span class="number">91</span>:<span class="number">100</span>) </span><br><span class="line">         <span class="built_in">print</span>*, <span class="string">"Excellent!"</span> </span><br><span class="line"></span><br><span class="line">      <span class="keyword">case</span> (<span class="number">81</span>:<span class="number">90</span>)</span><br><span class="line">         <span class="built_in">print</span>*, <span class="string">"Very good!"</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">case</span> (<span class="number">71</span>:<span class="number">80</span>) </span><br><span class="line">         <span class="built_in">print</span>*, <span class="string">"Well done!"</span> </span><br><span class="line"></span><br><span class="line">      <span class="keyword">case</span> (<span class="number">61</span>:<span class="number">70</span>)</span><br><span class="line">         <span class="built_in">print</span>*, <span class="string">"Not bad!"</span> </span><br><span class="line"></span><br><span class="line">      <span class="keyword">case</span> (<span class="number">41</span>:<span class="number">60</span>)</span><br><span class="line">         <span class="built_in">print</span>*, <span class="string">"You passed!"</span>  </span><br><span class="line"></span><br><span class="line">      <span class="keyword">case</span> (:<span class="number">40</span>)</span><br><span class="line">         <span class="built_in">print</span>*, <span class="string">"Better try again!"</span>  </span><br><span class="line"></span><br><span class="line">      <span class="keyword">case</span> <span class="keyword">default</span></span><br><span class="line">         <span class="built_in">print</span>*, <span class="string">"Invalid marks"</span> </span><br><span class="line">         </span><br><span class="line">   <span class="keyword">end</span> <span class="keyword">select</span></span><br><span class="line">   <span class="built_in">print</span>*, <span class="string">"Your marks is "</span>, marks</span><br><span class="line"> </span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">program</span></span> selectCaseProg</span><br></pre></td></tr></table></figure></p>
+<h1 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h1><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">!do循环</span></span><br><span class="line"><span class="keyword">do</span> var = start, <span class="keyword">stop</span> [,step]    </span><br><span class="line">   <span class="comment">! statement(s)</span></span><br><span class="line">   …</span><br><span class="line"><span class="keyword">end</span> <span class="keyword">do</span></span><br><span class="line"></span><br><span class="line"><span class="comment">!do while</span></span><br><span class="line"><span class="keyword">do</span> <span class="keyword">while</span> (<span class="keyword">logical</span> expr) </span><br><span class="line">   statements</span><br><span class="line"><span class="keyword">end</span> <span class="keyword">do</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>exit语句终止循环或select case语句。</li>
+<li>cycle语句相当于python中的continue</li>
+<li>stop终止program</li>
+</ul>
+<h1 id="fortran字符"><a href="#fortran字符" class="headerlink" title="fortran字符"></a>fortran字符</h1><h2 id="字符串接"><a href="#字符串接" class="headerlink" title="字符串接"></a>字符串接</h2><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">program</span></span> hello</span><br><span class="line"><span class="keyword">implicit</span> <span class="keyword">none</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">character</span>(len=<span class="number">15</span>) :: surname, firstname </span><br><span class="line">   <span class="keyword">character</span>(len=<span class="number">6</span>) :: title </span><br><span class="line">   <span class="keyword">character</span>(len=<span class="number">40</span>):: <span class="keyword">name</span></span><br><span class="line">   <span class="keyword">character</span>(len=<span class="number">25</span>)::greetings</span><br><span class="line">   </span><br><span class="line">   title = <span class="string">'Mr. '</span> </span><br><span class="line">   firstname = <span class="string">'Rowan '</span> </span><br><span class="line">   surname = <span class="string">'Atkinson'</span></span><br><span class="line">   </span><br><span class="line">   <span class="keyword">name</span> = title//firstname//surname</span><br><span class="line">   greetings = <span class="string">'A big hello from Mr. Beans'</span></span><br><span class="line">   </span><br><span class="line">   <span class="built_in">print</span> *, <span class="string">'Here is '</span>, <span class="keyword">name</span></span><br><span class="line">   <span class="built_in">print</span> *, greetings</span><br><span class="line">   </span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">program</span></span> hello</span><br><span class="line"></span><br><span class="line"><span class="comment">! 输出</span></span><br><span class="line"><span class="comment">! Here is Mr.Rowan Atkinson       </span></span><br><span class="line"><span class="comment">! A big hello from Mr.Bean</span></span><br></pre></td></tr></table></figure>
+<h1 id="fortran数组"><a href="#fortran数组" class="headerlink" title="fortran数组"></a>fortran数组</h1><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">!声明</span></span><br><span class="line"><span class="comment">!创建一个5×5的二维矩阵命名的整数数组</span></span><br><span class="line"><span class="keyword">integer</span>,<span class="keyword">dimension</span>(<span class="number">5</span>,<span class="number">5</span>)::matrix</span><br><span class="line"><span class="comment">!声明某些明确的下限</span></span><br><span class="line"><span class="keyword">real</span>, <span class="keyword">dimension</span>(<span class="number">2</span>:<span class="number">6</span>) :: numbers</span><br><span class="line"><span class="keyword">integer</span>, <span class="keyword">dimension</span> (-<span class="number">3</span>:<span class="number">2</span>,<span class="number">0</span>:<span class="number">4</span>) :: matrix</span><br><span class="line"></span><br><span class="line"><span class="comment">!赋值</span></span><br><span class="line">numbers = (/<span class="number">1.5</span>, <span class="number">3.2</span>,<span class="number">4.5</span>,<span class="number">0.9</span>,<span class="number">7.2</span> /)</span><br><span class="line"></span><br><span class="line"><span class="comment">!索引</span></span><br><span class="line">array ([lower]:[upper][:stride], ...)</span><br></pre></td></tr></table></figure>
+<h1 id="向量和矩阵乘法"><a href="#向量和矩阵乘法" class="headerlink" title="向量和矩阵乘法"></a>向量和矩阵乘法</h1><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dot_product</span>(vector_a,vector_b)</span><br><span class="line"><span class="built_in">matmul</span>(matrix_a,matrix_b)</span><br></pre></td></tr></table></figure>
+<h1 id="动态数组"><a href="#动态数组" class="headerlink" title="动态数组"></a>动态数组</h1><p>动态数组是一种数组，其尺寸在编译时不知道，而是在执行时才已知/确定的。<br>动态数组的属性使用 allocatable 声明。</p>
+<p><code>real, dimension (:,:), allocatable :: darray</code></p>
+<p>示例<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">program</span></span> dynamic_array </span><br><span class="line"><span class="keyword">implicit</span> <span class="keyword">none</span> </span><br><span class="line"></span><br><span class="line">   <span class="comment">!rank is 2, but size not known   </span></span><br><span class="line">   <span class="keyword">real</span>, <span class="keyword">dimension</span> (:,:), <span class="keyword">allocatable</span> :: darray    </span><br><span class="line">   <span class="keyword">integer</span> :: s1, s2     </span><br><span class="line">   <span class="keyword">integer</span> :: i, j     </span><br><span class="line">   </span><br><span class="line">   <span class="built_in">print</span>*, <span class="string">"Enter the size of the array:"</span>     </span><br><span class="line">   read*, s1, s2      </span><br><span class="line">   </span><br><span class="line">   <span class="comment">! allocate memory      </span></span><br><span class="line">   <span class="built_in">allocate</span> ( darray(s1,s2) )      </span><br><span class="line">   </span><br><span class="line">   <span class="keyword">do</span> i = <span class="number">1</span>, s1           </span><br><span class="line">      <span class="keyword">do</span> j = <span class="number">1</span>, s2                </span><br><span class="line">         darray(i,j) = i*j               </span><br><span class="line">         <span class="built_in">print</span>*, <span class="string">"darray("</span>,i,<span class="string">","</span>,j,<span class="string">") = "</span>, darray(i,j)           </span><br><span class="line">      <span class="keyword">end</span> <span class="keyword">do</span>      </span><br><span class="line">   <span class="keyword">end</span> <span class="keyword">do</span>      </span><br><span class="line">   </span><br><span class="line">   <span class="built_in">deallocate</span> (darray)  </span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">program</span></span> dynamic_array</span><br></pre></td></tr></table></figure></p>
+<h2 id="data语句"><a href="#data语句" class="headerlink" title="data语句"></a>data语句</h2><p>data 语句可用于初始化多个阵列，或用于阵列部分的初始化。<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> variable / list / ...</span><br></pre></td></tr></table></figure></p>
+<p>示例<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">program</span></span> dataStatement</span><br><span class="line"><span class="keyword">implicit</span> <span class="keyword">none</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">integer</span> :: a(<span class="number">5</span>), b(<span class="number">3</span>,<span class="number">3</span>), c(<span class="number">10</span>),i, j</span><br><span class="line">   <span class="keyword">data</span> a /<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">11</span>/ </span><br><span class="line">   </span><br><span class="line">   <span class="keyword">data</span> b(<span class="number">1</span>,:) /<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>/ </span><br><span class="line">   <span class="keyword">data</span> b(<span class="number">2</span>,:)/<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>/ </span><br><span class="line">   <span class="keyword">data</span> b(<span class="number">3</span>,:)/<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>/ </span><br><span class="line">   <span class="keyword">data</span> (c(i),i=<span class="number">1</span>,<span class="number">10</span>,<span class="number">2</span>) /<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>/ </span><br><span class="line">   <span class="keyword">data</span> (c(i),i=<span class="number">2</span>,<span class="number">10</span>,<span class="number">2</span>)/<span class="number">5</span>*<span class="number">2</span>/</span><br><span class="line">   </span><br><span class="line">   <span class="built_in">Print</span> *, <span class="string">'The A array:'</span></span><br><span class="line">   <span class="keyword">do</span> j = <span class="number">1</span>, <span class="number">5</span>                </span><br><span class="line">      <span class="built_in">print</span>*, a(j)           </span><br><span class="line">   <span class="keyword">end</span> <span class="keyword">do</span> </span><br><span class="line">   </span><br><span class="line">   <span class="built_in">Print</span> *, <span class="string">'The B array:'</span></span><br><span class="line">   <span class="keyword">do</span> i = <span class="built_in">lbound</span>(b,<span class="number">1</span>), <span class="built_in">ubound</span>(b,<span class="number">1</span>)</span><br><span class="line">      <span class="built_in">write</span>(*,*) (b(i,j), j = <span class="built_in">lbound</span>(b,<span class="number">2</span>), <span class="built_in">ubound</span>(b,<span class="number">2</span>))</span><br><span class="line">   <span class="keyword">end</span> <span class="keyword">do</span></span><br><span class="line"></span><br><span class="line">   <span class="built_in">Print</span> *, <span class="string">'The C array:'</span> </span><br><span class="line">   <span class="keyword">do</span> j = <span class="number">1</span>, <span class="number">10</span>                </span><br><span class="line">      <span class="built_in">print</span>*, c(j)           </span><br><span class="line">   <span class="keyword">end</span> <span class="keyword">do</span>      </span><br><span class="line">   </span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">program</span></span> dataStatement</span><br></pre></td></tr></table></figure></p>
+<h2 id="where语句"><a href="#where语句" class="headerlink" title="where语句"></a>where语句</h2><p>where与numpy.where类似<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">program</span></span> whereStatement</span><br><span class="line"><span class="keyword">implicit</span> <span class="keyword">none</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">integer</span> :: a(<span class="number">3</span>,<span class="number">5</span>), i , j</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">do</span> i = <span class="number">1</span>,<span class="number">3</span></span><br><span class="line">      <span class="keyword">do</span> j = <span class="number">1</span>, <span class="number">5</span>                </span><br><span class="line">         a(i,j) = j-i          </span><br><span class="line">      <span class="keyword">end</span> <span class="keyword">do</span> </span><br><span class="line">   <span class="keyword">end</span> <span class="keyword">do</span></span><br><span class="line">   </span><br><span class="line">   <span class="built_in">Print</span> *, <span class="string">'The A array:'</span></span><br><span class="line">   </span><br><span class="line">   <span class="keyword">do</span> i = <span class="built_in">lbound</span>(a,<span class="number">1</span>), <span class="built_in">ubound</span>(a,<span class="number">1</span>)</span><br><span class="line">      <span class="built_in">write</span>(*,*) (a(i,j), j = <span class="built_in">lbound</span>(a,<span class="number">2</span>), <span class="built_in">ubound</span>(a,<span class="number">2</span>))</span><br><span class="line">   <span class="keyword">end</span> <span class="keyword">do</span></span><br><span class="line">   </span><br><span class="line">   <span class="keyword">where</span>( a&lt;<span class="number">0</span> ) </span><br><span class="line">      a = <span class="number">1</span> </span><br><span class="line">   <span class="keyword">elsewhere</span></span><br><span class="line">      a = <span class="number">5</span></span><br><span class="line">   <span class="keyword">end</span> <span class="keyword">where</span></span><br><span class="line">  </span><br><span class="line">   <span class="built_in">Print</span> *, <span class="string">'The A array:'</span></span><br><span class="line">   <span class="keyword">do</span> i = <span class="built_in">lbound</span>(a,<span class="number">1</span>), <span class="built_in">ubound</span>(a,<span class="number">1</span>)</span><br><span class="line">      <span class="built_in">write</span>(*,*) (a(i,j), j = <span class="built_in">lbound</span>(a,<span class="number">2</span>), <span class="built_in">ubound</span>(a,<span class="number">2</span>))</span><br><span class="line">   <span class="keyword">end</span> <span class="keyword">do</span>   </span><br><span class="line">   </span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">program</span></span> whereStatement</span><br></pre></td></tr></table></figure></p>
+<h1 id="导出数据类型-结构"><a href="#导出数据类型-结构" class="headerlink" title="导出数据类型(结构)"></a>导出数据类型(结构)</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>声明格式<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> type_name      </span><br><span class="line">   declarations</span><br><span class="line"><span class="keyword">end</span> <span class="keyword">type</span></span><br></pre></td></tr></table></figure><br>示例<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Books</span><br><span class="line">   <span class="keyword">character</span>(len=<span class="number">50</span>) :: title</span><br><span class="line">   <span class="keyword">character</span>(len=<span class="number">50</span>) :: author</span><br><span class="line">   <span class="keyword">character</span>(len=<span class="number">150</span>) :: subject</span><br><span class="line">   <span class="keyword">integer</span> :: book_id</span><br><span class="line"><span class="keyword">end</span> <span class="keyword">type</span> Books</span><br></pre></td></tr></table></figure></p>
+<h2 id="访问结构成员"><a href="#访问结构成员" class="headerlink" title="访问结构成员"></a>访问结构成员</h2><p><code>type(Books) :: book1</code><br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">book1%title = <span class="string">"C Programming"</span></span><br><span class="line">book1%author = <span class="string">"Nuha Ali"</span></span><br><span class="line">book1%subject = <span class="string">"C Programming Tutorial"</span></span><br><span class="line">book1%book_id = <span class="number">6495407</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="结构数组"><a href="#结构数组" class="headerlink" title="结构数组"></a>结构数组</h2><p><code>type(Books), dimension(2) :: list</code></p>
+<h1 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h1><h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">integer</span>, <span class="keyword">pointer</span> :: p1 <span class="comment">! pointer to integer  </span></span><br><span class="line"><span class="keyword">real</span>, <span class="keyword">pointer</span>, <span class="keyword">dimension</span> (:) :: pra <span class="comment">! pointer to 1-dim real array  </span></span><br><span class="line"><span class="keyword">real</span>, <span class="keyword">pointer</span>, <span class="keyword">dimension</span> (:,:) :: pra2 <span class="comment">! pointer to 2-dim real array</span></span><br></pre></td></tr></table></figure>
+<h2 id="分配指针空间"><a href="#分配指针空间" class="headerlink" title="分配指针空间"></a>分配指针空间</h2><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">program</span></span> pointerExample</span><br><span class="line"><span class="keyword">implicit</span> <span class="keyword">none</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">integer</span>, <span class="keyword">pointer</span> :: p1</span><br><span class="line">   <span class="built_in">allocate</span>(p1)</span><br><span class="line">   </span><br><span class="line">   p1 = <span class="number">1</span></span><br><span class="line">   <span class="built_in">Print</span> *, p1</span><br><span class="line">   </span><br><span class="line">   p1 = p1 + <span class="number">4</span></span><br><span class="line">   <span class="built_in">Print</span> *, p1</span><br><span class="line">   </span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">program</span></span> pointerExample</span><br></pre></td></tr></table></figure>
+<p>目标是另一个正态变量，空间预留给它。目标变量必须与目标属性进行声明。<br>一个指针变量使用的关联操作符使目标变量相关联(=&gt;)。<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">program</span></span> pointerExample</span><br><span class="line"><span class="keyword">implicit</span> <span class="keyword">none</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">integer</span>, <span class="keyword">pointer</span> :: p1</span><br><span class="line">   <span class="keyword">integer</span>, <span class="keyword">target</span> :: t1 </span><br><span class="line">   </span><br><span class="line">   p1=&gt;t1</span><br><span class="line">   p1 = <span class="number">1</span></span><br><span class="line">   </span><br><span class="line">   <span class="built_in">Print</span> *, p1</span><br><span class="line">   <span class="built_in">Print</span> *, t1</span><br><span class="line">   </span><br><span class="line">   p1 = p1 + <span class="number">4</span></span><br><span class="line">   </span><br><span class="line">   <span class="built_in">Print</span> *, p1</span><br><span class="line">   <span class="built_in">Print</span> *, t1</span><br><span class="line">   </span><br><span class="line">   t1 = <span class="number">8</span></span><br><span class="line">   </span><br><span class="line">   <span class="built_in">Print</span> *, p1</span><br><span class="line">   <span class="built_in">Print</span> *, t1</span><br><span class="line">   </span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">program</span></span> pointerExample</span><br></pre></td></tr></table></figure></p>
+<h1 id="基本输入输出"><a href="#基本输入输出" class="headerlink" title="基本输入输出"></a>基本输入输出</h1><p>我们可以使用打印print<em>语句，以及读取键盘使用read</em>语句，并显示数据输出到屏幕上。这种形式的输入输出是自由格式的I/O，它被称为列表控制的输入输出。</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">read(*,*) item1, item2, item3...</span><br><span class="line"><span class="built_in">print</span> *, item1, item2, item3</span><br><span class="line"><span class="built_in">write</span>(*,*) item1, item2, item3...</span><br></pre></td></tr></table></figure>
+<h2 id="格式化"><a href="#格式化" class="headerlink" title="格式化"></a>格式化</h2><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">read <span class="keyword">fmt</span>, variable_list </span><br><span class="line"><span class="built_in">print</span> <span class="keyword">fmt</span>, variable_list </span><br><span class="line"><span class="built_in">write</span> <span class="keyword">fmt</span>, variable_list</span><br></pre></td></tr></table></figure>
+<h1 id="文件输入输出"><a href="#文件输入输出" class="headerlink" title="文件输入输出"></a>文件输入输出</h1><p>OPEN, WRITE, READ 和 CLOSE语句可以实现这一目标。</p>
+<p><code>open (list-of-specifiers)</code></p>
+<p><code>close ([UNIT=]u[,IOSTAT=ios,ERR=err,STATUS=sta])</code></p>
+<p><code>read ([UNIT=]u, [FMT=]fmt, IOSTAT=ios, ERR=err, END=s)</code></p>
+<p><code>write([UNIT=]u, [FMT=]fmt, IOSTAT=ios, ERR=err, END=s)</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>修辞符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[UNIT=] u</td>
+<td>单元数u可以是任何数量范围内9-99，它表明该文件，可以选择任何号码，但在程序中每一个打开的文件必须有一个唯一的数字</td>
+</tr>
+<tr>
+<td>IOSTAT= ios</td>
+<td>它是在I/O状态标识符和应为整数的变量。如果打开的语句是成功，则返回IOS值为零，否则为一个非零值。</td>
+</tr>
+<tr>
+<td>ERR = err</td>
+<td>它是一个标签到该控制跳以防有错误。</td>
+</tr>
+<tr>
+<td>FILE = fname</td>
+<td>文件名，一个字符串。</td>
+</tr>
+<tr>
+<td>STATUS = sta</td>
+<td>它示出了该文件的先前状态。一个字符串，可以有三个值NEW, OLD 或 SCRATCH。一个临时文件被创建和删除，当关闭或程序结束。</td>
+</tr>
+<tr>
+<td>ACCESS = acc</td>
+<td>它是该文件的访问模式。可以有两个值SEQUENTIAL 或 DIRECT。默认值是SEQUENTIAL。</td>
+</tr>
+<tr>
+<td>FORM= frm</td>
+<td>它给该文件的格式的状态。可以有FORMATTED 或UNFORMATTED两个值。默认值是UNFORMATTED</td>
+</tr>
+<tr>
+<td>RECL = rl</td>
+<td>它指定的每个记录中的一个直接访问文件的长度。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="fortran过程"><a href="#fortran过程" class="headerlink" title="fortran过程"></a>fortran过程</h1><p>包括函数和子程序</p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>函数是返回一个数量的过程。函数不修改其参数。<br>返回数值被称为函数值，并将其表示为函数名。</p>
+<p><strong>语法</strong><br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span></span> <span class="keyword">name</span>(arg1, arg2, ....)  </span><br><span class="line">   [declarations, including those for the arguments]   </span><br><span class="line">   [executable statements] </span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">function</span></span> [<span class="keyword">name</span>]</span><br></pre></td></tr></table></figure></p>
+<p><strong>示例</strong><br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">program</span></span> calling_func</span><br><span class="line"></span><br><span class="line">   <span class="keyword">real</span> :: a</span><br><span class="line">   a = area_of_circle(<span class="number">2.0</span>) </span><br><span class="line">   </span><br><span class="line">   <span class="built_in">Print</span> *, <span class="string">"The area of a circle with radius 2.0 is"</span></span><br><span class="line">   <span class="built_in">Print</span> *, a</span><br><span class="line">   </span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">program</span></span> calling_func</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">! this function computes the area of a circle with radius r  </span></span><br><span class="line"><span class="function"><span class="keyword">function</span></span> area_of_circle (r)  </span><br><span class="line"></span><br><span class="line"><span class="comment">! function result     </span></span><br><span class="line"><span class="keyword">implicit</span> <span class="keyword">none</span>      </span><br><span class="line"></span><br><span class="line">   <span class="comment">! dummy arguments        </span></span><br><span class="line">   <span class="keyword">real</span> :: area_of_circle   </span><br><span class="line">   </span><br><span class="line">   <span class="comment">! local variables </span></span><br><span class="line">   <span class="keyword">real</span> :: r     </span><br><span class="line">   <span class="keyword">real</span> :: pi</span><br><span class="line">   </span><br><span class="line">   pi = <span class="number">4</span> * <span class="built_in">atan</span> (<span class="number">1.0</span>)     </span><br><span class="line">   area_of_circle = pi * r**<span class="number">2</span>  </span><br><span class="line">   </span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">function</span></span> area_of_circle</span><br></pre></td></tr></table></figure></p>
+<h2 id="子程序"><a href="#子程序" class="headerlink" title="子程序"></a>子程序</h2><p>子程序没有返回值，可以修改其参数</p>
+<p><strong>语法</strong><br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">subroutine</span></span> <span class="keyword">name</span>(arg1, arg2, ....)    </span><br><span class="line">   [declarations, including those for the arguments]    </span><br><span class="line">   [executable statements]  </span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">subroutine</span></span> [<span class="keyword">name</span>]</span><br></pre></td></tr></table></figure></p>
+<p><strong>调用子程序</strong><br>使用call来调用子程序<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">program</span></span> calling_func</span><br><span class="line"><span class="keyword">implicit</span> <span class="keyword">none</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">real</span> :: a, b</span><br><span class="line">   a = <span class="number">2.0</span></span><br><span class="line">   b = <span class="number">3.0</span></span><br><span class="line">   </span><br><span class="line">   <span class="built_in">Print</span> *, <span class="string">"Before calling swap"</span></span><br><span class="line">   <span class="built_in">Print</span> *, <span class="string">"a = "</span>, a</span><br><span class="line">   <span class="built_in">Print</span> *, <span class="string">"b = "</span>, b</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">call</span> swap(a, b)</span><br><span class="line">   </span><br><span class="line">   <span class="built_in">Print</span> *, <span class="string">"After calling swap"</span></span><br><span class="line">   <span class="built_in">Print</span> *, <span class="string">"a = "</span>, a</span><br><span class="line">   <span class="built_in">Print</span> *, <span class="string">"b = "</span>, b</span><br><span class="line">   </span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">program</span></span> calling_func</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">subroutine</span></span> swap(x, y) </span><br><span class="line"><span class="keyword">implicit</span> <span class="keyword">none</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">real</span> :: x, y, temp   </span><br><span class="line">   </span><br><span class="line">   temp = x  </span><br><span class="line">   x = y </span><br><span class="line">   y = temp  </span><br><span class="line">   </span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">subroutine</span></span> swap</span><br></pre></td></tr></table></figure></p>
+<h2 id="指定参数意图"><a href="#指定参数意图" class="headerlink" title="指定参数意图"></a>指定参数意图</h2><p>intent(in) 用作输入<br>intent(out) 用作输出，他们将被覆盖<br>intent(inout) 参数都使用和覆盖<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">program</span></span> calling_func</span><br><span class="line"><span class="keyword">implicit</span> <span class="keyword">none</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">real</span> :: x, y, z, disc</span><br><span class="line">   </span><br><span class="line">   x= <span class="number">1.0</span></span><br><span class="line">   y = <span class="number">5.0</span></span><br><span class="line">   z = <span class="number">2.0</span></span><br><span class="line">   </span><br><span class="line">   <span class="keyword">call</span> intent_example(x, y, z, disc)</span><br><span class="line">   </span><br><span class="line">   <span class="built_in">Print</span> *, <span class="string">"The value of the discriminant is"</span></span><br><span class="line">   <span class="built_in">Print</span> *, disc</span><br><span class="line">   </span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">program</span></span> calling_func</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">subroutine</span></span> intent_example (a, b, c, d)     </span><br><span class="line"><span class="keyword">implicit</span> <span class="keyword">none</span>     </span><br><span class="line"></span><br><span class="line">   <span class="comment">! dummy arguments      </span></span><br><span class="line">   <span class="keyword">real</span>, <span class="keyword">intent</span> (<span class="keyword">in</span>) :: a     </span><br><span class="line">   <span class="keyword">real</span>, <span class="keyword">intent</span> (<span class="keyword">in</span>) :: b      </span><br><span class="line">   <span class="keyword">real</span>, <span class="keyword">intent</span> (<span class="keyword">in</span>) :: c    </span><br><span class="line">   <span class="keyword">real</span>, <span class="keyword">intent</span> (<span class="keyword">out</span>) :: d   </span><br><span class="line">   </span><br><span class="line">   d = b * b - <span class="number">4.0</span> * a * c </span><br><span class="line">   </span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">subroutine</span></span> intent_example</span><br></pre></td></tr></table></figure></p>
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>当一个函数被递归使用，则 result 选项要被使用。<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">program</span></span> calling_func</span><br><span class="line"><span class="keyword">implicit</span> <span class="keyword">none</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">integer</span> :: i, f</span><br><span class="line">   i = <span class="number">15</span></span><br><span class="line">   </span><br><span class="line">   <span class="built_in">Print</span> *, <span class="string">"The value of factorial 15 is"</span></span><br><span class="line">   f = myfactorial(<span class="number">15</span>)</span><br><span class="line">   <span class="built_in">Print</span> *, f</span><br><span class="line">   </span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">program</span></span> calling_func</span><br><span class="line"></span><br><span class="line"><span class="comment">! computes the factorial of n (n!)      </span></span><br><span class="line"><span class="keyword">recursive</span> <span class="function"><span class="keyword">function</span></span> myfactorial (n) result (fac)  </span><br><span class="line"><span class="comment">! function result     </span></span><br><span class="line"><span class="keyword">implicit</span> <span class="keyword">none</span>     </span><br><span class="line"></span><br><span class="line">   <span class="comment">! dummy arguments     </span></span><br><span class="line">   <span class="keyword">integer</span> :: fac     </span><br><span class="line">   <span class="keyword">integer</span>, <span class="keyword">intent</span> (<span class="keyword">in</span>) :: n     </span><br><span class="line">   </span><br><span class="line">   <span class="keyword">select</span> <span class="keyword">case</span> (n)         </span><br><span class="line">      <span class="keyword">case</span> (<span class="number">0</span>:<span class="number">1</span>)         </span><br><span class="line">         fac = <span class="number">1</span>         </span><br><span class="line">      <span class="keyword">case</span> <span class="keyword">default</span>    </span><br><span class="line">         fac = n * myfactorial (n-<span class="number">1</span>)  </span><br><span class="line">   <span class="keyword">end</span> <span class="keyword">select</span> </span><br><span class="line">   </span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">function</span></span> myfactorial</span><br></pre></td></tr></table></figure></p>
+<h2 id="内部过程"><a href="#内部过程" class="headerlink" title="内部过程"></a>内部过程</h2><p>当一个过程被包含在程序中，它被称为程序的内部程序。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">program mainprog  </span><br><span class="line">implicit none </span><br><span class="line"></span><br><span class="line">   real :: a, b </span><br><span class="line">   a &#x3D; 2.0</span><br><span class="line">   b &#x3D; 3.0</span><br><span class="line">   </span><br><span class="line">   Print *, &quot;Before calling swap&quot;</span><br><span class="line">   Print *, &quot;a &#x3D; &quot;, a</span><br><span class="line">   Print *, &quot;b &#x3D; &quot;, b</span><br><span class="line">   </span><br><span class="line">   call swap(a, b)</span><br><span class="line">   </span><br><span class="line">   Print *, &quot;After calling swap&quot;</span><br><span class="line">   Print *, &quot;a &#x3D; &quot;, a</span><br><span class="line">   Print *, &quot;b &#x3D; &quot;, b</span><br><span class="line"> </span><br><span class="line">contains   </span><br><span class="line">   subroutine swap(x, y)     </span><br><span class="line">      real :: x, y, temp      </span><br><span class="line">      temp &#x3D; x </span><br><span class="line">      x &#x3D; y  </span><br><span class="line">      y &#x3D; temp   </span><br><span class="line">   end subroutine swap </span><br><span class="line">   </span><br><span class="line">end program mainprog</span><br></pre></td></tr></table></figure></p>
+<h1 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h1><p>模块用于：</p>
+<ul>
+<li>包装子程序，数据和接口块。</li>
+<li>定义，可以使用多于一个常规全局数据。</li>
+<li>声明可以选择的任何程序内提供的变量。</li>
+<li>导入整个模块，可使用在另一个程序或子程序。</li>
+</ul>
+<p><strong>使用模块</strong><br><code>use name</code></p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> constants  </span><br><span class="line"><span class="keyword">implicit</span> <span class="keyword">none</span> </span><br><span class="line"></span><br><span class="line">   <span class="keyword">real</span>, <span class="keyword">parameter</span> :: pi = <span class="number">3.1415926536</span>  </span><br><span class="line">   <span class="keyword">real</span>, <span class="keyword">parameter</span> :: e = <span class="number">2.7182818285</span> </span><br><span class="line">   </span><br><span class="line"><span class="keyword">contains</span>      </span><br><span class="line">   <span class="function"><span class="keyword">subroutine</span></span> show_consts()          </span><br><span class="line">      <span class="built_in">print</span>*, <span class="string">"Pi = "</span>, pi          </span><br><span class="line">      <span class="built_in">print</span>*,  <span class="string">"e = "</span>, e     </span><br><span class="line">   <span class="keyword">end</span> <span class="function"><span class="keyword">subroutine</span></span> show_consts </span><br><span class="line">   </span><br><span class="line"><span class="keyword">end</span> <span class="keyword">module</span> constants </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">program</span></span> module_example     </span><br><span class="line"><span class="keyword">use</span> constants      </span><br><span class="line"><span class="keyword">implicit</span> <span class="keyword">none</span>     </span><br><span class="line"></span><br><span class="line">   <span class="keyword">real</span> :: x, ePowerx, area, radius </span><br><span class="line">   x = <span class="number">2.0</span></span><br><span class="line">   radius = <span class="number">7.0</span></span><br><span class="line">   ePowerx = e ** x</span><br><span class="line">   area = pi * radius**<span class="number">2</span>     </span><br><span class="line">   </span><br><span class="line">   <span class="keyword">call</span> show_consts() </span><br><span class="line">   </span><br><span class="line">   <span class="built_in">print</span>*, <span class="string">"e raised to the power of 2.0 = "</span>, ePowerx</span><br><span class="line">   <span class="built_in">print</span>*, <span class="string">"Area of a circle with radius 7.0 = "</span>, area  </span><br><span class="line">   </span><br><span class="line"><span class="keyword">end</span> <span class="function"><span class="keyword">program</span></span> module_example</span><br></pre></td></tr></table></figure>
+<p>缺省情况下，在一个模块中的所有的变量和子程序被提供给正在使用的模块代码，通过 use 语句声明。</p>
+<p>但是，可以控制模块代码中使用的private 和 public 属性的访问性。当声明一些变量或子程序为私有，这是不可以用在模块之外使用。</p>
+<h1 id="common，module共享数据"><a href="#common，module共享数据" class="headerlink" title="common，module共享数据"></a>common，module共享数据</h1><h2 id="common"><a href="#common" class="headerlink" title="common"></a>common</h2><p>在新书写的代码里，避免使用 COMMON 语句，而使用 Module 语句代替它。<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">COMMON</span> /a/b, /c/d, e, f</span><br><span class="line"><span class="comment">!表示在公用区a中有变量（或者数组）b，在公用区c中有d, e, f 。</span></span><br><span class="line"><span class="keyword">integer</span> b,d,e,f</span><br><span class="line"><span class="comment">!在使用公用区变量前，必须再次说明类型，非常容易发生错误</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="module"><a href="#module" class="headerlink" title="module"></a>module</h2><p>save 属性表明这些变量会被保存起来，以便在不同的程序单元间保持同样的值。<br>（虽然语法未明确指出，但所有的编译器都默许 Module 中的变量具有 save 属性，因此，很多时候 save 也可以忽略不写）<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Module</span> modname</span><br><span class="line">  <span class="keyword">Implicit</span> <span class="keyword">None</span></span><br><span class="line">  <span class="comment">!// 明确变量类型，顺序无关</span></span><br><span class="line">  <span class="keyword">Integer</span> , <span class="keyword">save</span> :: a = <span class="number">1</span> , b = <span class="number">2</span>  </span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Module</span> modname</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">program</span></span> www_fcode_cn</span><br><span class="line">  <span class="keyword">use</span> modname <span class="comment">!// 无需，也不能再定义 a b</span></span><br><span class="line">  <span class="keyword">Implicit</span> <span class="keyword">None</span> </span><br><span class="line">  <span class="built_in">write</span>(*,*) b , a <span class="comment">!// 输出 2，1 正确</span></span><br><span class="line">  a = <span class="number">3</span></span><br><span class="line">  b = <span class="number">4</span></span><br><span class="line">  <span class="comment">!// 按变量名对应，因此倒序输出，其值也倒序</span></span><br><span class="line">  <span class="keyword">call</span> Sub()</span><br><span class="line"><span class="keyword">End</span> <span class="function"><span class="keyword">Program</span></span> www_fcode_cn</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">Subroutine</span></span> Sub()</span><br><span class="line">  <span class="keyword">use</span> modname <span class="comment">!// 无需，也不能再定义 a b</span></span><br><span class="line">  <span class="keyword">Implicit</span> <span class="keyword">None</span></span><br><span class="line">  <span class="built_in">write</span>(*,*) a , b <span class="comment">!// 输出 3，4 正确</span></span><br><span class="line"><span class="keyword">End</span> <span class="function"><span class="keyword">Subroutine</span></span> Sub</span><br></pre></td></tr></table></figure></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/03/OmniGraffle%E5%85%AC%E5%BC%8F%E7%9A%84%E6%8F%92%E5%85%A5/" rel="prev" title="OmniGraffle公式的插入">
+      <i class="fa fa-chevron-left"></i> OmniGraffle公式的插入
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/07/AutoCAD%E5%9F%BA%E7%A1%80/" rel="next" title="AutoCAD基础">
+      AutoCAD基础 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本语法"><span class="nav-number">1.</span> <span class="nav-text">基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#加法fortran程序"><span class="nav-number">1.1.</span> <span class="nav-text">加法fortran程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内置数据类型"><span class="nav-number">2.</span> <span class="nav-text">内置数据类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#变量"><span class="nav-number">3.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常量"><span class="nav-number">4.</span> <span class="nav-text">常量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运算符"><span class="nav-number">5.</span> <span class="nav-text">运算符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fortran选择决策"><span class="nav-number">6.</span> <span class="nav-text">fortran选择决策</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#if语句"><span class="nav-number">6.1.</span> <span class="nav-text">if语句</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#select-case结构"><span class="nav-number">7.</span> <span class="nav-text">select case结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#循环"><span class="nav-number">8.</span> <span class="nav-text">循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fortran字符"><span class="nav-number">9.</span> <span class="nav-text">fortran字符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串接"><span class="nav-number">9.1.</span> <span class="nav-text">字符串接</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fortran数组"><span class="nav-number">10.</span> <span class="nav-text">fortran数组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#向量和矩阵乘法"><span class="nav-number">11.</span> <span class="nav-text">向量和矩阵乘法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动态数组"><span class="nav-number">12.</span> <span class="nav-text">动态数组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#data语句"><span class="nav-number">12.1.</span> <span class="nav-text">data语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#where语句"><span class="nav-number">12.2.</span> <span class="nav-text">where语句</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#导出数据类型-结构"><span class="nav-number">13.</span> <span class="nav-text">导出数据类型(结构)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">13.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问结构成员"><span class="nav-number">13.2.</span> <span class="nav-text">访问结构成员</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构数组"><span class="nav-number">13.3.</span> <span class="nav-text">结构数组</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#指针"><span class="nav-number">14.</span> <span class="nav-text">指针</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#声明"><span class="nav-number">14.1.</span> <span class="nav-text">声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分配指针空间"><span class="nav-number">14.2.</span> <span class="nav-text">分配指针空间</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本输入输出"><span class="nav-number">15.</span> <span class="nav-text">基本输入输出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#格式化"><span class="nav-number">15.1.</span> <span class="nav-text">格式化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件输入输出"><span class="nav-number">16.</span> <span class="nav-text">文件输入输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fortran过程"><span class="nav-number">17.</span> <span class="nav-text">fortran过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">17.1.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子程序"><span class="nav-number">17.2.</span> <span class="nav-text">子程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指定参数意图"><span class="nav-number">17.3.</span> <span class="nav-text">指定参数意图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归"><span class="nav-number">17.4.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内部过程"><span class="nav-number">17.5.</span> <span class="nav-text">内部过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模块"><span class="nav-number">18.</span> <span class="nav-text">模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#common，module共享数据"><span class="nav-number">19.</span> <span class="nav-text">common，module共享数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#common"><span class="nav-number">19.1.</span> <span class="nav-text">common</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#module"><span class="nav-number">19.2.</span> <span class="nav-text">module</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xue Xuan"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Xue Xuan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sjtu-xx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sjtu-xx" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuexuan1997@gmail.com" title="E-Mail → mailto:xuexuan1997@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xue Xuan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'eMthrkXxWi9VDSG39hpPXkOi-gzGzoHsz',
+      appKey     : '40yWQRY3985h43auodOGjsIQ',
+      placeholder: "欢迎畅所欲言",
+      avatar     : 'ヾﾉ≧∀≦)o来啊，快活啊!',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

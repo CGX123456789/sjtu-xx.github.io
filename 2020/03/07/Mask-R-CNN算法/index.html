@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sjtu-xx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="基于Fast RCNN的实例分割算法CSDN：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_44791964&#x2F;article&#x2F;details&#x2F;104629135">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mask R-CNN实例分割算法">
+<meta property="og:url" content="https://sjtu-xx.github.io/2020/03/07/Mask-R-CNN%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="薛轩的个人博客">
+<meta property="og:description" content="基于Fast RCNN的实例分割算法CSDN：https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_44791964&#x2F;article&#x2F;details&#x2F;104629135">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/07/Mask-R-CNN%E7%AE%97%E6%B3%95/1.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/07/Mask-R-CNN%E7%AE%97%E6%B3%95/2.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/07/Mask-R-CNN%E7%AE%97%E6%B3%95/3.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/07/Mask-R-CNN%E7%AE%97%E6%B3%95/4.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/07/Mask-R-CNN%E7%AE%97%E6%B3%95/5.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/07/Mask-R-CNN%E7%AE%97%E6%B3%95/6.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/07/Mask-R-CNN%E7%AE%97%E6%B3%95/7.png">
+<meta property="article:published_time" content="2020-03-07T13:01:18.000Z">
+<meta property="article:modified_time" content="2021-02-03T15:59:45.784Z">
+<meta property="article:author" content="Xue Xuan">
+<meta property="article:tag" content="实例分割">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sjtu-xx.github.io/2020/03/07/Mask-R-CNN%E7%AE%97%E6%B3%95/1.png">
+
+<link rel="canonical" href="https://sjtu-xx.github.io/2020/03/07/Mask-R-CNN%E7%AE%97%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Mask R-CNN实例分割算法 | 薛轩的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">薛轩的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">XueXuan's blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sjtu-xx.github.io/2020/03/07/Mask-R-CNN%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Xue Xuan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="薛轩的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mask R-CNN实例分割算法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-07 21:01:18" itemprop="dateCreated datePublished" datetime="2020-03-07T21:01:18+08:00">2020-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-03 23:59:45" itemprop="dateModified" datetime="2021-02-03T23:59:45+08:00">2021-02-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/" itemprop="url" rel="index"><span itemprop="name">实例分割</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/03/07/Mask-R-CNN%E7%AE%97%E6%B3%95/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/07/Mask-R-CNN%E7%AE%97%E6%B3%95/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>基于Fast RCNN的实例分割算法<br>CSDN：<a href="https://blog.csdn.net/weixin_44791964/article/details/104629135" target="_blank" rel="noopener">https://blog.csdn.net/weixin_44791964/article/details/104629135</a></p>
+<a id="more"></a>
+<h1 id="Mask-R-CNN实现思路"><a href="#Mask-R-CNN实现思路" class="headerlink" title="Mask R-CNN实现思路"></a>Mask R-CNN实现思路</h1><h2 id="一、预测部分"><a href="#一、预测部分" class="headerlink" title="一、预测部分"></a>一、预测部分</h2><h3 id="1、主干网络介绍"><a href="#1、主干网络介绍" class="headerlink" title="1、主干网络介绍"></a>1、主干网络介绍</h3><p><img src="1.png" alt=""><br>Mask-RCNN使用Resnet101作为主干特征提取网络，对应着图像中的CNN部分，其对输入进来的图片有尺寸要求，需要可以整除2的6次方。在进行特征提取后，利用长宽压缩了两次、三次、四次、五次的特征层来进行特征金字塔结构的构造。</p>
+<p>ResNet101有两个基本的块，分别名为Conv Block和Identity Block，其中Conv Block输入和输出的维度是不一样的，所以不能连续串联，它的作用是改变网络的维度；Identity Block输入维度和输出维度相同，可以串联，用于加深网络的。<br>Conv Block的结构如下：<br><img src="2.png" alt=""><br>Identity Block的结构如下：<br><img src="3.png" alt=""><br>这两个都是残差网络结构。</p>
+<p>以官方使用的coco数据集输入的shape为例，输入的shape为1024x1024，shape变化如下：<br><img src="4.png" alt=""><br>我们取出长宽压缩了两次、三次、四次、五次的结果来进行特征金字塔结构的构造。</p>
+<h1 id="2、特征金字塔的构建"><a href="#2、特征金字塔的构建" class="headerlink" title="2、特征金字塔的构建"></a>2、特征金字塔的构建</h1><p><img src="5.png" alt=""><br>特征金字塔FPN的构建是为了实现特征多尺度的融合，在Mask R-CNN当中，我们取出在主干特征提取网络中长宽压缩了两次C2、三次C3、四次C4、五次C5的结果来进行特征金字塔结构的构造。<br><img src="6.png" alt=""><br>提取到的P2、P3、P4、P5、P6可以作为RPN网络的有效特征层，利用RPN建议框网络对有效特征层进行下一步的操作，对先验框进行解码获得建议框。</p>
+<p>提取到的P2、P3、P4、P5可以作为Classifier和Mask网络的有效特征层，利用Classifier预测框网络对有效特征层进行下一步的操作，对建议框解码获得最终预测框；利用Mask语义分割网络对有效特征层进行下一步的操作，获得每一个预测框内部的语义分割结果。</p>
+<h3 id="3、获得proposal建议框"><a href="#3、获得proposal建议框" class="headerlink" title="3、获得proposal建议框"></a>3、获得proposal建议框</h3><p>由上一步获得的有效特征层在图像中就是Feature Map，其有两个应用，一个是和ROIAsign结合使用、另一个是进入到Region Proposal Network进行建议框的获取。</p>
+<p>在进行建议框获取的时候，我们使用的有效特征层是P2、P3、P4、P5、P6，它们使用同一个RPN建议框网络获取先验框调整参数，还有先验框内部是否包含物体。</p>
+<p>在Mask R-cnn中，RPN建议框网络的结构和Faster RCNN中的RPN建议框网络类似。</p>
+<p>首先进行一次3x3的通道数为512的卷积。</p>
+<p>然后再分别进行一次anchors_per_location x 4的卷积 和一次anchors_per_location x 2的卷积。</p>
+<p>anchors_per_location x 4的卷积 用于预测 公用特征层上 每一个网格点上 每一个先验框的变化情况。（为什么说是变化情况呢，这是因为Faster-RCNN的预测结果需要结合先验框获得预测框，预测结果就是先验框的变化情况。）</p>
+<p>anchors_per_location x 2的卷积 用于预测 公用特征层上 每一个网格点上 每一个预测框内部是否包含了物体。</p>
+<p>当我们输入的图片的shape是1024x1024x3的时候，公用特征层的shape就是256x256x256、128x128x256、64x64x256、32x32x256、16x16x256，相当于把输入进来的图像分割成不同大小的网格，然后每个网格默认存在3（anchors_per_location ）个先验框，这些先验框有不同的大小，在图像上密密麻麻。</p>
+<p>anchors_per_location x 4的卷积的结果会对这些先验框进行调整，获得一个新的框。<br>anchors_per_location x 2的卷积会判断上述获得的新框是否包含物体。</p>
+<p>到这里我们可以获得了一些有用的框，这些框会利用anchors_per_location x 2的卷积判断是否存在物体。</p>
+<p>到此位置还只是粗略的一个框的获取，也就是一个建议框。然后我们会在建议框里面继续找东西。</p>
+<h3 id="4、Proposal建议框的解码"><a href="#4、Proposal建议框的解码" class="headerlink" title="4、Proposal建议框的解码"></a>4、Proposal建议框的解码</h3><p>通过第二步我们获得了许多个先验框的预测结果。预测结果包含两部分。</p>
+<p>anchors_per_location x 4的卷积 用于预测 有效特征层上 每一个网格点上 每一个先验框的变化情况。</p>
+<p>anchors_per_location x 1的卷积 用于预测 有效特征层上 每一个网格点上 每一个预测框内部是否包含了物体。</p>
+<p>相当于就是将整个图像分成若干个网格；然后从每个网格中心建立3个先验框，当输入的图像是1024,1024,3的时候，总共先验框数量为196608+49152+12288+3072+768 = 261,888‬</p>
+<p>当输入图像shape不同时，先验框的数量也会发生改变。</p>
+<h3 id="5、对Proposal建议框加以利用（Roi-Align）"><a href="#5、对Proposal建议框加以利用（Roi-Align）" class="headerlink" title="5、对Proposal建议框加以利用（Roi Align）"></a>5、对Proposal建议框加以利用（Roi Align）</h3><p>让我们对建议框有一个整体的理解：<br>事实上建议框就是对图片哪一个区域有物体存在进行初步筛选。</p>
+<p>实际上，Mask R-CNN到这里的操作是，通过主干特征提取网络，我们可以获得多个公用特征层，然后建议框会对这些公用特征层进行截取。</p>
+<p>其实公用特征层里的每一个点相当于原图片上某个区域内部所有特征的浓缩。</p>
+<p>建议框会对其对应的公用特征层进行截取，然后将截取的结果进行resize，在classifier模型里，截取后的内容会resize到7x7x256的大小。在mask模型里，截取后的内容会resize到14x14x256的大小。<br><img src="7.png" alt=""><br>在利用建议框对公用特征层进行截取的时候要注意，要找到建议框属于那个特征层，这个要从建议框的大小进行判断。</p>
+<p>在classifier模型里，其会利用一次通道数为1024的7x7的卷积和一次通道数为1024的1x1的卷积对ROIAlign获得的7x7x256的区域进行卷积，两次通道数为1024卷积用于模拟两次1024的全连接，然后再分别全连接到num_classes和num_classes * 4上，分别代表这个建议框内的物体，以及这个建议框的调整参数。</p>
+<p>在mask模型里，其首先会对resize后的局部特征层进行四次3x3的256通道的卷积，再进行一次反卷积，再进行一次通道数为num_classes的卷积，最终结果代表每一个像素点分的类。最终的shape为28x28xnum_classes，代表每个像素点的类别。</p>
+<h3 id="6、预测框的解码"><a href="#6、预测框的解码" class="headerlink" title="6、预测框的解码"></a>6、预测框的解码</h3><p>在第四部分获得的建议框也代表了图片上的某一些区域，它在后面的在classifier模型里也起到了先验框的作用。</p>
+<p>也就是classifier模型的预测结果，代表了建议框内部物体的种类和调整参数。</p>
+<p>建议框调整后的结果，也就是最终的预测结果，这个预测结果就可以在图片上进行绘制了。</p>
+<p>预测框的解码过程包括了如下几个步骤：<br>1、取出不属于背景，并且得分大于config.DETECTION_MIN_CONFIDENCE的建议框。<br>2、然后利用建议框和classifier模型的预测结果进行解码，获得最终预测框的位置。<br>3、利用得分和最终预测框的位置进行非极大抑制，防止重复检测。</p>
+<h3 id="7、mask语义分割信息的获取"><a href="#7、mask语义分割信息的获取" class="headerlink" title="7、mask语义分割信息的获取"></a>7、mask语义分割信息的获取</h3><p>在第六步中，我们获得了最终的预测框，这个预测框相比于之前获得的建议框更加准确，因此我们把这个预测框作为mask模型的区域截取部分，利用这个预测框对mask模型中用到的公用特征层进行截取。</p>
+<p>截取后，利用mask模型再对像素点进行分类，获得语义分割结果。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/" rel="tag"># 实例分割</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/26/%E8%B0%83%E5%8F%82%E5%BB%BA%E8%AE%AE/" rel="prev" title="调参建议">
+      <i class="fa fa-chevron-left"></i> 调参建议
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/07/%E5%B8%B8%E7%94%A8tensorflow%E6%93%8D%E4%BD%9C/" rel="next" title="一些常用的tensorflow操作">
+      一些常用的tensorflow操作 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Mask-R-CNN实现思路"><span class="nav-number">1.</span> <span class="nav-text">Mask R-CNN实现思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、预测部分"><span class="nav-number">1.1.</span> <span class="nav-text">一、预测部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、主干网络介绍"><span class="nav-number">1.1.1.</span> <span class="nav-text">1、主干网络介绍</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、特征金字塔的构建"><span class="nav-number">2.</span> <span class="nav-text">2、特征金字塔的构建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3、获得proposal建议框"><span class="nav-number">2.0.1.</span> <span class="nav-text">3、获得proposal建议框</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、Proposal建议框的解码"><span class="nav-number">2.0.2.</span> <span class="nav-text">4、Proposal建议框的解码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、对Proposal建议框加以利用（Roi-Align）"><span class="nav-number">2.0.3.</span> <span class="nav-text">5、对Proposal建议框加以利用（Roi Align）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、预测框的解码"><span class="nav-number">2.0.4.</span> <span class="nav-text">6、预测框的解码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7、mask语义分割信息的获取"><span class="nav-number">2.0.5.</span> <span class="nav-text">7、mask语义分割信息的获取</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xue Xuan"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Xue Xuan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sjtu-xx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sjtu-xx" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuexuan1997@gmail.com" title="E-Mail → mailto:xuexuan1997@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xue Xuan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'eMthrkXxWi9VDSG39hpPXkOi-gzGzoHsz',
+      appKey     : '40yWQRY3985h43auodOGjsIQ',
+      placeholder: "欢迎畅所欲言",
+      avatar     : 'ヾﾉ≧∀≦)o来啊，快活啊!',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

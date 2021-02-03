@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sjtu-xx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="数据库进阶">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库进阶">
+<meta property="og:url" content="https://sjtu-xx.github.io/2020/06/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9B%E9%98%B6/index.html">
+<meta property="og:site_name" content="薛轩的个人博客">
+<meta property="og:description" content="数据库进阶">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-29T13:50:04.000Z">
+<meta property="article:modified_time" content="2021-02-03T15:59:46.418Z">
+<meta property="article:author" content="Xue Xuan">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://sjtu-xx.github.io/2020/06/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9B%E9%98%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>数据库进阶 | 薛轩的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">薛轩的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">XueXuan's blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sjtu-xx.github.io/2020/06/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9B%E9%98%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Xue Xuan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="薛轩的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据库进阶
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-29 21:50:04" itemprop="dateCreated datePublished" datetime="2020-06-29T21:50:04+08:00">2020-06-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-03 23:59:46" itemprop="dateModified" datetime="2021-02-03T23:59:46+08:00">2021-02-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">计算机基础</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/06/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9B%E9%98%B6/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/29/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9B%E9%98%B6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="数据库进阶"><a href="#数据库进阶" class="headerlink" title="数据库进阶"></a><a href="https://www.cnblogs.com/yuanchenqi/articles/6437362.html" target="_blank" rel="noopener">数据库进阶</a></h1><a id="more"></a>
+<p><em>知识预览</em></p>
+<ul>
+<li><a href="https://www.cnblogs.com/yuanchenqi/articles/6437362.html#_label0" target="_blank" rel="noopener">python关于mysql的API－－pymysql模块</a></li>
+<li><a href="https://www.cnblogs.com/yuanchenqi/articles/6437362.html#_label1" target="_blank" rel="noopener">事务</a></li>
+<li><a href="https://www.cnblogs.com/yuanchenqi/articles/6437362.html#_label2" target="_blank" rel="noopener">索引</a></li>
+</ul>
+<h1 id="python关于mysql的API－－pymysql模块"><a href="#python关于mysql的API－－pymysql模块" class="headerlink" title="python关于mysql的API－－pymysql模块"></a>python关于mysql的API－－pymysql模块</h1><p>pymsql是Python中操作MySQL的模块，其使用方法和py2的MySQLdb几乎相同。</p>
+<h3 id="模块安装"><a href="#模块安装" class="headerlink" title="模块安装"></a><strong>模块安装</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#96;pip install pymysql&#96;</span><br></pre></td></tr></table></figure>
+<h3 id="执行sql语句"><a href="#执行sql语句" class="headerlink" title="执行sql语句"></a>执行sql语句</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line"><span class="comment">#添加数据</span></span><br><span class="line"></span><br><span class="line">conn = pymysql.connect(host=<span class="string">'127.0.0.1'</span>, port=<span class="number">3306</span>, user=<span class="string">'root'</span>, passwd=<span class="string">''</span>, db=<span class="string">'yyy'</span>)</span><br><span class="line"></span><br><span class="line">cursor = conn.cursor()</span><br><span class="line"><span class="comment"># cursor = conn.cursor(cursor=pymysql.cursors.DictCursor)  #显示key value</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># sql = """CREATE TABLE EMPLOYEE (</span></span><br><span class="line"><span class="comment">#          FIRST_NAME  CHAR(20) NOT NULL,</span></span><br><span class="line"><span class="comment">#          LAST_NAME  CHAR(20),</span></span><br><span class="line"><span class="comment">#          AGE INT,</span></span><br><span class="line"><span class="comment">#          SEX CHAR(1),</span></span><br><span class="line"><span class="comment">#          INCOME FLOAT )"""</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># cursor.execute(sql)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#row_affected = cursor.execute("create table t1(id INT ,name VARCHAR(20))")</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#row_affected=cursor.execute("INSERT INTO t1(id,name) values (1,'alvin'),(2,'xialv')")</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#cursor.execute("update t1 set name = 'silv2' where id=2")</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#查询数据</span></span><br><span class="line">row_affected=cursor.execute(<span class="string">"select * from t1"</span>)</span><br><span class="line">one=cursor.fetchone()   <span class="comment">#执行的结果</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># many=cursor.fetchmany(2)</span></span><br><span class="line"><span class="comment"># all=cursor.fetchall()</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#scroll</span></span><br><span class="line"><span class="comment">#cursor.scroll(-1,mode='relative')  # 相对当前位置移动</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#cursor.scroll(2,mode='absolute') # 相对绝对位置移动</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#更改获取数据结果的数据类型,默认是元组,可以改为字典等:conn.cursor(cursor=pymysql.cursors.DictCursor)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">conn.commit()</span><br><span class="line">cursor.close()</span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+<h1 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h1><h2 id="事务命令"><a href="#事务命令" class="headerlink" title="事务命令"></a>事务命令</h2><p>事务指逻辑上的一组操作，组成这组操作的各个单元，要不全部成功，要不全部不成功。</p>
+<p>数据库开启事务命令     </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">--        start transaction 开启事务</span><br><span class="line">--        Rollback 回滚事务,即撤销指定的sql语句(只能回退insert delete update语句)，回滚到上一次commit的位置</span><br><span class="line">--        Commit 提交事务，提交未存储的事务</span><br><span class="line">-- </span><br><span class="line">--        savepoint 保留点 ，事务处理中设置的临时占位符 你可以对它发布回退(与整个事务回退不同)</span><br></pre></td></tr></table></figure>
+<p>转账实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UPDATE account set balance&#x3D;balance-5000 WHERE name&#x3D;”yuan”;</span><br><span class="line">UPDATE account set balance&#x3D;balance+5000 WHERE name&#x3D;”xialv”;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">create table test2(id int PRIMARY KEY auto_increment,name VARCHAR(20)) engine&#x3D;innodb;</span><br><span class="line">INSERT INTO test2(name) VALUE (&quot;alvin&quot;),</span><br><span class="line">                              (&quot;yuan&quot;),</span><br><span class="line">                              (&quot;xialv&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">start transaction;</span><br><span class="line">insert into test2 (name)values(&#39;silv&#39;);</span><br><span class="line">select * from test2;</span><br><span class="line">commit;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">-- 保留点</span><br><span class="line"></span><br><span class="line">start transaction;</span><br><span class="line">insert into test2 (name)values(&#39;wu&#39;);</span><br><span class="line">savepoint insert_wu;</span><br><span class="line">select * from test2;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">delete from test2 where id&#x3D;4;</span><br><span class="line">savepoint delete1;</span><br><span class="line">select * from test2;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">delete from test2 where id&#x3D;1;</span><br><span class="line">savepoint delete2;</span><br><span class="line">select * from test2;</span><br><span class="line"></span><br><span class="line">rollback to delete1;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">select * from test2;</span><br></pre></td></tr></table></figure>
+<p>python中调用数据库启动事务的方式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"></span><br><span class="line"><span class="comment">#添加数据</span></span><br><span class="line"></span><br><span class="line">conn = pymysql.connect(host=<span class="string">'127.0.0.1'</span>, port=<span class="number">3306</span>, user=<span class="string">'root'</span>, passwd=<span class="string">''</span>, db=<span class="string">'yyy'</span>)</span><br><span class="line"></span><br><span class="line">cursor = conn.cursor()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    insertSQL0=<span class="string">"INSERT INTO ACCOUNT2 (name,balance) VALUES ('oldboy',4000)"</span></span><br><span class="line">    insertSQL1=<span class="string">"UPDATE account2 set balance=balance-30 WHERE name='yuan'"</span></span><br><span class="line">    insertSQL2=<span class="string">"UPDATE account2 set balance=balance+30 WHERE name='xialv'"</span></span><br><span class="line"></span><br><span class="line">    cursor = conn.cursor()</span><br><span class="line"></span><br><span class="line">    cursor.execute(insertSQL0)</span><br><span class="line">    conn.commit()</span><br><span class="line"></span><br><span class="line">    cursor.execute(insertSQL1)</span><br><span class="line">    <span class="keyword">raise</span> Exception</span><br><span class="line">    cursor.execute(insertSQL2)</span><br><span class="line">    cursor.close()</span><br><span class="line">    conn.commit()</span><br><span class="line"></span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line"></span><br><span class="line">    conn.rollback()</span><br><span class="line">    conn.commit()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cursor.close()</span><br><span class="line">conn.close()</span><br></pre></td></tr></table></figure>
+<h2 id="事务特性"><a href="#事务特性" class="headerlink" title="事务特性"></a>事务特性</h2><p><1> 原子性（Atomicity）：原子性是指事务是一个不可分割的工作单位，事务中的操作要么都发生，要么都不发生。</p>
+<p><2> 一致性（Consistency）：事务前后数据的完整性必须保持一致。在事务执行之前数据库是符合数据完整性约束的，无论事务是否执行成功，事务结束后的数据库中的数据也应该是符合完整性约束的。在某一时间点，如果数据库中的所有记录都能保证满足当前数据库中的所有约束，则可以说当前的数据库是符合数据完整性约束的。<br>比如删部门表前应该删掉关联员工（已经建立外键），如果数据库服务器发生错误，有一个员工没删掉，那么此时员工的部门表已经删除，那么就不符合完整性约束了，所以这样的数据库也就性能太差啦！</p>
+<p><3>隔离性（Isolation）：事务的隔离性是指多个用户并发访问数据库时，一个用户的事务不能被其它用户的事务所干扰，多个并发事务之间数据要相互隔离。</p>
+<p><4>持久性（Durability）：持久性是指一个事务一旦被提交，它对数据库中数据的改变就是永久性的，接下来即使数据库发生故障也不应该对其有任何影响。</p>
+<p>三、隔离性：<br>将数据库设计为串行化程的数据库，让一张表在同一时间内只能有一个线程来操作。如果将数据库设计为这样，那数据库的效率太低了。所以数据库的设计这没有直接将数据库设计为串行化，而是为数据库提供多个隔离级别选项，使数据库的使用者可以根据使用情况自己定义到底需要什么样的隔离级别。</p>
+<p>不考虑隔离性可能出现的问题：</p>
+<p><strong>脏读</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">--一个事务读取到了另一个事务未提交的数据,这是特别危险的，要尽力防止。</span><br><span class="line">        a 1000</span><br><span class="line">        b 1000</span><br><span class="line">        a:</span><br><span class="line">            start transaction；</span><br><span class="line">            update set money&#x3D;money+100 where name&#x3D;b;</span><br><span class="line">        b:</span><br><span class="line">            start transaction;</span><br><span class="line">            select * from account where name&#x3D;b;--1100</span><br><span class="line">            commit;</span><br><span class="line">        a:</span><br><span class="line">            rollback;</span><br><span class="line">        b:  start transaction;</span><br><span class="line">            select * from account where name&#x3D;b;--1000</span><br></pre></td></tr></table></figure>
+<p><strong>不可重复读</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">--在一个事务内读取表中的某一行数据，多次读取结果不同。（一个事务读取到了另一个事务已经提交</span><br><span class="line">-- 的数据--增加记录、删除记录、修改记录），在某写情况下并不是问题，在另一些情况下就是问题。</span><br><span class="line"></span><br><span class="line">a:</span><br><span class="line">start transaction;</span><br><span class="line">select 活期账户 from account where name&#x3D;b;--1000    活期账户：1000</span><br><span class="line">select 定期账户 from account where name&#x3D;b；--1000   定期账户:1000</span><br><span class="line">select 固定资产 from account where name&#x3D;b；--1000   固定资产：1000</span><br><span class="line">------------------------------</span><br><span class="line">b:</span><br><span class="line">start transaction;</span><br><span class="line">update set money&#x3D;0 where name&#x3D;b;</span><br><span class="line">commit;</span><br><span class="line">------------------------------</span><br><span class="line">select 活期+定期+固定 from account where name&#x3D;b; --2000 总资产： 2000</span><br></pre></td></tr></table></figure>
+<p><strong>虚读</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">是指在一个事务内读取到了别的事务插入的数据，导致前后读取不一致。（一个事务读取到了另一个事务已经提交的数据---增加记录、删除记录），在某写情况下并不是问题，在另一些情况下就是问题。</span><br><span class="line"></span><br><span class="line">b 1000</span><br><span class="line">c 2000</span><br><span class="line">d 3000</span><br><span class="line">a:</span><br><span class="line">start transaction</span><br><span class="line">select sum(money) from account;---3000       3000</span><br><span class="line">-------------------</span><br><span class="line">d:start transaction;</span><br><span class="line">insert into account values(d,3000);</span><br><span class="line">commit;</span><br><span class="line">-------------------</span><br><span class="line">select count(*)from account;---3                         3</span><br><span class="line">3000&#x2F;3 &#x3D; 1000                                            1000</span><br></pre></td></tr></table></figure>
+<p>四个隔离级别：<br>Serializable：可避免脏读、不可重复读、虚读情况的发生。（串行化）<br>Repeatable read：可避免脏读、不可重复读情况的发生。（可重复读）不可以避免虚读<br>Read committed：可避免脏读情况发生（读已提交）<br>Read uncommitted：最低级别，以上情况均无法保证。(读未提交)</p>
+<p>安全性考虑：Serializable&gt;Repeatable read&gt;Read committed&gt;Read uncommitted<br>数据库效率：Read uncommitted&gt;Read committed&gt;Repeatable read&gt;Serializable</p>
+<p>一般情况下，我们会使用Repeatable read、Read committed mysql数据库默认的数据库隔离级别Repeatable read</p>
+<p>mysql中设置数据库的隔离级别语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#96;set&#96; &#96;[&#96;&#96;global&#96;&#96;&#x2F;session] &#96;&#96;transaction&#96; &#96;isolation&#96; &#96;level&#96; &#96;xxxx;&#96;</span><br></pre></td></tr></table></figure>
+<p>如果使用global则修改的是数据库的默认隔离级别，所有新开的窗口的隔离级别继承自这个默认隔离级别如果使用session修改，则修改的是当前客户端的隔离级别，和数据库默认隔离级别无关。当前的客户端是什么隔离级别，就能防止什么隔离级别问题，和其他客户端是什么隔离级别无关。<br>mysql中设置数据库的隔离级别语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#96;select&#96; &#96;@@tx_isolation;&#96;</span><br></pre></td></tr></table></figure>
+<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><h2 id="一-索引简介"><a href="#一-索引简介" class="headerlink" title="一 索引简介"></a>一 索引简介</h2><p>索引在MySQL中也叫做“键”，是存储引擎用于快速找到记录的一种数据结构。索引对于良好的性能非常关键，尤其是当表中的数据量越来越大时，索引对于性能的影响愈发重要。</p>
+<p>索引优化应该是对查询性能优化最有效的手段了。<br>索引能够轻易将查询性能提高好几个数量级。<br>索引相当于字典的音序表，如果要查某个字，如果不使用音序表，则需要从几百页中逐页去查。</p>
+<p><strong>索引特点：创建与维护索引会消耗很多时间与磁盘空间，但查询速度大大提高！</strong></p>
+<h2 id="二-索引语法"><a href="#二-索引语法" class="headerlink" title="二 索引语法"></a>二 索引语法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line">--创建表时</span><br><span class="line">--语法：</span><br><span class="line">    CREATE TABLE 表名 (</span><br><span class="line">                字段名1  数据类型 [完整性约束条件…],</span><br><span class="line">                字段名2  数据类型 [完整性约束条件…],</span><br><span class="line">                [UNIQUE | FULLTEXT | SPATIAL ]   INDEX | KEY</span><br><span class="line">                [索引名]  (字段名[(长度)]  [ASC |DESC])</span><br><span class="line">                );</span><br><span class="line"></span><br><span class="line">--------------------------------</span><br><span class="line"></span><br><span class="line">--创建普通索引示例：</span><br><span class="line"></span><br><span class="line">    CREATE TABLE emp1 (</span><br><span class="line">        id INT,</span><br><span class="line">        name VARCHAR(30) ,</span><br><span class="line">        resume VARCHAR(50),</span><br><span class="line">        INDEX index_emp_name (name)</span><br><span class="line">    --KEY index_dept_name (dept_name)</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">--创建唯一索引示例：</span><br><span class="line"></span><br><span class="line">    CREATE TABLE emp2 (</span><br><span class="line">        id INT,</span><br><span class="line">        name VARCHAR(30) ,</span><br><span class="line">        bank_num CHAR(18) UNIQUE ,</span><br><span class="line">        resume VARCHAR(50),</span><br><span class="line">        UNIQUE INDEX index_emp_name (name)</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">--创建全文索引示例：</span><br><span class="line"></span><br><span class="line">    CREATE TABLE emp3 (</span><br><span class="line">        id INT,</span><br><span class="line">        name VARCHAR(30) ,</span><br><span class="line">        resume VARCHAR(50),</span><br><span class="line">        FULLTEXT INDEX index_resume (resume)</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">--创建多列索引示例：</span><br><span class="line"></span><br><span class="line">    CREATE TABLE emp4 (</span><br><span class="line">        id INT,</span><br><span class="line">        name VARCHAR(30) ,</span><br><span class="line">        resume VARCHAR(50),</span><br><span class="line">        INDEX index_name_resume (name, resume)</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">---------------------------------</span><br><span class="line"></span><br><span class="line">---添加索引</span><br><span class="line"></span><br><span class="line">    ---CREATE在已存在的表上创建索引</span><br><span class="line">      CREATE  [UNIQUE | FULLTEXT | SPATIAL ]  INDEX  索引名</span><br><span class="line">              ON 表名 (字段名[(长度)]  [ASC |DESC]) ;</span><br><span class="line">    </span><br><span class="line">    ---ALTER TABLE在已存在的表上创建索引</span><br><span class="line">    </span><br><span class="line">      ALTER TABLE 表名 ADD  [UNIQUE | FULLTEXT | SPATIAL ] INDEX</span><br><span class="line">                    索引名 (字段名[(长度)]  [ASC |DESC]) ;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">     CREATE INDEX index_emp_name on emp1(name);</span><br><span class="line">     ALTER TABLE emp2 ADD UNIQUE INDEX index_bank_num(band_num);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">-- 删除索引</span><br><span class="line">    </span><br><span class="line">    语法：DROP INDEX 索引名 on 表名</span><br><span class="line">    </span><br><span class="line">    DROP INDEX index_emp_name on emp1;</span><br><span class="line">    DROP INDEX bank_num on emp2;</span><br></pre></td></tr></table></figure>
+<h2 id="三-索引测试实验"><a href="#三-索引测试实验" class="headerlink" title="三 索引测试实验"></a>三 索引测试实验</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">--创建表</span><br><span class="line">create table Indexdb.t1(id int,name varchar(20));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">--存储过程</span><br><span class="line"></span><br><span class="line">delimiter $$</span><br><span class="line">create procedure autoinsert() </span><br><span class="line">BEGIN</span><br><span class="line">declare i int default 1;</span><br><span class="line">while(i&lt;500000)do</span><br><span class="line">insert into Indexdb.t1 values(i,&#39;yuan&#39;);</span><br><span class="line">set i&#x3D;i+1;</span><br><span class="line">end while;</span><br><span class="line">END$$</span><br><span class="line"></span><br><span class="line">delimiter ;</span><br><span class="line"></span><br><span class="line">--调用函数</span><br><span class="line">call autoinsert();</span><br><span class="line"></span><br><span class="line">-- 花费时间比较：</span><br><span class="line">-- 创建索引前</span><br><span class="line">   select * from Indexdb.t1 where id&#x3D;300000;--0.32s</span><br><span class="line">-- 添加索引 </span><br><span class="line">   create index index_id on Indexdb.t1(id);</span><br><span class="line">-- 创建索引后</span><br><span class="line">   select * from Indexdb.t1 where id&#x3D;300000;--0.00s</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/29/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="prev" title="数据库">
+      <i class="fa fa-chevron-left"></i> 数据库
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/29/%E7%88%AC%E8%99%AB/" rel="next" title="爬虫">
+      爬虫 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库进阶"><span class="nav-number">1.</span> <span class="nav-text">数据库进阶</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#python关于mysql的API－－pymysql模块"><span class="nav-number">2.</span> <span class="nav-text">python关于mysql的API－－pymysql模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模块安装"><span class="nav-number">2.0.1.</span> <span class="nav-text">模块安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行sql语句"><span class="nav-number">2.0.2.</span> <span class="nav-text">执行sql语句</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事务"><span class="nav-number">3.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#事务命令"><span class="nav-number">3.1.</span> <span class="nav-text">事务命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务特性"><span class="nav-number">3.2.</span> <span class="nav-text">事务特性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#索引"><span class="nav-number">4.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-索引简介"><span class="nav-number">4.1.</span> <span class="nav-text">一 索引简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-索引语法"><span class="nav-number">4.2.</span> <span class="nav-text">二 索引语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-索引测试实验"><span class="nav-number">4.3.</span> <span class="nav-text">三 索引测试实验</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xue Xuan"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Xue Xuan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sjtu-xx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sjtu-xx" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuexuan1997@gmail.com" title="E-Mail → mailto:xuexuan1997@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xue Xuan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'eMthrkXxWi9VDSG39hpPXkOi-gzGzoHsz',
+      appKey     : '40yWQRY3985h43auodOGjsIQ',
+      placeholder: "欢迎畅所欲言",
+      avatar     : 'ヾﾉ≧∀≦)o来啊，快活啊!',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

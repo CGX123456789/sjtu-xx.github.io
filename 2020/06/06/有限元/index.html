@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sjtu-xx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="简介力学的分类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="有限元">
+<meta property="og:url" content="https://sjtu-xx.github.io/2020/06/06/%E6%9C%89%E9%99%90%E5%85%83/index.html">
+<meta property="og:site_name" content="薛轩的个人博客">
+<meta property="og:description" content="简介力学的分类">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/06/%E6%9C%89%E9%99%90%E5%85%83/1.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/06/%E6%9C%89%E9%99%90%E5%85%83/2.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/06/%E6%9C%89%E9%99%90%E5%85%83/c1.jpg">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/06/%E6%9C%89%E9%99%90%E5%85%83/c2.jpg">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/06/%E6%9C%89%E9%99%90%E5%85%83/c3.jpg">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/06/06/%E6%9C%89%E9%99%90%E5%85%83/c4.jpg">
+<meta property="article:published_time" content="2020-06-06T02:19:10.000Z">
+<meta property="article:modified_time" content="2021-02-03T15:59:46.449Z">
+<meta property="article:author" content="Xue Xuan">
+<meta property="article:tag" content="有限元">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sjtu-xx.github.io/2020/06/06/%E6%9C%89%E9%99%90%E5%85%83/1.png">
+
+<link rel="canonical" href="https://sjtu-xx.github.io/2020/06/06/%E6%9C%89%E9%99%90%E5%85%83/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>有限元 | 薛轩的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">薛轩的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">XueXuan's blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sjtu-xx.github.io/2020/06/06/%E6%9C%89%E9%99%90%E5%85%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Xue Xuan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="薛轩的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          有限元
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-06 10:19:10" itemprop="dateCreated datePublished" datetime="2020-06-06T10:19:10+08:00">2020-06-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-03 23:59:46" itemprop="dateModified" datetime="2021-02-03T23:59:46+08:00">2021-02-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%90%E6%96%99/" itemprop="url" rel="index"><span itemprop="name">材料</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/06/06/%E6%9C%89%E9%99%90%E5%85%83/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/06/%E6%9C%89%E9%99%90%E5%85%83/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><h2 id="力学的分类"><a href="#力学的分类" class="headerlink" title="力学的分类"></a>力学的分类</h2><a id="more"></a>
+<p>描述航天器：</p>
+<ul>
+<li>刚体：描述姿态</li>
+<li>变形体：对姿态的耦合和影响</li>
+<li>质点：描述轨道</li>
+</ul>
+<p>力学的分类：</p>
+<ul>
+<li>质点力学：使用牛顿三大定律求解</li>
+<li>刚体力学（理论力学）：牛顿三大定律；刚体转动的牛顿方程（动量矩方程）</li>
+</ul>
+<p>简单形状变形体：</p>
+<ul>
+<li>几何变形</li>
+<li>力的平衡</li>
+<li>物理本构方程</li>
+</ul>
+<p>复杂形状变形体（弹性力学）：</p>
+<ul>
+<li>几何变形</li>
+<li>力的平衡</li>
+<li>物理本构方程（材料行为）</li>
+</ul>
+<p>弹塑性力学：</p>
+<ul>
+<li>几何变形</li>
+<li>力的平衡</li>
+<li>物理本构方程（材料行为）</li>
+</ul>
+<h2 id="微分方程的求解"><a href="#微分方程的求解" class="headerlink" title="微分方程的求解"></a>微分方程的求解</h2><h3 id="解析法"><a href="#解析法" class="headerlink" title="解析法"></a>解析法</h3><h3 id="差分法"><a href="#差分法" class="headerlink" title="差分法"></a>差分法</h3><p>使用差分代替微分</p>
+<script type="math/tex; mode=display">\frac{d^2u}{dx^2}=\frac{u_{i-1}-2u_i+u_{i+1}}{\Delta l^2}</script><h3 id="试函数法"><a href="#试函数法" class="headerlink" title="试函数法"></a>试函数法</h3><ul>
+<li>选择试函数使其满足边界条件</li>
+<li>带入控制方程使试函数残差最小</li>
+</ul>
+<h2 id="函数逼近问题"><a href="#函数逼近问题" class="headerlink" title="函数逼近问题"></a>函数逼近问题</h2><ul>
+<li><strong>基于全域</strong>，使用傅里叶级数逼近。这种方法对于3D问题很难求解。</li>
+<li><strong>基于子域</strong>，分段展开。分片函数逼近：几何-&gt;几何离散-&gt;基本构件（单元）</li>
+</ul>
+<h1 id="弹性力学"><a href="#弹性力学" class="headerlink" title="弹性力学"></a>弹性力学</h1><h2 id="弹簧的力学分析原理"><a href="#弹簧的力学分析原理" class="headerlink" title="弹簧的力学分析原理"></a>弹簧的力学分析原理</h2><p><img src="1.png" alt=""><br>
+$$
+\left[\begin{matrix}k & -k \\ -k & k\end{matrix}\right]
+\left[\begin{matrix}u_1 \\u_2\end{matrix}\right]
+=
+\left[\begin{matrix}F_1 \\F_2\end{matrix}\right]
+\tag{1}
+$$
+</p>
+<h1 id="弹性力学-1"><a href="#弹性力学-1" class="headerlink" title="弹性力学"></a>弹性力学</h1><blockquote>
+<p>弹性力学平面问题<br>为了保持边界位移的连续性，假设单元内任意一点的位移为其坐标的线性函数，这样边界的变化就是线性的。<br>形函数：任意一点的位移可以用单元节点的位移表示，系数称为形函数。<br>单元的应力和应变都是常数。</p>
+</blockquote>
+<h2 id="弹性力学的变形体假设"><a href="#弹性力学的变形体假设" class="headerlink" title="弹性力学的变形体假设"></a>弹性力学的变形体假设</h2><p>连续、均匀、各向同性、线弹性、小变形</p>
+<h2 id="指标记法"><a href="#指标记法" class="headerlink" title="指标记法"></a>指标记法</h2><script type="math/tex; mode=display">F_i = [F_1,F_2,F_3]</script><script type="math/tex; mode=display">\sum_{j=1}^{i}a_{ij}x_j=b_i\ \Rightarrow\ a_{ij}x_j=b_i</script><p><strong>Voigt标记</strong>（将高阶自由指标张量写成低阶张量）<br>
+$$\sigma_{ij}=\left[\begin{matrix}\sigma_{11} & \sigma_{12}\\ \sigma{21} & \sigma_{22}\end{matrix}\right]\ 
+\Rightarrow对称张量写一半
+\Rightarrow\ \sigma=\left[\begin{matrix}\sigma_{11} \\ \sigma_{22} \\ \sigma_{12}\end{matrix}\right]$$
+</p>
+
+$$\sigma_{ij}=\left[\begin{matrix}\sigma_{11} & \sigma_{12} & \sigma_{13}\\ \sigma_{21} & \sigma_{22} & \sigma_{23}\\
+\sigma_{31} & \sigma_{32} & \sigma_{33}\\\end{matrix}\right]\ 
+\Rightarrow对称张量写一半
+\Rightarrow\ \sigma=\left[\begin{matrix}\sigma_{11} \\ \sigma_{22} \\ \sigma_{33} \\ \sigma_{23} \\ \sigma_{13} \\ \sigma_{12}\end{matrix}\right]$$
+
+<h2 id="三大类变量和三大类方程"><a href="#三大类变量和三大类方程" class="headerlink" title="三大类变量和三大类方程"></a>三大类变量和三大类方程</h2><p>三大类变量：位移、应力、应变</p>
+<p>三大类方程：几何方程、平衡方程、无理方程</p>
+<h2 id="平面问题的平衡方程"><a href="#平面问题的平衡方程" class="headerlink" title="平面问题的平衡方程"></a>平面问题的平衡方程</h2><h3 id="力平衡方程"><a href="#力平衡方程" class="headerlink" title="力平衡方程"></a>力平衡方程</h3><ul>
+<li>力平衡</li>
+<li>力矩平衡</li>
+</ul>
+
+$$
+\left\{
+\begin{array}{lr}
+\frac{\partial{\sigma_{xx}}}{\partial{x}}+\frac{\partial{\tau_{xy}}}{\partial{y}}+\bar{b_x}=0 & \\
+\frac{\partial{\sigma_{xx}}}{\partial{x}}+\frac{\partial{\tau_{xy}}}{\partial{y}}+\bar{b_x}=0
+\end{array}
+\right.
+\Rightarrow
+指标形式：\sigma_{ij,j}+\bar{b_i}=0
+$$
+
+<h3 id="几何方程"><a href="#几何方程" class="headerlink" title="几何方程"></a>几何方程</h3>
+$$\left\{\begin{array}{lr}\epsilon_{xx}=\frac{\partial{u}}{\partial{x}}&\\ \epsilon_{yy}=\frac{\partial{u}}{\partial{y}} &\\ \gamma_{xy} = \frac{\partial u}{\partial y}+\frac{\partial u}{\partial x}\end{array}\right.\Rightarrow 指标形式（约定\epsilon_{ij}=\frac12\gamma_{ij}\ (i\neq j)）：\epsilon_{ij}=\frac12(u_{i,j}+u_{j,i})$$
+
+<h3 id="物理方程"><a href="#物理方程" class="headerlink" title="物理方程"></a>物理方程</h3>
+$$
+\left\{\begin{array}{lr}
+\epsilon_{xx}=\frac1E(\sigma_{xx}-\mu\sigma_{yy}) \\
+\epsilon_{yy}=\frac1E(\sigma_{yy}-\mu\sigma_{xx}) \\
+\gamma_{xy}=\frac1G\tau_{xy}
+\end{array}
+\right.
+\Rightarrow
+指标形式: \epsilon_{ij}=C_{ijkl}\sigma_{kl}
+$$
+
+<h3 id="边界条件"><a href="#边界条件" class="headerlink" title="边界条件"></a>边界条件</h3><ul>
+<li>位移边界$S_u$</li>
+<li>力边界$S_p$</li>
+</ul>
+<blockquote>
+<p>无边界区域对应（力为0的边界）</p>
+</blockquote>
+<h1 id="典型问题"><a href="#典型问题" class="headerlink" title="典型问题"></a>典型问题</h1><h2 id="平面纯弯梁的描述"><a href="#平面纯弯梁的描述" class="headerlink" title="平面纯弯梁的描述"></a>平面纯弯梁的描述</h2><p>3D问题<br>
+$$
+\left\{\begin{array}{lr}
+位移（3个）\\应力（9个）\\应变（9个）
+\end{array}
+\right.
+\stackrel{}{\Rightarrow}
+\left\{\begin{array}{lr}
+位移（3个）\\应力（6个）\\应变（6个）
+\end{array}
+\right.
+(三组剪应力应变互等)
+$$
+</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>1D</th>
+<th>2D</th>
+<th>3D</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>平衡方程</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>几何方程</td>
+<td>1</td>
+<td>3</td>
+<td>6</td>
+</tr>
+<tr>
+<td>物理方程</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>边界条件（几何）</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>边界条件（外力）</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="张量"><a href="#张量" class="headerlink" title="张量"></a>张量</h2><p>坐标变换<br>
+$$
+\left[\begin{matrix}x^{(2)} \\ y^{(2)}\end{matrix}\right]=
+\left[\begin{matrix}cos(x^{(2)},x^{(2)}) & cos(x^{(2)},y^{(1)}) \\  cos(y^{(2)},x^{(1)}) & cos(y^{(2)},y^{(1)}))\end{matrix}\right]
+\left[\begin{matrix}x^{(1)} \\ y^{(1)}\end{matrix}\right]
+= \left[\begin{matrix}cos\alpha & sin\alpha \\  -sin\alpha & cos\alpha)\end{matrix}\right]
+\left[\begin{matrix}x^{(1)} \\ y^{(1)}\end{matrix}\right]
+$$
+<br>$\alpha$为两坐标系转动夹角,T为转置矩阵$\left[\begin{matrix}cos\alpha & sin\alpha \\  -sin\alpha & cos\alpha)\end{matrix}\right]$</p>
+<p>张量存在不变量，不随坐标系的变化而变化，这些变量是重要的分析对象<br>二阶张量$\sigma^{(2)}=T\sigma^{(1)}T^T$</p>
+<h1 id="虚功原理和最小势能原理"><a href="#虚功原理和最小势能原理" class="headerlink" title="虚功原理和最小势能原理"></a>虚功原理和最小势能原理</h1><h2 id="弹性变形体力学方程的求解方法"><a href="#弹性变形体力学方程的求解方法" class="headerlink" title="弹性变形体力学方程的求解方法"></a>弹性变形体力学方程的求解方法</h2><ul>
+<li><strong>直接求解</strong>：解析法、半解析、差分</li>
+<li><strong>间接求解</strong><ul>
+<li>加权残值法（伽辽金加权残值、残值最小二乘法）</li>
+<li>虚功原理</li>
+<li>最小势能原理</li>
+<li>变分方法</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>简介求解的关键是1.试函数的选择，2.试函数带入原方程求误差</p>
+</blockquote>
+<h3 id="伽辽金加权残值法"><a href="#伽辽金加权残值法" class="headerlink" title="伽辽金加权残值法"></a>伽辽金加权残值法</h3><p>试函数：将满足边界条件的试函数$\phi_i(x)$组合为新的试函数$\hat{v}(x)=c_1\phi_1(x)+…+c_n\phi_n(x)$,$c_i$为待定系数</p>
+<p>伽辽金法的权值为试函数<br>残值: $\int<em>\Omega{w</em>{t<em>i}R(x,y,z)d\Omega}$<br>$w</em>{t_i}=\phi_i$</p>
+<p>残值最小二乘法的权值为$w_{t_i}=1$</p>
+<h2 id="如何降低试函数对高阶导数及边界条件的要求"><a href="#如何降低试函数对高阶导数及边界条件的要求" class="headerlink" title="如何降低试函数对高阶导数及边界条件的要求"></a>如何降低试函数对高阶导数及边界条件的要求</h2><p>将三大类变量（位移、应力、应变）代换为一类变量（位移）</p>
+<p>弹性问题加权残值法的难点：</p>
+<ul>
+<li>试函数要满足所有边界条件 -&gt; 只满足位移边界</li>
+<li>试函数最高阶导数较高（梁弯曲问题要求4阶导数存在，一般弹性问题要求2阶导数存在）-&gt; 虚功原理和最小势能原理可以将最高阶导数降低一半</li>
+</ul>
+<h2 id="虚功原理"><a href="#虚功原理" class="headerlink" title="虚功原理"></a>虚功原理</h2><p>虚功原理：虚功总和为0</p>
+<script type="math/tex; mode=display">\delta W-\delta U =0（W外力虚功，U内力虚功）</script><p>截面惯性矩$I=\int{y^2dA}$</p>
+<p>若试函数为$\hat{v}(x)=C_1sin(\frac{\pi x}{l})$，虚位移场为$\delta\hat{v}(x)=\delta C_1sin(\frac{\pi x}{l})$</p>
+<p>最小势能原理：$min(U-W)$</p>
+<h2 id="能量原理"><a href="#能量原理" class="headerlink" title="能量原理"></a>能量原理</h2><p>加权残值法的试函数满足位移边界条件和力边界条件，最终加权残值满足控制方程。</p>
+<p>能量方法的试函数只满足位移边界条件，但可以证明<strong>其最终的求解结果也满足力边界条件和控制方程</strong></p>
+<h1 id="有限元方法"><a href="#有限元方法" class="headerlink" title="有限元方法"></a>有限元方法</h1><h2 id="基于试函数的经典方法与有限元方法"><a href="#基于试函数的经典方法与有限元方法" class="headerlink" title="基于试函数的经典方法与有限元方法"></a>基于试函数的经典方法与有限元方法</h2><p>有限元方法的思路：几何→几何离散→基本构件→集成→几何</p>
+<h2 id="离散方法"><a href="#离散方法" class="headerlink" title="离散方法"></a>离散方法</h2><ul>
+<li>自然离散→规则桁架</li>
+<li>逼近离散→连续体</li>
+<li>混合离散</li>
+</ul>
+<h2 id="有限元方法的步骤"><a href="#有限元方法的步骤" class="headerlink" title="有限元方法的步骤"></a>有限元方法的步骤</h2><ol>
+<li>几何离散</li>
+<li>单元研究</li>
+<li>单元继承</li>
+<li>边界条件处理</li>
+<li>计算支反力</li>
+<li>计算其他物理量</li>
+</ol>
+<p>单元研究：</p>
+<ul>
+<li>节点<ul>
+<li>节点基本变量：坐标、位移、力</li>
+</ul>
+</li>
+<li>单元<ul>
+<li>三大类变量描述：刚度方程→多项式从低阶到高阶，待定系数个数与节点自由度对应</li>
+<li>位移场：$u(x)=Nq^{e}$</li>
+<li>应变场：$\epsilon(x)=B(x)q^{e}$</li>
+<li>应力场：$\sigma=DB(x)q^{e}$</li>
+<li>应变能：$U=\frac12q^{e^T}K^eq^e$</li>
+<li>外力功：$W=p^{e^T}q^e$</li>
+</ul>
+</li>
+</ul>
+<p><img src="2.png" alt=""></p>
+<h2 id="形函数的计算"><a href="#形函数的计算" class="headerlink" title="形函数的计算"></a>形函数的计算</h2><p>单元节点的自由度为4<br>位移场函数$v(x)=a_0+a_1x+a_2x^2+a_3x^3$<br>单元节点条件<br>
+$$
+\left\{
+\begin{array}{lr}
+v(0)=v_1 & v^{'}(0)=\theta_1 \\
+v(l)=v_2 & v^{'}(l)=\theta_2
+\end{array}
+\right.
+$$
+</p>
+<p>$v(x)=N(\xi)q^e$</p>
+<blockquote>
+<p>分布力转换为节点处的等效载荷</p>
+</blockquote>
+<h1 id="常见平面单元"><a href="#常见平面单元" class="headerlink" title="常见平面单元"></a>常见平面单元</h1><h2 id="平面三节点单元"><a href="#平面三节点单元" class="headerlink" title="平面三节点单元"></a>平面三节点单元</h2><p>应变场为常数<br>应力场为常数<br>位移场为完全线性函数($u(x,y)=a_0+a_1x+a_2y$,$v(x,y)=b_0+b_1x+b_2y$)</p>
+<p>基于整体坐标建立节点位移，没有坐标变换问题</p>
+<p>对于应变梯度大的区域，加密或高阶单元</p>
+<h2 id="平面四节点单元"><a href="#平面四节点单元" class="headerlink" title="平面四节点单元"></a>平面四节点单元</h2><p>位移场为完全线性+交叉项函数（$u(x,y)=a_0+a_1x+a_2y+a_3xy$）<br>应变场为不完全线性:<br>
+$$
+\epsilon = \left[\begin{matrix}a_1+a_3y\\ b_2+b_3x \\ a_2+b_1+a_3x+b_3y \end{matrix}\right]
+$$
+</p>
+<p>应力场：$\sigma=D\epsilon$</p>
+<h1 id="空间单元"><a href="#空间单元" class="headerlink" title="空间单元"></a>空间单元</h1><h2 id="空间四节点单元（与平面三节点单元类似）"><a href="#空间四节点单元（与平面三节点单元类似）" class="headerlink" title="空间四节点单元（与平面三节点单元类似）"></a>空间四节点单元（与平面三节点单元类似）</h2><p>应变场为常数<br>应力场为常数<br>没有坐标变换问题</p>
+<h2 id="空间8节点正六面体单元与平面4节点单元类似"><a href="#空间8节点正六面体单元与平面4节点单元类似" class="headerlink" title="空间8节点正六面体单元与平面4节点单元类似"></a>空间8节点正六面体单元与平面4节点单元类似</h2><h2 id="参数单元"><a href="#参数单元" class="headerlink" title="参数单元"></a>参数单元</h2><p><strong>基准单元</strong>：基准坐标系；     <strong>物理单元</strong>：物理坐标系<br>需要进行几种映射：坐标函数映射、偏导数映射、面积（体积）映射</p>
+<h2 id="收敛性"><a href="#收敛性" class="headerlink" title="收敛性"></a>收敛性</h2><p>亚参元和等参数单元保证收敛；超参数单元不保证收敛</p>
+<blockquote>
+<p><strong>亚参元</strong>：几何形状插值函数阶次&lt;位移插值函数阶次<br><strong>等参数单元</strong>：几何形状插值函数阶次=位移插值函数阶次</p>
+</blockquote>
+<h2 id="形函数和刚度矩阵的性质"><a href="#形函数和刚度矩阵的性质" class="headerlink" title="形函数和刚度矩阵的性质"></a>形函数和刚度矩阵的性质</h2><p><strong>形函数</strong></p>
+<ul>
+<li>$N_i$表示i节点位移为1，其他节点位移为0时的单元位移场函数</li>
+<li>$\sum_{i=0}^{n}N_i(x)=1$表明其能描述刚体位移</li>
+</ul>
+<p><strong>刚度矩阵</strong></p>
+<ul>
+<li>对角元素$k_{ii}$表示要使i节点产生单位位移($u_i=1$)，其他节点位移为0时，需要在节点i施加的力</li>
+<li>非对角元素$k_{ij}$表示要使j节点产生单位位移($u_j=1$)，而其他节点位移为0时，需要在节点i施加的力</li>
+<li>单元刚度矩阵是对称的</li>
+<li>单元刚度矩阵是半正定的</li>
+<li>单元刚度矩阵奇异（行列式=0）</li>
+</ul>
+<p><strong>总体刚度矩阵</strong></p>
+<ul>
+<li>对称</li>
+<li>奇异</li>
+<li>半正定</li>
+<li>稀疏</li>
+<li>非零元素带状分布</li>
+</ul>
+<h2 id="边界条件的处理与支反力的计算"><a href="#边界条件的处理与支反力的计算" class="headerlink" title="边界条件的处理与支反力的计算"></a>边界条件的处理与支反力的计算</h2><ul>
+<li>直接法</li>
+<li>置一法（针对($\bar{q_r}=0$)）</li>
+<li>乘大数法（针对($\bar{q_r}=\bar{u}$)）</li>
+<li>罚函数法（大刚度的弹簧）</li>
+</ul>
+<h2 id="位移函数的构造与收敛性要求"><a href="#位移函数的构造与收敛性要求" class="headerlink" title="位移函数的构造与收敛性要求"></a>位移函数的构造与收敛性要求</h2><p>收敛性准则：</p>
+<ul>
+<li><strong>完备性要求</strong>（针对单元内部:常应变项与常位移项）。如果在势能泛函中所出现的位移函数的最高阶导数是m阶，则有限元解答收敛的条件之一是单元内位移场函数的试函数至少是m阶多项式。</li>
+<li><strong>协调性要求</strong>。如果势能泛函中位移函数最高阶是m阶，则位移势函数在单元交界面上必须具有直至m-1阶连续倒数</li>
+</ul>
+<p>位移函数参数个数与节点自由度（DOF）相等。 -》 唯一性</p>
+<h2 id="C0与C1单元"><a href="#C0与C1单元" class="headerlink" title="C0与C1单元"></a>C0与C1单元</h2><p><strong>C0单元</strong>：势能泛函中位移函数出现的最高阶导数是1阶，在单元交界面上具有0阶连续导数，只要求位移连续</p>
+<p>一般杆单元，平面问题单元，空间问题单元都是C0单元。</p>
+<p><strong>C1单元</strong>：势能泛函中位移函数出现的最高阶导数是2阶，在单元交界面上具有1阶连续导数</p>
+<p>梁单元，板单元，壳单元都是C1单元。</p>
+<h2 id="单元拼片实验"><a href="#单元拼片实验" class="headerlink" title="单元拼片实验"></a>单元拼片实验</h2><p>单元位移函数满足完备性要求-&gt;单元是完备的（容易满足）<br>单元位移函数满足协调性要求-&gt;单元是协调的（C1型单元不容易满足）<br>单元位移函数满足完整性和协调性要求-&gt;协调单元</p>
+<p>非协调单元：某些情况下，可以放松对协调性的要求，只要单元通过拼片试验，解答仍收敛于正确解，这种单元称为非协调单元</p>
+<p>近似解$|q_{appr}|&lt;|q_exact|$精确解</p>
+<h2 id="控制误差和提高精度的h方法和p方法"><a href="#控制误差和提高精度的h方法和p方法" class="headerlink" title="控制误差和提高精度的h方法和p方法"></a>控制误差和提高精度的h方法和p方法</h2><p><strong>h方法</strong>（high density）加密单元。数值稳定性和可靠性好，但收敛较慢，效率低</p>
+<p><strong>p方法</strong>（polynomial）增加单元基地函数阶次。收敛性优于h方法，但数值稳定性差。</p>
+<p><strong>自适应方法</strong>：利用上一步计算结果修改有限元模型，计算量小，精度高。对给定自由度求最有玩咯</p>
+<blockquote>
+<p><strong>子结构与超级单元</strong><br>结构的重复性：几何空间上，采用子结构；计算时间上，采用超级单元</p>
+</blockquote>
+<h1 id="非线性分析"><a href="#非线性分析" class="headerlink" title="非线性分析"></a>非线性分析</h1><h2 id="结构振动的有限元分析"><a href="#结构振动的有限元分析" class="headerlink" title="结构振动的有限元分析"></a>结构振动的有限元分析</h2><p><strong>基本原理</strong>：变形体存在固有频率和振动模态</p>
+<p><strong>三大类变量</strong>：位移$u_i(\xi,t)$、应变$\epsilon_{ij}(\xi,t)$、应力$\sigma_{ij}(\xi,t)$</p>
+<p><strong>基本方程</strong>：<br><strong>平衡方程</strong>：由DAlembert原理$\sigma_{ij,j}(t)+\bar{b_i}(t)-\rho\ddot{u_i}(t)-v\dot{u_i}=0$</p>
+<p><strong>几何方程</strong>：与普通分析一致</p>
+<p><strong>物理方程</strong>：与普通分析一致</p>
+<p><strong>边界条件</strong>：与普通分析一致</p>
+<p><strong>初始条件</strong>：<br>$u_i(\xi,t=0)=u_i(\xi)$</p>
+<p>$\dot{u_i}(\xi,t=0)=\dot{u_i}(\xi)$</p>
+<p><strong>单元的节点位移矩阵</strong>：$q_t^e(t)=\left[\begin{array}{lr}u_1(t) &amp; v_1(t) &amp; w_1(t)&amp;… &amp; u_n(t) &amp; v_n(t) &amp; w_n(t)\end{array}\right]^T$</p>
+<p><strong>位移插值函数</strong>：$u^e(\xi,t)=N(\xi)q_i^e(t)$</p>
+<p>$\dot{u}^e(\xi,t)=N(\xi)\dot{q}_i^e(t)$</p>
+<p>$\ddot{u}^e(\xi,t)=N(\xi)\ddot{q}_i^e(t)$</p>
+<p><strong>方程</strong>：$M^e\ddot{q}_i^e(t)+C^e\dot{q}_i^e(t)+K^eq_i^e(t)=P_t^e(t)$</p>
+<p>单元质量矩阵：$M^e=\int_\Omega\rho N^TNd\Omega$</p>
+<p>单元阻尼矩阵：$C^e=\int_\Omega v N^TNd\Omega$</p>
+<p>单元刚度矩阵：$K^e=\int_\Omega B^T DBd\Omega$</p>
+<p>力矩阵：$P<em>t^e=\int</em>\Omega N^T\bar{b}d\Omega+\int_{S_p}N^T\bar{p}dA$</p>
+<p>对于无阻尼(v=0)自由(p=0)振动:$M\ddot{q}+Kq=0$，这个方程的解的形式为$q_t=\hat{q}e^{iwt}$。带入到方程中得到：$(-w^2M\hat{q}+K\hat{q})e^{iwt}=0$，即$(K-w^2M)\hat{q}=0$。方程由非零解的条件为$|K-w^2M|=0$。</p>
+<p><strong>质量矩阵</strong>：一致质量矩阵；集中质量矩阵（将一直质量矩阵行/列集中到对角线）</p>
+<h2 id="非线性方程的求解"><a href="#非线性方程的求解" class="headerlink" title="非线性方程的求解"></a>非线性方程的求解</h2><ul>
+<li>直接迭代</li>
+<li>Newton-Raphson(NR)迭代。分步逼近，在每个载荷段内进行非线性方程的迭代，特点：在迭代中，非线性方程变为线性方程</li>
+<li>改进的NR方法</li>
+</ul>
+<h1 id="传热问题"><a href="#传热问题" class="headerlink" title="传热问题"></a>传热问题</h1><h2 id="传热问题的控制方程"><a href="#传热问题的控制方程" class="headerlink" title="传热问题的控制方程"></a>传热问题的控制方程</h2><p>Fourier传热定律、能量守恒定律</p>
+<h2 id="三类边界条件"><a href="#三类边界条件" class="headerlink" title="三类边界条件"></a>三类边界条件</h2><p>给定的温度分布（第一类）、给定热流密度（第二类）、给定对流换热系数（第三类）</p>
+<h1 id="几个常见的问题"><a href="#几个常见的问题" class="headerlink" title="几个常见的问题"></a>几个常见的问题</h1><h2 id="线性分析与非线性分析"><a href="#线性分析与非线性分析" class="headerlink" title="线性分析与非线性分析"></a>线性分析与非线性分析</h2><p><strong>线性分析：</strong>若K为常数矩阵，则外载荷与系统响应之间为线性关系<br><strong>非线性：</strong>K变化</p>
+<p><strong>非线性：</strong>材料非线性、几何非线性（大变形、大转动）、边界条件非线性（接触）</p>
+<p><strong>求解方法：</strong></p>
+<ul>
+<li>隐式求解。将分析过程分为一系列增量步，在每个增量步迭代至合理解。</li>
+<li>显式求解。显式地从上一个增量步推算动力学平衡方程</li>
+</ul>
+<h2 id="一阶-二阶-完全-减缩"><a href="#一阶-二阶-完全-减缩" class="headerlink" title="一阶/二阶 完全/减缩"></a>一阶/二阶 完全/减缩</h2><p><img src=3.png></p>
+<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p><strong>线性单元</strong>仅在角点处布置节点，在各方向采用线性插值。</p>
+<p><strong>二次单元</strong>不仅在节点处，在每边的中点也有节点，在各方向采用二次插值</p>
+<p><strong>完全积分</strong>：当单元具有规则形状时，所用高斯积分点数目足以对单元刚度矩阵多项式进行精确积分。</p>
+<p><strong>减缩积分</strong>：比完全积分每个方向少一个积分点（只有四边形和六面体单元才能使用减缩积分）。</p>
+<h3 id="可能出现的问题"><a href="#可能出现的问题" class="headerlink" title="可能出现的问题"></a>可能出现的问题</h3><p><strong>剪力自锁</strong>：存在于所有的线性完全积分单元中</p>
+<p>原因：线性单元的边无法弯曲，使得应变作用下产生剪切变形而无法弯曲变形，单元过于刚硬。</p>
+<p>改进:使用二次单元</p>
+<p><strong>沙漏</strong>：线性减缩积分单元由于沙漏问题，过于柔软</p>
+<p>原因：在单元变形时，积分点处应力分量也可能为0，没有产生应变能，即这种弯曲是零能模式。这种零能模式会在网络中扩展。</p>
+<p>二次减缩积分也存在沙漏，但在正常网格中不会扩展。</p>
+<p><strong>体积锁死</strong>：本应产生体积变化，却未变化</p>
+<p>条件：完全积分，材料几乎不可压缩（v=0.5）</p>
+<p>改进：细化网格</p>
+<blockquote>
+<p><strong>注意事项</strong></p>
+<ul>
+<li>线性完全积分单元容易出现剪切自锁和体积自锁，一般不使用</li>
+<li>如果存在应力集中，需要计算较精确的应力，建议使用二阶完全积分单元</li>
+<li>二阶减缩积分单元既可以较精确的模拟应力，又可以较准确的模拟小变形，因而是应力/位移模拟的最佳选择</li>
+<li>如需要模拟大变形或接触分析，采用线性减缩积分是最好的选择。但应细化网络来避免沙漏，在厚度方向应大于4个单元</li>
+<li>静力结构分析使用二阶完全积分单元。非线性分析/接触分析使用线性减缩积分单元</li>
+<li>只有确信载荷只会在模型中产生很小的弯曲时，才能使用线性完全积分单元</li>
+<li>在受轴向和剪切载荷时，线性完全积分单元表现很好</li>
+<li>线性减缩积分单元能很好地承受扭曲变形</li>
+<li>受弯：二次单元优于线性单元；； 受扭：线性单元优于二次单元</li>
+</ul>
+</blockquote>
+<p>完全各向异性材料：$C_{ij}$，21个独立分量<br>各向同性材料的刚度系数：<br>
+$$
+\left[
+    \begin{matrix}
+    C_{11} & C_{12} & C_{12} & 0 & 0 &0\\
+    C_{12}  & C_{11} & C_{12} & 0 & 0 &0\\
+    C_{12}  & C_{12} & C_{11} & 0 & 0 &0\\
+    0      &      0 & 0 & \frac{C_{11}-C_{12}}2 & 0 &0\\
+    0      &      0 & 0 &0 & \frac{C_{11}-C_{12}}2 & 0\\
+    0      &      0 & 0 &0&0 & \frac{C_{11}-C_{12}}2\\
+    \end{matrix}
+\right]
+$$
+</p>
+<h1 id="广义变分原理"><a href="#广义变分原理" class="headerlink" title="广义变分原理"></a>广义变分原理</h1><h2 id="约束变分原理"><a href="#约束变分原理" class="headerlink" title="约束变分原理"></a>约束变分原理</h2><h3 id="拉格朗日乘子法"><a href="#拉格朗日乘子法" class="headerlink" title="拉格朗日乘子法"></a>拉格朗日乘子法</h3><p>对于一个使泛函$\Pi(\textbf{u})$取驻值的问题，如果其场函数$\textbf{u}$需满足的附加条件为：</p>
+<script type="math/tex; mode=display">\{C(\textbf{u})\}=\{0\}\ (在域\Omega内)</script><p>则将其引用泛函$\Pi(\textbf{u})$得到一修正的泛函：<br>
+$$\Pi^{*}(\textbf{u,}\lambda)=\Pi(\textbf{u})+\int_{\Omega}\{\lambda\}^T\{C(\textbf{u})\}d\Omega$$
+<br>$\lambda$为一组独立的坐标函数，称为拉格朗日乘子。</p>
+<p>拉格朗日乘子会导致待定系数的增加，从而增加了计算量。</p>
+<h3 id="罚函数法"><a href="#罚函数法" class="headerlink" title="罚函数法"></a>罚函数法</h3><p>罚函数法与拉格朗日的区别是引入附加条件的形式不同，拉格朗日乘子法引入是附加条件的原型，即${C(\textbf{u})}={0}$，而罚函数法则是附加条件乘积的形式。<br>
+$$\{C(\textbf{u})\}^T\{C(\textbf{u})\}=\{C_1^2(\textbf{u})\}+\{C_2^2(\textbf{u})\}+...+\{C_n^2(\textbf{u})\}$$
+</p>
+<p>当附加条件得到满足时，上式为0，否则它大于0.显然上式的变分在满足:$\delta({C(\textbf{u})}^T{C(\textbf{u})})=0$的条件下是最小的。因此，罚函数法利用一个充分大的系数将附加条件以乘积的形式引入泛函。<br>
+$$\Pi^{**}(\textbf{u})=\Pi(\textbf{u})+\alpha\int_\Omega\{C(\textbf{u})\}^T\{C(\textbf{u})\}d\Omega$$
+<br>$\alpha$被称为罚函数，若泛函本身是极小值问题，则$\alpha$取正数。<br>罚函数选择很重要，如何选择合适的$\alpha$不易。</p>
+<h1 id="非线性问题的求解方法"><a href="#非线性问题的求解方法" class="headerlink" title="非线性问题的求解方法"></a>非线性问题的求解方法</h1><h2 id="直接迭代法"><a href="#直接迭代法" class="headerlink" title="直接迭代法"></a>直接迭代法</h2><p>每次迭代需要重新计算刚度矩阵并求逆，计算量较大。（割线刚度法）</p>
+<p>收敛性：对刚度退化的系统，直接迭代法收敛。对刚度硬化的系统，直接迭代法不收敛。<br><img src="c1.jpg" alt=""></p>
+<h2 id="牛顿-拉夫森方法"><a href="#牛顿-拉夫森方法" class="headerlink" title="牛顿-拉夫森方法"></a>牛顿-拉夫森方法</h2><p>每次迭代需要重新计算系数矩阵并求逆，计算量较大。（切线刚度法）<br><img src="c2.jpg" alt=""></p>
+<h2 id="修正的牛顿-拉夫森方法"><a href="#修正的牛顿-拉夫森方法" class="headerlink" title="修正的牛顿-拉夫森方法"></a>修正的牛顿-拉夫森方法</h2><p>迭代过程不需要重新计算系数矩阵，只计算一次。<br><img src="c3.jpg" alt=""></p>
+<h2 id="增量法"><a href="#增量法" class="headerlink" title="增量法"></a>增量法</h2><p><img src="c4.jpg" alt=""></p>
+<h1 id="求解线性方程组的迭代法"><a href="#求解线性方程组的迭代法" class="headerlink" title="求解线性方程组的迭代法"></a>求解线性方程组的迭代法</h1><h2 id="雅可比迭代法"><a href="#雅可比迭代法" class="headerlink" title="雅可比迭代法"></a>雅可比迭代法</h2><p>每次迭代全部采用上次的迭代结果</p>
+<h2 id="高斯-赛尔德迭代法"><a href="#高斯-赛尔德迭代法" class="headerlink" title="高斯-赛尔德迭代法"></a>高斯-赛尔德迭代法</h2><h2 id="超松弛迭代法"><a href="#超松弛迭代法" class="headerlink" title="超松弛迭代法"></a>超松弛迭代法</h2><p>改善了高斯-赛尔德迭代法的收敛性</p>
+<h1 id="单元类型"><a href="#单元类型" class="headerlink" title="单元类型"></a>单元类型</h1><h2 id="一维单元"><a href="#一维单元" class="headerlink" title="一维单元"></a>一维单元</h2><h3 id="拉格朗日单元"><a href="#拉格朗日单元" class="headerlink" title="拉格朗日单元"></a>拉格朗日单元</h3><p>在n个节点上的函数值连续</p>
+<h3 id="Hermite单元"><a href="#Hermite单元" class="headerlink" title="Hermite单元"></a>Hermite单元</h3><p>在节点上的函数值和导数都连续</p>
+<h3 id="高阶Hermite单元"><a href="#高阶Hermite单元" class="headerlink" title="高阶Hermite单元"></a>高阶Hermite单元</h3><p>在节点上的函数值和高阶导数连续。</p>
+<h1 id="求解算法中显式和隐式的区别"><a href="#求解算法中显式和隐式的区别" class="headerlink" title="求解算法中显式和隐式的区别"></a>求解算法中显式和隐式的区别</h1><p>隐式和显式有限元的最大区别在于是否迭代，所有的物理量是否在同一时刻获得。</p>
+<p>采用隐式迭代求解平衡方程（位移、速度、加速度），不管是否采用隐式与显式的方式（前向、后向欧拉算法）求解本构方程（应力、应变），都叫做隐式有限元。</p>
+<p>对于本构方程的求解，通常分为前向和后向欧拉算法。对于后向欧拉算法求解弹塑性问题，所有的物理量（包括等效塑性应变增量、N+1迭代步的应变和应力以及相关依赖于solution的状态变量）均是同时求解获得，因为涉及到多个物理量，而通常情况下他们是相互依赖、相互成为函数，所以必须通过牛顿迭代同时求解几个方程（如采用试应力方程、屈服函数径向返回算法（对于各向异性，也叫回映算法，最近点的投射算法）联合求解等效塑性应变增量）。对于前向欧拉，直接由N时刻的应力和应变求出N+1时刻的应力和应变，无需迭代。</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/wu_nan_nan/article/details/53173302" target="_blank" rel="noopener">https://blog.csdn.net/wu_nan_nan/article/details/53173302</a></p>
+<p>前向欧拉（显式欧拉）：条件稳定.后向欧拉（隐式欧拉）：无条件稳定。</p>
+<p>实际应用中，隐式欧拉需要求解隐式方程，通常也是使用逼近的方法（例如，Newton-Raphson）求解，因此实际的隐式欧拉方法并不是无条件稳定的。</p>
+</blockquote>
+<p>对于平衡方程的求解，通常分为隐式和显式有限元算法。对于隐式有限元算法，由应力平衡方程+边界条件变分之后获得的刚度方程KU=F，隐式求解必须引入雅可比矩阵（二次收敛、只影响计算速率、不影响数值精度；K又称为雅可比），其是实时更新的，是N+1时刻的应力、应变以及状态变量（如损伤内变量）的函数，隐式求解是很robust的，确保了计算精度，但是不足之处在于计算非常expensive，每次迭代都要计算K的逆矩阵，也容易产生数值收敛性问题，目前解决的方法有弧长法、粘性阻尼法等，个人认为粘性阻尼法效果最好。 </p>
+<p>对于显示算法，采用时间积分，用t+1时刻的积分点应力、应变，获得t+1时刻的节点位移，无需迭代求解，也不需要雅可比矩阵（应力对应变偏导数）；如果硬是要有，连续雅可比，基于本构模型而不是刚度方程推导近似的连续雅可比。对于显示算法，单元高斯积分点应力、应变的求解可用前向或者后向欧拉方法，然后通过时间积分求取节点位移。本质上，平衡方程中位移的迭代求解与本构方程中的应力、应变求解没有关联，这点很容易造成误解，很多时候将前、后欧拉算法视为显式和隐式的区别，大大错误。通常应用较广的显示算法纽马克法、威尔逊-sita法，其中改变纽马克法中的两个参数，可以实现隐式与显式求解，其中alpha=0.5和beta=0是中心差分法(二阶精度)。目前一个大的误区认为只有显示算法可以求解动力学问题，隐式只能求解准静态问题（如低速冲击），alpha=0.5和beta=0.25就是隐式，所有的物理量在t+1时刻同时求解，通常ABAQUS软件中所说的隐式动力学求解采用了斯坦福大学Hilber、HUGHES院士（现在德克萨斯大学奥斯丁分校）和加州大学伯克利分校Taylor院士提出的无条件稳定隐式差分算法，可以求解低速动力学问题，缺点是不适合含阻尼的求解、计算效率不高；alpha=0.5和beta=0时的纽马克法更适合求解动力学问题，主要原因在于比隐式求解计算效率更高，不足之处在于其是条件稳定，时间增量过大位移解容易震荡，根本原因是差分算法的条件稳定导致的，时间增量必须非常小（其值越大，一方面不稳定、另一方面计算误差也更大），其依赖于波速、弹性模量和最小单元网格尺寸，这是显式算法计算最耗时的地方。相对于隐式算法，显式算法的功能更强大，通常计算依赖于率的变形和应力，也可以求解稳态问题，如alpha=0.5和beta=0时，对于刚度方程中引入阻尼矩阵后，叫做动态松弛法，可以解决静力学问题的一些稳态问题（如重力、预应力引起的初始应力）。此外，一些准静态的剪切自锁问题，本质上有解，但是用牛顿法求解失效，中心差分引入质量矩阵后，可以获得正常的解。需要注意的是，时间积分算法通常采用Lumped集中对角质量矩阵而不是一致质量矩阵，以提高计算效率。总体来说，由于计算效率的问题，隐式时间积分算法ABAQUS-Standard特别适合于低速冲击问题；对于高速冲击问题，由于存在不连续非线性接触的动响应过程，隐式算法解决不好，使用显式时间算法ABAQUS-Explicit更好。此外，对于瞬态和稳态热传导问题，半离散的抛物线方程，中心差分法可以较好获得温度分布。</p>
+<p> 对于依赖于率的粘塑性问题（对于本质上的粘性材料），与弹塑性材料的根本区别在于，一般来说是一致性条件不满足（排除弹塑性材料在高温下的软化问题，对于这种问题，屈服条件也可以满足），即屈服条件不满足，N+1时刻的物理量不用回映到N+1时刻的屈服面上，粘塑性模型成为过应力模型，显示和隐式算法都可以求解。对于依赖于率的本构模型，其可解决模拟高速冲击、爆炸、弹道射击问题时存在的动态应变局部化问题（对于动态问题，平衡方程丧失双曲线特性；对于静态问题，平衡方程失去椭圆性），解决网格尺寸效应，其实质上是引入了适当的阻尼迟滞效应。需要注意的是，对于大变形(又称为有限变形)问题，Cauchy应力率和速度梯度（包括客观和对称的扭曲张量率D、不客观和反对称的spin旋转张量W两个部分）均是不客观的，为解释刚体旋转（如纯剪切变形就包含刚体旋转），在共旋坐标系下面求解真实应力和应变，应力和应变积分求解的时候应首先求解客观性的Jaumann应力率(相对于真实应力，空间坐标系)，相对于Second Piola-Kirchhoff应力是Truesdell率（材料坐标系）。ABAQUS软件对于大变形问题已经做了旋转。</p>
+<p>   对于一些耦合场问题，由于计算量非常大，同时要求解太多物理量，如热-流-固耦合，要求解位移、压力、温度，采用纯隐式算法或显式算法基本不太获得收敛或准确的解，这时候可采用混合的隐式与显式有限元格式mixed implicit-explicit partitoning方法，将刚度矩阵和阻尼矩阵分成两个部分，在同一区域采取不同算法，提高计算效率和精度、稳定性和收敛性。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%9C%89%E9%99%90%E5%85%83/" rel="tag"># 有限元</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/13/TinyXML2%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%88%E8%BD%AC%EF%BC%89/" rel="prev" title="TinyXML2的使用（转）">
+      <i class="fa fa-chevron-left"></i> TinyXML2的使用（转）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/25/Abaqus%E6%9C%89%E9%99%90%E5%85%83%E5%88%86%E6%9E%90/" rel="next" title="Abaqus有限元分析">
+      Abaqus有限元分析 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#力学的分类"><span class="nav-number">1.1.</span> <span class="nav-text">力学的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#微分方程的求解"><span class="nav-number">1.2.</span> <span class="nav-text">微分方程的求解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解析法"><span class="nav-number">1.2.1.</span> <span class="nav-text">解析法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#差分法"><span class="nav-number">1.2.2.</span> <span class="nav-text">差分法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#试函数法"><span class="nav-number">1.2.3.</span> <span class="nav-text">试函数法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数逼近问题"><span class="nav-number">1.3.</span> <span class="nav-text">函数逼近问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#弹性力学"><span class="nav-number">2.</span> <span class="nav-text">弹性力学</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#弹簧的力学分析原理"><span class="nav-number">2.1.</span> <span class="nav-text">弹簧的力学分析原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#弹性力学-1"><span class="nav-number">3.</span> <span class="nav-text">弹性力学</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#弹性力学的变形体假设"><span class="nav-number">3.1.</span> <span class="nav-text">弹性力学的变形体假设</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指标记法"><span class="nav-number">3.2.</span> <span class="nav-text">指标记法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三大类变量和三大类方程"><span class="nav-number">3.3.</span> <span class="nav-text">三大类变量和三大类方程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平面问题的平衡方程"><span class="nav-number">3.4.</span> <span class="nav-text">平面问题的平衡方程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#力平衡方程"><span class="nav-number">3.4.1.</span> <span class="nav-text">力平衡方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#几何方程"><span class="nav-number">3.4.2.</span> <span class="nav-text">几何方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物理方程"><span class="nav-number">3.4.3.</span> <span class="nav-text">物理方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#边界条件"><span class="nav-number">3.4.4.</span> <span class="nav-text">边界条件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#典型问题"><span class="nav-number">4.</span> <span class="nav-text">典型问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#平面纯弯梁的描述"><span class="nav-number">4.1.</span> <span class="nav-text">平面纯弯梁的描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#张量"><span class="nav-number">4.2.</span> <span class="nav-text">张量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚功原理和最小势能原理"><span class="nav-number">5.</span> <span class="nav-text">虚功原理和最小势能原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#弹性变形体力学方程的求解方法"><span class="nav-number">5.1.</span> <span class="nav-text">弹性变形体力学方程的求解方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#伽辽金加权残值法"><span class="nav-number">5.1.1.</span> <span class="nav-text">伽辽金加权残值法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何降低试函数对高阶导数及边界条件的要求"><span class="nav-number">5.2.</span> <span class="nav-text">如何降低试函数对高阶导数及边界条件的要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚功原理"><span class="nav-number">5.3.</span> <span class="nav-text">虚功原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#能量原理"><span class="nav-number">5.4.</span> <span class="nav-text">能量原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#有限元方法"><span class="nav-number">6.</span> <span class="nav-text">有限元方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于试函数的经典方法与有限元方法"><span class="nav-number">6.1.</span> <span class="nav-text">基于试函数的经典方法与有限元方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#离散方法"><span class="nav-number">6.2.</span> <span class="nav-text">离散方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有限元方法的步骤"><span class="nav-number">6.3.</span> <span class="nav-text">有限元方法的步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#形函数的计算"><span class="nav-number">6.4.</span> <span class="nav-text">形函数的计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见平面单元"><span class="nav-number">7.</span> <span class="nav-text">常见平面单元</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#平面三节点单元"><span class="nav-number">7.1.</span> <span class="nav-text">平面三节点单元</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平面四节点单元"><span class="nav-number">7.2.</span> <span class="nav-text">平面四节点单元</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#空间单元"><span class="nav-number">8.</span> <span class="nav-text">空间单元</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#空间四节点单元（与平面三节点单元类似）"><span class="nav-number">8.1.</span> <span class="nav-text">空间四节点单元（与平面三节点单元类似）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空间8节点正六面体单元与平面4节点单元类似"><span class="nav-number">8.2.</span> <span class="nav-text">空间8节点正六面体单元与平面4节点单元类似</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数单元"><span class="nav-number">8.3.</span> <span class="nav-text">参数单元</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#收敛性"><span class="nav-number">8.4.</span> <span class="nav-text">收敛性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#形函数和刚度矩阵的性质"><span class="nav-number">8.5.</span> <span class="nav-text">形函数和刚度矩阵的性质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#边界条件的处理与支反力的计算"><span class="nav-number">8.6.</span> <span class="nav-text">边界条件的处理与支反力的计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位移函数的构造与收敛性要求"><span class="nav-number">8.7.</span> <span class="nav-text">位移函数的构造与收敛性要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C0与C1单元"><span class="nav-number">8.8.</span> <span class="nav-text">C0与C1单元</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单元拼片实验"><span class="nav-number">8.9.</span> <span class="nav-text">单元拼片实验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#控制误差和提高精度的h方法和p方法"><span class="nav-number">8.10.</span> <span class="nav-text">控制误差和提高精度的h方法和p方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#非线性分析"><span class="nav-number">9.</span> <span class="nav-text">非线性分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#结构振动的有限元分析"><span class="nav-number">9.1.</span> <span class="nav-text">结构振动的有限元分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非线性方程的求解"><span class="nav-number">9.2.</span> <span class="nav-text">非线性方程的求解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#传热问题"><span class="nav-number">10.</span> <span class="nav-text">传热问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#传热问题的控制方程"><span class="nav-number">10.1.</span> <span class="nav-text">传热问题的控制方程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三类边界条件"><span class="nav-number">10.2.</span> <span class="nav-text">三类边界条件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#几个常见的问题"><span class="nav-number">11.</span> <span class="nav-text">几个常见的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#线性分析与非线性分析"><span class="nav-number">11.1.</span> <span class="nav-text">线性分析与非线性分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一阶-二阶-完全-减缩"><span class="nav-number">11.2.</span> <span class="nav-text">一阶&#x2F;二阶 完全&#x2F;减缩</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">11.2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可能出现的问题"><span class="nav-number">11.2.2.</span> <span class="nav-text">可能出现的问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#广义变分原理"><span class="nav-number">12.</span> <span class="nav-text">广义变分原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#约束变分原理"><span class="nav-number">12.1.</span> <span class="nav-text">约束变分原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拉格朗日乘子法"><span class="nav-number">12.1.1.</span> <span class="nav-text">拉格朗日乘子法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#罚函数法"><span class="nav-number">12.1.2.</span> <span class="nav-text">罚函数法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#非线性问题的求解方法"><span class="nav-number">13.</span> <span class="nav-text">非线性问题的求解方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#直接迭代法"><span class="nav-number">13.1.</span> <span class="nav-text">直接迭代法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#牛顿-拉夫森方法"><span class="nav-number">13.2.</span> <span class="nav-text">牛顿-拉夫森方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修正的牛顿-拉夫森方法"><span class="nav-number">13.3.</span> <span class="nav-text">修正的牛顿-拉夫森方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增量法"><span class="nav-number">13.4.</span> <span class="nav-text">增量法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#求解线性方程组的迭代法"><span class="nav-number">14.</span> <span class="nav-text">求解线性方程组的迭代法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#雅可比迭代法"><span class="nav-number">14.1.</span> <span class="nav-text">雅可比迭代法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高斯-赛尔德迭代法"><span class="nav-number">14.2.</span> <span class="nav-text">高斯-赛尔德迭代法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#超松弛迭代法"><span class="nav-number">14.3.</span> <span class="nav-text">超松弛迭代法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单元类型"><span class="nav-number">15.</span> <span class="nav-text">单元类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一维单元"><span class="nav-number">15.1.</span> <span class="nav-text">一维单元</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拉格朗日单元"><span class="nav-number">15.1.1.</span> <span class="nav-text">拉格朗日单元</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hermite单元"><span class="nav-number">15.1.2.</span> <span class="nav-text">Hermite单元</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高阶Hermite单元"><span class="nav-number">15.1.3.</span> <span class="nav-text">高阶Hermite单元</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#求解算法中显式和隐式的区别"><span class="nav-number">16.</span> <span class="nav-text">求解算法中显式和隐式的区别</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xue Xuan"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Xue Xuan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sjtu-xx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sjtu-xx" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuexuan1997@gmail.com" title="E-Mail → mailto:xuexuan1997@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xue Xuan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'eMthrkXxWi9VDSG39hpPXkOi-gzGzoHsz',
+      appKey     : '40yWQRY3985h43auodOGjsIQ',
+      placeholder: "欢迎畅所欲言",
+      avatar     : 'ヾﾉ≧∀≦)o来啊，快活啊!',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sjtu-xx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="转载自：https:&#x2F;&#x2F;cloud.tencent.com&#x2F;developer&#x2F;article&#x2F;1594081">
+<meta property="og:type" content="article">
+<meta property="og:title" content="实例分割综述(2020.3)【转载】">
+<meta property="og:url" content="https://sjtu-xx.github.io/2020/04/08/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2%E7%BB%BC%E8%BF%B0-2020-3/index.html">
+<meta property="og:site_name" content="薛轩的个人博客">
+<meta property="og:description" content="转载自：https:&#x2F;&#x2F;cloud.tencent.com&#x2F;developer&#x2F;article&#x2F;1594081">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/yehe-5457631/rvza6i2hrq.jpeg?imageView2/2/w/1620">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/yehe-5457631/8q27vk2rgr.jpeg?imageView2/2/w/1620">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/yehe-5457631/7o6f28rivv.jpeg?imageView2/2/w/1620">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/yehe-5457631/6yst50cy6z.jpeg?imageView2/2/w/1620">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/yehe-5457631/o686tzsprj.jpeg?imageView2/2/w/1620">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/yehe-5457631/k3am7rdcd6.jpeg?imageView2/2/w/1620">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/yehe-5457631/8hunsi0wvv.jpeg?imageView2/2/w/1620">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/yehe-5457631/fjonozzgbz.jpeg?imageView2/2/w/1620">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/yehe-5457631/ze592sqf6n.jpeg?imageView2/2/w/1620">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/yehe-5457631/41t5gzt6px.jpeg?imageView2/2/w/1620">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/yehe-5457631/it6xx99xvf.jpeg?imageView2/2/w/1620">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/yehe-5457631/rvhrym5tor.jpeg?imageView2/2/w/1620">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/yehe-5457631/6ducr4hoj6.jpeg?imageView2/2/w/1620">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/yehe-5457631/qtvnyrkp2g.jpeg?imageView2/2/w/1620">
+<meta property="og:image" content="https://ask.qcloudimg.com/http-save/yehe-5457631/ljbn1t9oh2.jpeg?imageView2/2/w/1620">
+<meta property="article:published_time" content="2020-04-08T09:01:36.000Z">
+<meta property="article:modified_time" content="2021-02-03T15:59:46.264Z">
+<meta property="article:author" content="Xue Xuan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ask.qcloudimg.com/http-save/yehe-5457631/rvza6i2hrq.jpeg?imageView2/2/w/1620">
+
+<link rel="canonical" href="https://sjtu-xx.github.io/2020/04/08/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2%E7%BB%BC%E8%BF%B0-2020-3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>实例分割综述(2020.3)【转载】 | 薛轩的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">薛轩的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">XueXuan's blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sjtu-xx.github.io/2020/04/08/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2%E7%BB%BC%E8%BF%B0-2020-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Xue Xuan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="薛轩的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          实例分割综述(2020.3)【转载】
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-08 17:01:36" itemprop="dateCreated datePublished" datetime="2020-04-08T17:01:36+08:00">2020-04-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-03 23:59:46" itemprop="dateModified" datetime="2021-02-03T23:59:46+08:00">2021-02-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2/" itemprop="url" rel="index"><span itemprop="name">实例分割</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/04/08/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2%E7%BB%BC%E8%BF%B0-2020-3/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/04/08/%E5%AE%9E%E4%BE%8B%E5%88%86%E5%89%B2%E7%BB%BC%E8%BF%B0-2020-3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>转载自：<a href="https://cloud.tencent.com/developer/article/1594081" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1594081</a><br><a id="more"></a></p>
+<h1 id="前面的话"><a href="#前面的话" class="headerlink" title="前面的话"></a><strong>前面的话</strong></h1><p>实例分割（Instance Segmentation）是视觉经典四个任务中相对最难的一个，它既具备语义分割（Semantic Segmentation）的特点，需要做到<strong>像素层面上的分类</strong>，也具备目标检测（Object Detection）的一部分特点，即<strong>需要定位出不同实例，即使它们是同一种类</strong>。因此，实例分割的研究长期以来都有着两条线，分别是自下而上的基于语义分割的方法和自上而下的基于检测的方法，这两种方法都属于两阶段的方法，下面将分别简单介绍。</p>
+<p><strong>自上而下的实例分割方法</strong></p>
+<p>思路是：首先通过目标检测的方法<strong>找出实例所在的区域</strong>（bounding box），再<strong>在检测框内进行语义分割</strong>，每个分割结果都作为一个不同的实例输出。</p>
+<p>自上而下的密集实例分割的开山鼻祖是DeepMask，它通过滑动窗口的方法，在每个空间区域上都预测一个mask proposal。这个方法存在以下三个缺点：</p>
+<ul>
+<li><strong>mask与特征的联系（局部一致性）丢失了</strong>，如DeepMask中使用全连接网络去提取mask</li>
+<li><strong>特征的提取表示是冗余的</strong>， 如DeepMask对每个前景特征都会去提取一次mask</li>
+<li><strong>下采样</strong>（使用步长大于1的卷积）导致的位置信息丢失</li>
+</ul>
+<p><strong>自下而上的实例分割方法</strong></p>
+<p>思路是：首先进行像素级别的语义分割，再通过聚类、度量学习等手段区分不同的实例。这种方法虽然保持了更好的低层特征（细节信息和位置信息），但也存在以下缺点：</p>
+<ul>
+<li>对密集分割的质量要求很高，<strong>会导致非最优的分割</strong></li>
+<li><strong>泛化能力较差</strong>，无法应对类别多的复杂场景</li>
+<li><strong>后处理</strong>方法繁琐</li>
+</ul>
+<p><strong>单阶段实例分割</strong>（Single Shot Instance Segmentation），这方面工作其实也是受到了单阶段目标检测研究的影响，因此也有两种思路，一种是<strong>受one-stage, anchor-based 检测模型如YOLO，RetinaNet启发，代表作有YOLACT和SOLO；一种是受anchor-free检测模型如 FCOS 启发，代表作有PolarMask和AdaptIS。</strong></p>
+<p>下面是对其中一些方法在COCO数据集上的指标对比：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Method</th>
+<th style="text-align:left">AP</th>
+<th style="text-align:left">AP50</th>
+<th style="text-align:left">AP75</th>
+<th style="text-align:left">APs</th>
+<th style="text-align:left">APm</th>
+<th style="text-align:left">APL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">FCIS</td>
+<td style="text-align:left">29.2</td>
+<td style="text-align:left">49.5</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">7.1</td>
+<td style="text-align:left">31.3</td>
+<td style="text-align:left">50.0</td>
+</tr>
+<tr>
+<td style="text-align:left">Mask R-CNN</td>
+<td style="text-align:left">37.1</td>
+<td style="text-align:left">60.0</td>
+<td style="text-align:left">39.4</td>
+<td style="text-align:left">16.9</td>
+<td style="text-align:left">39.9</td>
+<td style="text-align:left">53.5</td>
+</tr>
+<tr>
+<td style="text-align:left">YOLACT-700</td>
+<td style="text-align:left">31.2</td>
+<td style="text-align:left">50.6</td>
+<td style="text-align:left">32.8</td>
+<td style="text-align:left">12.1</td>
+<td style="text-align:left">33.3</td>
+<td style="text-align:left">47.1</td>
+</tr>
+<tr>
+<td style="text-align:left">PolarMask</td>
+<td style="text-align:left">32.9</td>
+<td style="text-align:left">55.4</td>
+<td style="text-align:left">33.8</td>
+<td style="text-align:left">15.5</td>
+<td style="text-align:left">35.1</td>
+<td style="text-align:left">46.3</td>
+</tr>
+<tr>
+<td style="text-align:left">SOLO</td>
+<td style="text-align:left">40.4</td>
+<td style="text-align:left">62.7</td>
+<td style="text-align:left">43.3</td>
+<td style="text-align:left">17.6</td>
+<td style="text-align:left">43.3</td>
+<td style="text-align:left">58.9</td>
+</tr>
+<tr>
+<td style="text-align:left">PointRend</td>
+<td style="text-align:left">40.9</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">BlendMask</td>
+<td style="text-align:left">41.3</td>
+<td style="text-align:left">63.1</td>
+<td style="text-align:left">44.6</td>
+<td style="text-align:left">22.7</td>
+<td style="text-align:left">44.1</td>
+<td style="text-align:left">54.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>下面详细介绍一下几个代表性方法：</p>
+<h1 id="1-双阶段的-Mask-R-CNN-（2017-3）"><a href="#1-双阶段的-Mask-R-CNN-（2017-3）" class="headerlink" title="1.双阶段的 Mask R-CNN （2017.3）"></a><strong>1.双阶段的 Mask R-CNN （2017.3）</strong></h1><p>Mask-RCNN通过增加不同的分支可以完成目标分类，目标检测，语义分割，实例分割，人体姿态估计等多种任务。对于实例分割来讲，就是<strong>在Faster-RCNN的基础上(分类+回归分支)增加了一个分支用于语义分割</strong>，其抽象结构如下图所示：</p>
+<p><img src="https://ask.qcloudimg.com/http-save/yehe-5457631/rvza6i2hrq.jpeg?imageView2/2/w/1620" alt="img"></p>
+<p>可以看到其结构与Faster RCNN非常类似，但有3点主要区别：</p>
+<ul>
+<li>在基础网络中采用了较为优秀的<strong>ResNet-FPN结构</strong>，多层特征图有利于多尺度物体及小物体的检测。原始的FPN会输出P2、P3、P4与P54个阶段的特征图，但在Mask RCNN中<strong>又增加了一个P6。将P5进行最大值池化即可得到P6，目的是获得更大感受野的特征，该阶段仅仅用在RPN网络中。</strong></li>
+<li>提出了RoI Align方法来替代RoI Pooling，原因是<strong>RoI Pooling的取整做法损失了一些精度，而这对于分割任务来说较为致命。</strong>Maks RCNN提出的RoI Align取消了取整操作，而是<strong>保留所有的浮点</strong>，然后通过<strong>双线性插值的方法</strong>获得多个采样点的值，再将多个采样点进行最大值的池化，即可得到该点最终的值。</li>
+<li>得到感兴趣区域的特征后，在原来分类与回归的基础上，<strong>增加了一个Mask分支来预测每一个像素的类别</strong>。具体实现时，采用了F<strong>CN（Fully Convolutional Network）的网络结构</strong>，利用卷积与反卷积构建端到端的网络，最后对每一个像素分类，实现了较好的分割效果。</li>
+</ul>
+<p>Mask R-CNN算法的主要步骤为：</p>
+<ul>
+<li>首先，将输入图片送入到特征提取网络得到特征图。</li>
+<li>然后<strong>对特征图的每一个像素位置设定固定个数的ROI（也可以叫Anchor）</strong>，然后将ROI区域送入<strong>RPN网络</strong>进行二分类(前景和背景)以及坐标回归，以获得精炼后的ROI区域。</li>
+<li>对上个步骤中获得的ROI区域执行论文提出的<strong>ROIAlign操作</strong>，即先将原图和feature map的pixel对应起来，然后将feature map和固定的feature对应起来。</li>
+<li>最后对这些ROI区域进行多类别分类，候选框回归和引入FCN生成Mask，完成分割任务。</li>
+</ul>
+<p>总的来说，在Faster R-CNN和FPN的加持下，Mask R-CNN开启了R-CNN结构下多任务学习的序幕。它出现的时间比其他的一些实例分割方法（例如FCIS）要晚，但是依然让<strong>proposal-based instance segmentation的方式</strong>占据了主导地位（尽管<strong>先检测后分割</strong>的逻辑不是那么地自然）。</p>
+<p>Mask R-CNN利用R-CNN得到的物体框来区分各个实例，然后针对各个物体框对其中的实例进行分割。显而易见的问题便是，<strong>如果框不准，分割结果也会不准</strong>。因此对于一些边缘精度要求高的任务而言，这不是一个较好的方案。同时由于依赖框的准确性，这也容易导致一些非方正的物体效果比较差。</p>
+<h1 id="2-单阶段实例分割方法"><a href="#2-单阶段实例分割方法" class="headerlink" title="2. 单阶段实例分割方法"></a><strong>2. 单阶段实例分割方法</strong></h1><h1 id="2-1-Instance-sensitive-FCN（2016-3）"><a href="#2-1-Instance-sensitive-FCN（2016-3）" class="headerlink" title="2.1 Instance-sensitive FCN（2016.3）"></a><strong>2.1 Instance-sensitive FCN（2016.3）</strong></h1><p>该方法的思想是相对FCN在每个像素上输出语义的label，其需要输出<strong>是否在某个实例的相对位置上（以3x3的网格为例，即要确定像素点是在网格的哪个位置（9个位置对应9个通道））。</strong>虽然理解上不是特别直观，但其主要思想还是<strong>编码了位置信息（类似方向信息）以便区分同一语义下的实例。</strong></p>
+<p><img src="https://ask.qcloudimg.com/http-save/yehe-5457631/8q27vk2rgr.jpeg?imageView2/2/w/1620" alt="img"></p>
+<p>当然在构造groundtruth时，也<strong>需要sliding window的方式把实例上各个像素分配到各个位置上去。</strong></p>
+<p>在推理阶段，仅仅依靠sliding window去生成结果是不够的。在相近位置上会得到相似的结果，这就需要<strong>对物体本身进行整体的判别，以确定物体（中心）的准确位置</strong>。如下instance sensitive FCN增加了物体检测分支，通过物体的外接框以及得分，利用NMS得到最终无重复的实例分割结果。</p>
+<p><img src="https://ask.qcloudimg.com/http-save/yehe-5457631/7o6f28rivv.jpeg?imageView2/2/w/1620" alt="img"></p>
+<p>虽然该方法效果在当时并不突出，但请先记住这样的思想，后续SOLO会进一步升华。下面要讲到的<strong>R-FCN同样利用了单个像素编码（附带）相对位置信息的思路</strong>，除了类别信息外，该像素还需要<strong>判断自己在物体区域的相对位置</strong>，相对位置通过固定的通道得以表征。</p>
+<h1 id="2-2-FCIS（2017-4）"><a href="#2-2-FCIS（2017-4）" class="headerlink" title="2.2 FCIS（2017.4）"></a><strong>2.2 FCIS（2017.4）</strong></h1><p>FCN 最终输出的是类别的概率图，只有类别输出，没有单个对象输出，InstanceFCN输出3<em>3的位置信息图， <strong>只有单个对象输出，没有类别信息，需要单独的downstream网络完成类别信息。</strong>FCIS通过<em>*计算position-sensitive inside/outside score maps，同时输出 instance mask 和类别信息。</em></em></p>
+<p><img src="https://ask.qcloudimg.com/http-save/yehe-5457631/6yst50cy6z.jpeg?imageView2/2/w/1620" alt="img"></p>
+<ul>
+<li>InstanceFCN提出了positive-sensitive score map，每个score表示一个像素在某个相对位置上属于某个物体实例的似然得分。所以FCIS也<strong>采用position-sensitive score maps，只不过在物体实例中区分inside/outside，目的是想引入一点context信息。</strong></li>
+<li>作者认为以往的SDS、Hypercolumn、CFM等算法，具有相似的结构：<strong>两个子网络分别用于对象分割和检测子任务，且两个网络的结构、参数、执行顺序随机。</strong>作者认为分离的网络没有真正挖掘到两个认为的联系，提出共同的 “position-sensitive score map” ，同时用于object segmentation and detection子任务。</li>
+<li>除了加入背景部分的通道外，FCIS还<strong>基于ROI作了类别检测，而不是再引入另外一个分支作这项任务。</strong></li>
+</ul>
+<h1 id="2-3-YOLCAT（2019-4）"><a href="#2-3-YOLCAT（2019-4）" class="headerlink" title="2.3 YOLCAT（2019.4）"></a><strong>2.3 YOLCAT（2019.4）</strong></h1><p>原文：<a href="https://arxiv.org/abs/1904.02689" target="_blank" rel="noopener">https://arxiv.org/abs/1904.02689</a><br>代码（官方）：<a href="https://github.com/dbolya/yolact" target="_blank" rel="noopener">https://github.com/dbolya/yolact</a></p>
+<ul>
+<li>YOLACT<strong>将掩模分支添加到现有的一阶段（one-stage）目标检测模型</strong>，其方式与Mask R-CNN对 Faster-CNN 操作相同，但<strong>没有明确的定位步骤</strong>。 </li>
+<li>YOLACT将实例分割任务拆分成两个并行的子任务：（1）通过一个Protonet网络， 为每张图片生成 k 个 原型mask;（2）对每个实例，<strong>预测k个的线性组合系数（Mask Coefficients）</strong>。最后<strong>通过线性组合</strong>，生成实例mask，在此过程中，网络学会了如何定位不同位置、颜色和语义实例的mask。</li>
+<li>YOLACT将问题分解为两个并行的部分，利用 fc层（擅长产生语义向量）和 conv层（擅长产生空间相干掩模）来分别产生“掩模系数”和“原型掩模” 。然后，因为原型和掩模系数可以独立地计算，所以 <strong>backbone 检测器的计算开销主要来自合成（assembly）步骤</strong>，其可以实现为单个矩阵乘法。通过这种方式，我们可以在特征空间中保持空间一致性，同时仍然是一阶段和快速的。</li>
+</ul>
+<p><img src="https://ask.qcloudimg.com/http-save/yehe-5457631/o686tzsprj.jpeg?imageView2/2/w/1620" alt="img"></p>
+<p><img src="https://ask.qcloudimg.com/http-save/yehe-5457631/k3am7rdcd6.jpeg?imageView2/2/w/1620" alt="img"></p>
+<p><strong>Backbone</strong>：Resnet 101+FPN，与RetinaNet相同；<strong>Protonet</strong>：接在FPN输出的后面，是一个FCN网络，预测得到针对原图的原型mask；<strong>Prediction Head</strong>：相比RetinaNet的Head，多了一个Mask Cofficient分支，预测Mask系数，因此输出是4*c+k。</p>
+<p>可以看到head上<strong>增加了一支mask系数分支用于将prototypes进行组合得到mask的结果</strong>。当然按NMS的位置看，其同样需要有bbox的准确预测才行，并且该流程里不太适合用soft NMS进行替代。需要注意的是，<strong>在训练过程中，其用groundtruth bbox对组合后的全图分割结果进行截取，再与groundtruth mask计算损失。</strong>这同样需要bbox结果在前作为前提，以缓解前后景的像素不均衡情况。</p>
+<p>至于后续的YOLCAT++，则主要是加入了mask rescoring的概念和DCN结构，进一步提升精度。（1）参考Mask Scoring RCNN，添加<strong>fast mask re-scoring分支</strong>，更好地评价实例mask的好坏；（2）Backbone网络中引入<strong>可变形卷积DCN</strong>；（3）优化了Prediction Head中的anchor设计。</p>
+<h1 id="2-4-PolarMask（2019-10）"><a href="#2-4-PolarMask（2019-10）" class="headerlink" title="2.4 PolarMask（2019.10）"></a><strong>2.4 PolarMask（2019.10）</strong></h1><p>原文：<a href="https://arxiv.org/abs/1909.13226" target="_blank" rel="noopener">https://arxiv.org/abs/1909.13226</a></p>
+<p>代码（官方）：<a href="https://github.com/xieenze/PolarMask" target="_blank" rel="noopener">https://github.com/xieenze/PolarMask</a></p>
+<p>相比RetinaNet，<strong>FCOS</strong>将基于anchor的回归变成了<strong>中心点估计与上下左右四个边界距离的回归</strong>，而PolarMask则是<strong>进一步细化了边界的描述，使得其能够适应mask的问题。</strong>PolarMask最重要的特点是：(1) anchor free and bbox free，不需要出检测框；(2) fully convolutional network, 相比FCOS把4根射线散发到36根射线，<strong>将instance segmentation和object detection用同一种建模方式来表达。</strong></p>
+<p><img src="https://ask.qcloudimg.com/http-save/yehe-5457631/8hunsi0wvv.jpeg?imageView2/2/w/1620" alt="img"></p>
+<p><strong>两种实例分割的建模方式：</strong></p>
+<p>1 像素级建模 类似于图b，在检测框中对每个pixel分类</p>
+<p>2 轮廓建模 类似于图c和图d，其中，图c是基于直角坐标系建模轮廓，图d是基于极坐标系建模轮廓</p>
+<p>PolarMask 基于极坐标系建模轮廓，把实例分割问题转化为<strong>实例中心点分类(instance center classification)问题和密集距离回归(dense distance regression)问题。</strong>同时，我们还提出了两个有效的方法，用来优化high-quality正样本采样和dense distance regression的损失函数优化，分别是<strong>Polar CenterNess和 Polar IoU Loss</strong>。没有使用任何trick(多尺度训练，延长训练时间等)，PolarMask 在ResNext 101的配置下 在coco test-dev上取得了32.9的mAP。 这是首次，证明了更复杂的实例分割问题，可以在网络设计和计算复杂度上，和anchor free物体检测一样简单。</p>
+<p><strong>网络结构</strong></p>
+<p><img src="https://ask.qcloudimg.com/http-save/yehe-5457631/fjonozzgbz.jpeg?imageView2/2/w/1620" alt="img"></p>
+<p>整个网络和FCOS一样简单，首先是标准的backbone + fpn模型，其次是head部分，我们把fcos的bbox分支替换为mask分支，仅仅是把channel=4替换为channel=n, 这里n=36，相当于36根射线的长度。同时我们提出了一种新的Polar Centerness 用来替换FCOS的bbox centerness。可以看到，在网络复杂度上，PolarMask和FCOS并无明显差别。</p>
+<p><strong>建模方式</strong></p>
+<p><img src="https://ask.qcloudimg.com/http-save/yehe-5457631/ze592sqf6n.jpeg?imageView2/2/w/1620" alt="img"></p>
+<p>首先，输入一张原图，经过网络可以得到中心点的位置和n(n=36 is best in our setting)根射线的距离，其次，根据角度和长度计算出轮廓上的这些点的坐标，从0°开始连接这些点，最后把联通区域内的区域当做实例分割的结果。</p>
+<p><strong>实验结果</strong></p>
+<p><img src="https://ask.qcloudimg.com/http-save/yehe-5457631/41t5gzt6px.jpeg?imageView2/2/w/1620" alt="img"></p>
+<p>从实验结果可以看到，PolarMask的精度并不是很高，而且<strong>速度上也没有优势，但是它的思路是非常巧妙的，对后面的研究有着很大的启发意义</strong>。具体细节可参考论文原文。</p>
+<h1 id="2-5-SOLO（2019-12）"><a href="#2-5-SOLO（2019-12）" class="headerlink" title="2.5 SOLO（2019.12）"></a><strong>2.5 SOLO（2019.12）</strong></h1><p>原文：<a href="https://arxiv.org/abs/1912.04488" target="_blank" rel="noopener">https://arxiv.org/abs/1912.04488</a></p>
+<p>代码：<a href="https://github.com/WXinlong/SOLO" target="_blank" rel="noopener">https://github.com/WXinlong/SOLO</a></p>
+<p>和FCIS的类似，单个像素不是单纯输出类别，而是带有位置信息的类别，同时考虑到尺度的问题，借助网络结构来解决。</p>
+<p>要理解SOLO的思想，重点就是要理解SOLO提出的<strong>实例类别（Instance Category）</strong>的概念。作者指出，实例类别就是<strong>量化后的物体中心位置（location）和物体的尺寸（size)</strong>。下面就解释一下这两个部分。</p>
+<ul>
+<li><strong>位置（location）</strong></li>
+</ul>
+<p>SOLO将一张图片划分S×S的网格，这就有了S<em>S个位置。不同于TensorMask和DeepMask将mask放在了特征图的channel维度上，SOLO参照语义分割，<em>*将定义的物体中心位置的类别放在了channel维度上，这样就保留了几何结构上的信息。</em></em></p>
+<p>本质上来说，一个实例类别可以去近似一个实例的中心的位置。因此，<strong>通过将每个像素分类到对应的实例类别，就相当于逐像素地回归出物体的中心</strong>、这就将一个位置预测的问题从回归的问题转化成了分类的问题。这么做的意义是，分类问题能够更加直观和简单地用固定的channel数、同时不依赖后处理方法（如分组和学习像素嵌入embedding）对数量不定的实例进行建模。</p>
+<ul>
+<li><strong>尺寸（size）</strong></li>
+</ul>
+<p>对于尺寸的处理，SOLO<strong>使用了FPN来将不同尺寸的物体分配到不同层级的特征图上，依次作为物体的尺寸类别</strong>。这样，所有的实例都被分别开来，就可以去使用实例类别去分类物体了。</p>
+<p><strong>网络实现</strong></p>
+<p><img src="https://ask.qcloudimg.com/http-save/yehe-5457631/it6xx99xvf.jpeg?imageView2/2/w/1620" alt="img"></p>
+<p>SOLO将图片<strong>划分成S×S的网格</strong>，如果物体的中心（质心）落在了某个网格中，那么该网格就有了两个任务：（1）负责预测该物体语义类别（2）负责预测该物体的instance mask。这就对应了网络的<strong>两个分支Category Branch和Mask Branch</strong>。同时，SOLO在骨干网络后面使用了FPN，用来应对尺寸。FPN的每一层后都接上述两个并行的分支，进行类别和位置的预测，每个分支的网格数目也相应不同，小的实例对应更多的的网格。</p>
+<p><strong>Category Branch</strong>：Category Branch负责预测物体的语义类别，每个网格预测类别S×S×C，这部分跟YOLO是类似的。输入为Align后的S×S×C的网格图像，输出为S×S×C的类别。这个分支使用的损失函数是<strong>focal loss</strong>。</p>
+<p><strong>Mask Branch</strong>：预测instance mask的一个直观方法是类似语义分割使用FCN，但FCN是具有空间不变性（spatiallly invariant）的，而我们这边需要位置上的信息。因此，作者使用了<strong>CoordConv</strong>，将像素横纵坐标x，y（归一化到[-1,1]）与输入特征做了concat再输入网络中。这样输入的维度就是 H<em>W</em>(D+2）了。</p>
+<p><strong>实验结果</strong></p>
+<p><img src="https://ask.qcloudimg.com/http-save/yehe-5457631/rvhrym5tor.jpeg?imageView2/2/w/1620" alt="img"></p>
+<p>可以看到，SOLO的精度已经超越了Mask R-CNN，相较思路类似的PolarMask也有较大的优势。</p>
+<h1 id="2-6-RDSNet-amp-PointRend（2019-12）"><a href="#2-6-RDSNet-amp-PointRend（2019-12）" class="headerlink" title="2.6 RDSNet &amp; PointRend（2019.12）"></a><strong>2.6 RDSNet &amp; PointRend（2019.12）</strong></h1><p><strong>RDSNet</strong>方法的出发点是<strong>检测阻碍不应该成为分割效果的阻碍，两种应该循环相互促进</strong>。有可能存在的情况是分割本身是比较准确的，但是因为定位不准，导致分割结果也比较差；这时候如果能提前知道分割的结果，那么检测的结果也会更好些。</p>
+<p><img src="https://ask.qcloudimg.com/http-save/yehe-5457631/6ducr4hoj6.jpeg?imageView2/2/w/1620" alt="img"></p>
+<p>这里就有用到<strong>YOLCAT的方式，去获得提取获取分割结果</strong>。当然这里从embedding的角度出发，还<strong>结合了前后景的处理</strong>（实验中说明前后景correlation比单前景linear combination要好）。得到bbox预测结果后是需要进行NMS，以及expand操作的，以确保尽可能多的有效区域被选进来（训练时1.5，测试时1.2）。之后<strong>再通过Mask-based Boundary Refinement模块对物体的边框进行调整</strong>。为了使该过程可导，作者还设计了贝叶斯分布估计的方式，不太懂。</p>
+<p><strong>PointRend</strong>借鉴了<strong>Render的思想</strong>，在尺度方式变化时由于采样的方式（不是连续坐标的设定吗），使得锯齿现象不会很明显。因此PointRend是利用一种<strong>非均匀采样的方式</strong>来确定在分辨率提高的情况下，<strong>如何确定边界上的点，并对这些点归属进行判别。</strong>本质上其实是一个<strong>新型上采样方法</strong>，<strong>针对物体边缘的图像分割进行优化</strong>，使其在难以分割的物体边缘部分有更好的表现。</p>
+<p><img src="https://ask.qcloudimg.com/http-save/yehe-5457631/qtvnyrkp2g.jpeg?imageView2/2/w/1620" alt="img"></p>
+<p>PointRend 方法要点总结来说是一个<strong>迭代上采样的过程</strong>：</p>
+<p>while 输出的分辨率 &lt; 图片分辨率：</p>
+<ol>
+<li>对输出结果进行2倍双线性插值上采样得到 coarse prediction_i。</li>
+<li>挑选出 N 个“难点”，即结果很有可能和周围点不一样的点（例如物体边缘）。</li>
+<li>对于每个难点，获取其“表征向量”，“表征向量”由两个部分组成，其一是低层特征（fine-grained features），通过使用点的坐标，在低层的特征图上进行双线性插值获得（类似 RoI Align），其二是高层特征（coarse prediction），由步骤 1 获得。</li>
+<li>使用 MLP 对“表征向量”计算得到新的预测，更新 coarse prediction_i 得到 coarse prediction_i+1。这个 MLP 其实可以看做一个只对“难点”的“表征向量”进行运算的由多个 conv1x1 组成的小网络。</li>
+</ol>
+<h1 id="2-7-BlendMask（2020-1）"><a href="#2-7-BlendMask（2020-1）" class="headerlink" title="2.7 BlendMask（2020.1）"></a><strong>2.7</strong> <strong>BlendMask（2020.1）</strong></h1><p>原文：<a href="https://arxiv.org/abs/2001.00309" target="_blank" rel="noopener">https://arxiv.org/abs/2001.00309</a></p>
+<p>代码：暂无（也不太需要）</p>
+<p><img src="https://ask.qcloudimg.com/http-save/yehe-5457631/ljbn1t9oh2.jpeg?imageView2/2/w/1620" alt="img"></p>
+<p>BlendMask是一阶段的密集实例分割方法，结合了Top-down和Bottom-up的方法的思路。它通过在anchor-free检测模型<strong>FCOS的基础上增加了Bottom Module提取low-level的细节特征，并在instance-level上预测一个attention</strong>；借鉴<strong>FCIS和YOLACT的融合方法</strong>，提出了<strong>Blender模块来更好地融合这两种特征</strong>。最终，BlendMask在COCO上的精度（41.3AP）与速度（BlendMask-RT 34.2mAP, 25FPS on 1080ti）都超越了Mask R-CNN。</p>
+<p>detector module直接用的FCOS，BlendMask模块则由三部分组成：<strong>bottom module</strong>用来对底层特征进行处理，生成的score map称为<strong>Base</strong>；<strong>top layer</strong>串接在检测器的box head上，生成Base对应的top level attention；最后是<strong>blender</strong>来对Base和attention进行融合。</p>
+<p>BlendMask 的<strong>优势</strong>：</p>
+<ul>
+<li>计算量小：使用一阶段检测器FCOS，相比Mask R-CNN使用的RPN，省下了对positon-sensitive feature map及mask feature的计算，</li>
+<li>还是计算量小：提出<strong>attention guided blender模块来计算全局特征（global map representation），</strong>相比FCN和FCIS中使用的较复杂的hard  alignment在相同分辨率的条件下，减少了十倍的计算量；</li>
+<li>mask质量更高：BlendMask属于<strong>密集像素预测的方法，输出的分辨率不会受到 top-level 采样的限制</strong>。在Mask R-CNN中，如果要得到更准确的mask特征，就必须增加RoIPooler的分辨率，这样变回成倍增加head的计算时间和head的网络深度；</li>
+<li>推理时间稳定：Mask R-CNN的推理时间随着检测的bbox数量增多而增多，BlendMask的推理速度更快且增加的时间可以忽略不计</li>
+<li>Flexible：可以加到其他检测算法里面</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><p>综上所述，我们大致可以看出两个趋势：一个是YOLCAT，RDSNet，BlendMask（RetinaNet, FCOS，PolarMask发展而来）<strong>单阶段基于硬编码（embedding）的实例分割</strong>；另一个是<strong>SOLO(FCIS)区分位置信息的方式</strong>。</p>
+<p>两者没有特别大的区别，特别当embedding的通道数等于位置数目时。剩下的PointRend其实可以引出一个计算资源分配的问题，如何在有限次计算的情况下提升分割边缘的准确性。以上这些还是针对检测目的的，所以分割精度上有时在意，有时也不在意。在精确分割方面仍然有值得探索的地方，除了目前很火的<strong>attention机制</strong>，其实我觉得依然得回头去<strong>关注下标注不那么精细的情况下如何去提升边缘的分割精度</strong>（当然这又可能是个ill问题，或者是个外插问题，不过从guided filter的角度看至少还有些图像结构信息可以作为先验知识利用起来）</p>
+<p>参考：</p>
+<p>1.<a href="https://blog.csdn.net/sanshibayuan/article/details/103642419" target="_blank" rel="noopener">https://blog.csdn.net/sanshibayuan/article/details/103642419</a></p>
+<p>2.<a href="https://blog.csdn.net/sanshibayuan/article/details/104011910" target="_blank" rel="noopener">https://blog.csdn.net/sanshibayuan/article/details/104011910</a></p>
+<p>3.<a href="https://zhuanlan.zhihu.com/p/102231853" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/102231853</a></p>
+<p>4.<a href="https://zhuanlan.zhihu.com/p/84890413" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/84890413</a></p>
+<p>5.<a href="https://zhuanlan.zhihu.com/p/98351269" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/98351269</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/07/AutoCAD%E5%9F%BA%E7%A1%80/" rel="prev" title="AutoCAD基础">
+      <i class="fa fa-chevron-left"></i> AutoCAD基础
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/08/Polar-Mask%E5%88%86%E5%89%B2%E7%AE%97%E6%B3%95/" rel="next" title="Polar Mask分割算法【转载】">
+      Polar Mask分割算法【转载】 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前面的话"><span class="nav-number">1.</span> <span class="nav-text">前面的话</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-双阶段的-Mask-R-CNN-（2017-3）"><span class="nav-number">2.</span> <span class="nav-text">1.双阶段的 Mask R-CNN （2017.3）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-单阶段实例分割方法"><span class="nav-number">3.</span> <span class="nav-text">2. 单阶段实例分割方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-1-Instance-sensitive-FCN（2016-3）"><span class="nav-number">4.</span> <span class="nav-text">2.1 Instance-sensitive FCN（2016.3）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-2-FCIS（2017-4）"><span class="nav-number">5.</span> <span class="nav-text">2.2 FCIS（2017.4）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-3-YOLCAT（2019-4）"><span class="nav-number">6.</span> <span class="nav-text">2.3 YOLCAT（2019.4）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-4-PolarMask（2019-10）"><span class="nav-number">7.</span> <span class="nav-text">2.4 PolarMask（2019.10）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-5-SOLO（2019-12）"><span class="nav-number">8.</span> <span class="nav-text">2.5 SOLO（2019.12）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-6-RDSNet-amp-PointRend（2019-12）"><span class="nav-number">9.</span> <span class="nav-text">2.6 RDSNet &amp; PointRend（2019.12）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-7-BlendMask（2020-1）"><span class="nav-number">10.</span> <span class="nav-text">2.7 BlendMask（2020.1）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">11.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xue Xuan"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Xue Xuan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sjtu-xx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sjtu-xx" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuexuan1997@gmail.com" title="E-Mail → mailto:xuexuan1997@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xue Xuan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'eMthrkXxWi9VDSG39hpPXkOi-gzGzoHsz',
+      appKey     : '40yWQRY3985h43auodOGjsIQ',
+      placeholder: "欢迎畅所欲言",
+      avatar     : 'ヾﾉ≧∀≦)o来啊，快活啊!',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

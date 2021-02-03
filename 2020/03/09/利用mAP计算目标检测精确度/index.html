@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sjtu-xx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="CSDN: https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_44791964&#x2F;article&#x2F;details&#x2F;104695264">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用mAP(mean Average Precision)计算目标检测精确度">
+<meta property="og:url" content="https://sjtu-xx.github.io/2020/03/09/%E5%88%A9%E7%94%A8mAP%E8%AE%A1%E7%AE%97%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%B2%BE%E7%A1%AE%E5%BA%A6/index.html">
+<meta property="og:site_name" content="薛轩的个人博客">
+<meta property="og:description" content="CSDN: https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_44791964&#x2F;article&#x2F;details&#x2F;104695264">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/09/%E5%88%A9%E7%94%A8mAP%E8%AE%A1%E7%AE%97%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%B2%BE%E7%A1%AE%E5%BA%A6/1.jpg">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/09/%E5%88%A9%E7%94%A8mAP%E8%AE%A1%E7%AE%97%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%B2%BE%E7%A1%AE%E5%BA%A6/2.jpg">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/09/%E5%88%A9%E7%94%A8mAP%E8%AE%A1%E7%AE%97%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%B2%BE%E7%A1%AE%E5%BA%A6/3.png">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/03/09/%E5%88%A9%E7%94%A8mAP%E8%AE%A1%E7%AE%97%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%B2%BE%E7%A1%AE%E5%BA%A6/4.png">
+<meta property="article:published_time" content="2020-03-09T04:17:38.000Z">
+<meta property="article:modified_time" content="2021-02-03T15:59:46.152Z">
+<meta property="article:author" content="Xue Xuan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sjtu-xx.github.io/2020/03/09/%E5%88%A9%E7%94%A8mAP%E8%AE%A1%E7%AE%97%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%B2%BE%E7%A1%AE%E5%BA%A6/1.jpg">
+
+<link rel="canonical" href="https://sjtu-xx.github.io/2020/03/09/%E5%88%A9%E7%94%A8mAP%E8%AE%A1%E7%AE%97%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%B2%BE%E7%A1%AE%E5%BA%A6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>利用mAP(mean Average Precision)计算目标检测精确度 | 薛轩的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">薛轩的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">XueXuan's blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sjtu-xx.github.io/2020/03/09/%E5%88%A9%E7%94%A8mAP%E8%AE%A1%E7%AE%97%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%B2%BE%E7%A1%AE%E5%BA%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Xue Xuan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="薛轩的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          利用mAP(mean Average Precision)计算目标检测精确度
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-09 12:17:38" itemprop="dateCreated datePublished" datetime="2020-03-09T12:17:38+08:00">2020-03-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-03 23:59:46" itemprop="dateModified" datetime="2021-02-03T23:59:46+08:00">2021-02-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">基础理论</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/03/09/%E5%88%A9%E7%94%A8mAP%E8%AE%A1%E7%AE%97%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%B2%BE%E7%A1%AE%E5%BA%A6/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/09/%E5%88%A9%E7%94%A8mAP%E8%AE%A1%E7%AE%97%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%B2%BE%E7%A1%AE%E5%BA%A6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>CSDN: <a href="https://blog.csdn.net/weixin_44791964/article/details/104695264" target="_blank" rel="noopener">https://blog.csdn.net/weixin_44791964/article/details/104695264</a><br><a id="more"></a></p>
+<h1 id="知识储备"><a href="#知识储备" class="headerlink" title="知识储备"></a>知识储备</h1><h2 id="1、IOU的概念"><a href="#1、IOU的概念" class="headerlink" title="1、IOU的概念"></a>1、IOU的概念</h2><p>IOU的概念应该比较简单，就是衡量预测框和真实框的重合程度。<br>下图是一个示例：图中绿色框为实际框（好像不是很绿……），红色框为预测框，当我们需要判断两个框之间的关系时，主要就是判断两个框的重合程度</p>
+<p><img src="1.jpg" alt=""><br>计算IOU的公式为：</p>
+<script type="math/tex; mode=display">IOU=\frac{S_交}{S_并}</script><h2 id="2、TP-TN-FP-FN的概念"><a href="#2、TP-TN-FP-FN的概念" class="headerlink" title="2、TP TN FP FN的概念"></a>2、TP TN FP FN的概念</h2><p>TP TN FP FN里面一共出现了4个字母，分别是T F P N。<br>T是True；<br>F是False；<br>P是Positive；<br>N是Negative。</p>
+<p>T或者F代表的是该样本 是否被正确分类。<br>P或者N代表的是该样本 原本是正样本还是负样本。</p>
+<p>TP（True Positives）意思就是被分为了正样本，而且分对了。<br>TN（True Negatives）意思就是被分为了负样本，而且分对了，<br>FP（False Positives）意思就是被分为了正样本，但是分错了（事实上这个样本是负样本）。<br>FN（False Negatives）意思就是被分为了负样本，但是分错了（事实上这个样本是这样本）。</p>
+<p>在mAP计算的过程中主要用到了，TP、FP、FN这三个概念。</p>
+<h2 id="3、precision（精确度）和recall（召回率）"><a href="#3、precision（精确度）和recall（召回率）" class="headerlink" title="3、precision（精确度）和recall（召回率）"></a>3、precision（精确度）和recall（召回率）</h2><p>精确度：模型预测为真的样本中，实际为真的比例</p>
+<script type="math/tex; mode=display">Precision=\frac{TP}{TP+FP}</script><p>召回率：模型预测为真且实际为真的样本占实际为真的样本的比例</p>
+<script type="math/tex; mode=display">Recall=\frac{TP}{TP+FN}</script><h2 id="4、概念举例"><a href="#4、概念举例" class="headerlink" title="4、概念举例"></a>4、概念举例</h2><p><img src="2.jpg" alt=""><br>如图所示，蓝色的框是 真实框。绿色和红色的框是 预测框，绿色的框是正样本，红色的框是负样本。一般来讲，当预测框和真实框IOU&gt;=0.5时，被认为是正样本。<br>因此对于这幅图来讲。<br>真实框一共有3个，正样本一共有2个，负样本一共有2个。<br>此时</p>
+<script type="math/tex; mode=display">Precision= \frac{2}{2+2}=\frac{1}{2}</script><script type="math/tex; mode=display">Recall=\frac{2}{2+1} = \frac{2}{3}</script><h1 id="单个指标的局限性"><a href="#单个指标的局限性" class="headerlink" title="单个指标的局限性"></a>单个指标的局限性</h1><p>在目标检测算法里面有一个非常重要的概念是置信度，如果置信度设置的高的话，预测的结果和实际情况就很符合，如果置信度低的话，就会有很多误检测。</p>
+<p>假设一幅图里面总共有3个正样本，目标检测对这幅图的预测结果有10个，其中3个实际上是正样本，7个实际上是负样本。对应置信度如下。<br><img src="3.png" alt=""></p>
+<p>如果我们将可以接受的置信度设置为0.95的话，那么目标检测算法就会将序号为1的样本作为正样本，其它的都是负样本。此时TP = 1，FP = 0，FN = 2。</p>
+<script type="math/tex; mode=display">Precision=\frac{1}{1+0}=1</script><script type="math/tex; mode=display">Recall= \frac{1}{1+2} = \frac{1}{3}</script><p>此时Precision非常高，但是事实上我们只检测出一个正样本，还有两个没有检测出来，因此只用Precision就不合适。</p>
+<p>这个时候如果我们将可以接受的置信度设置为0.35的话，那么目标检测算法就会将序号为1的样本作为正样本，其它的都是负样本。此时TP = 3，FP = 3，FN = 0。</p>
+<script type="math/tex; mode=display">Precision=\frac{3}{3+3}=\frac{1}{2}</script><script type="math/tex; mode=display">Recall= \frac{3}{3+0} = \frac{1}{2}</script><p>此时Recall非常高，但是事实上目标检测算法认为是正样本的样本里面，有3个样本确实是正样本，但有三个是负样本，存在非常严重的误检测，因此只用Recall就不合适。</p>
+<p>二者进行结合才是评价的正确方法。</p>
+<h1 id="什么是AP"><a href="#什么是AP" class="headerlink" title="什么是AP"></a>什么是AP</h1><p>AP事实上指的是，利用不同的Precision和Recall的点的组合，画出来的曲线下面的面积。<br>如下面这幅图所示。<br><img src="4.png" alt=""><br>当我们取不同的置信度，可以获得不同的Precision和不同的Recall，当我们取得置信度够密集的时候，就可以获得非常多的Precision和Recall。</p>
+<p>此时Precision和Recall可以在图片上画出一条线，这条线下部分的面积就是某个类的AP值。<br><strong>mAP就是所有的类的AP值求平均。</strong></p>
+<p>github: <a href="https://github.com/Cartucho/mAP" target="_blank" rel="noopener">https://github.com/Cartucho/mAP</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/07/%E5%B8%B8%E7%94%A8tensorflow%E6%93%8D%E4%BD%9C/" rel="prev" title="一些常用的tensorflow操作">
+      <i class="fa fa-chevron-left"></i> 一些常用的tensorflow操作
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/10/%E5%8D%B7%E7%A7%AF%E6%93%8D%E4%BD%9C%E5%8A%A8%E7%94%BB/" rel="next" title="卷积操作动画">
+      卷积操作动画 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#知识储备"><span class="nav-number">1.</span> <span class="nav-text">知识储备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、IOU的概念"><span class="nav-number">1.1.</span> <span class="nav-text">1、IOU的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、TP-TN-FP-FN的概念"><span class="nav-number">1.2.</span> <span class="nav-text">2、TP TN FP FN的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、precision（精确度）和recall（召回率）"><span class="nav-number">1.3.</span> <span class="nav-text">3、precision（精确度）和recall（召回率）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、概念举例"><span class="nav-number">1.4.</span> <span class="nav-text">4、概念举例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单个指标的局限性"><span class="nav-number">2.</span> <span class="nav-text">单个指标的局限性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是AP"><span class="nav-number">3.</span> <span class="nav-text">什么是AP</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xue Xuan"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Xue Xuan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sjtu-xx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sjtu-xx" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuexuan1997@gmail.com" title="E-Mail → mailto:xuexuan1997@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xue Xuan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'eMthrkXxWi9VDSG39hpPXkOi-gzGzoHsz',
+      appKey     : '40yWQRY3985h43auodOGjsIQ',
+      placeholder: "欢迎畅所欲言",
+      avatar     : 'ヾﾉ≧∀≦)o来啊，快活啊!',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

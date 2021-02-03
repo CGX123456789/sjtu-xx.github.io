@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sjtu-xx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="STLSTL(标准模板库)，是目前C++内置支持的library。它的底层利用了C++类模板和函数模板的机制，由三大部分组成：容器、算法和迭代器。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++中零碎知识点拾遗">
+<meta property="og:url" content="https://sjtu-xx.github.io/2020/07/22/C-%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9%E6%8B%BE%E9%81%97/index.html">
+<meta property="og:site_name" content="薛轩的个人博客">
+<meta property="og:description" content="STLSTL(标准模板库)，是目前C++内置支持的library。它的底层利用了C++类模板和函数模板的机制，由三大部分组成：容器、算法和迭代器。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-22T08:59:52.000Z">
+<meta property="article:modified_time" content="2021-02-03T15:59:45.593Z">
+<meta property="article:author" content="Xue Xuan">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://sjtu-xx.github.io/2020/07/22/C-%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9%E6%8B%BE%E9%81%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>C++中零碎知识点拾遗 | 薛轩的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">薛轩的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">XueXuan's blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sjtu-xx.github.io/2020/07/22/C-%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9%E6%8B%BE%E9%81%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Xue Xuan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="薛轩的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C++中零碎知识点拾遗
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-22 16:59:52" itemprop="dateCreated datePublished" datetime="2020-07-22T16:59:52+08:00">2020-07-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-03 23:59:45" itemprop="dateModified" datetime="2021-02-03T23:59:45+08:00">2021-02-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">基础</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/07/22/C-%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9%E6%8B%BE%E9%81%97/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/22/C-%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9%E6%8B%BE%E9%81%97/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h1><p>STL(标准模板库)，是目前C++内置支持的library。它的底层利用了C++类模板和函数模板的机制，由三大部分组成：容器、算法和迭代器。<br><a id="more"></a></p>
+<p>目前STL有六大组件:</p>
+<ul>
+<li>容器 container</li>
+<li>算法 algorthm</li>
+<li>迭代器 iterator</li>
+<li>仿函数 function object</li>
+<li>适配器 adaptor</li>
+<li>空间配置器 allocator</li>
+</ul>
+<h1 id="多态的实现方式"><a href="#多态的实现方式" class="headerlink" title="多态的实现方式"></a>多态的实现方式</h1><ol>
+<li>覆盖</li>
+</ol>
+<p>覆盖是指子类重新定义父类的虚函数的做法。</p>
+<ol>
+<li>重载</li>
+</ol>
+<p>重载是指允许存在多个同名函数，而这些函数的参数表不同（或许参数个数不同，或许参数类型不同，或许两者都不同）。</p>
+<h1 id="软件设计原则"><a href="#软件设计原则" class="headerlink" title="软件设计原则"></a>软件设计原则</h1><p>SOLID原则</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>简称</th>
+<th>英文名</th>
+<th>中文名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SRP</td>
+<td>The Single Responsibility Principle</td>
+<td>单一职责原则</td>
+</tr>
+<tr>
+<td>OCP</td>
+<td>The Open Closed Principle</td>
+<td>开放封闭原则</td>
+</tr>
+<tr>
+<td>LSP</td>
+<td>The Liskov Substitution Principle</td>
+<td>里氏替换原则</td>
+</tr>
+<tr>
+<td>ISP</td>
+<td>The Interface Segregation Principle</td>
+<td>接口分离原则</td>
+</tr>
+<tr>
+<td>DIP</td>
+<td>The Dependency Inversion Principle</td>
+<td>一来导致原则</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>S:单一责任原则。就一个类而言,应该仅有一个引起它变化的原因,如果你能想到多于一个的动机去改变一个类,那么这个类就具有多于一个的职责.应该把多于的指责分离出去,分别再创建一些类来完成每一个职责。注重的是职责，主要是约束类，其次才是接口和方法，它针对的是程序中的实现和细节。</li>
+<li>O:开闭原则。一个软件实体应当对扩展开放,对修改关闭.说的是,再设计一个模块的时候,应当使这个模块可以在不被修改的前提下被扩展.换言之,应当可以在不必修改源代码的情况下改变这个模块的行为，在保持系统一定稳定性的基础上，对系统进行扩展。这是面向对象设计（OOD）的基石，也是最重要的原则。对新增开放，对修改关闭。主要是用多态性，面向接口面层。</li>
+<li>L:里氏替换原则。 换言之,一个软件实体如果使用的是一个基类的话,那么一定适用于其子类,而且它根本不能察觉出基类对象和子类对象的区别.只有衍生类可以替换基类，软件单位的功能才能不受影响，基类才能真正被复用，而衍生类也能够在基类的基础上增加新功能。反过来的代换不成立。父类可用的情况下，子类也可以使用。也就是说子类条件更严格。</li>
+<li>I:接口分离原则。一个类对另外一个类的依赖是建立在最小的接口上。使用多个专门的接口比使用单一的总接口要好.根据客户需要的不同,而为不同的客户端提供不同的服务是一种应当得到鼓励的做法.就像”看人下菜碟”一样,要看客人是谁,再提供不同档次的饭菜。注重对接口依赖的隔离，主要约束接口接口，主要针对抽象，针对程序整体框架的构建。</li>
+<li>D:依赖倒置原则。抽象不应当依赖于细节,细节应当依赖于抽象。高层模块不应该依赖低层模块，二者都应该依赖其抽象；抽象不应该依赖细节；细节应该依赖抽象，主要是面向接口编程而非面向实现编程。</li>
+</ul>
+<h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><ul>
+<li>创建型模式（Creational Patterns）用于构建对象，以便它们可以从实现系统中分离出来。</li>
+<li>结构型模式（Structural Patterns）用于在许多不同的对象之间形成大型对象结构。</li>
+<li>行为型模式（Behavioral Patterns）用于管理对象之间的算法、关系和职责。</li>
+</ul>
+<h2 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h2><ul>
+<li><a href="http://blog.csdn.net/liang19890820/article/details/61615495" target="_blank" rel="noopener">单例模式</a>（Singleton Pattern）<br>保证一个类仅有一个实例，并提供一个访问它的全局访问点。</li>
+<li><a href="http://blog.csdn.net/liang19890820/article/details/70653800" target="_blank" rel="noopener">抽象工厂模式</a> （Abstract Factory Pattern）<br>提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。</li>
+<li><a href="http://blog.csdn.net/liang19890820/article/details/66968761" target="_blank" rel="noopener">建造者模式</a>（Builder Pattern）<br>将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。</li>
+<li><a href="http://blog.csdn.net/liang19890820/article/details/70652858" target="_blank" rel="noopener">工厂方法模式</a> （Factory Method Pattern）<br>定义一个用于创建对象的接口，让子类决定将哪一个类实例化。Factory Method 使一个类的实例化延迟到其子类。</li>
+<li><a href="http://blog.csdn.net/liang19890820/article/details/66969965" target="_blank" rel="noopener">原型模式</a>（Prototype Pattern）<br>用原型实例指定创建对象的种类，并且通过拷贝这个原型来创建新的对象。</li>
+</ul>
+<h2 id="结构型模式"><a href="#结构型模式" class="headerlink" title="结构型模式"></a>结构型模式</h2><ul>
+<li><a href="http://blog.csdn.net/liang19890820/article/details/66973296" target="_blank" rel="noopener">适配器模式</a>（Adapter Pattern）<br>将一个类的接口转换成客户希望的另外一个接口。Adapter 模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。</li>
+<li><a href="http://blog.csdn.net/liang19890820/article/details/79501177" target="_blank" rel="noopener">桥接模式</a>（Bridge Pattern）<br>将抽象部分与它的实现部分分离，使它们都可以独立地变化。</li>
+<li><a href="http://blog.csdn.net/liang19890820/article/details/66973836" target="_blank" rel="noopener">装饰者模式</a>（Decorator Pattern）<br>动态地给一个对象添加一些额外的职责。就扩展功能而言，它比生成子类方式更为灵活。</li>
+<li><a href="http://blog.csdn.net/liang19890820/article/details/71240662" target="_blank" rel="noopener">组合模式</a>（Composite Pattern）<br>将对象组合成树形结构以表示“部分-整体”的层次结构。它使得客户对单个对象和复合对象的使用具有一致性。</li>
+<li><a href="http://blog.csdn.net/liang19890820/article/details/70850367" target="_blank" rel="noopener">外观模式</a>（Facade Pattern）<br>为子系统中的一组接口提供一个一致的界面，Facade 模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。</li>
+<li><a href="http://blog.csdn.net/liang19890820/article/details/79629690" target="_blank" rel="noopener">享元模式</a>（Flyweight Pattern）<br>运用共享技术有效地支持大量细粒度的对象。</li>
+<li><a href="http://blog.csdn.net/liang19890820/article/details/78533179" target="_blank" rel="noopener">代理模式</a>（Proxy Pattern）<br>为其他对象提供一个代理以控制对这个对象的访问。</li>
+</ul>
+<h2 id="行为型模式"><a href="#行为型模式" class="headerlink" title="行为型模式"></a>行为型模式</h2><ul>
+<li><a href="http://blog.csdn.net/liang19890820/article/details/79403900" target="_blank" rel="noopener">模版方法模式</a> （Template Method Pattern）<br>定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。Template Method 使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</li>
+<li><a href="http://blog.csdn.net/liang19890820/article/details/62060457" target="_blank" rel="noopener">命令模式</a>（Command Pattern）<br>将一个请求封装为一个对象，从而使你可用不同的请求对客户进行参数化；对请求排队或记录请求日志，以及支持可取消的操作。</li>
+<li>迭代器模式（Iterator Pattern）<br>提供一种方法顺序访问一个聚合对象中各个元素，而又不需暴露该对象的内部表示。</li>
+<li><a href="http://blog.csdn.net/liang19890820/article/details/61925314" target="_blank" rel="noopener">观察者模式</a>（Observer Pattern）<br>定义对象间的一种一对多的依赖关系，以便当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并自动刷新。</li>
+<li><a href="http://blog.csdn.net/liang19890820/article/details/79242388" target="_blank" rel="noopener">中介者模式</a>（Mediator Pattern）<br>用一个中介对象来封装一系列的对象交互。中介者使各对象不需要显式地相互引用，从而使其耦合松散，而且可以独立地改变它们之间的交互。</li>
+<li><a href="http://blog.csdn.net/liang19890820/article/details/79292435" target="_blank" rel="noopener">备忘录模式</a> （Memento Pattern）<br>在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态。这样以后就可将该对象恢复到保存的状态。</li>
+<li>解释器模式（Interpreter Pattern）<br>给定一个语言，定义它的文法的一种表示，并定义一个解释器，该解释器使用该表示来解释语言中的句子。</li>
+<li><a href="http://blog.csdn.net/liang19890820/article/details/78647519" target="_blank" rel="noopener">状态模式</a>（State Pattern）<br>允许一个对象在其内部状态改变时改变它的行为。对象看起来似乎修改了它所属的类。</li>
+<li><a href="http://blog.csdn.net/liang19890820/article/details/79242297" target="_blank" rel="noopener">策略模式</a>（Strategy Pattern）<br>定义一系列的算法，把它们一个个封装起来，并且使它们可相互替换。本模式使得算法的变化可独立于使用它的客户端。</li>
+<li><a href="http://blog.csdn.net/liang19890820/article/details/79077715" target="_blank" rel="noopener">职责链模式</a> （Chain of Responsibility Pattern）<br>为解除请求的发送者和接收者之间耦合，而使多个对象都有机会处理这个请求。将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它。</li>
+<li><a href="http://blog.csdn.net/liang19890820/article/details/79364406" target="_blank" rel="noopener">访问者模式</a> （Visitor Pattern）<br>表示一个作用于某对象结构中的各元素的操作。它使你可以在不改变各元素的类的前提下定义作用于这些元素的新操作。</li>
+</ul>
+<h1 id="面向对象与面向过程的区别"><a href="#面向对象与面向过程的区别" class="headerlink" title="面向对象与面向过程的区别"></a>面向对象与面向过程的区别</h1><p>面向过程就是分析出解决问题所需要的步骤，然后用函数把这些步骤一步一步实现，使用的时候一个一个依次调用就可以了；</p>
+<p>面向对象是把构成问题事务分解成各个对象，建立对象的目的不是为了完成一个步骤，而是为了描叙某个事物在整个解决问题的步骤中的行为。</p>
+<p>可以拿生活中的实例来理解面向过程与面向对象，例如五子棋，面向过程的设计思路就是首先分析问题的步骤：1、开始游戏，2、黑子先走，3、绘制画面，4、判断输赢，5、轮到白子，6、绘制画面，7、判断输赢，8、返回步骤2，9、输出最后结果。把上面每个步骤用不同的方法来实现。</p>
+<p>如果是面向对象的设计思想来解决问题。面向对象的设计则是从另外的思路来解决问题。整个五子棋可以分为1、黑白双方，这两方的行为是一模一样的，2、棋盘系统，负责绘制画面，3、规则系统，负责判定诸如犯规、输赢等。第一类对象（玩家对象）负责接受用户输入，并告知第二类对象（棋盘对象）棋子布局的变化，棋盘对象接收到了棋子的变化就要负责在屏幕上面显示出这种变化，同时利用第三类对象（规则系统）来对棋局进行判定。</p>
+<p>可以明显地看出，面向对象是以功能来划分问题，而不是步骤。同样是绘制棋局，这样的行为在面向过程的设计中分散在了多个步骤中，很可能出现不同的绘制版本，因为通常设计人员会考虑到实际情况进行各种各样的简化。而面向对象的设计中，绘图只可能在棋盘对象中出现，从而保证了绘图的统一。</p>
+<h1 id="智能指针的用法"><a href="#智能指针的用法" class="headerlink" title="智能指针的用法"></a>智能指针的用法</h1><ul>
+<li>使用std::unique_ptr时，你不打算持有到同一对象的多个引用。例如，将其用作指向内存的指针，该内存在进入某些范围时被分配，而在退出范围时被取消分配。指针在一个确定的范围存在。</li>
+<li>使用std::shared_ptr当你想从多个地方是指你的对象-并且不希望你的对象是去分配，直到所有这些提法本身就没了。</li>
+<li>std::weak_ptr当您确实想从多个位置引用对象时，请使用-对于可以忽略和取消分配的引用（因此，当您尝试取消引用时，它们只会指出对象已消失）。避免循环引用。</li>
+</ul>
+<p>weak_ptr是为了配合shared_ptr而引入的一种智能指针，它指向一个由shared_ptr管理的对象而不影响所指对象的生命周期，也就是将一个weak_ptr绑定到一个shared_ptr不会改变shared_ptr的引用计数。不论是否有weak_ptr指向，一旦最后一个指向对象的shared_ptr被销毁，对象就会被释放。</p>
+<p>weak_ptr的使用：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    A() : a(<span class="number">3</span>) &#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"A Constructor..."</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line">    ~A() &#123; <span class="built_in">cout</span> &lt;&lt; <span class="string">"A Destructor..."</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">shared_ptr</span>&lt;A&gt; sp(<span class="keyword">new</span> A());</span><br><span class="line">    weak_ptr&lt;A&gt; wp(sp);</span><br><span class="line">    <span class="comment">//sp.reset();</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">shared_ptr</span>&lt;A&gt; pa = wp.lock())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; pa-&gt;a &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"wp指向对象为空"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Owner</span> &#123;</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;Owner&gt; other;</span><br><span class="line">    ~Owner()&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"destroyed"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;Owner&gt; p1 (<span class="keyword">new</span> Owner());</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">shared_ptr</span>&lt;Owner&gt; p2 (<span class="keyword">new</span> Owner());</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"p1:"</span>&lt;&lt;p1&lt;&lt;<span class="string">" p2:"</span>&lt;&lt;p2&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    p1-&gt;other = p2; <span class="comment">// p1 references p2</span></span><br><span class="line">    p2-&gt;other = p1; <span class="comment">// p2 references p1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于上面的循环引用，在程序结束时，无法正确析构对象。<br>如果采用weak_ptr则可以析构。</p>
+<h1 id="深拷贝和浅拷贝"><a href="#深拷贝和浅拷贝" class="headerlink" title="深拷贝和浅拷贝"></a>深拷贝和浅拷贝</h1><p>深拷贝指的是将对象的值保存。<br>浅拷贝副本的某些成员可能引用与原始对象相同的对象。</p>
+<p>浅拷贝：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">X</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">int</span> *pi;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    X()</span><br><span class="line">        : pi(<span class="keyword">new</span> <span class="keyword">int</span>)</span><br><span class="line">    &#123; &#125;</span><br><span class="line">    X(<span class="keyword">const</span> X&amp; copy)   <span class="comment">// &lt;-- copy ctor</span></span><br><span class="line">        : i(copy.i), pi(copy.pi)</span><br><span class="line">    &#123; &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><br>深拷贝：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">X</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">int</span> *pi;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    X()</span><br><span class="line">        : pi(<span class="keyword">new</span> <span class="keyword">int</span>)</span><br><span class="line">    &#123; &#125;</span><br><span class="line">    X(<span class="keyword">const</span> X&amp; copy)   <span class="comment">// &lt;-- copy ctor</span></span><br><span class="line">        : i(copy.i), pi(<span class="keyword">new</span> <span class="keyword">int</span>(*copy.pi))  <span class="comment">// &lt;-- note this line in particular!</span></span><br><span class="line">    &#123; &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/22/enum%E6%9E%9A%E4%B8%BE%E9%87%8F%E5%A3%B0%E6%98%8E%E3%80%81%E5%AE%9A%E4%B9%89%E3%80%81%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%BC%BA%E7%B1%BB%E5%9E%8B%E6%9E%9A%E4%B8%BE%E8%AF%A6%E8%A7%A3/" rel="prev" title="enum枚举量声明、定义、使用与强类型枚举详解">
+      <i class="fa fa-chevron-left"></i> enum枚举量声明、定义、使用与强类型枚举详解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/22/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/" rel="next" title="数据结构复习">
+      数据结构复习 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#STL"><span class="nav-number">1.</span> <span class="nav-text">STL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多态的实现方式"><span class="nav-number">2.</span> <span class="nav-text">多态的实现方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#软件设计原则"><span class="nav-number">3.</span> <span class="nav-text">软件设计原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设计模式"><span class="nav-number">4.</span> <span class="nav-text">设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建型模式"><span class="nav-number">4.1.</span> <span class="nav-text">创建型模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构型模式"><span class="nav-number">4.2.</span> <span class="nav-text">结构型模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行为型模式"><span class="nav-number">4.3.</span> <span class="nav-text">行为型模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面向对象与面向过程的区别"><span class="nav-number">5.</span> <span class="nav-text">面向对象与面向过程的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#智能指针的用法"><span class="nav-number">6.</span> <span class="nav-text">智能指针的用法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深拷贝和浅拷贝"><span class="nav-number">7.</span> <span class="nav-text">深拷贝和浅拷贝</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xue Xuan"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Xue Xuan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sjtu-xx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sjtu-xx" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuexuan1997@gmail.com" title="E-Mail → mailto:xuexuan1997@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xue Xuan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'eMthrkXxWi9VDSG39hpPXkOi-gzGzoHsz',
+      appKey     : '40yWQRY3985h43auodOGjsIQ',
+      placeholder: "欢迎畅所欲言",
+      avatar     : 'ヾﾉ≧∀≦)o来啊，快活啊!',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

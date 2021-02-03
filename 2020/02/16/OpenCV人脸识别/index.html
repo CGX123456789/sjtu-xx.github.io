@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sjtu-xx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="转载链接">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenCV人脸检测">
+<meta property="og:url" content="https://sjtu-xx.github.io/2020/02/16/OpenCV%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/index.html">
+<meta property="og:site_name" content="薛轩的个人博客">
+<meta property="og:description" content="转载链接">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/7245f5c9-5da5-4edf-bff6-186719d5fef6/640.jpeg">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/53407211-6e2b-4c88-8cfb-ad9af35e04d4/640.jpeg">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/887c30d9-bceb-479b-b57e-4b3be0a24a90/640.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/2a219eb2-16c0-4342-a28e-48a18401baca/640.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/957c420e-6646-4dcc-ba55-c16eec2b0c80/640.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/05ac2da5-0df3-4e6c-9613-9dbfc2fe15b3/640.jpeg">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/e92412f5-225a-4c1f-bba4-63b93194bc5d/640.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/c014f487-359d-4f0e-9f9a-c9bf6720073f/640.jpeg">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/ee639060-e22b-43cc-8914-9fcd5ada0869/640.jpeg">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/3bd5ead0-5197-4aa4-8151-52a2c1c11f52/640.jpeg">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/9d27ae45-4222-4f77-9fcc-58d70cf832e4/640.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/629050c3-86c7-4b27-9903-bf953f27895c/640.png">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/b7b2438b-1f98-4992-bdf8-7b94e4dbde7f/640.jpeg">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/d944bc9f-9bdf-4a60-ba76-e5f53ba6af5b/640.jpeg">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/841dab46-ac57-43e1-9656-40c3b3738003/640.jpeg">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/8b5ba4f7-a2f8-48a3-8b3c-ab03ce87366d/640.jpeg">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/0f5b21c6-a073-44e8-9fac-06ddbc85b0b5/640.jpeg">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/b2ddc028-d6a9-4d24-91aa-82a4bdf216c7/640.jpeg">
+<meta property="og:image" content="https://image.jiqizhixin.com/uploads/editor/4f7f86e8-d304-466f-a130-16e04efc1d06/640.jpeg">
+<meta property="article:published_time" content="2020-02-16T03:01:36.000Z">
+<meta property="article:modified_time" content="2021-02-03T15:59:45.813Z">
+<meta property="article:author" content="Xue Xuan">
+<meta property="article:tag" content="OpenCV">
+<meta property="article:tag" content="人脸检测">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image.jiqizhixin.com/uploads/editor/7245f5c9-5da5-4edf-bff6-186719d5fef6/640.jpeg">
+
+<link rel="canonical" href="https://sjtu-xx.github.io/2020/02/16/OpenCV%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>OpenCV人脸检测 | 薛轩的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">薛轩的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">XueXuan's blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sjtu-xx.github.io/2020/02/16/OpenCV%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Xue Xuan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="薛轩的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          OpenCV人脸检测
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-16 11:01:36" itemprop="dateCreated datePublished" datetime="2020-02-16T11:01:36+08:00">2020-02-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-03 23:59:45" itemprop="dateModified" datetime="2021-02-03T23:59:45+08:00">2021-02-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" itemprop="url" rel="index"><span itemprop="name">目标检测</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/16/OpenCV%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/16/OpenCV%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a href="https://www.jiqizhixin.com/articles/2019-05-30-3" target="_blank" rel="noopener">转载链接</a><br><a id="more"></a><br>本教程将介绍如何使用 OpenCV 和 Dlib 在 Python 中创建和运行人脸检测算法。同时还将添加一些功能，以同时检测多个面部的眼睛和嘴巴。本文介绍了人脸检测的最基本实现，包括级联分类器、HOG 窗口和深度学习 CNN。</p>
+<p>我们将通过以下方法实现人脸检测：</p>
+<ul>
+<li>使用 OpenCV 的 Haar 级联分类器</li>
+<li>使用 Dlib 的方向梯度直方图</li>
+<li>使用 Dlib 的卷积神经网络</li>
+</ul>
+<p>本文代码的 Github 库（以及作者其他博客的代码）链接：</p>
+<p><a href="https://github.com/maelfabien/Machine_Learning_Tutorials" target="_blank" rel="noopener">https://github.com/maelfabien/Machine_Learning_Tutorials</a> </p>
+<p>我们将使用用于计算机视觉的开源库 OpenCV，它用 C/C++编写，有 C++、Python 和 Java 接口。同时支持 Windows、Linux、MacOS、iOS 和 Android 系统。同时我们还需要工具包 Dlib，它是一个包含机器学习算法和创建复杂软件的 C++工具包。</p>
+<p><strong>步骤</strong></p>
+<p>第一步是安装 OpenCV 和 Dlib。运行以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install opencv-python</span><br><span class="line">pip install dlib</span><br></pre></td></tr></table></figure>
+<p>文件生成的路径如下（版本不同，路径会稍有差别）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;lib&#x2F;python3.7&#x2F;site-packages&#x2F;cv2</span><br></pre></td></tr></table></figure>
+<p>如果在使用 Dlib 时出现问题，请参见文章：<a href="https://www.pyimagesearch.com/2018/01/22/install-dlib-easy-complete-guide/" target="_blank" rel="noopener">https://www.pyimagesearch.com/2018/01/22/install-dlib-easy-complete-guide/</a></p>
+<p><strong>导入工具包和模型路径</strong></p>
+<p>创建一个新的 Jupyter notebook/Python 文件，从以下代码开始：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">import dlib</span><br><span class="line">from imutils import face_utils</span><br><span class="line">font &#x3D; cv2.FONT_HERSHEY_SIMPLEX</span><br></pre></td></tr></table></figure>
+<p><strong>级联分类器</strong></p>
+<p>首先研究级联分类器。</p>
+<p><strong>理论</strong></p>
+<p>级联分类器，即使用类 Haar 特征工作的级联增强分类器，是集成学习的一种特殊情况，称为 boost。它通常依赖于 Adaboost 分类器（以及其他模型，如 Real Adaboost、Gentle Adaboost 或 Logitboost）。</p>
+<p>级联分类器在包含检测目标的几百个样本图像以及不包含检测目标的其他图像上进行训练。</p>
+<p>我们如何检测图上是否有人脸呢？有一种名为 Viola-Jones 的<a href="https://mp.weixin.qq.com/cgi-bin/appmsg?t=media/appmsg_edit&amp;action=edit&amp;type=10&amp;appmsgid=503279302&amp;isMul=1&amp;token=815003832&amp;lang=zh_CN" target="_blank" rel="noopener">目标检测</a>框架的算法，包括了实时人脸检测所需的所有步骤：</p>
+<ul>
+<li>提取 Haar 特征，特征来自 Haar 小波</li>
+<li>创建图像</li>
+<li>Adaboost 训练</li>
+<li>级联分类器</li>
+</ul>
+<p><strong>Haar 特征选择</strong></p>
+<p>人脸上最常见的一些共同特征如下：</p>
+<ul>
+<li>与脸颊相比，眼部颜色较深</li>
+<li>与眼睛相比，鼻梁区域较为明亮</li>
+<li>眼睛、嘴巴、鼻子的位置较为固定……</li>
+</ul>
+<p>这些特征称为 Haar 特征。<a href="https://mp.weixin.qq.com/cgi-bin/appmsg?t=media/appmsg_edit&amp;action=edit&amp;type=10&amp;appmsgid=503279302&amp;isMul=1&amp;token=815003832&amp;lang=zh_CN" target="_blank" rel="noopener">特征提取</a>过程如下所示：</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/7245f5c9-5da5-4edf-bff6-186719d5fef6/640.jpeg" alt="img"></p>
+<p><em>Haar 特征</em></p>
+<p>在上图中，第一个特征测量眼部和上脸颊之间的强度差异。特征值计算的方法很简单，对黑色区域中的像素求和再减去白色区域中的像素即可。</p>
+<p>然后，将这个矩形作为卷积核作用到整个图像。为了不产生遗漏，我们需要用到每个卷积核的所有的维度和位置。简单的 24 * 24 的图像可能会产生超过 160000 个特征，每个特征由像素值的和/差组成。这样在计算上无法实现实时人脸检测。那么，该如何加快这个过程呢？</p>
+<p>一旦通过矩形框识别到有用区域，则在与之完全不同的区域上就无需再做计算了。这一点可以通过 Adaboost 实现。</p>
+<p>使用积分图像原理计算矩形框特征的方法更快。我们将在下一节介绍这一点。</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/53407211-6e2b-4c88-8cfb-ad9af35e04d4/640.jpeg" alt="img"></p>
+<p>原始论文中提到几种可用于 Haar 特征提取的矩形框：</p>
+<ul>
+<li>双矩形特征计算的是两个矩形区域内像素和的差，主要用于检测边缘 (a,b)</li>
+<li>三矩形特征计算的是中心矩形和减去两个外部矩形和的差，主要用于检测线 (c,d)</li>
+<li>四矩形特征计算的是矩形对角线对之间的差 (e)</li>
+</ul>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/887c30d9-bceb-479b-b57e-4b3be0a24a90/640.png" alt="img"></p>
+<p><em>Haar 矩形</em></p>
+<p>特征提取完成后，使用 Adaboost 分类器将它们应用于训练集，该分类器结合了一组弱分类器来创建准确的集成模型。只需 200 个特征（最初是 16 万个），实现了 95％的准确率。该论文的作者提取了 6000 个特征。</p>
+<p><strong>积分图像</strong></p>
+<p>以卷积核的形式计算特征需要花费很长时间。出于这个原因，作者 Viola 和 Jones 提出了图像的中间表示：积分图像。积分图像的作用是仅使用四个值简单地计算矩形和。我们来看看它是如何工作的！</p>
+<p>假设我们想要确定一个坐标为 (x,y) 的给定像素的矩形特征。然后，像素的积分图像是给定像素的上方和左侧的像素之和。</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/2a219eb2-16c0-4342-a28e-48a18401baca/640.png" alt="img"></p>
+<p>其中 ii(x,y) 是积分图像，i(x,y) 是原始图像。</p>
+<p>当计算整个积分图像时，有一种只需要遍历一次原始图像的递归方法。实际上，我们可以定义以下一对递归形式：</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/957c420e-6646-4dcc-ba55-c16eec2b0c80/640.png" alt="img"></p>
+<p>其中 s(x,y) 是累积行和，而 s(x−1)=0, ii(−1,y)=0。</p>
+<p>这是怎么实现的呢？假设我们想要估算区域 D 的像素总和。我们已经定义了 3 个其他区域：A，B 和 C。</p>
+<ul>
+<li>点 1 处的积分图像的值是矩形 A 中的像素的总和。</li>
+<li>点 2 处的值为 A + B。</li>
+<li>点 3 处的值为 A + C。</li>
+<li>点 4 处的值是 A + B + C + D。</li>
+</ul>
+<p>因此，区域 D 中的像素之和可以简单地计算为： 4+1−(2+3)。</p>
+<p>这样我们仅使用 4 个数组值就计算出了矩形 D 的值。</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/05ac2da5-0df3-4e6c-9613-9dbfc2fe15b3/640.jpeg" alt="img"></p>
+<p>人们应该知道矩形在实际中是非常简单的特征，但对于人脸检测已经足够了。当涉及复杂问题时，可调滤波器往往更灵活多变。</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/e92412f5-225a-4c1f-bba4-63b93194bc5d/640.png" alt="img"></p>
+<p><em>可调滤波器</em></p>
+<p><strong>使用 Adaboost 学习分类函数</strong></p>
+<p>给定一组带标签的训练图像（正负样本均有），Adaboost 用于：</p>
+<ul>
+<li>提取一小部分特征</li>
+<li>训练分类器</li>
+</ul>
+<p>由于 16 万个特征中的大多数特征与之极不相关，因此我们设计一个增强模型的弱学习算法，用来提取单个矩形特征，将最好的正负样本区分开。</p>
+<p><strong>级联分类器</strong></p>
+<p>虽然上述过程非常有效，但仍存在一个重大问题。在图像中，大部分图像为非面部区域。对图像的每个区域给予等同的注意力是没有意义的，因为我们应该主要关注最有可能包含人脸的区域。Viola 和 Jone 使用级联分类器在减少了计算时间的同时，实现了更高的检测率。</p>
+<p>关键思想是在识别人脸区域时排除不含人脸的子窗口。由于任务是正确识别人脸，我们希望假阴率最小，即包含人脸却未被识别的子窗口最少。</p>
+<p>每个子窗口都使用一系列分类器。这些分类器是简单的决策树：</p>
+<ul>
+<li>如果第一个分类器检测为正样本，继续用第二个</li>
+<li>如果第二个分类器检测是正样本，继续用第三个</li>
+<li>以此类推</li>
+</ul>
+<p>虽然有时可能包含人脸的图被认成负样本被子窗口漏检。但初级分类器以较低的计算成本筛除了大多数负样本，下图的分类器可额外消除更多的负样本，但需要更多的计算量。</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/c014f487-359d-4f0e-9f9a-c9bf6720073f/640.jpeg" alt="img"></p>
+<p>使用 Adaboost 训练分类器，并调整阈值使错误率降到最低。在训练该模型时，变量如下：</p>
+<ul>
+<li>每个阶段分类器数量</li>
+<li>每个阶段的特征数量</li>
+<li>每个阶段的阈值</li>
+</ul>
+<p>幸运的是，在 OpenCV 中，整个模型已经经过预训练，可直接用于人脸检测。</p>
+<p>如果想了解有关 Boosting 技术的更多信息，欢迎查看作者关于 Adaboost 的文章：</p>
+<p><a href="https://maelfabien.github.io/machinelearning/adaboost" target="_blank" rel="noopener">https://maelfabien.github.io/machinelearning/adaboost</a></p>
+<p><strong>输入</strong></p>
+<p>下一步是找到预训练的权重。我们将使用默认的预训练模型来检测人脸、眼睛和嘴巴。文件应位于此路径（python 版本不同，路径略有不同）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;lib&#x2F;python3.7&#x2F;site-packages&#x2F;cv2&#x2F;data</span><br></pre></td></tr></table></figure>
+<p>确定路径后，以此方式声明级联分类器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cascPath &#x3D; &quot;&#x2F;usr&#x2F;local&#x2F;lib&#x2F;python3.7&#x2F;site-packages&#x2F;cv2&#x2F;data&#x2F;haarcascade_frontalface_default.xml&quot;</span><br><span class="line">eyePath &#x3D; &quot;&#x2F;usr&#x2F;local&#x2F;lib&#x2F;python3.7&#x2F;site-packages&#x2F;cv2&#x2F;data&#x2F;haarcascade_eye.xml&quot;</span><br><span class="line">smilePath &#x3D; &quot;&#x2F;usr&#x2F;local&#x2F;lib&#x2F;python3.7&#x2F;site-packages&#x2F;cv2&#x2F;data&#x2F;haarcascade_smile.xml&quot;</span><br><span class="line">faceCascade &#x3D; cv2.CascadeClassifier(cascPath)</span><br><span class="line">eyeCascade &#x3D; cv2.CascadeClassifier(eyePath)</span><br><span class="line">smileCascade &#x3D; cv2.CascadeClassifier(smilePath)</span><br></pre></td></tr></table></figure>
+<p><strong>检测图像中的人脸</strong></p>
+<p>在实现实时人脸检测算法之前，让我们先尝试在图像上简单检测一下。从加载测试图像开始:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Load the image</span><br><span class="line">gray &#x3D; cv2.imread(&#39;face_detect_test.jpeg&#39;, 0)</span><br><span class="line">plt.figure(figsize&#x3D;(12,8))</span><br><span class="line">plt.imshow(gray, cmap&#x3D;&#39;gray&#39;)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/ee639060-e22b-43cc-8914-9fcd5ada0869/640.jpeg" alt="img"></p>
+<p><em>测试图像</em></p>
+<p>然后开始检测人脸，并将检测到的人脸框起来。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># Detect faces</span><br><span class="line">faces &#x3D; faceCascade.detectMultiScale(</span><br><span class="line">gray,</span><br><span class="line">scaleFactor&#x3D;1.1,</span><br><span class="line">minNeighbors&#x3D;5,</span><br><span class="line">flags&#x3D;cv2.CASCADE_SCALE_IMAGE</span><br><span class="line">)</span><br><span class="line"># For each face</span><br><span class="line">for (x, y, w, h) in faces: </span><br><span class="line">    # Draw rectangle around the face</span><br><span class="line">    cv2.rectangle(gray, (x, y), (x+w, y+h), (255, 255, 255), 3)</span><br></pre></td></tr></table></figure>
+<p>以下是 detectMultiScale 函数常见的参数列表：</p>
+<ul>
+<li>scaleFactor：确定每个图像缩放比例大小。</li>
+<li>minNeighbors：确定每个候选矩形应保留多少个相邻框。</li>
+<li>minSize：最小目标的大小。小于该值的目标将被忽略。</li>
+<li>maxSize：最大目标的大小。大于该值的目标将被忽略。</li>
+</ul>
+<p>最后，显示结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize&#x3D;(12,8))</span><br><span class="line">plt.imshow(gray, cmap&#x3D;&#39;gray&#39;)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/3bd5ead0-5197-4aa4-8151-52a2c1c11f52/640.jpeg" alt="img"></p>
+<p>在测试图像上成功检测到人脸。现在开始实时检测！</p>
+<p><strong>实时人脸检测</strong></p>
+<p>下面继续进行实时人脸检测的 Python 实现。第一步是启动摄像头，并拍摄视频。然后，将图像转换为灰度图。这用于减小输入图像的维数。实际上，我们应用了一个简单的线性变换，而不是每个像素用三个点来描述红、绿、蓝。</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/9d27ae45-4222-4f77-9fcc-58d70cf832e4/640.png" alt="img"></p>
+<p>这在 OpenCV 中是默认实现的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">video_capture &#x3D; cv2.VideoCapture(0)</span><br><span class="line">while True:</span><br><span class="line">    # Capture frame-by-frame</span><br><span class="line">    ret, frame &#x3D; video_capture.read()</span><br><span class="line">    gray &#x3D; cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)</span><br></pre></td></tr></table></figure>
+<p>现在我们使用上述定义的 faceCascade 变量，它包含一个预训练算法，现在将其用于灰度图。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">faces &#x3D; faceCascade.detectMultiScale(</span><br><span class="line">        gray,</span><br><span class="line">        scaleFactor&#x3D;1.1,</span><br><span class="line">        minNeighbors&#x3D;5,</span><br><span class="line">        minSize&#x3D;(30, 30),</span><br><span class="line">        flags&#x3D;cv2.CASCADE_SCALE_IMAGE</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+<p>对于检测到的每个人脸，都加上一个矩形框：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (x, y, w, h) in faces:</span><br><span class="line">        if w &gt; 250 :</span><br><span class="line">            cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 3)</span><br><span class="line">            roi_gray &#x3D; gray[y:y+h, x:x+w]</span><br><span class="line">            roi_color &#x3D; frame[y:y+h, x:x+w]</span><br></pre></td></tr></table></figure>
+<p>对于检测到的每张嘴，都加上一个矩形框：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">smile &#x3D; smileCascade.detectMultiScale(</span><br><span class="line">        roi_gray,</span><br><span class="line">        scaleFactor&#x3D; 1.16,</span><br><span class="line">        minNeighbors&#x3D;35,</span><br><span class="line">        minSize&#x3D;(25, 25),</span><br><span class="line">        flags&#x3D;cv2.CASCADE_SCALE_IMAGE</span><br><span class="line">    )</span><br><span class="line">    for (sx, sy, sw, sh) in smile:</span><br><span class="line">        cv2.rectangle(roi_color, (sh, sy), (sx+sw, sy+sh), (255, 0, 0), 2)</span><br><span class="line">        cv2.putText(frame,&#39;Smile&#39;,(x + sx,y + sy), 1, 1, (0, 255, 0), 1)</span><br></pre></td></tr></table></figure>
+<p>对于检测到的每双眼睛，都加上一个矩形框：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">eyes &#x3D; eyeCascade.detectMultiScale(roi_gray)</span><br><span class="line">    for (ex,ey,ew,eh) in eyes:</span><br><span class="line">        cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)</span><br><span class="line">        cv2.putText(frame,&#39;Eye&#39;,(x + ex,y + ey), 1, 1, (0, 255, 0), 1)</span><br></pre></td></tr></table></figure>
+<p>然后计算人脸总数，显示整体图像：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cv2.putText(frame,&#39;Number of Faces : &#39; + str(len(faces)),(40, 40), font, 1,(255,0,0),2)      </span><br><span class="line">    # Display the resulting frame</span><br><span class="line">    cv2.imshow(&#39;Video&#39;, frame)</span><br></pre></td></tr></table></figure>
+<p>当按下 q 键时，执行退出选项。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if cv2.waitKey(1) &amp; 0xFF &#x3D;&#x3D; ord(&#39;q&#39;):</span><br><span class="line">        break</span><br></pre></td></tr></table></figure>
+<p>最后当所有操作完成后，关闭所有窗口。在 Mac 上关闭窗口存在一些问题，可能需要通过活动管理器退出 Python。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">video_capture.release()</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+<p><strong>封装</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line"></span><br><span class="line">cascPath &#x3D; &quot;&#x2F;usr&#x2F;local&#x2F;lib&#x2F;python3.7&#x2F;site-packages&#x2F;cv2&#x2F;data&#x2F;haarcascade_frontalface_default.xml&quot;</span><br><span class="line">eyePath &#x3D; &quot;&#x2F;usr&#x2F;local&#x2F;lib&#x2F;python3.7&#x2F;site-packages&#x2F;cv2&#x2F;data&#x2F;haarcascade_eye.xml&quot;</span><br><span class="line">smilePath &#x3D; &quot;&#x2F;usr&#x2F;local&#x2F;lib&#x2F;python3.7&#x2F;site-packages&#x2F;cv2&#x2F;data&#x2F;haarcascade_smile.xml&quot;</span><br><span class="line"></span><br><span class="line">faceCascade &#x3D; cv2.CascadeClassifier(cascPath)</span><br><span class="line">eyeCascade &#x3D; cv2.CascadeClassifier(eyePath)</span><br><span class="line">smileCascade &#x3D; cv2.CascadeClassifier(smilePath)</span><br><span class="line"></span><br><span class="line">font &#x3D; cv2.FONT_HERSHEY_SIMPLEX</span><br><span class="line">video_capture &#x3D; cv2.VideoCapture(0)</span><br><span class="line"></span><br><span class="line">while True:</span><br><span class="line">    # Capture frame-by-frame</span><br><span class="line">    ret, frame &#x3D; video_capture.read()</span><br><span class="line"></span><br><span class="line">    gray &#x3D; cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)</span><br><span class="line"></span><br><span class="line">    faces &#x3D; faceCascade.detectMultiScale(</span><br><span class="line">        gray,</span><br><span class="line">        scaleFactor&#x3D;1.1,</span><br><span class="line">        minNeighbors&#x3D;5,</span><br><span class="line">        minSize&#x3D;(200, 200),</span><br><span class="line">        flags&#x3D;cv2.CASCADE_SCALE_IMAGE</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    # Draw a rectangle around the faces</span><br><span class="line">    for (x, y, w, h) in faces:</span><br><span class="line">        cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 3)</span><br><span class="line">            roi_gray &#x3D; gray[y:y+h, x:x+w]</span><br><span class="line">            roi_color &#x3D; frame[y:y+h, x:x+w]</span><br><span class="line">            cv2.putText(frame,&#39;Face&#39;,(x, y), font, 2,(255,0,0),5)</span><br><span class="line"></span><br><span class="line">    smile &#x3D; smileCascade.detectMultiScale(</span><br><span class="line">        roi_gray,</span><br><span class="line">        scaleFactor&#x3D; 1.16,</span><br><span class="line">        minNeighbors&#x3D;35,</span><br><span class="line">        minSize&#x3D;(25, 25),</span><br><span class="line">        flags&#x3D;cv2.CASCADE_SCALE_IMAGE</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    for (sx, sy, sw, sh) in smile:</span><br><span class="line">        cv2.rectangle(roi_color, (sh, sy), (sx+sw, sy+sh), (255, 0, 0), 2)</span><br><span class="line">        cv2.putText(frame,&#39;Smile&#39;,(x + sx,y + sy), 1, 1, (0, 255, 0), 1)</span><br><span class="line"></span><br><span class="line">    eyes &#x3D; eyeCascade.detectMultiScale(roi_gray)</span><br><span class="line">    for (ex,ey,ew,eh) in eyes:</span><br><span class="line">        cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)</span><br><span class="line">        cv2.putText(frame,&#39;Eye&#39;,(x + ex,y + ey), 1, 1, (0, 255, 0), 1)</span><br><span class="line"></span><br><span class="line">    cv2.putText(frame,&#39;Number of Faces : &#39; + str(len(faces)),(40, 40), font, 1,(255,0,0),2)      </span><br><span class="line">    # Display the resulting frame</span><br><span class="line">    cv2.imshow(&#39;Video&#39;, frame)</span><br><span class="line"></span><br><span class="line">    if cv2.waitKey(1) &amp; 0xFF &#x3D;&#x3D; ord(&#39;q&#39;):</span><br><span class="line">      break</span><br><span class="line"></span><br><span class="line"># When everything is done, release the capture</span><br><span class="line">video_capture.release()</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+<p><strong>结果</strong></p>
+<p>我已经制作了人脸检测算法的 YouTube 视频演示：</p>
+<p><strong>Dlib 的方向梯度直方图（HOG）</strong></p>
+<p>第二种常用的人脸检测工具由 Dlib 提供，它使用了方向梯度直方图（HOG）的概念。论文《Histograms of Oriented Gradients for Human Detection》实现这一方案。</p>
+<p><strong>理论</strong></p>
+<p>HOG 背后的想法是将特征提取到一个向量中，并将其输入到分类算法中，例如支持向量机，它将评估人脸（或实际想识别的任何对象）是否存在于某个区域中。</p>
+<p>提取的特征是图像梯度（方向梯度）方向的分布（直方图）。梯度通常在边缘和角落周围较大，并允许我们检测这些区域。</p>
+<p>在原始论文中，该算法用于人体检测，检测过程如下：</p>
+<p><strong>预处理</strong></p>
+<p>首先，输入图像必须尺寸相同（可通过裁剪和缩放）。图像长宽比要求为 1:2，因此输入图像的尺寸可能为 64x128 或 100x200。</p>
+<p><strong>计算梯度图像</strong></p>
+<p>第一步是通过以下卷积核计算图像的水平梯度和垂直梯度：</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/629050c3-86c7-4b27-9903-bf953f27895c/640.png" alt="img"></p>
+<p><em>计算梯度的卷积核</em></p>
+<p>图像的梯度通常会消除非必要信息。</p>
+<p>上面图像的梯度可以通过下面的 python 语句找到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gray &#x3D; cv2.imread(&#39;images&#x2F;face_detect_test.jpeg&#39;, 0)</span><br><span class="line">im &#x3D; np.float32(gray) &#x2F; 255.0</span><br><span class="line"># Calculate gradient </span><br><span class="line">gx &#x3D; cv2.Sobel(im, cv2.CV_32F, 1, 0, ksize&#x3D;1)</span><br><span class="line">gy &#x3D; cv2.Sobel(im, cv2.CV_32F, 0, 1, ksize&#x3D;1)</span><br><span class="line">mag, angle &#x3D; cv2.cartToPolar(gx, gy, angleInDegrees&#x3D;True)</span><br></pre></td></tr></table></figure>
+<p>绘制图片：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize&#x3D;(12,8))</span><br><span class="line">plt.imshow(mag)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/b7b2438b-1f98-4992-bdf8-7b94e4dbde7f/640.jpeg" alt="img"></p>
+<p>我们之前没有预处理图像。</p>
+<p><strong>计算 HOG</strong></p>
+<p>首先将图像分成 8x8 个单元来提供紧凑表示，使 HOG 对噪声更鲁棒。然后，计算每个单元的 HOG。</p>
+<p>为了估计区域内的梯度方向，我们只需在每个区域内的 64 个梯度方向值（8x8）及其大小（另外 64 个值）之间构建直方图。直方图的类别对应梯度的角度，从 0 到 180°。总共 9 类：0°，20°，40°…… 160°。</p>
+<p>上面的代码给了我们 2 个信息：</p>
+<ul>
+<li>梯度方向</li>
+<li>梯度大小</li>
+</ul>
+<p>当我们构建 HOG 时，有 3 种情况：</p>
+<ul>
+<li>角度小于 160°，且不介于两类之间。在这种情况下，角度将添加到 HOG 的正确类中。</li>
+<li>角度小于 160°，恰好在两类之间。在这种情况下，像素被均分到左右两侧类中。</li>
+<li>角度大于 160°。在这种情况下，我们认为像素与 160°和 0°成比例。</li>
+</ul>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/d944bc9f-9bdf-4a60-ba76-e5f53ba6af5b/640.jpeg" alt="img"></p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/841dab46-ac57-43e1-9656-40c3b3738003/640.jpeg" alt="img"></p>
+<p>每个 8x8 单元的 HOG 如下所示：</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/8b5ba4f7-a2f8-48a3-8b3c-ab03ce87366d/640.jpeg" alt="img"></p>
+<p><em>HOG</em></p>
+<p><strong>模块归一化</strong></p>
+<p>最后，可以用 16×16 的模块对图像进行归一化，并使其对光照不变。这可以通过将大小为 8x8 的 HOG 的每个值除以包含它的 16x16 模块的 HOG 的 L2 范数来实现，这个模块实际上是长度为 9*4 = 36 的简单向量。</p>
+<p><strong>模块归一化</strong></p>
+<p>最后，将所有 36x1 向量连接成一个大向量。OK！现在有了特征向量，我们可以在上面训练一个软 SVM 分类器（C=0.01）。</p>
+<p><strong>检测图像上的人脸</strong></p>
+<p>实现非常简单：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">face_detect &#x3D; dlib.get_frontal_face_detector()</span><br><span class="line">rects &#x3D; face_detect(gray, 1)</span><br><span class="line">for (i, rect) in enumerate(rects):</span><br><span class="line">(x, y, w, h) &#x3D; face_utils.rect_to_bb(rect)</span><br><span class="line">    cv2.rectangle(gray, (x, y), (x + w, y + h), (255, 255, 255), 3)</span><br><span class="line"></span><br><span class="line">plt.figure(figsize&#x3D;(12,8))</span><br><span class="line">plt.imshow(gray, cmap&#x3D;&#39;gray&#39;)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/0f5b21c6-a073-44e8-9fac-06ddbc85b0b5/640.jpeg" alt="img"></p>
+<p><strong>实时人脸检测</strong></p>
+<p>如前所述，该算法非常容易实现。我们还实现了一个更轻量的版本，只用来识别人脸。Dlib 让人脸关键点的检测更加容易，但这是另一个话题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">video_capture &#x3D; cv2.VideoCapture(0)</span><br><span class="line">flag &#x3D; 0</span><br><span class="line"></span><br><span class="line">while True:</span><br><span class="line"></span><br><span class="line">    ret, frame &#x3D; video_capture.read()</span><br><span class="line"></span><br><span class="line">    gray &#x3D; cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)</span><br><span class="line">    rects &#x3D; face_detect(gray, 1)</span><br><span class="line"></span><br><span class="line">    for (i, rect) in enumerate(rects):</span><br><span class="line"></span><br><span class="line">        (x, y, w, h) &#x3D; face_utils.rect_to_bb(rect)</span><br><span class="line"></span><br><span class="line">        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)</span><br><span class="line"></span><br><span class="line">        cv2.imshow(&#39;Video&#39;, frame)</span><br><span class="line"></span><br><span class="line">    if cv2.waitKey(1) &amp; 0xFF &#x3D;&#x3D; ord(&#39;q&#39;):</span><br><span class="line">        break</span><br><span class="line"></span><br><span class="line">video_capture.release()</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+<p><strong>Dlib 中的卷积神经网络</strong></p>
+<p>最后一种方法基于卷积神经网络。为了增强结果，它还实现了最大边缘目标检测（MMOD）。</p>
+<p><strong>理论</strong></p>
+<p>卷积神经网络是主要用于计算机视觉的前馈神经网络。它们提供自动图像预处理以及密集的神经网络部分。CNN 还是用来处理带有网格状拓扑的数据的特殊神经网络。它的架构灵感来自动物视觉皮层。</p>
+<p>以前的方法中，很大一部分工作是选择滤波器来创建特征，以便尽从图像中可能多地提取信息。随着深度学习和计算能力的提高，这项工作现在可以实现自动化。CNN 的名称就来自我们用一组滤波器卷积初始图像输入的事实。需要选择的参数仍是需要应用的滤波器数量以及尺寸。滤波器的尺寸称为步幅。一般步幅设置在 2 到 5 之间。</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/b2ddc028-d6a9-4d24-91aa-82a4bdf216c7/640.jpeg" alt="img"></p>
+<p>在这种特定情况下，CNN 的输出是二分类，如果有人脸，则取值 1，否则取 0。</p>
+<p><strong>检测图像上的人脸</strong></p>
+<p>一些元素在实现中会发生变化。</p>
+<p>第一步是下载预训练模型：<a href="https://github.com/davisking/dlib-models/blob/master/mmod_human_face_detector.dat.bz2" target="_blank" rel="noopener">https://github.com/davisking/dlib-models/blob/master/mmod_human_face_detector.dat.bz2</a></p>
+<p> 将下载后的权重放到文件夹中，并定义 dnnDaceDetector：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dnnFaceDetector &#x3D; dlib.cnn_face_detection_model_v1（&quot;mmod_human_face_detector.dat&quot;）</span><br></pre></td></tr></table></figure>
+<p>然后，与之前做的相同：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">rects &#x3D; dnnFaceDetector(gray, 1)</span><br><span class="line">for (i, rect) in enumerate(rects):</span><br><span class="line">    x1 &#x3D; rect.rect.left()</span><br><span class="line">    y1 &#x3D; rect.rect.top()</span><br><span class="line">    x2 &#x3D; rect.rect.right()</span><br><span class="line">    y2 &#x3D; rect.rect.bottom()</span><br><span class="line">    # Rectangle around the face</span><br><span class="line">    cv2.rectangle(gray, (x1, y1), (x2, y2), (255, 255, 255), 3)</span><br><span class="line">plt.figure(figsize&#x3D;(12,8))</span><br><span class="line">plt.imshow(gray, cmap&#x3D;&#39;gray&#39;)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/4f7f86e8-d304-466f-a130-16e04efc1d06/640.jpeg" alt="img"></p>
+<p><strong>实时人脸检测</strong></p>
+<p>最后，实现实时 CNN 人脸检测：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">video_capture &#x3D; cv2.VideoCapture(0)</span><br><span class="line">flag &#x3D; 0</span><br><span class="line"></span><br><span class="line">while True:</span><br><span class="line">    # Capture frame-by-frame</span><br><span class="line">    ret, frame &#x3D; video_capture.read()</span><br><span class="line"></span><br><span class="line">    gray &#x3D; cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)</span><br><span class="line">    rects &#x3D; dnnFaceDetector(gray, 1)</span><br><span class="line"></span><br><span class="line">    for (i, rect) in enumerate(rects):</span><br><span class="line"></span><br><span class="line">        x1 &#x3D; rect.rect.left()</span><br><span class="line">        y1 &#x3D; rect.rect.top()</span><br><span class="line">        x2 &#x3D; rect.rect.right()</span><br><span class="line">        y2 &#x3D; rect.rect.bottom()</span><br><span class="line"></span><br><span class="line">        # Rectangle around the face</span><br><span class="line">        cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)</span><br><span class="line"></span><br><span class="line">    # Display the video output</span><br><span class="line">    cv2.imshow(&#39;Video&#39;, frame)</span><br><span class="line"></span><br><span class="line">    # Quit video by typing Q</span><br><span class="line">    if cv2.waitKey(1) &amp; 0xFF &#x3D;&#x3D; ord(&#39;q&#39;):</span><br><span class="line">        break</span><br><span class="line"></span><br><span class="line">video_capture.release()</span><br><span class="line">cv2.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+<p><strong>如何选择模型</strong></p>
+<p>这是一个很难回答的问题，但我们只讨论两个重要指标：</p>
+<ul>
+<li>计算时间</li>
+<li>准确率</li>
+</ul>
+<p>在速度方面，HOG 是最快的算法，其次是 Haar 级联分类器和 CNN。</p>
+<p>但是，Dlib 中的 CNN 是准确率最高的算法。HOG 表现也很好，但在识别较小的人脸时会有一些问题。Haar 级联分类器的整体表现与 HOG 相似。</p>
+<p>考虑到实时人脸检测的速度，我在个人项目中使用了 HOG。</p>
+<p>希望这个关于 OpenCV 和 Dlib 的人脸检测的快速教程能对你有所帮助。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/OpenCV/" rel="tag"># OpenCV</a>
+              <a href="/tags/%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B/" rel="tag"># 人脸检测</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/13/vtk%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AE%A1%E7%BA%BF/" rel="prev" title="vtk流水线">
+      <i class="fa fa-chevron-left"></i> vtk流水线
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%901%EF%BC%88numpy%E5%92%8Cpandas%E5%9F%BA%E7%A1%80%EF%BC%89/" rel="next" title="利用python进行数据分析1（numpy和pandas基础）">
+      利用python进行数据分析1（numpy和pandas基础） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xue Xuan"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Xue Xuan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sjtu-xx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sjtu-xx" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuexuan1997@gmail.com" title="E-Mail → mailto:xuexuan1997@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xue Xuan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'eMthrkXxWi9VDSG39hpPXkOi-gzGzoHsz',
+      appKey     : '40yWQRY3985h43auodOGjsIQ',
+      placeholder: "欢迎畅所欲言",
+      avatar     : 'ヾﾉ≧∀≦)o来啊，快活啊!',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

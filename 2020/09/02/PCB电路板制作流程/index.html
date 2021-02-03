@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"sjtu-xx.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="印制电路板{PCB线路板}，又称印刷电路板，是电子元器件电气连接的提供者。参考链接：http:&#x2F;&#x2F;mouser.eetrend.com&#x2F;content&#x2F;2018&#x2F;100015548.htmlhttp:&#x2F;&#x2F;www.360doc.com&#x2F;content&#x2F;16&#x2F;0529&#x2F;15&#x2F;33072037_563261798.shtmlhttps:&#x2F;&#x2F;wenku.baidu.com&#x2F;view&#x2F;e809f110cc7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PCB电路板制作流程">
+<meta property="og:url" content="https://sjtu-xx.github.io/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/index.html">
+<meta property="og:site_name" content="薛轩的个人博客">
+<meta property="og:description" content="印制电路板{PCB线路板}，又称印刷电路板，是电子元器件电气连接的提供者。参考链接：http:&#x2F;&#x2F;mouser.eetrend.com&#x2F;content&#x2F;2018&#x2F;100015548.htmlhttp:&#x2F;&#x2F;www.360doc.com&#x2F;content&#x2F;16&#x2F;0529&#x2F;15&#x2F;33072037_563261798.shtmlhttps:&#x2F;&#x2F;wenku.baidu.com&#x2F;view&#x2F;e809f110cc7">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/1.jpeg">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/2.jpeg">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/3.jpeg">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/4.jpeg">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/5.jpeg">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/6.jpeg">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/7.jpeg">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/8.jpeg">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/9.jpeg">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/10.jpeg">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/11.jpeg">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/12.jpeg">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/13.jpeg">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/14.jpeg">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/15.jpeg">
+<meta property="og:image" content="https://sjtu-xx.github.io/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/16.jpeg">
+<meta property="article:published_time" content="2020-09-02T08:16:11.000Z">
+<meta property="article:modified_time" content="2021-02-03T15:59:45.813Z">
+<meta property="article:author" content="Xue Xuan">
+<meta property="article:tag" content="PCB">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sjtu-xx.github.io/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/1.jpeg">
+
+<link rel="canonical" href="https://sjtu-xx.github.io/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>PCB电路板制作流程 | 薛轩的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">薛轩的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">XueXuan's blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://sjtu-xx.github.io/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Xue Xuan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="薛轩的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PCB电路板制作流程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-02 16:16:11" itemprop="dateCreated datePublished" datetime="2020-09-02T16:16:11+08:00">2020-09-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-03 23:59:45" itemprop="dateModified" datetime="2021-02-03T23:59:45+08:00">2021-02-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%90%E6%96%99/" itemprop="url" rel="index"><span itemprop="name">材料</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/02/PCB%E7%94%B5%E8%B7%AF%E6%9D%BF%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>印制电路板{PCB线路板}，又称印刷电路板，是电子元器件电气连接的提供者。<br>参考链接：<a href="http://mouser.eetrend.com/content/2018/100015548.html" target="_blank" rel="noopener">http://mouser.eetrend.com/content/2018/100015548.html</a><br><a href="http://www.360doc.com/content/16/0529/15/33072037_563261798.shtml" target="_blank" rel="noopener">http://www.360doc.com/content/16/0529/15/33072037_563261798.shtml</a><br><a href="https://wenku.baidu.com/view/e809f110cc7931b765ce1577.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/e809f110cc7931b765ce1577.html</a><br><a id="more"></a></p>
+<h1 id="PCB电路板的组成"><a href="#PCB电路板的组成" class="headerlink" title="PCB电路板的组成"></a>PCB电路板的组成</h1><p>1、线路与图面（Pattern）：线路是做为原件之间导通的工具，在设计上会另外设计大铜面作为接地及电源层。线路与图面是同时做出的。</p>
+<p>2、介电层（Dielectric）：用来保持线路及各层之间的绝缘性，俗称为基材。</p>
+<p>3、孔（Through hole / via）：导通孔可使两层次以上的线路彼此导通，较大的导通孔则做为零件插件用，另外有非导通孔（nPTH）通常用来作为表面贴装定位，组装时固定螺丝用。</p>
+<p>4、防焊油墨（Solder resistant /Solder Mask） ：并非全部的铜面都要吃锡上零件，因此非吃锡的区域，会印一层隔绝铜面吃锡的物质（通常为环氧树脂），避免非吃锡的线路间短路。根据不同的工艺，分为绿油、红油、蓝油。</p>
+<p>5、丝印（Legend /Marking/Silk screen）：此为非必要之构成，主要的功能是在电路板上标注各零件的名称、位置框，方便组装后维修及辨识用。</p>
+<p>6、表面处理（Surface Finish）：由于铜面在一般环境中，很容易氧化，导致无法上锡（焊锡性不良），因此会在要吃锡的铜面上进行保护。保护的方式有喷锡（HASL），化金（ENIG），化银（Immersion Silver），化锡（Immersion TIn），有机保焊剂（OSP），方法各有优缺点，统称为表面处理。</p>
+<h2 id="PCB制作工艺"><a href="#PCB制作工艺" class="headerlink" title="PCB制作工艺"></a>PCB制作工艺</h2><p>1.化学清洗—【Chemical Clean】<br><img src="1.jpeg" alt="img"><br>为得到良好质量的蚀刻图形，就要确保抗蚀层与基板表面牢固的结合，要求基板表面无氧化层、油污、灰尘、指印以及其他的污物。因此在涂布抗蚀层前首先要对板进行表面清洗并使铜箔表面达到一定的粗化层度。<br>内层板材：开始做四层板，内层（第二层和第三层）是必须先做的。内层板材是由玻璃纤维和环氧树脂基复合在上下表面的铜薄板。</p>
+<p>2.裁板 压膜—【Cut Sheet Dry Film Lamination】<br><img src="2.jpeg" alt="img"><br>涂光刻胶：为了在内层板材作出我们需要的形状，我们首先在内层板材上贴上干膜（光刻胶，光致抗蚀剂）。干膜是由聚酯簿膜，光致抗蚀膜及聚乙烯保护膜三部分组成的。贴膜时，先从干膜上剥下聚乙烯保护膜，然后在加热加压的条件下将干膜粘贴在铜面上。</p>
+<p>3.曝光和显影-【Image Expose】 【Image Develop】<br><img src="3.jpeg" alt="img"><br>曝光：在紫外光的照射下，光引发剂吸收了光能分解成游离基，游离基再引发光聚合单体产生聚合交联反应，反应后形成不溶于稀碱溶液的高分子结构。聚合反应还要持续一段时间，为保证工艺的稳定性，曝光后不要立即撕去聚酯膜，应停留15分钟以上，以时聚合反应继续进行，显影前撕去聚酯膜。<br>显影：感光膜中未曝光部分的活性基团与稀碱溶液反应生产可溶性物质而溶解下来，留下已感光交联固化的图形部分。</p>
+<p>4.蚀刻-【Copper Etch】<br><img src="4.jpeg" alt="img"><br>在挠性印制板或印制板的生产过程中，以化学反应方法将不要部分的铜箔予以去除，使之形成所需的回路图形，光刻胶下方的铜是被保留下来不受蚀刻的影响的。</p>
+<p>5.去膜，蚀后冲孔，AOI检查，氧化<br>Strip Resist】 【Post Etch Punch】 【AOI Inspection】 【Oxide】<br><img src="5.jpeg" alt="img"><br>去膜的目的是清除蚀刻后板面留存的抗蚀层使下面的铜箔暴露出来。“膜渣”过滤以及废液回收则须妥善处理。如果去膜后的水洗能完全清洗干净，则可以考虑不做酸洗。板面清洗后最后要完全干燥，避免水份残留。</p>
+<p>6.叠板-保护膜胶片【Layup with prepreg】<br><img src="6.jpeg" alt="img"><br>进压合机之前,需将各多层板使用原料准备好,以便叠板(Lay-up)作业.除已氧化处理之内层外,尚需保护膜胶片(Prepreg)-环氧树脂浸渍玻璃纤维。叠片的作用是按一定的次序将覆有保护膜的板子叠放以来并置于二层钢板之间。</p>
+<p>7.叠板-铜箔 和真空层压<br>【Layup with copper foil】【Vacuum Lamination Press】<br><img src="7.jpeg" alt="img"><br>铜箔-给目前的内层板材再在两侧都覆盖一层铜箔，然后进行多层加压（在固定的时间内需要测量温度和压力的挤压）完成后冷却到室温，剩下的就是一个多层合在一起的板材了。</p>
+<p>8.CNC钻孔【CNC Drill】<br><img src="8.jpeg" alt="img"><br>在内层精确的条件下，数控钻孔根据模式钻孔。钻孔精度要求很高，以确保孔是在正确位置。</p>
+<p>9.电镀-通孔【Electroless Copper】<br><img src="9.jpeg" alt="img"><br>为了使通孔能在各层之间导通（使孔壁上之非导体部份之树脂及玻纤束进行金属化），在孔中必须填充铜。第一步是在孔中镀薄薄一层铜，这个过程完全是化学反应。最终镀的铜厚为50英寸的百万分之一。</p>
+<p>10.裁板 压膜【Cut Sheet】 【Dry Film Lamination】<br><img src="10.jpeg" alt="img"><br>涂光刻胶：我们有一次在外层涂光刻胶。</p>
+<p>11.曝光和显影-【Image Expose】 【Image Develop】<br><img src="11.jpeg" alt="img"><br>外层曝光和显影</p>
+<p>12.线路电镀：【Copper Pattern Electro Plating】<br><img src="12.jpeg" alt="img"><br>此次也成为二次镀铜，主要目的是加厚线路铜和通孔铜厚。</p>
+<p>13.电镀锡【Tin Pattern Electro Plating】</p>
+<p>其主要目的是蚀刻阻剂, 保护其所覆盖的铜导体不会在碱性蚀铜时受到攻击（保护所有铜线路和通孔内部）。</p>
+<p>14.去膜【Strip Resist】<br><img src="13.jpeg" alt="img"><br>我们已经知道了目的，只需要用化学方法，表面的铜被暴露出来。</p>
+<p>15.蚀刻【Copper Etch】<br><img src="14.jpeg" alt="img"><br>我们知道了蚀刻的目的，镀锡部分保护了下面的铜箔。</p>
+<p>16.预硬化 曝光 显影 上阻焊<br><img src="15.jpeg" alt="img"><br>【LPI coating side 1】 【Tack Dry】 【LPI coating side 2】【Tack Dry】<br>【Image Expose】【Image Develop】 【Thermal Cure Soldermask】<br>阻焊层,是为了把焊盘露出来用的,也就是通常说的绿油层,实际上就是在绿油层上挖孔,把焊盘等不需要绿油盖住的地方露出来。适当清洗可以得到合适的表面特征。</p>
+<p>17.表面处理<br><img src="16.jpeg" alt="img"><br>【Surface finish】<br> > HASL, Silver, OSP, ENIG 热风整平，沉银，有机保焊剂，化学镍金<br> > Tab Gold if any 金手指<br>热风整平焊料涂覆ＨＡＬ(俗称喷锡)过程是先把印制板上浸上助焊剂，随后在熔融焊料里浸涂，然后从两片风刀之间通过，用风刀中的热压缩空气把印制板上的多余焊料吹掉，同时排除金属孔内的多余焊料，从而得到一个光亮、平整、均匀的焊料涂层。<br>金手指(Gold Finger,或称 Edge Connector)设计的目的,在于藉由connector连接器的插接作为板对外连络的出口,因此须要金手指制程.之所以选择金是因为它优越的导电度及抗氧化性.但因为金的成本极高所以只应用于金手指,局部镀或化学金</p>
+<p>最后总结一下所有的过程：<br>1) Inner Layer 内层<br> > Chemical Clean 化学清洗<br> > Cut Sheet Dry Film Lamination 裁板 压膜<br> > Image Expose 曝光<br> > Image Develop 显影<br> > Copper Etch 蚀铜<br> > Strip Resist 去膜<br> > Post Etch Punch 蚀后冲孔<br> > AOI Inspection AOI 检查<br> > Oxide 氧化<br> > Layup 叠板<br> > Vacuum Lamination Press 压合</p>
+<p>2) CNC Drilling 钻孔<br> > CNC Drilling 钻孔</p>
+<p>3) Outer Layer 外层<br> > Deburr 去毛刺<br> > Etch back - Desmear 除胶渣<br> > Electroless Copper 电镀-通孔<br> > Cut Sheet Dry Film Lamination 裁板 压膜<br> > Image Expose 曝光<br> > Image Develop 显影</p>
+<p>4) Plating 电镀<br> > Image Develop 显影<br> > Copper Pattern Electro Plating 二次镀铜<br> > Tin Pattern Electro Plating 镀锡<br> > Strip Resist 去膜<br> > Copper Etch 蚀铜<br> > Strip Tin 剥锡</p>
+<p>5) Solder Mask 阻焊<br> > Surface prep 前处理<br> > LPI coating side 1 印刷<br> > Tack Dry 预硬化<br> > LPI coating side 2 印刷<br> > Tack Dry 预硬化<br> > Image Expose 曝光<br> > Image Develop 显影<br> > Thermal Cure Soldermask 印阻焊</p>
+<p>6) Surface finish 表面处理<br> > HASL, Silver, OSP, ENIG 热风整平，沉银，有机保焊剂，化学镍金<br> > Tab Gold if any 金手指<br> > Legend 图例</p>
+<p>7) Profile 成型<br> > NC Routing or punch</p>
+<p>8) ET Testing, continuity and isolation</p>
+<p>9) QC Inspection<br> > Ionics 离子残余量测试<br> > 100% Visual Inspection 目检<br> > Audit Sample Mechanical Inspection<br> > Pack &amp; Shipping 包装及出货</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PCB/" rel="tag"># PCB</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/26/%E5%BC%B9%E6%80%A7%E5%8A%9B%E5%AD%A6/" rel="prev" title="弹性力学">
+      <i class="fa fa-chevron-left"></i> 弹性力学
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/05/%E6%98%BE%E5%8D%A1/" rel="next" title="显卡">
+      显卡 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PCB电路板的组成"><span class="nav-number">1.</span> <span class="nav-text">PCB电路板的组成</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PCB制作工艺"><span class="nav-number">1.1.</span> <span class="nav-text">PCB制作工艺</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Xue Xuan"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Xue Xuan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/sjtu-xx" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;sjtu-xx" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xuexuan1997@gmail.com" title="E-Mail → mailto:xuexuan1997@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xue Xuan</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'eMthrkXxWi9VDSG39hpPXkOi-gzGzoHsz',
+      appKey     : '40yWQRY3985h43auodOGjsIQ',
+      placeholder: "欢迎畅所欲言",
+      avatar     : 'ヾﾉ≧∀≦)o来啊，快活啊!',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
