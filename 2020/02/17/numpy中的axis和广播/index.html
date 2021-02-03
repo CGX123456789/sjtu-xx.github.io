@@ -279,6 +279,7 @@
 <p>广播是numpy对不同shape的array进行数值计算的方式，符合一定规则的前提下，将较小的array“广播”成更大的、可以计算的array。广播意味着一种向量化操作，从而在类似C语言中产生大量循环，这会导致内存和计算效率的低效。在Python中，广播不会做大量的数据复制并且通常使计算更加高效。</p>
 <p>标准的数组计算形式为两个shape形状一样：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a &#x3D; np.array([1.0, 2.0, 3.0])</span><br><span class="line">&gt;&gt;&gt; b &#x3D; np.array([2.0, 2.0, 2.0])</span><br><span class="line">&gt;&gt;&gt; a * b</span><br><span class="line">array([ 2.,  4.,  6.])</span><br><span class="line">1234</span><br></pre></td></tr></table></figure>
+
 <p>如果shape不一致，需要满足一定规则，可以使用广播。</p>
 <h2 id="广播规则"><a href="#广播规则" class="headerlink" title="广播规则"></a>广播规则</h2><p>网上很多文章的写法都是：</p>
 <ol>
@@ -296,10 +297,13 @@
 <p><img src="image/123.gif" alt="img"><br>需要注意的是这里的“复制”只是一个抽象概念，Python并不会对数据进行真实复制。</p>
 <p>举例：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Image  (3d array): 256 x 256 x 3</span><br><span class="line">Scale  (1d array):             3</span><br><span class="line">Result (3d array): 256 x 256 x 3</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+
 <p>在第三个维度相等</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A      (4d array):  8 x 1 x 6 x 1</span><br><span class="line">B      (3d array):      7 x 1 x 5</span><br><span class="line">Result (4d array):  8 x 7 x 6 x 5</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+
 <p>在第2、3、4维度满足第2个条件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A      (2d array):      2 x 1</span><br><span class="line">B      (3d array):  8 x 4 x 3</span><br><span class="line">12</span><br></pre></td></tr></table></figure>
+
 <p>错误的情况，在第二个维度不满足条件。</p>
 <p>参考资料<br>numpy文档 ：<a href="https://docs.scipy.org/doc/numpy-1.13.0/user/basics.broadcasting.html" target="_blank" rel="noopener">https://docs.scipy.org/doc/numpy-1.13.0/user/basics.broadcasting.html</a><br>图形化描述：<a href="http://scipy.github.io/old-wiki/pages/EricsBroadcastingDoc" target="_blank" rel="noopener">http://scipy.github.io/old-wiki/pages/EricsBroadcastingDoc</a></p>
 <h1 id="Python之NumPy（axis-0-与axis-1）区分"><a href="#Python之NumPy（axis-0-与axis-1）区分" class="headerlink" title="Python之NumPy（axis=0 与axis=1）区分"></a>Python之NumPy（axis=0 与axis=1）区分</h1><p>2018年06月23日 15:42:06 <a href="https://me.csdn.net/hlang8160" target="_blank" rel="noopener">hlang8160</a> 阅读数 237</p>

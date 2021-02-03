@@ -270,40 +270,51 @@
         <h2 id="基于hexo搭建个人博客"><a href="#基于hexo搭建个人博客" class="headerlink" title="基于hexo搭建个人博客"></a>基于hexo搭建个人博客</h2><p>1.安装nodejs</p>
 <p>2.添加淘宝源</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry&#x3D;https:&#x2F;&#x2F;registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+
 <a id="more"></a>
+
 <p>3.安装hexo</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
 <p>4.创建空文件夹</p>
 <p>5.切换到空文件夹</p>
 <p>6.生成</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo hexo init</span><br></pre></td></tr></table></figure>
+
 <p>7.新建github仓库</p>
 <p>仓库名必须为  用户名.github.io</p>
 <p>8.</p>
-<p>cnpm install —save hexo-deployer-git</p>
+<p>cnpm install –save hexo-deployer-git</p>
 <p>9.设置<code>_config.yml</code></p>
 <p>配置(repo为仓库地址，使用ssh可能会提示权限错误，更改https地址后，删除./deploygit文件夹，重新部署。)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https:&#x2F;&#x2F;github.com&#x2F;sjtu-xx&#x2F;sjtu-xx.github.io.git </span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d  #部署</span><br></pre></td></tr></table></figure>
+
 <p>10.更换主题</p>
 <p>将主题下载到theme文件夹下，然后更改_config.yml中的theme文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+
 <p>11.添加gitalk评论系统</p>
 <ul>
 <li>新建一个仓库如blog_comment,在设置中进行授权。settings-》Developer settings - &gt; OAuth Apps -》新建</li>
 <li>Application name 与仓库名称一致，主页url和回调url一致，为主页地址。</li>
 <li>在icarus的config文件中添加：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">comment:</span><br><span class="line">    # Name of the comment plugin</span><br><span class="line">    type: gitalk</span><br><span class="line">    owner: sjtu-xx         # (required) GitHub user name</span><br><span class="line">    repo: blog_comment   # (required) GitHub repository name</span><br><span class="line">    client_id: xxxxxxx # (required) OAuth application client id</span><br><span class="line">    client_secret: xxxxxxxxx  # (required) OAuth application client secret</span><br><span class="line">    admin: sjtu-xx</span><br></pre></td></tr></table></figure>
+
+
 </li>
 </ul>
 <p>遇到的问题：</p>
 <p><strong>插入图片：</strong></p>
 <p><a href="https://yanyinhong.github.io/2017/05/02/How-to-insert-image-in-hexo-post/" target="_blank" rel="noopener">https://yanyinhong.github.io/2017/05/02/How-to-insert-image-in-hexo-post/</a></p>
 <p><strong>icarus主题详细配置：</strong></p>
-<p><a href="https://cloudy-liu.github.io/2019/06/23/Hexo主题迁移到icarus/" target="_blank" rel="noopener">https://cloudy-liu.github.io/2019/06/23/Hexo%E4%B8%BB%E9%A2%98%E8%BF%81%E7%A7%BB%E5%88%B0icarus/</a></p>
+<p><a href="https://cloudy-liu.github.io/2019/06/23/Hexo%E4%B8%BB%E9%A2%98%E8%BF%81%E7%A7%BB%E5%88%B0icarus/" target="_blank" rel="noopener">https://cloudy-liu.github.io/2019/06/23/Hexo%E4%B8%BB%E9%A2%98%E8%BF%81%E7%A7%BB%E5%88%B0icarus/</a></p>
 <p><strong>家里的网络在deploy时，连接github显示timeout错误</strong><br>通过连接手机运营商网络可以上传<br>连接学校的vpn也可以成功上传</p>
 <h2 id="hexo数学公式"><a href="#hexo数学公式" class="headerlink" title="hexo数学公式"></a>hexo数学公式</h2><p>原生hexo并不支持数学公式，需要安装插件 mathJax。mathJax 是一款运行于浏览器中的开源数学符号渲染引擎，使用 mathJax 可以方便的在浏览器中嵌入数学公式。mathJax 使用网络字体产生高质量的排版，因此可适应各种分辨率，它的显示是基于文本的而非图片，因此显示效果更好。这些公式可以被搜索引擎使用，因此公式里的符号一样可以被搜索引擎检索到。</p>
 <p>1.安装<br><code>$ npm install hexo-math --save</code></p>
-<p>2.配置<br>在站点yml文件中添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">math:</span><br><span class="line">  engine: &#39;mathjax&#39; # or &#39;katex&#39;</span><br><span class="line">  mathjax:</span><br><span class="line">    # src: custom_mathjax_source</span><br><span class="line">    config:</span><br><span class="line">      # MathJax config</span><br></pre></td></tr></table></figure></p>
+<p>2.配置<br>在站点yml文件中添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">math:</span><br><span class="line">  engine: &#39;mathjax&#39; # or &#39;katex&#39;</span><br><span class="line">  mathjax:</span><br><span class="line">    # src: custom_mathjax_source</span><br><span class="line">    config:</span><br><span class="line">      # MathJax config</span><br></pre></td></tr></table></figure>
+
 <p>在文档开头加入：<br><code>mathjax: true</code></p>
 
     </div>

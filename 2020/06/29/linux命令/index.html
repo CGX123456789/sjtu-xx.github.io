@@ -281,30 +281,31 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>参考链接：<a href="https://www.cnblogs.com/linhaifeng/articles/6045600.html" target="_blank" rel="noopener">https://www.cnblogs.com/linhaifeng/articles/6045600.html</a><br><a id="more"></a></p>
-<h3 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h3><p><strong>1.常用命令</strong><br>df -hl 查看磁盘空间<br>ls 列出当前文件夹中文件（-l 详细信息 -a 显示隐藏文件 -all 同 -a）<br>ll = ls -l —color = auto<br>alias 别名<br>cd 切换到目录（- 返回  ..上一级）<br>pwd  当前目录<br>whoami 查看当前登录用户<br>who 查看所有登录用户<br>date 显示当前时间和日期<br>cal 月历<br>clear 清屏（ctrl+l）<br>useradd (用户名) 添加用户<br>passwd (用户名) 更改用户密码<br>su - (用户名) 切换用户<br>man 命令 使用说明（q退出）<br>echo 回显命令<br>histort查看历史命令<br>grep 搜索过滤(-v 反向过滤)<br>lsof -i :8080 查看8080端口的进程</p>
+        <p>参考链接：<a href="https://www.cnblogs.com/linhaifeng/articles/6045600.html" target="_blank" rel="noopener">https://www.cnblogs.com/linhaifeng/articles/6045600.html</a></p>
+<a id="more"></a>
+<h3 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a>笔记</h3><p><strong>1.常用命令</strong><br>df -hl 查看磁盘空间<br>ls 列出当前文件夹中文件（-l 详细信息 -a 显示隐藏文件 -all 同 -a）<br>ll = ls -l –color = auto<br>alias 别名<br>cd 切换到目录（- 返回  ..上一级）<br>pwd  当前目录<br>whoami 查看当前登录用户<br>who 查看所有登录用户<br>date 显示当前时间和日期<br>cal 月历<br>clear 清屏（ctrl+l）<br>useradd (用户名) 添加用户<br>passwd (用户名) 更改用户密码<br>su - (用户名) 切换用户<br>man 命令 使用说明（q退出）<br>echo 回显命令<br>histort查看历史命令<br>grep 搜索过滤(-v 反向过滤)<br>lsof -i :8080 查看8080端口的进程</p>
 <p>nestat -an|grep 8080 查看端口状态<br>init 0 关闭linux系统</p>
-<p>命令 —help    帮助信息<br>命令跳到行首 ctrl+a   跳到行尾 ctrl+e</p>
+<p>命令 –help    帮助信息<br>命令跳到行首 ctrl+a   跳到行尾 ctrl+e</p>
 <p><strong>2.目录</strong><br>/ 根目录<br>. 当前目录<br>.. 上一层目录<br>bin 可执行文件目录(binary)<br>sbin 系统的可执行文件<br>home 用户的文件<br>dev 设备文件目录<br>etc 配置文件目录<br>/mnt /opt /media 随便用</p>
 <p><strong>3.目录及文件操作</strong><br>cp 复制（-i 询问是否覆盖 -r 递归拷贝 -）<br>mv 移动<br>mkdir 建文件夹（-p 递归建立文件夹）<br>touch 建文件 （touch /test/{a..z}.txt）<br>rm 删除（-f 不提示是否删除 -r 删除文件夹）<br>cat 查看文件内容<br>head 查看文件第一行(-n 前n行)<br>tail 查看文件最后一行（-n 最后n行 -f 动态查看文件内容变化）<br>more 按照百分比显示文件内容<br>less 可以用上下键翻</p>
 <p>tail -1 /etc/passwd  用户信息<br>tail -1 /etc/shadow  密码<br>tail -1 /etc/group<br>tail -1 /etc/gshadow<br>tail -1 /var/spool/mail/username<br>tail -1 /home/username</p>
 <p>useradd (-u 指定用户uid -g 指定用户所属的群组 -d指定用户的家目录 -c指定用户的备注信息 -s指定用户的shell)<br>userdel 删除用户<br>usermod 修改用户信息（-u -g -d -c -s同上 -G 将用户加入指定的群组 -L将用户加锁 -U将用户解锁）</p>
-<p><strong>4.对文件的权限管理</strong><br>文件详细信息<br>10位<br>1:文件类型<br>-:普通文件  d:目录   l:软链接   b:设备   p:管道文件<br>2-4:属主权限 —-》u<br>分三类：读r，写w，执行x,没有权限-<br>5-7:属组权限 —-》g<br>8-10:其他用户 —-》o</p>
+<p><strong>4.对文件的权限管理</strong><br>文件详细信息<br>10位<br>1:文件类型<br>-:普通文件  d:目录   l:软链接   b:设备   p:管道文件<br>2-4:属主权限 —》u<br>分三类：读r，写w，执行x,没有权限-<br>5-7:属组权限 —》g<br>8-10:其他用户 —》o</p>
 <p>修改权限：<br>chmod u=rw- a.txt<br>chmod u-rw a.txt</p>
 <p>root 用户不受权限限制</p>
-<p>执行文件：<br>sh 文件路径<br>bash 文件路径<br>. 文件路径<br>./ 文件路径<br>——————vim原理 读取到内存中，进行修改。</p>
+<p>执行文件：<br>sh 文件路径<br>bash 文件路径<br>. 文件路径<br>./ 文件路径<br>————vim原理 读取到内存中，进行修改。</p>
 <p><strong>5.对目录的权限管理</strong><br>ll -d 目录  获取目录权限<br>增加文件，删除文件</p>
 <p><strong>6.属主属组及基于数字的权限管理</strong><br>chown 属主.属组 参数<br>只改属主： chown 属主 参数<br>只改属组： chown .属组 参数</p>
 <p>chown -R (递归修改权限：目录和文件)</p>
-<p>数字权限管理<br>-rw-rw-r— 为 664</p>
-<p><strong>7.文件合并与文件归档</strong><br>> 左侧命令输出结果覆盖右侧文件 cat /etc/passwd &gt; a.txt<br>>&gt; 左侧命令输出结果追加到右侧文件</p>
+<p>数字权限管理<br>-rw-rw-r– 为 664</p>
+<p><strong>7.文件合并与文件归档</strong><br>&gt; 左侧命令输出结果覆盖右侧文件 cat /etc/passwd &gt; a.txt<br>&gt;&gt; 左侧命令输出结果追加到右侧文件</p>
 <p>wc -l 统计文件行数<br>| 管道符将前面的结果作为后面的指令的参数</p>
 <p>归档<br>tar<br>c：创建一个新的tar文件。<br>t：列出tar文件中目录的内容。<br>x：从tar文件中抽取文件。<br>f：指定归档文件或磁带（也可能是软盘）设备（一般都要选）。<br>v：显示所打包的文件的详细信息，v是verbose的第1个字母。<br>z：使用gzip压缩算法来压缩打包后的文件。<br>j：使用bzip2压缩算法来压缩打包后的文件。</p>
 <p>打包：tar cvf arch.tar arch<br>解包：tar xvf arch.tar -C 路径</p>
 <p>压缩 gzip bzip2<br>解压 gunzip bunzip2<br>打包后压缩 tar czvf test1.tar.gz 1.txt 2.txt 3.txt</p>
 <p>8.vim编辑器<br>命令行模式  esc<br>编辑模式  a i o<br>扩展模式  :     (:wq退出)</p>
 <p>dd 删除（剪切）<br>ndd 删除光标所在的向下n行<br>yy 复制光标所在的那一行<br>nyy 复制光标所在的向下n行<br>p 将已复制的数据在光标的下一行粘贴<br>np 复制n次<br>P 将已复制的数据在光标的上一行粘贴<br>u 撤销上一步操作<br>ctrl+r 前进一步<br>0 移动到行首(home)<br>$ 移动到行尾(end)<br>gg 移动到文章开头<br>G 移动到文章最后一行<br>nG 移动到文章第n行<br>H 移动到屏幕最上方<br>M 移动到屏幕中央<br>L 移动到屏幕最下方<br>:w 将文件写入磁盘<br>:q 退出<br>:wq 写入并退出<br>:set nu 显示行号</p>
-<p><strong>9.系统启动流程</strong><br>linux系统引导顺序： BIOS—&gt;MBR(主引导记录,512B,从何处装载程序)—&gt;Boot loader(引导)—&gt;Kernel—&gt;init progress</p>
+<p><strong>9.系统启动流程</strong><br>linux系统引导顺序： BIOS–&gt;MBR(主引导记录,512B,从何处装载程序)–&gt;Boot loader(引导)–&gt;Kernel–&gt;init progress</p>
 <p>操作系统的启动级别 7个（/etc/inittab）<br>查看内核信息 uname -r<br>查看内核详细信息 uname -a</p>
 <p><strong>10.grub加密</strong><br><strong>11.bios加密<br>12.top命令</strong><br>僵尸进程:父进程结束，子进程没有结束（仍然存在）<br>终端:bash程序<br>buffer：缓冲区（内存空间）<br>cache:高速缓存（内存空间，存放cpu经常使用的数据）<br>pid 进程号<br>PR<br>NI（nice） 好心值 值越高优先级越低<br>VIRT 虚拟内存<br>RES 物理内存<br>SHR 共享内存</p>
 <p><strong>13.free命令</strong><br>free 查看内存信息<br>free -m 以兆为单位<br>free -h 以G为单位</p>
@@ -314,7 +315,7 @@
 <p>查看硬盘详细信息 fdisk -l /dev/sdb<br>硬盘分区 fdisk /dev/sdb</p>
 <p>写分区列表  w<br>更新分区列表  partprobe</p>
 <p>格式化为ext4 : mkfs.ext4 /dev/sdb1<br>扩展分区为逻辑分区不能格式化</p>
-<p><strong>16.文件系统与挂载</strong><br>挂载：由设备映射到目录<br>mount /dev/sdb1 /sdb1/ 将sdb1挂载到/sdb1/\<br>df 查看挂载信息</p>
+<p><strong>16.文件系统与挂载</strong><br>挂载：由设备映射到目录<br>mount /dev/sdb1 /sdb1/ 将sdb1挂载到/sdb1/<br>df 查看挂载信息</p>
 <p>文件系统<br>xfs 海量数据存贮<br>btrfs 存储效率高</p>
 <p>一个设备可以有多个挂载点</p>
 <p>卸载：umount 设备（删除最后一个挂载点）<br>      umount 挂载点</p>
@@ -330,20 +331,22 @@
 <p>软件包最后一位为奇数为测试版，偶数为稳定版</p>
 <p>rpm 红帽软件包管理<br>rpm包本身就是编译好的二进制文件</p>
 <p>yum软件包管理</p>
-<p><strong>20.补充</strong><br>ssh服务<br>在服务端开启ssh服务，然后客户端输入ssh <ip地址><br>主机密钥错误：vim ~/.ssh/known</p>
+<p><strong>20.补充</strong><br>ssh服务<br>在服务端开启ssh服务，然后客户端输入ssh &lt;ip地址&gt;<br>主机密钥错误：vim ~/.ssh/known</p>
 <h3 id="一-简介"><a href="#一-简介" class="headerlink" title="一.简介"></a>一.简介</h3><p><strong>操作系统的内核</strong>：操作系统的内核是一个管理和控制程序，负责管理计算机的所有物理资源，其中包括。文件系统、内存管理、设备管理和进程管理。</p>
 <p><strong>UNIX操作系统</strong>的特点：多用户和多任务<br>a)    多用户表示在同一时刻可以有多个用户同时使用UNIX操作系统而且他们互不干扰；<br>b)    多任务表示任何一个用户在同一时间可以在UNIX操作系统上运行多个程序。</p>
 <p><strong>Linux</strong>的定义：Linux是一套免费使用和自由传播的类Unix操作系统，是一个基于POSIX和UNIX的多用户、多任务、支持多线程和多CPU的操作系统。</p>
-<p><strong>登录和退出Linux</strong>（操作演示图解见linux系统管理P17-P22）<br>1)    掌握关闭Linux系统的命令：init 0<br>2)    掌握什么是Linux终端：Linux终端也称为虚拟控制台。Linux终端采用字符命令行方式工作，用户通过键盘输入命令，通过Linux终端对系统进行控制。<br>3)    掌握切换虚拟终端的方法：Ctrl+Alt+F[1～6]，如想切换到第二号虚拟终端，则同时按Ctrl+Alt+F2<br>4)    掌握普通用户登录后系统的提示符：$<br>5)    掌握root用户登录后系统的提示符：#<br>6)    掌握退出命令：exit</p>
+<p><strong>登录和退出Linux</strong>（操作演示图解见linux系统管理P17-P22）</p>
+<p>1)    掌握关闭Linux系统的命令：init 0<br>2)    掌握什么是Linux终端：Linux终端也称为虚拟控制台。Linux终端采用字符命令行方式工作，用户通过键盘输入命令，通过Linux终端对系统进行控制。<br>3)    掌握切换虚拟终端的方法：Ctrl+Alt+F[1～6]，如想切换到第二号虚拟终端，则同时按Ctrl+Alt+F2<br>4)    掌握普通用户登录后系统的提示符：$<br>5)    掌握root用户登录后系统的提示符：#<br>6)    掌握退出命令：exit</p>
 <h3 id="二-linux命令"><a href="#二-linux命令" class="headerlink" title="二.linux命令"></a>二.linux命令</h3><ol>
 <li><strong>whoami</strong>命令（详见linux系统管理P24）<br>1)    了解whoami命令的功能:列出目前登陆Linux系统所使用的用户名（账号）。</li>
 <li><strong>who</strong>命令（详见linux系统管理P25）<br>1)    掌握who命令的功能：列出目前哪些用户在系统上工作。<br>2)    掌握who命令的输出结果：显示当前登录的所有用户，以及当前的日期和时间。</li>
 <li><strong>date、cal、和clear</strong>命令及带有参数的命令<br>（详见linux系统管理P28-P29）<br>1)    掌握date命令的功能：显示系统当前的日期和时间。<br>2)    掌握date命令设置时间时间的格式：date 月日时分年。<br>例如：将时间设定成2013年12月24日上午10点18的命令：<br>扩展（date 12241018201<br>hwclock –s 同步硬件 –w 同步系统）<br>3)    掌握cal命令的功能：显示某月的日历。<br>4)    灵活应用cal命令列出某一年某月的日历：例如显示2008年8月份日历的命令为：cal 8 2008<br>5)    掌握clear命令的功能：清除屏幕<br>6)    掌握清屏快捷键：ctrl+l</li>
 <li>su和passwd命令（详见linux系统管理P29-P31）<br>1)    掌握su命令的功能：从当前的用户切换到另一个指定的其他用户。<br>2)    灵活应用su命令切换用户：<br>例如：切到root用户的命令：su – root<br>3)    掌握passwd命令功能：修改用户（既可以是普通用户，也可以是root用户）的密码，查看用户的密码状态等。Useradd<br>4)    掌握使用passwd命令修改用户密码：<br>例如：修改dog用户密码的命令：passwd dog</li>
 <li>利用man命令来获取帮助信息（详见linux系统管理P34）<br>1)    掌握man命令的功能：获取某个Linux命令的使用说明。<br>2)    掌握使用man命令查看某命令的使用说明：<br>例如：查看su命令的使用说明的命令为:man su</li>
-<li>使用“命令名 —help”获取帮助<br>1)    例如:查看ls命令帮助的命令为：(不使用man方法)<br>ls –-help</li>
+<li>使用“命令名 –help”获取帮助<br>1)    例如:查看ls命令帮助的命令为：(不使用man方法)<br>ls –-help</li>
 </ol>
-<h3 id="三-目录文件的浏览"><a href="#三-目录文件的浏览" class="headerlink" title="三.目录文件的浏览"></a>三.目录文件的浏览</h3><p>1.Linux系统中的一些<strong>重要的目录</strong>（详见linux系统管理P41）<br>a)    <strong>bin目录</strong>：用来存放常用的可执行文件<br>b)    <strong>sbin目录</strong>：用来存放系统的可执行文件<br>c)    <strong>家目录</strong>：用来存放用户自己的文件或目录，其中，超级用户root的家目录是/root，而普通用户的家目录被存放在/home目录下，并使用用户名作为最后一级目录（家目录）的名称，如cat用户的家目录为/home/cat<br>d)    <strong>dev目录</strong>：设备文件目录<br>e)    <strong>etc目录</strong>：配置文件目录<br>f)    <strong>挂载点(目录)</strong>：通常可移除式硬件会被挂载在/media或/mnt目录之下</p>
+<p>###三.目录文件的浏览</p>
+<p>1.Linux系统中的一些<strong>重要的目录</strong>（详见linux系统管理P41）<br>a)    <strong>bin目录</strong>：用来存放常用的可执行文件<br>b)    <strong>sbin目录</strong>：用来存放系统的可执行文件<br>c)    <strong>家目录</strong>：用来存放用户自己的文件或目录，其中，超级用户root的家目录是/root，而普通用户的家目录被存放在/home目录下，并使用用户名作为最后一级目录（家目录）的名称，如cat用户的家目录为/home/cat<br>d)    <strong>dev目录</strong>：设备文件目录<br>e)    <strong>etc目录</strong>：配置文件目录<br>f)    <strong>挂载点(目录)</strong>：通常可移除式硬件会被挂载在/media或/mnt目录之下</p>
 <ol>
 <li>使用<strong>pwd</strong>和<strong>cd</strong>命令来确定和切换目录（详见linux系统管理P43-P46）<br>1)    掌握pwd命令的功能：确定现在所在的工作目录<br>2)    掌握cd命令的功能：切换当前目录<br>3)    掌握“cd –”命令：切换到用户之前的工作目录</li>
 <li>使用ls命令列出目录中的内容(详见linux系统管理P47-P50)<br>1)    掌握ls -a命令：列出目录下的所有文件，包括以“.”开头的隐含文件<br>2)    掌握ls –l命令：列出某个目录中每一个文件的详细资料</li>
@@ -354,10 +357,9 @@
 <li>使用rm命令删除文件（详见linux系统管理P57）<br>1)    掌握rm命令的功能：永久地在文件系统中删除文件或目录。<br>2)    掌握rm命令的常用选项：<br>a)    –r(recursive，递归的）：递归地删除目录。当删除一个目录时，删除该目录中所有的内容，其中包括子目录中的全部内容。<br>b)    –f（force，强制）：系统并不询问而是强制删除，即直接删除原有的文件。<br>3)    掌握rm命令的用法举例：<br>删除当前目录中的babydog1文件的命令：rm babydog1</li>
 <li>使用rmdir或rm –r命令删除目录（详见linux系统管理P59）<br>1)    掌握<strong>rmdir命令的功能：删除空目录。</strong><br>2)    掌握rmdir命令的用法举例：<br>删除空目录 mumdog/girldog/babydog的命令：<br>rmdir mumdog/girldog/babydog<br>3)    掌握rm –r命令的功能：删除包含文件和子目录的目录。<br>4)    掌握rm –r命令的用法举例：<br>删除非空目录mumdog的命令：<br>rm –r mumdog</li>
 <li>使用cat命令浏览正文文件的内容（详见linux系统管理P73）<br>5)    掌握cat命令的功能：将一个或多个文件的内容显示在屏幕上，该命令会不停的以只读的方式显示整个文件的内容。<br>6)    掌握cat命令的用法举例：<br>a)    浏览game.txt文件中的全部内容的命令：<br>cat game.txt</li>
-<li>使用head命令浏览文件中的内容（详见linux系统管理P75）<br>1)    掌握head命令的功能：默认将显示一个文件的前10行。<br>2)    掌握head命令的常用选项：<br>-n 改变显示的行数<br>3)    掌握head命令的用法举例：<br>a)    查看/etc/passwd文件中前10行的详细信息的命令：<br>head /etc/passwd<br>b)    查看/etc/passwd文件中前5行的详细信息的命令：<br>head –n 5 /etc/passwd</li>
-<li>使用tail命令浏览文件中的内容（详见linux系统管理P76）<br>1)    掌握tail命令的功能：默认显示文件最后10行的内容。<br>2)    掌握tail命令的常用选项：<br>-n 显示从文件末尾算起的n行<br>3)    掌握tail命令的用法举例：<br>a)    查看/etc/passwd文件中最后10行的详细信息的命令：<br>tail /etc/passwd<br>b)    查看/etc/passwd文件中最后5行的详细信息的命令：<br>tail –n 5 /etc/passwd</li>
-<li>使用more命令浏览文件（详见linux系统管理P78）<br>1)    掌握more命令的功能：使用more命令之后，每次在屏幕上显示一屏（一页）的文件内容，并且在屏幕的尾部将会出现“—More—（n%）”的信息，其中，n%是已经显示文件内容的百分比。<br>2)    灵活应用more命令<br>a)    分页浏览learning.txt文件内容的命令：(翻页：空格，查找：/字符串)<br>more learning.txt</li>
+<li>使用head命令浏览文件中的内容（详见linux系统管理P75）<br>1)    掌握head命令的功能：默认将显示一个文件的前10行。<br>2)    掌握head命令的常用选项：</li>
 </ol>
+<p>-n 改变显示的行数<br>    3)    掌握head命令的用法举例：<br>    a)    查看/etc/passwd文件中前10行的详细信息的命令：<br>head /etc/passwd<br>    b)    查看/etc/passwd文件中前5行的详细信息的命令：<br>head –n 5 /etc/passwd<br>11.    使用tail命令浏览文件中的内容（详见linux系统管理P76）<br>    1)    掌握tail命令的功能：默认显示文件最后10行的内容。<br>    2)    掌握tail命令的常用选项：<br>-n 显示从文件末尾算起的n行<br>    3)    掌握tail命令的用法举例：<br>    a)    查看/etc/passwd文件中最后10行的详细信息的命令：<br>tail /etc/passwd<br>    b)    查看/etc/passwd文件中最后5行的详细信息的命令：<br>tail –n 5 /etc/passwd<br>12.    使用more命令浏览文件（详见linux系统管理P78）<br>    1)    掌握more命令的功能：使用more命令之后，每次在屏幕上显示一屏（一页）的文件内容，并且在屏幕的尾部将会出现“—More–（n%）”的信息，其中，n%是已经显示文件内容的百分比。<br>    2)    灵活应用more命令<br>    a)    分页浏览learning.txt文件内容的命令：(翻页：空格，查找：/字符串)<br>more learning.txt</p>
 <h3 id="四-用户群组和权限"><a href="#四-用户群组和权限" class="headerlink" title="四.用户群组和权限"></a>四.用户群组和权限</h3><ol>
 <li><p>用户及<strong>passwd</strong>文件<br>1)    掌握/etc/passwd文件的功能：存储所有用户的相关信息，该文件也被称为用户信息数据库（Database）。<br>2)    /etc/passwd文件每个字段的具体含义：<br>a)    第1个字段（列）记录的是这个用户的名字（在创建用户时root用户起的）。<br>b)    第2个字段（列）如果是x，表示该用户登录Linux系统时必须使用密码；如果为空，则该用户在登录时无须提供密码。<br>c)    第3个字段（列）记录的是这个用户的uid。<br>d)    第4个字段（列）记录的是这个用户所属群组的gid。<br>e)    第5个字段（列）记录的是有关这个用户的注释信息（如全名或通信地址）。<br>f)    第6个字段（列）记录的是这个用户的家目录的路径。<br>g)    第7个字段（列）记录的是这个用户登录后，第一个要执行的进程。</p>
 </li>
@@ -378,29 +380,32 @@
 <li><p>群组的管理<br>1)    掌握groupadd命令的功能：创建一个新的群组账号。<br>2)    了解groupadd命令的常用选项：<br>c)    –g：指定群组的GID<br>3)    灵活应用groupadd命令的举例：<br>例如：在系统中新增加一个名为boydogs的群组的命令：<br>groupadd boydogs<br>4)    掌握groupmod命令的功能：修改一个群组账号的信息。<br>5)    了解groupmod命令的常用选项：<br>a)    –g：修改群组的GID<br>b)    –n：修改群组的名称<br>6)    灵活应用groupmod命令的举例：<br>a)    例如：修改police群组的gid为521的命令：<br>groupmod –g 521 police<br>b)    例如：将群组boydogs改名为daddogs的命令：<br>groupmod –n daddogs boydogs<br>7)    掌握groupdel命令的功能：删除一个群组账号。<br>8)    灵活应用groupdel命令的举例：<br>例如：删除daddogs群组的命令：groupdel daddogs</p>
 </li>
 </ol>
-<h3 id="五-用户群组权限"><a href="#五-用户群组权限" class="headerlink" title="五.用户群组权限"></a>五.用户群组权限</h3><ol>
+<p>###五.用户群组权限</p>
+<ol>
 <li>怎样查看文件的权限（详见linux系统管理P138）<br>1)    掌握使用ls –l命令查看文件上所设定的权限。<br>2)    掌握ls –l命令的显示结果中的第一列分成4组，其中;<br>a)    第1个字符为第1组，代表这是一个文件（-）或是一个目录（d），也可以是其他资源。<br>b)    第2、3、4个字符为第2组，定义了文件或目录的所有者（owner）所具有限的权，使用u代表所有者（owner）对文件的所有权限。<br>c)    第5、6、7个字符为第3组，定义了文件或目录的所有者所在的群组中其他（用户）所具有的权限，使用g代表这一组（group）权限。<br>d)    第8、9、10个字符为第4组，定义了既不是owner也不和owner在同一群组的其他用户对文件或目录所具有的权限。使用o代表这一组（other）权限。<br>3)    掌握ls –l命令的显示结果中的第三列、第四列为文件的属主和属组。</li>
 <li>root用户及文件的安全控制（详见linux系统管理P136）<br>1)    掌握root用户的定义：root用户也称为超级用户，它可以完全不受限制地访问任何用户的账户和所有文件及目录。<br>2)    了解Linux系统中用户分类：<br>Linux系统是将系统中的所有用户分成了3类：<br>a)    第1类：所有者<br>b)    第2类：同组用户（修正：所属组，因为你创建一个用户的过程会以为这个用户名为名字创建一个同名的组）<br>c)    第3类：非同组的其他用户<br>3)    掌握文件操作权限包括读（read）、写（write）和执行（execute）<br>4)    掌握Linux操作系统在显示权限时，使用如下4个字符来表示文件操作权限：<br>a)    r：表示read权限，也就是可以阅读文件或者ls命令列出目录内容的权限。<br>b)    w：表示write权限，也就是可以编辑文件或者在一个目录中创建和删除文件的权限。<br>c)    x：表示execute权限，也就是可以执行程序或者使用cd命令切换到这个目录以及使用带有-l选项的ls命令列出这个目录中详细内容的权限等。<br>d)    -：表示没有相应的权限（与所在位置的r、w或x相对应）。</li>
 <li>掌握使用<strong>chown修改文件的属主</strong><br>chown 属主:属组 文件<br>chown :属组 文件<br>chown 属主 文件<br>a)    例如，修改文件file1的属主为root的命令为：chown root file1</li>
 <li>掌握使用<strong>chgrp修改文件的属组</strong><br>chgrp 属组 文件<br>a)    例如，修改文件file1的属组为wg的命令为：chgrp wg file1</li>
-<li>使用符号法设定文件或目录上的权限（详见linux系统管理P132）<br>1)    掌握chmod命令的功能：设定或更改文件或目录上的权限。<br>2)    <strong>掌握-R选项：不但设置（或更改）该目录权限，而且还要递归地设置（或）更改该目录中所有文件或子目录的权限。</strong><br>3)    掌握是符号表示法的定义：<br>符号表示法是使用几个特定的符号来设定权限的状态。<br>4)    掌握权限状态可以分为3个部分：<br>a)    第1个部分，表示要设定或更改谁的权限状态。其中的具体表示如下：<br>u:表示所有者（owner）的权限。<br>g：表示群组（group）的权限。<br>o：表示既不是owner也不与owner在同一个group的其他用户（other）的权限。<br>a：表示以上3组，也就是所有用户（all）的权限。<br>b)    第2部分，是运算符（operator），也有人称为操作符，其中的具体表示如下：<br>+：表示加入权限<br>-：表示去掉权限<br>=：表示设定权限<br>c)    第3部分，表示权限（permission），其中的具体表示如下：<br>r：表示read（读）权限。<br>w：表示write（写）权限。<br>X：表示execut（执行）权限。<br>5)    灵活应用符号表示法设定或更改文件或目录上的权限：<br>a)    例如：在dog_wolf文件上添加所有者和同组用户的可执行权限的命令：<br>chmod ug+x dog_wolf<br>b)    例如：在babydog目录上为其他用户添加写权限的命令：<br>chmod o+w babydog</li>
-<li>使用数字表示法设定文件或目录上的权限（详见linux系统管理P143）<br>1)    掌握数字表示法的定义：<br>数字表示法是指使用一组三位数的数字来表示文件或目录上的权限状态。其中：<br>第1个数字代表所有者（owner）的权限（u）。<br>第2个数字代表群组（group）的权限（g）。<br>第3个数字代表其他用户（other）的权限（o）。<br>2)    数字代表的资源权限状态：<br>4：表示具有读（read）权限。<br>2：表示具有写（write）权限。<br>1：表示具有执行（execute）权限。<br>0：表示没有相应的权限。<br>3)    灵活应用数字法表示法设定或更改文件或目录上的权限：<br>a)    例如：使用数字表示法对owner开放/home/dog/babydog目录和其中所有文件的一切权限，但是对同组用户开放读和执行权限，而对其他用户只开放读权限的命令：<br>chmod -R 754 /home/dog/babydog </li>
+<li>使用符号法设定文件或目录上的权限（详见linux系统管理P132）<br>1)    掌握chmod命令的功能：设定或更改文件或目录上的权限。<br>2)    <strong>掌握-R选项：不但设置（或更改）该目录权限，而且还要递归地设置（或）更改该目录中所有文件或子目录的权限。</strong><br>3)    掌握是符号表示法的定义：<br>符号表示法是使用几个特定的符号来设定权限的状态。<br>4)    掌握权限状态可以分为3个部分：<br>a)    第1个部分，表示要设定或更改谁的权限状态。其中的具体表示如下：<br>u:表示所有者（owner）的权限。<br>g：表示群组（group）的权限。<br>o：表示既不是owner也不与owner在同一个group的其他用户（other）的权限。<br>a：表示以上3组，也就是所有用户（all）的权限。<br>b)    第2部分，是运算符（operator），也有人称为操作符，其中的具体表示如下：</li>
 </ol>
+<p>+：表示加入权限<br>-：表示去掉权限<br>=：表示设定权限<br>    c)    第3部分，表示权限（permission），其中的具体表示如下：<br>r：表示read（读）权限。<br>w：表示write（写）权限。<br>X：表示execut（执行）权限。<br>    5)    灵活应用符号表示法设定或更改文件或目录上的权限：<br>    a)    例如：在dog_wolf文件上添加所有者和同组用户的可执行权限的命令：<br>chmod ug+x dog_wolf<br>    b)    例如：在babydog目录上为其他用户添加写权限的命令：<br>chmod o+w babydog<br>6.    使用数字表示法设定文件或目录上的权限（详见linux系统管理P143）<br>    1)    掌握数字表示法的定义：<br>数字表示法是指使用一组三位数的数字来表示文件或目录上的权限状态。其中：<br>第1个数字代表所有者（owner）的权限（u）。<br>第2个数字代表群组（group）的权限（g）。<br>第3个数字代表其他用户（other）的权限（o）。<br>    2)    数字代表的资源权限状态：<br>4：表示具有读（read）权限。<br>2：表示具有写（write）权限。<br>1：表示具有执行（execute）权限。<br>0：表示没有相应的权限。<br>    3)    灵活应用数字法表示法设定或更改文件或目录上的权限：<br>    a)    例如：使用数字表示法对owner开放/home/dog/babydog目录和其中所有文件的一切权限，但是对同组用户开放读和执行权限，而对其他用户只开放读权限的命令：<br>chmod -R 754 /home/dog/babydog </p>
 <h3 id="六-正文处理命令及tar命令"><a href="#六-正文处理命令及tar命令" class="headerlink" title="六.正文处理命令及tar命令"></a>六.正文处理命令及tar命令</h3><ol>
 <li>使用cat命令进行文件的纵向合并<br>1)    掌握<strong>使用cat命令实现文件的纵向合并</strong>：<br>a)    例如：使用cat命令将baby.age、baby.kg和baby.sex这三个文件纵向<strong>合并</strong>为baby文件的方法：<br>cat baby.age baby.kg baby.sex &gt;baby<br>b)    例如：使用cat命令将baby.age文件的内容<strong>添加到</strong>baby2文件中的方法：<br>cat baby.age &gt;&gt;baby2</li>
 <li>归档文件和归档技术（详见linux系统管理P209）<br>1)    掌握归档的定义：归档（archiving）就是将许多文件（或目录）打包成一个文件。<br>2)    了解归档的目的：归档的目的就是方便备份、还原及文件的传输操作。<br>3)    掌握tar命令的功能：将多个文件（也可能包括目录，因为目录本身也是文件）放在一起存放到一个磁带或磁盘归档文件中。并且将来可以根据需要只还原归档文件中的某些指定的文件。<br>4)    掌握tar命令的常用选项：<br>c：创建一个新的tar文件。<br>t：列出tar文件中目录的内容。<br>x：从tar文件中抽取文件。<br>f：指定归档文件或磁带（也可能是软盘）设备（一般都要选）。<br>v：显示所打包的文件的详细信息，v是verbose的第1个字母。<br>z：使用gzip压缩算法来压缩打包后的文件。<br>j：使用bzip2压缩算法来压缩打包后的文件。</li>
-<li><p>使用tar命令创建、查看及抽取归档文件（详见linux系统管理P210）<br>1)    掌握使用tar命令创建归档文件的用法举例：<br>例如：使用tar命令将arch目录打包成一个名为arch.tar的归档文件的方法(要求显示所有打包的文件和目录)：<br>tar cvf arch.tar arch<br>掌握使用tar命令查看归档文件的用法举例：<br>例如：使用tar命令显示arch.tar这个归档文件（包）中的所有文件的方法：<br>tar tf arch.tar<br>2)    掌握使用tar命令抽取归档文件的用法举例：<br>例如：使用tar命令恢复arch.tar中的全部内容的方法：<br><strong>tar xvf arch.tar -C 路径</strong></p>
-</li>
-<li><p>文件的压缩和解压缩（详见linux系统管理P212）<br>1)    掌握压缩的定义：压缩就是将一个大的文件通过一些压缩算法变成一个小文件。<br>2)    了解压缩的目的：主要是缩小文件的大小，这样会节省存储文件的磁盘或磁带的空间，另外在网络上传输这些小文件也会减少网络的浏览（也就是节省网络的带宽）。<br>3)    掌握解压缩的定义：解压缩就是将一个通过一些压缩算法的文件恢复到压缩之前的样子。<br>4)    掌握gzip命令和gunzip命令的用法举例：<br>a)    例如：将文件file1压缩成.gz格式的压缩包应该使用的命令为：gzip file1 –c &gt; /路径/name.gz<br>b)    例如：将压缩文件file1.gz解压缩的命令为：<br>gunzip file1.gz &gt;<br>5)    掌握bzip2命令和bunzip2命令的用法举例：<br>a)    例如：将文件file1压缩成.bz2格式的压缩包应该使用的命令为：bzip2 file1 &gt;<br>b)    例如：将压缩文件file1.bz2解压缩的命令为：<br>bunzip2 file1.bz2 &gt;</p>
-</li>
-<li>在使用tar命令的同时进行压缩和解压缩（详见linux系统管理P214）<br>1)    掌握在使用tar命令的同时进行压缩和解压缩的用法举例<br>a)    例如：使用tar命令将arch目录打包而且同时使用gzip的技术压缩打包后文件的方法（打包后的文件名为arch.tar.gz）：<br><strong>tar cvfz arch.tar.gz arch</strong><br>b)    例如：使用tar命令将arch目录打包而且同时使用bzip2的技术压缩打包后文件的方法（打包后的文件名为arch.tar.bz2）：tar cvfj arch.tar.bz2 arch</li>
+<li>使用tar命令创建、查看及抽取归档文件（详见linux系统管理P210）<br>1)    掌握使用tar命令创建归档文件的用法举例：<br>例如：使用tar命令将arch目录打包成一个名为arch.tar的归档文件的方法(要求显示所有打包的文件和目录)：<br>tar cvf arch.tar arch<br>掌握使用tar命令查看归档文件的用法举例：<br>例如：使用tar命令显示arch.tar这个归档文件（包）中的所有文件的方法：<br>tar tf arch.tar<br>2)    掌握使用tar命令抽取归档文件的用法举例：<br>例如：使用tar命令恢复arch.tar中的全部内容的方法：</li>
 </ol>
-<h3 id="七-vi编辑器"><a href="#七-vi编辑器" class="headerlink" title="七.vi编辑器"></a>七.vi编辑器</h3><ol>
+<p><strong>tar xvf arch.tar -C 路径</strong></p>
+<ol start="4">
+<li>文件的压缩和解压缩（详见linux系统管理P212）<br>1)    掌握压缩的定义：压缩就是将一个大的文件通过一些压缩算法变成一个小文件。<br>2)    了解压缩的目的：主要是缩小文件的大小，这样会节省存储文件的磁盘或磁带的空间，另外在网络上传输这些小文件也会减少网络的浏览（也就是节省网络的带宽）。<br>3)    掌握解压缩的定义：解压缩就是将一个通过一些压缩算法的文件恢复到压缩之前的样子。<br>4)    掌握gzip命令和gunzip命令的用法举例：<br>a)    例如：将文件file1压缩成.gz格式的压缩包应该使用的命令为：gzip file1 –c &gt; /路径/name.gz<br>b)    例如：将压缩文件file1.gz解压缩的命令为：<br>gunzip file1.gz &gt;<br>5)    掌握bzip2命令和bunzip2命令的用法举例：<br>a)    例如：将文件file1压缩成.bz2格式的压缩包应该使用的命令为：bzip2 file1 &gt;<br>b)    例如：将压缩文件file1.bz2解压缩的命令为：<br>bunzip2 file1.bz2 &gt;</li>
+<li>在使用tar命令的同时进行压缩和解压缩（详见linux系统管理P214）<br>1)    掌握在使用tar命令的同时进行压缩和解压缩的用法举例<br>a)    例如：使用tar命令将arch目录打包而且同时使用gzip的技术压缩打包后文件的方法（打包后的文件名为arch.tar.gz）：</li>
+</ol>
+<p><strong>tar cvfz arch.tar.gz arch</strong><br>    b)    例如：使用tar命令将arch目录打包而且同时使用bzip2的技术压缩打包后文件的方法（打包后的文件名为arch.tar.bz2）：tar cvfj arch.tar.bz2 arch</p>
+<h3 id="七-vi编辑器"><a href="#七-vi编辑器" class="headerlink" title="七.vi编辑器"></a>七.vi编辑器</h3><ol start="2">
 <li>vi编辑器的操作模式（详见linux系统管理P255）<br>1)    掌握vi编辑器的3中基本模式：<br>a)    命令行模式：vi的默认模式。在这一模式中，所有的输入被解释成vi命令，可以执行修改、复制、移动、粘贴和删除正文等命令，也可以进行移动光标、搜索字符串和退出vi的操作等。<br>b)    编辑模式：在编辑模式中，可以往一个文件中输入正文。在这一模式下，输入的每一个字符都被vi编辑器解释为输入的正文。使用ESC键返回命令行模式。<br>c)    扩展模式：在一些UNIX系统上也叫最后一行模式。在这一模式下，可以使用一些高级编辑命令，如搜寻和替代字符串、存盘或退出vi编辑器等。要进入最后一行模式，需要在命令行模式中输入冒号（：），冒号这一操作将把光标移到屏幕的最后一行。</li>
 <li>在vi编辑器中光标的移动（详见linux系统管理P256）<br>1)    掌握在vi编辑器中用来移动光标位置的键与光标移动之间的关系，如下表：</li>
 </ol>
 <p><img src="image/1036857-20161109123528842-995787310.png" alt="img"></p>
-<ol>
+<ol start="4">
 <li><p>进入插入模式（详见linux系统管理P258）<br>1)    掌握从命令行模式进入插入模式的命令：<br>a：进入插入模式并在光标之后进行添加。<br>i：进入插入模式并在光标之前进行插入。<br>o：进入插入模式并在当前（光标所在）行之下开启新的一行。</p>
 </li>
 <li><p>在命令行模式下删除与复制的操作（详见linux系统管理P259）<br>1)    掌握常用的删除与复制的常用按键</p>
@@ -432,21 +437,25 @@
 </ol>
 <p>其中，<strong>BIOS的工作是检查计算机的硬件设备</strong>，如CPU、内存和风扇速度等；<br>MBR会在启动盘的第1个块中，大小为512B。其中前446中的程序代码是用来选择boot partition（分区），也就是由哪个分区来装入开机用的代码；<br>在<strong>内核部分主要是安装计算机设备的驱动程序</strong>以便操作系统可以控制计算机上的设备。并且以只读的方式挂载/(根)文件系统，也就是此时的操作系统只能读到根文件系统（目录）所在的分区；<br>init程序的进程id为1，即Linux操作系统第1个执行的程序。</p>
 <ol>
-<li>BOIS的初始化和引导加载程序（详见linux系统管理P313）<br>1)    掌握BIOS的定义：BIOS（Basic Input/Output System）（基本输入/输出系统的缩写），它是硬件与软件之间的接口，而且是非常基本的接口。</li>
-<li>GRUB程序和grub.conf文件（详见linux系统管理P317）<br>1)    掌握GRUB的定义：GRUB是Grand Unified Bootloader（多重操作系统启动管理器）的缩写。<br>2)    掌握grub的配置文件为：grub.conf<br>设置grub Md5加密命令 grub-MD5-crypt<br>Password = 明文或 password —md5 密文（编辑grub配置文件的密码）<br>Title red hat 标题<br>Password = 明文或 password —md5 密文（加载内核系统引导必须的密码）</li>
-<li>内核的初始化和init的初始化（详见linux系统管理P322）<br>1)    掌握init的配置文件为：/etc/inittab<br>2)    了解init程序要做的工作：<br>a)    决定预设（默认）要使用哪个run levels（运行级别）。<br>b)    执行一些系统初始化的脚本（程序）来初始化操作系统。<br>c)    根据run level的设置来执行所对应目录中的程序，以决定要启动哪些服务。<br>d)    设定某些组合键。<br>e)    定义UPS不间断电源系统，即当电源出现问题时或电源恢复时要执行哪些程序。<br>f)    产生6个virtual consoles，也就是tty1～tty6。</li>
+<li><p>BOIS的初始化和引导加载程序（详见linux系统管理P313）<br>1)    掌握BIOS的定义：BIOS（Basic Input/Output System）（基本输入/输出系统的缩写），它是硬件与软件之间的接口，而且是非常基本的接口。</p>
+</li>
+<li><p>GRUB程序和grub.conf文件（详见linux系统管理P317）<br>1)    掌握GRUB的定义：GRUB是Grand Unified Bootloader（多重操作系统启动管理器）的缩写。<br>2)    掌握grub的配置文件为：grub.conf<br>设置grub Md5加密命令 grub-MD5-crypt<br>Password = 明文或 password –md5 密文（编辑grub配置文件的密码）<br>Title red hat 标题<br>Password = 明文或 password –md5 密文（加载内核系统引导必须的密码）</p>
+</li>
+<li><p>内核的初始化和init的初始化（详见linux系统管理P322）<br>1)    掌握init的配置文件为：/etc/inittab <br>2)    了解init程序要做的工作：<br>a)    决定预设（默认）要使用哪个run levels（运行级别）。 <br>b)    执行一些系统初始化的脚本（程序）来初始化操作系统。<br>c)    根据run level的设置来执行所对应目录中的程序，以决定要启动哪些服务。<br>d)    设定某些组合键。<br>e)    定义UPS不间断电源系统，即当电源出现问题时或电源恢复时要执行哪些程序。 <br>f)    产生6个virtual consoles，也就是tty1～tty6。</p>
+</li>
 <li><p>run levels（运行级别）（详见linux系统管理P326）<br>1)    掌握所有的运行级别及每一个运行级别对应的功能：</p>
 </li>
 <li><p>关闭系统及重启系统（详见linux系统管理P342）<br>1)    掌握常用的可以关闭系统的命令：<br>shutdown -h now<br>halt<br>poweroff<br>init 0<br>2)    掌握常用的可以重启系统的命令：<br>shutdown -r now<br>reboot<br>init 6<br>Ctrl+Alt+Delete键</p>
 </li>
-<li>掌握单用户模式修改用户的密码</li>
-<li>掌握救援模式</li>
+<li><p>掌握单用户模式修改用户的密码</p>
+</li>
+<li><p>掌握救援模式</p>
+</li>
 </ol>
 <h3 id="九-系统监控"><a href="#九-系统监控" class="headerlink" title="九.系统监控"></a>九.系统监控</h3><ol>
 <li>系统监视和进程控制工具—top和free<br>1)    掌握top命令的功能：top命令是Linux下常用的性能分析工具,能够实时显示系统中各个进程的资源占用状况,类似于Windows的任务管理器。<br>2)    了解使用top命令列出系统状态时，系统默认每5秒刷新一下屏幕上的显示结果。</li>
 </ol>
 <p>\1. 第一行是任务队列信息</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -454,8 +463,7 @@
 <th>当前时间</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>up 50days</td>
 <td>系统运行时间，格式为时:分</td>
 </tr>
@@ -467,11 +475,8 @@
 <td>load average: 0.06, 0.60, 0.48</td>
 <td>系统负载。 三个数值分别为  1分钟、5分钟、15分钟前到现在的平均值。</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <p>\2. 第二、三行为进程和CPU的信息</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -479,8 +484,7 @@
 <th>进程总数</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>1 running</td>
 <td>正在运行的进程数</td>
 </tr>
@@ -524,13 +528,10 @@
 <td>0.0% si</td>
 <td>软件中断占用CPU时间的百分比</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <p>\3. 第四五行为内存信息。</p>
 <p><img src="image/1036857-20170525235729091-1652844480.png" alt="img"></p>
 <p>\4.  进程信息</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -538,8 +539,7 @@
 <th>含义</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>PID</td>
 <td>进程id</td>
 </tr>
@@ -643,9 +643,7 @@
 <td>Flags</td>
 <td>任务标志，参考 sched.h</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <p>cpu利用率与load average</p>
 <p>cpu利用率：上一天班的时间是8个小时，而码农敲代码的时间为2个小时，2/8=0.25  ,25%就是码农在一天的时间内的利用率（正常情况，cpu利用率&lt;70%）</p>
 <p>cpu负载：公司在一分钟内为某个码农安排了3个任务，而1分钟内该码农能做6个任务，那么该码农一分钟内的负载为0.5</p>
@@ -667,6 +665,9 @@
 <p><img src="image/1036857-20170506221818429-279774518.png" alt="img"></p>
 <p>3)    掌握free命令的功能：显示内存的使用状态。(下图centos6中查看效果，用二维数组代表FO即free output)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">                   1          2          3          4          5          6</span><br><span class="line">1              total       used       free     shared    buffers     cached</span><br><span class="line">2 Mem:      24677460   23276064    1401396          0     870540   12084008</span><br><span class="line">3 -&#x2F;+ buffers&#x2F;cache:   10321516   14355944</span><br><span class="line">4 Swap:     25151484     224188   24927296</span><br></pre></td></tr></table></figure>
+
+
+
 <p>从操作系统的角度：</p>
 <p>　　物理内存FO[2][1]=24677460KB</p>
 <p>　　物理内存被使用的内存FO[2][2]=23276064KB</p>
@@ -710,21 +711,26 @@
 </ul>
 <p>　　free命令的所有输出值都是从/proc/meminfo中读出的。</p>
 <p>4)  掌握free命令的功能：显示内存的使用状态。(下面均为centos7中查看效果)</p>
-<p><a href="http://www.linuxatemyram.com/提到使用`free`命令查看`Linux`系统使用内存时，`used`一项会把当前`cache`的大小也会加进去，这样会造成`free`这一栏显示的内存特别少：" target="_blank" rel="noopener">http://www.linuxatemyram.com/提到使用`free`命令查看`Linux`系统使用内存时，`used`一项会把当前`cache`的大小也会加进去，这样会造成`free`这一栏显示的内存特别少：</a></p>
+<p><a href="http://www.linuxatemyram.com/%E6%8F%90%E5%88%B0%E4%BD%BF%E7%94%A8%60free%60%E5%91%BD%E4%BB%A4%E6%9F%A5%E7%9C%8B%60Linux%60%E7%B3%BB%E7%BB%9F%E4%BD%BF%E7%94%A8%E5%86%85%E5%AD%98%E6%97%B6%EF%BC%8C%60used%60%E4%B8%80%E9%A1%B9%E4%BC%9A%E6%8A%8A%E5%BD%93%E5%89%8D%60cache%60%E7%9A%84%E5%A4%A7%E5%B0%8F%E4%B9%9F%E4%BC%9A%E5%8A%A0%E8%BF%9B%E5%8E%BB%EF%BC%8C%E8%BF%99%E6%A0%B7%E4%BC%9A%E9%80%A0%E6%88%90%60free%60%E8%BF%99%E4%B8%80%E6%A0%8F%E6%98%BE%E7%A4%BA%E7%9A%84%E5%86%85%E5%AD%98%E7%89%B9%E5%88%AB%E5%B0%91%EF%BC%9A" target="_blank" rel="noopener">http://www.linuxatemyram.com/提到使用`free`命令查看`Linux`系统使用内存时，`used`一项会把当前`cache`的大小也会加进去，这样会造成`free`这一栏显示的内存特别少：</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ free -m</span><br><span class="line">               total        used        free      shared  buff&#x2F;cache   available</span><br><span class="line">Mem:           1504        1491          13           0         855      869</span><br><span class="line">Swap:          2047           6        2041</span><br></pre></td></tr></table></figure>
+
 <p>可是实际上，<code>cache</code>根据应用程序的需要是可以回收利用的，因此<code>free</code>这一栏并不能真实地表现有多少“可以使用”的内存。实际系统可用内存应该以<code>available</code>数据为准。</p>
 <p><code>linuxatemyram</code>所提到的<code>free</code>命令也许是比较老的版本，我尝试了<code>RHEL 7.2</code>，<code>Ubuntu 16.04</code>和<code>Arch Linux</code>这<code>3</code>个<code>Linux</code>发行版，均没有出现<code>used</code>包含<code>cache</code>的情况：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ free -m</span><br><span class="line">              total        used        free      shared  buff&#x2F;cache   available</span><br><span class="line">Mem:          64325       47437        3150        1860       13737       14373</span><br></pre></td></tr></table></figure>
+
 <p>另外，从<code>man free</code>命令中也可以得到，目前计算<code>used</code>的值是要减掉<code>free</code>和<code>buff/cache</code>的：</p>
 <blockquote>
 <p>used Used memory (calculated as total – free – buffers – cache)</p>
 </blockquote>
 <p>可以使用<code>-w</code>命令行选项得到<code>buff</code>和<code>cache</code>各自使用的数量：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ free -wm</span><br><span class="line">              total        used        free      shared     buffers       cache   available</span><br><span class="line">Mem:          64325       48287        2476        1859        1430       12131       13524</span><br></pre></td></tr></table></figure>
+
 <p>需要注意的是，<code>free</code>表示的是当前完全没有被程序使用的内存；而<code>cache</code>在有需要时，是可以被释放出来以供其它进程使用的（当然，并不是所有<code>cache</code>都可以释放，比如当前被用作<code>ramfs</code>的内存）。而<code>available</code>才真正表明系统目前可以提供给应用程序使用的内存。<code>/proc/meminfo</code>从<code>3.14</code>内核版本开始提供<code>MemAvailable</code>的值；在<code>2.6.27</code>~<code>3.14</code>版本之间，是<code>free</code>程序自己计算<code>available</code>的值；早于<code>2.6.27</code>版本，<code>available</code>的值则同<code>free</code>一样。</p>
-<p>\2. <strong>系统中进程的监控—ps</strong>（详见linux系统管理P363）<br>1)    掌握进程的定义：进程是程序的一次动态执行。<br>2)    掌握守护进程的定义：守护进程是在后台运行并提供系统服务的一些进程。<br>3)    掌握父进程、子进程的定义：当一个进程创建另一个进程时，第1个进程被称为新进程的父进程，而新进程被称为子进程。<br>4)    掌握ps命令的功能：用来显示当前进程的状态。<br><strong>ps –aux 显示所有的与用户相关的完整信息</strong><br>系统中进程的监控pstree、kill</p>
-<p><strong>centos7默认没有pstree，需要yum -y install psmisc</strong><br>1)    掌握pstree命令的功能：以树状图显示程序。<br>2)    掌握pstree命令的用法举例：<br>例如：列出PID为4729的进程的进程状态树的命令：pstree 4729<br>3)    掌握kill命令的功能：把一个信号发送给一个或多个进程。默认发送终止信号。<br>4)    灵活应用kill命令终止进程<br>例如：终止PID为3852的进程的命令：kill 3852<br>5)    灵活应用kill -9命令杀死进程<br>例如：杀死PID为3906的进程的命令：kill -9 3906</p>
-<ol>
+<p>\2. <strong>系统中进程的监控—ps</strong>（详见linux系统管理P363）</p>
+<p>1)    掌握进程的定义：进程是程序的一次动态执行。<br>2)    掌握守护进程的定义：守护进程是在后台运行并提供系统服务的一些进程。<br>3)    掌握父进程、子进程的定义：当一个进程创建另一个进程时，第1个进程被称为新进程的父进程，而新进程被称为子进程。<br>4)    掌握ps命令的功能：用来显示当前进程的状态。<br><strong>ps –aux 显示所有的与用户相关的完整信息</strong><br>系统中进程的监控pstree、kill</p>
+<p><strong>centos7默认没有pstree，需要yum -y install psmisc</strong></p>
+<p>1)    掌握pstree命令的功能：以树状图显示程序。<br>2)    掌握pstree命令的用法举例：<br>例如：列出PID为4729的进程的进程状态树的命令：pstree 4729<br>3)    掌握kill命令的功能：把一个信号发送给一个或多个进程。默认发送终止信号。<br>4)    灵活应用kill命令终止进程<br>例如：终止PID为3852的进程的命令：kill 3852<br>5)    灵活应用kill -9命令杀死进程<br>例如：杀死PID为3906的进程的命令：kill -9 3906</p>
+<ol start="3">
 <li>掌握pgrep命令的功能：通过名称或其他属性查找进程<br>例如：查找名为firefox的进程的命令为：pgrep firefox</li>
 <li>掌握pkill命令的功能：通过名称或其他属性发信号给进程<br>例如：杀死名为firefox的进程的命令为：pkill firefox</li>
 </ol>
@@ -732,23 +738,25 @@
 <li>硬件设备与文件名的对应关系（详见linux系统管理P297）<br>1)    掌握在Linux系统中，每个设备都被当初一个文件来对待。<br>2)    掌握各种设备在Linux中的文件名</li>
 </ol>
 <p><img src="image/1036857-20161109124853764-690268125.png" alt="img"></p>
-<ol>
+<ol start="2">
 <li>硬盘的结构及硬盘分区（详见linux系统管理P301）<br> 1)    了解为什么要进行硬盘分区：<br> a)    更容易管理和控制系统，因为相关的文件和目录都放在一个分区中。<br> b)    系统效率更高。<br> c)    可以限制用户使用硬盘的份额（磁盘空间的大小）。<br> d)    更容易备份和恢复。<br> 2)    掌握硬盘的逻辑结构：<br>一个硬盘逻辑上可以被划分成块、磁道、磁柱和分区。<br> 3)    掌握块的定义：块是盘片上寻址（访问）的最小单位，一个块可以存储一定字节的数据。<br> 4)    掌握磁道的定义：磁道是由一系列头尾相连的块组成的圆圈。<br> 5)    掌握磁柱的定义：磁柱是由一叠磁道，由在相同半径上每个盘面的磁道所组成。<br> 6)    掌握分区的定义：分区是由一组相邻的磁柱所组成。</li>
 <li>Linux系统中硬盘的分区（详见linux系统管理P303）<br>1)    掌握硬盘分区的分类：硬盘的分区可以分为主分区、扩展分区和逻辑分区。<br>2)    掌握<strong>主分区的数量：在一个硬盘上最多可以划分出4个主分区。</strong><br>3)    了解Linux操作系统的内核支持每个硬盘上的分区数量还是有一定限制的，Linux内核在每个硬盘上可以最多支持：<br>a)    在SCSI硬盘上划分15个分区（Partitions）。<br>b)    在IDE硬盘上划分63个分区（Partitions）。</li>
 <li>使用fdisk和partprobe命令来管理硬盘分区（详见linux系统管理P394）<br>1)    掌握fdisk命令的功能：创建磁盘分区。<br>2)    掌握fdisk命令列表中常用的命令：<br>a)    d：删除一个（已经存在的）分区，其中d是delete的第1个字母。<br>b)    l：列出（已经存在的）分区的类型，其中l是list的第1个字母。<br>c)    m：列出fdisk中使用的所有命令，其中m是menu的第1个字母。<br>d)    n：添加一个新的分区，其中n是new的第1个字母。<br>e)    p：列出分区表的内容，其中p是print的第1个字母。<br>f)    q：退出fdisk，但是不存储所做的变化，其中q是quit的第1个字母。<br>g)    t：改变分区系统的id，其中t是title的第1个字母。<br>h)    w：退出fdisk并存储所做的变化，其中w是write的第1个字母。<br>3)    掌握partprobe命令的功能：重新初始化内存中内核的分区表。</li>
-<li>创建文件系统（数据的管理）（详见linux系统管理P399）<br>1)    掌握格式化的定义：所谓的格式化就是将分区中的硬盘空间划分成大小相等的一些数据块（Blocks），以及设定这个分区中有多少个i节点可以使用等。<br>2)    掌握文件系统的定义：文件系统是操作系统用于明确磁盘或分区上的文件的方法和数据结构；即在磁盘上组织文件的方法。<br>3)    了解常用的文件系统类型<br>ext2：Linux系统中标准的文件系统<br>ext3：一种日志式文件系统<br>ext4：一种针对ext3系统的扩展日志式文件系统<br>lvm：逻辑盘卷管理<br>iso9660：目前唯一通用的光盘文件系统<br>4)    掌握mkfs命令的功能：格式化磁盘。<br>5)    灵活应用常用的<strong>格式化命令</strong>：<br>mkfs.文件系统类型<br>例如，将分区/dev/sdb1格式化为ext4文件系统的命令为：<br><strong>mkfs.ext4 /dev/sdb1</strong></li>
-<li>为一个分区设定label（分区名）（详见linux系统管理P405）<br>1)    掌握e2label命令的功能：设定或查看一个设备的label名称。<br>2)    灵活应用e2label命令设定label：<br>a)    例如：查看/dev/sdb1分区的label的命令为：<br>e2label /dev/sdb1<br>b)    例如：将/dev/sdb1分区的label设定为wg的命令：<br>e2label /dev/sdb1 wg</li>
+<li>创建文件系统（数据的管理）（详见linux系统管理P399）<br>1)    掌握格式化的定义：所谓的格式化就是将分区中的硬盘空间划分成大小相等的一些数据块（Blocks），以及设定这个分区中有多少个i节点可以使用等。<br>2)    掌握文件系统的定义：文件系统是操作系统用于明确磁盘或分区上的文件的方法和数据结构；即在磁盘上组织文件的方法。<br>3)    了解常用的文件系统类型<br>ext2：Linux系统中标准的文件系统<br>ext3：一种日志式文件系统<br>ext4：一种针对ext3系统的扩展日志式文件系统<br>lvm：逻辑盘卷管理 <br>iso9660：目前唯一通用的光盘文件系统 <br>4)    掌握mkfs命令的功能：格式化磁盘。<br>5)    灵活应用常用的<strong>格式化命令</strong>：<br>mkfs.文件系统类型<br>例如，将分区/dev/sdb1格式化为ext4文件系统的命令为：</li>
 </ol>
+<p><strong>mkfs.ext4 /dev/sdb1</strong><br>6.    为一个分区设定label（分区名）（详见linux系统管理P405）<br>    1)    掌握e2label命令的功能：设定或查看一个设备的label名称。<br>    2)    灵活应用e2label命令设定label：<br>    a)    例如：查看/dev/sdb1分区的label的命令为：<br>e2label /dev/sdb1<br>    b)    例如：将/dev/sdb1分区的label设定为wg的命令：<br>e2label /dev/sdb1 wg</p>
 <ol>
-<li>文件系统的挂载与卸载（详见linux系统管理P406）<br>1)    掌握挂载的定义：挂载指将一个设备（通常是存储设备）挂接到一个已存在的目录上。<br>2)    掌握mount命令的功能：实现文件系统的挂载。<br>3)    灵活应用mount命令实现文件系统的挂载：<br>例如：将/dev/sdb1分区挂载到/wg目录上的命令：<br>mount /dev/sdb1 /wg<br>4)    掌握umount命令的功能：实现文件系统的卸载。<br>5)    灵活应用umount命令实现文件系统的卸载：<br>例如：卸载/wg上的文件系统的命令：<br>umount /wg<ol>
+<li>文件系统的挂载与卸载（详见linux系统管理P406）<br>1)    掌握挂载的定义：挂载指将一个设备（通常是存储设备）挂接到一个已存在的目录上。<br>2)    掌握mount命令的功能：实现文件系统的挂载。<br>3)    灵活应用mount命令实现文件系统的挂载：<br>例如：将/dev/sdb1分区挂载到/wg目录上的命令：<br>mount /dev/sdb1 /wg<br>4)    掌握umount命令的功能：实现文件系统的卸载。<br>5)    灵活应用umount命令实现文件系统的卸载：<br>例如：卸载/wg上的文件系统的命令：<br>umount /wg<ol start="2">
 <li>虚拟内存的概念以及设置与管理（详见linux系统管理P414）<br>1)    掌握虚拟内存的定义：所谓虚拟内存就是一块硬盘空间被当做内存使用，也被称为交换分区（swap）。<br>2)    了解Linux交换分区的类型为：0x82<br>3)    掌握mkswap命令的功能：设置交换分区。<br>4)    掌握使用mkswap命令设置交换分区的用法举例：<br>例如：将分区/dev/sdb2设置为交换分区的命令：mkswap /dev/sdb2<br>5)    掌握swapon命令的功能：启动交换分区。<br>6)    掌握swapon –a命令的功能：启动全部的交换分区。<br>7)    掌握swapon –s命令的功能：列出当前正在使用的所有系统交换分区的状态。<br>8)    掌握使用swapon命令的用法举例：<br>例如：启用交换分区/dev/sdb2的命令：swapon /dev/sdb2</li>
 <li>i节点（详见linux系统管理P170）<br>1)    掌握i节点的定义：i节点实际上是一个数据结构，它存放了有关一个普通文件、目录或其他文件系统对象的基本信息。</li>
-<li>符号（软）链接（详见linux系统管理P174）<br>1)    <strong>掌握符号链接的定义：符号链接是指向另一个文件的一个文件。</strong><br>2)    掌握ln命令创建软连接的用法举例：<br>a)    为wolf/dog.wolf.baby文件建立一个dog<em> wolf.boy符号链接并放在bodydog目录中的命令：<br>ln –s wolf/dog.wolf.baby bodydog/dog</em> wolf.boy</li>
+<li>符号（软）链接（详见linux系统管理P174）<br>1)    <strong>掌握符号链接的定义：符号链接是指向另一个文件的一个文件。</strong><br>2)    掌握ln命令创建软连接的用法举例：<br>a)    为wolf/dog.wolf.baby文件建立一个dog_ wolf.boy符号链接并放在bodydog目录中的命令：<br>ln –s wolf/dog.wolf.baby bodydog/dog_ wolf.boy</li>
 <li>硬链接（详见linux系统管理P179）<br>1)    掌握硬链接的定义：<strong>一个硬链接（hard link）是一个文件名与一个i节点之间的对应关系</strong>，也可以认为一个硬链接是在所对应的文件上添加了一个额外的路径名。<br>2)    掌握ln命令创建硬连接的用法举例：<br>a)    为wolf/wolf.dog文件在backup目录中建立一个名为wolf.dog2的硬链接命令：<br>ln wolf/wolf.dog backup/wolf.dog2</li>
-<li>Linux系统中的文件类型（详见linux系统管理P183）<br>1)    掌握Linux系统中常见的文件类型：<br>-：普通文件（regular file），也有人称为正规文件。<br>d:目录（directory）。<br>l：符号（软）链接。<br>b:块特殊文件（b是block的第1个字符），一般指块设备，如硬盘。<br>c:字符特殊文件（c是character的第1个字符），一般指字符设备，如键盘。</li>
-<li>怎样检查磁盘空间（详见linux系统管理P185）<br>1)    掌握df命令的功能：<strong>显示文件系统中磁盘使用和空闲区的数量。</strong><br>-a 显示所有磁盘<br>-h 单位转换<br>2)    掌握du命令的功能： 显示目录和文件的大小a h同上</li>
+<li>Linux系统中的文件类型（详见linux系统管理P183）<br>1)    掌握Linux系统中常见的文件类型：</li>
 </ol>
-</li>
+-：普通文件（regular file），也有人称为正规文件。<br>d:目录（directory）。<br>l：符号（软）链接。<br>b:块特殊文件（b是block的第1个字符），一般指块设备，如硬盘。<br>c:字符特殊文件（c是character的第1个字符），一般指字符设备，如键盘。<ol start="7">
+<li>怎样检查磁盘空间（详见linux系统管理P185）<br>1)    掌握df命令的功能：<strong>显示文件系统中磁盘使用和空闲区的数量。</strong></li>
+</ol>
+-a 显示所有磁盘<br>-h 单位转换<br>2)    掌握du命令的功能： 显示目录和文件的大小a h同上</li>
 </ol>
 <h3 id="十一-linux网络"><a href="#十一-linux网络" class="headerlink" title="十一.linux网络"></a>十一.linux网络</h3><ol>
 <li>使用ifconfig命令来维护网络（详见linux系统管理P422）<br>1)    掌握ifconfig命令的功能：显示所有正在启动的网卡的详细信息或设定系统中网卡的IP地址。<br>2)    灵活应用ifconfig命令设定网卡的IP地址：<br>例如：修改eth0网卡的IP地址为172.18.48.56和子网掩码255.255.255.128的命令：<br>ifconfig eth0 172.18.48.56 netmask 255.255.255.128</li>
@@ -768,8 +776,8 @@
 <li>掌握远程yum配置方法</li>
 <li>利用vsftpd搭建yum源服务器：<br>Vsftpd默认的配置文件是允许匿名访问，这里直接启动就可以了：<br>[root@localhost ~]# umount /dev/cdrom #卸载光盘<br>[root@localhost ~]# mount /dev/cdrom /var/ftp/pub/ #挂载光盘到vsftpd的公众目录<br>[root@localhost ~]# service vsftpd restart #重启vsftpd服务<br>必须关闭防火墙和selinux<br>Service iptables stop<br>Getenforce :查看selinux状态<br>临时关闭：不用重启：setenforce 0<br>0 permissive允许 1 enforcing 执行</li>
 </ol>
-<p>配置客户机：<br>[root@localhost ~]# cd /etc/yum.repos.d/<br>[root@localhost yum.repos.d]# ls #rhel.repo是按照本地yum配置生成的<br>rhel.repo rhel-source.repo<br>[root@localhost yum.repos.d]# cat rhel.repo #修改为以下内容<br>[rhel-ftp]<br>name=Red Hat Enterprise Linux 6<br>baseurl=ftp://192.168.8.42/pub #指定yum源地址<br>enabled=1<br>gpgcheck=1<br>测试：<br>[root@localhost ~]# yum install bind #安装DNS服务</p>
-<ol>
+<p>配置客户机：<br>[root@localhost ~]# cd /etc/yum.repos.d/<br>[root@localhost yum.repos.d]# ls #rhel.repo是按照本地yum配置生成的<br>rhel.repo rhel-source.repo<br>[root@localhost yum.repos.d]# cat rhel.repo #修改为以下内容<br>[rhel-ftp]<br>name=Red Hat Enterprise Linux 6<br>baseurl=<a href="ftp://192.168.8.42/pub">ftp://192.168.8.42/pub</a> #指定yum源地址<br>enabled=1<br>gpgcheck=1<br>测试：<br>[root@localhost ~]# yum install bind #安装DNS服务</p>
+<ol start="7">
 <li>掌握使用yum安装软件<br>yum –y install 软件名</li>
 <li>掌握使用yum删除软件<br>yum –y remove 软件名</li>
 <li>掌握使用yum安装组件<br>yum –y groupinstall 组件名</li>
@@ -790,10 +798,7 @@
 <p>4 writeable=yes代表对所有用户放行了写权限，write list=user1,user2无效，因为放行的所有用户中已然包含user1和user2</p>
 <p>5 writeable=no，write list=user1,user2代表所有人都没有写权限，唯独user1和user2有</p>
 <p><img src="image/1036857-20161109125128077-1610180483.png" alt="img"></p>
-<p>comment = ……   设置共享注译<br>path =    设置共享目录的物理路径<br>valid users = @组名,用户名   设置允许哪些合法组或用户访问<br>public = yes|no  设置共享资源是否能给游客帐号访问<br>browseable = yes|no  设置该共享为隐藏共享<br>writable = yes|no 设置是否允许客户端写入数据<br>hosts allow =  设置允许访问该共享的合法网段或IP<br>samba安全认证掌握两种：share （匿名访问）user：用户名密码<br>添加smb用户和设置密码：smbpasswd –a 用户<br>Useradd u</p>
-<ol>
-<li>掌握windows客户端的访问方式</li>
-</ol>
+<p>comment = ……   设置共享注译<br>path =    设置共享目录的物理路径<br>valid users = @组名,用户名   设置允许哪些合法组或用户访问<br>public = yes|no  设置共享资源是否能给游客帐号访问<br>browseable = yes|no  设置该共享为隐藏共享<br>writable = yes|no 设置是否允许客户端写入数据<br>hosts allow =  设置允许访问该共享的合法网段或IP<br>samba安全认证掌握两种：share （匿名访问）user：用户名密码<br>添加smb用户和设置密码：smbpasswd –a 用户<br>Useradd u<br>5.    掌握windows客户端的访问方式</p>
 <p><img src="image/1036857-20161109125221061-1760008764.png" alt="img"></p>
 <p>6.掌握Linux客户端的访问方式</p>
 <p><img src="image/1036857-20161109125337374-1770454035.png" alt="img"></p>
@@ -807,40 +812,42 @@
 <p>[root@MiWiFi-R3-srv ~]# cat /etc/crontab #查看全局计划任务<br>SHELL=/bin/bash<br>PATH=/sbin:/bin:/usr/sbin:/usr/bin<br>MAILTO=root</p>
 <p># For details see man 4 crontabs</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># Example of job definition:</span><br><span class="line"># .---------------- minute (0 - 59)</span><br><span class="line"># | .------------- hour (0 - 23)</span><br><span class="line"># | | .---------- day of month (1 - 31)</span><br><span class="line"># | | | .------- month (1 - 12) OR jan,feb,mar,apr ...</span><br><span class="line"># | | | | .---- day of week (0 - 6) (Sunday&#x3D;0 or 7) OR sun,mon,tue,wed,thu,fri,sat</span><br><span class="line"># | | | | |</span><br><span class="line"># * * * * * user-name command to be executed</span><br><span class="line"></span><br><span class="line">* * * * * root run-parts &#x2F;test #run-parts命令，可以执行一个目录下所有的可执行文件，目录下文件必须有执行权限</span><br><span class="line"></span><br><span class="line">You have new mail in &#x2F;var&#x2F;spool&#x2F;mail&#x2F;root</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@MiWiFi-R3-srv ~]# crontab -u tom -l #通过命令查看用户tom的计划任务</span><br><span class="line">*&#x2F;1 * * * * echo 123213123213</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@MiWiFi-R3-srv ~]# cat &#x2F;var&#x2F;spool&#x2F;cron&#x2F;tom #从文件中查看用户tom的计划任务</span><br><span class="line">*&#x2F;1 * * * * echo 123213123213</span><br></pre></td></tr></table></figure>
+
 <p><strong>crontab命令编写计划任务</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">语　　法：crontab [-u &lt;用户名称&gt;][配置文件] 或 crontab [-u &lt;用户名称&gt;][-elr]</span><br></pre></td></tr></table></figure>
-<p>crontab任务配置基本格式：<br>*  <em>　 </em>　 <em>　 </em>　　command<br>分钟(0-59)　小时(0-23)　日期(1-31)　月份(1-12)　星期(0-6,0代表星期天)　 命令</p>
-<p>第1列表示分钟1～59 每分钟用<em>或者 </em>/1表示<br>第2列表示小时1～23（0表示0点）<br>第3列表示日期1～31<br>第4列表示月份1～12<br>第5列标识号星期0～6（0表示星期天）<br>第6列要运行的命令</p>
+
+<p>crontab任务配置基本格式：<br>*  *　 *　 *　 *　　command<br>分钟(0-59)　小时(0-23)　日期(1-31)　月份(1-12)　星期(0-6,0代表星期天)　 命令</p>
+<p>第1列表示分钟1～59 每分钟用*或者 */1表示<br>第2列表示小时1～23（0表示0点）<br>第3列表示日期1～31<br>第4列表示月份1～12<br>第5列标识号星期0～6（0表示星期天）<br>第6列要运行的命令</p>
 <p>参　　数：<br>-e 　编辑该用户的计时器设置。<br>-l 　列出该用户的计时器设置。<br>-r 　删除该用户的计时器设置。<br>-u&lt;用户名称&gt; 　指定要设定计时器的用户名称。</p>
 <p>注意：</p>
 <p>1 查看计划任务的执行：tail -f /var/log/cron</p>
-<p>2 写计划任务时，命令必须加上绝对路径，否则会出现这种情况：从日志中看，确实触发了计划任务的执行，但是命令却没有执行成功，比如<em> </em> <em> </em> * reboot就会出现这种情况，需要将reboot写成/usr/sbin/reboot</p>
+<p>2 写计划任务时，命令必须加上绝对路径，否则会出现这种情况：从日志中看，确实触发了计划任务的执行，但是命令却没有执行成功，比如* * * * * reboot就会出现这种情况，需要将reboot写成/usr/sbin/reboot</p>
 <p>crontab例子：</p>
-<p>30 21 <em> </em> * /usr/local/etc/rc.d/apache restart #每晚的21:30 重启apache</p>
-<p>45 4 1,10,22 <em> </em> /usr/local/etc/rc.d/apache restart #每月1、10、22日的4 : 45重启apache</p>
-<p>10 1 <em> </em> 6,0 /usr/local/etc/rc.d/apache restart #每周六、周日的1 : 10重启apache</p>
-<p>0,30 18-23 <em> </em> * /usr/local/etc/rc.d/apache restart #每天18 : 00至23 : 00之间每隔30分钟重启apache</p>
-<p>0 23 <em> </em> 6 /usr/local/etc/rc.d/apache restart #每星期六的11 : 00 pm重启apache</p>
-<p>* 23-7/1 <em> </em> * /usr/local/etc/rc.d/apache restart #晚上11点到早上7点之间，每隔一个小时的每分钟重启 apache</p>
-<p>0 <em>/1 </em> <em> </em> /usr/local/etc/rc.d/apache restart #每一小时重启apache</p>
+<p>30 21 * * * /usr/local/etc/rc.d/apache restart #每晚的21:30 重启apache</p>
+<p>45 4 1,10,22 * * /usr/local/etc/rc.d/apache restart #每月1、10、22日的4 : 45重启apache</p>
+<p>10 1 * * 6,0 /usr/local/etc/rc.d/apache restart #每周六、周日的1 : 10重启apache</p>
+<p>0,30 18-23 * * * /usr/local/etc/rc.d/apache restart #每天18 : 00至23 : 00之间每隔30分钟重启apache</p>
+<p>0 23 * * 6 /usr/local/etc/rc.d/apache restart #每星期六的11 : 00 pm重启apache</p>
+<p>* 23-7/1 * * * /usr/local/etc/rc.d/apache restart #晚上11点到早上7点之间，每隔一个小时的每分钟重启 apache</p>
+<p>0 */1 * * * /usr/local/etc/rc.d/apache restart #每一小时重启apache</p>
 <p>0 11 4 * mon-wed /usr/local/etc/rc.d/apache restart #每月的4号与每周一到周三的11点重启apache</p>
 <p>0 4 1 jan * /usr/local/etc/rc.d/apache restart #一月一号的4点重启apache</p>
-<p><em>/30 </em> <em> </em> * /usr/sbin/ntpdate 210.72.145.44 #每半小时同步一下时间</p>
-<p>0 <em>/2 </em> <em> </em> www /usr/bin/somecommand &gt;&gt; /dev/null 2&gt;&amp;1 #以用户www的身份每两小时就运行某个程序：</p>
-<p>0 1 <em> </em> * /home/testuser/test.sh #每天1点调用/home/testuser/test.sh</p>
-<p><em>/10 </em> <em> </em> * /home/testuser/test.sh #每10钟调用一次/home/testuser/test.sh</p>
-<p>30 21 <em> </em> * /usr/local/etc/rc.d/lighttpd restart #每天的21:30重启lighttpd</p>
-<p>45 4 1,10,22 <em> </em> /usr/local/etc/rc.d/lighttpd restart #每月1、10、22日的4 : 45重启lighttpd</p>
-<p><em>10 1 \</em> <em> 6,0 /usr/local/etc/rc.d/lighttpd restart #每周六、周日的1 : 10重启lighttpd</em></p>
-<p>0,30 18-23 <em> </em> * /usr/local/etc/rc.d/lighttpd restart #上面的例子表示在每天18 : 00至23 : 00之间每隔30分钟重启apache。</p>
-<p>0 23 <em> </em> 6 /usr/local/etc/rc.d/lighttpd restart #上面的例子表示每星期六的11 : 00 pm重启lighttpd</p>
-<p>* <em>/2 </em> <em> </em> /usr/local/etc/rc.d/lighttpd restart #每两小时的每分钟重启lighttpd</p>
-<p>0 23-7/1 <em> </em> * /usr/local/etc/rc.d/lighttpd restart #晚上11点到早上7点之间，每隔一小时重启lighttpd</p>
+<p>*/30 * * * * /usr/sbin/ntpdate 210.72.145.44 #每半小时同步一下时间</p>
+<p>0 */2 * * * www /usr/bin/somecommand &gt;&gt; /dev/null 2&gt;&amp;1 #以用户www的身份每两小时就运行某个程序：</p>
+<p>0 1 * * * /home/testuser/test.sh #每天1点调用/home/testuser/test.sh</p>
+<p>*/10 * * * * /home/testuser/test.sh #每10钟调用一次/home/testuser/test.sh</p>
+<p>30 21 * * * /usr/local/etc/rc.d/lighttpd restart #每天的21:30重启lighttpd</p>
+<p>45 4 1,10,22 * * /usr/local/etc/rc.d/lighttpd restart #每月1、10、22日的4 : 45重启lighttpd</p>
+<p><em>10 1 \</em> * 6,0 /usr/local/etc/rc.d/lighttpd restart #每周六、周日的1 : 10重启lighttpd*</p>
+<p>0,30 18-23 * * * /usr/local/etc/rc.d/lighttpd restart #上面的例子表示在每天18 : 00至23 : 00之间每隔30分钟重启apache。</p>
+<p>0 23 * * 6 /usr/local/etc/rc.d/lighttpd restart #上面的例子表示每星期六的11 : 00 pm重启lighttpd</p>
+<p>* */2 * * * /usr/local/etc/rc.d/lighttpd restart #每两小时的每分钟重启lighttpd</p>
+<p>0 23-7/1 * * * /usr/local/etc/rc.d/lighttpd restart #晚上11点到早上7点之间，每隔一小时重启lighttpd</p>
 <p>0 11 4 * mon-wed /usr/local/etc/rc.d/lighttpd restart #每月的4号与每周一到周三的11点重启lighttpd</p>
 <p>0 4 1 jan * /usr/local/etc/rc.d/lighttpd restart #一月一号的4点重启lighttpd</p>
-<p><em>/30 </em> <em> </em> * /usr/sbin/ntpdate 210.72.145.44 #每半小时同步一下时间</p>
+<p>*/30 * * * * /usr/sbin/ntpdate 210.72.145.44 #每半小时同步一下时间</p>
 <p><strong>对于一些常见的时间格式可以用如@yearly的方式代替</strong></p>
-<p>@reboot 代表的意思Run once, at startup.<br>@yearly 代表的意思Run once a year, “0 0 1 1 <em>“.<br>@annually 与@yearly相同意思<br>@monthly 代表的意思Run once a month, “0 0 1 </em> <em>“.<br>@weekly 代表的意思Run once a week, “0 0 </em> <em> 0”.<br>@daily 代表的意思Run once a day, “0 0 </em> <em> </em>“.<br>@midnight 与@daily的意思相同<br>@hourly 代表的意思Run once an hour, “0 <em> </em> <em> </em>“.<br><strong>除此之外，系统还有一些自带的计划任务</strong></p>
+<p>@reboot 代表的意思Run once, at startup.<br>@yearly 代表的意思Run once a year, “0 0 1 1 *”.<br>@annually 与@yearly相同意思<br>@monthly 代表的意思Run once a month, “0 0 1 * *”.<br>@weekly 代表的意思Run once a week, “0 0 * * 0”.<br>@daily 代表的意思Run once a day, “0 0 * * *”.<br>@midnight 与@daily的意思相同<br>@hourly 代表的意思Run once an hour, “0 * * * *”.<br><strong>除此之外，系统还有一些自带的计划任务</strong></p>
 <p>cron默认配置了调度任务，分别为：hourly、daily、weekly、mouthly，默认配置文件为/etc/anacrontab</p>
 <p>将需要执行的脚本放到相应的目录下即可，目录分别为：</p>
 <p>/etc/cron.hourly</p>
@@ -858,16 +865,16 @@
 <p>转自：<a href="http://blog.csdn.net/jbgtwang/article/details/7995801" target="_blank" rel="noopener">http://blog.csdn.net/jbgtwang/article/details/7995801</a></p>
 <p>第一，脚本的原因：大多数情况下，我们要相信科学，相信计算机，不是有鬼，就是我们的脚本的问题，这种问题导致crontab不能执行的概率占到 70%以上。因为程序执行到某一步导致crontab终止执行，我就碰到一次在迁移代码的时候将数据库连错了。导致无法访问而死在那里了。</p>
 <p>第二，执行环境问题，当我们碰到第一情况下，一般都可以通过手动执行程序将问题扼杀在摇篮里，一般情况下高手是不应该犯第一种错误的。问题是当我们 手动执行成功而crontab不能执行的时候，笔者碰到一次就是执行环境的问题，例如相关路径的设置问题。解决方案：在代码最前面执行 source /home/user/.bash_profile</p>
-<p>第三，系统时间不正确。这种问题最好理解，也是比较常见和隐蔽的问题，解决方案：date -s <strong><em>**</em></strong></p>
+<p>第三，系统时间不正确。这种问题最好理解，也是比较常见和隐蔽的问题，解决方案：date -s <strong>****</strong></p>
 <p>第四，就是我们的脚本是否有可执行权限。必须保证执行脚本的用户有执行改文件的权限。</p>
 <p>第五，crontab 守护进程死掉了。这种情况是极少发生的，但也不排除，当我们实在是找不到其他原因的时候可以用。解决方案：重启该进程。</p>
 <p>第六，crontab不执行的问题困扰了好长时间，脚本写的都正确，但是就是不执行，最终解决方法如下：<br>crontab -u root /var/spool/cron/root<br>这样root用户的crontab就生效了<br>service crond restart<br>重启下服务就好了</p>
 <p>第七，crond没有启动</p>
 <p>第八，脚本编码问题，脚本在window下编写，传到linux下后报“锘?!/bin/bash”，用vi编辑器新建新shell脚本，输入内容后保存。</p>
 <p>第九</p>
-<p><strong><em> \</em> * * * tar czf /tmp/<code>date &#39;+%Y&#39;</code> /etc 该计划任务中命令的执行流程是crond-&gt;tar命令，而crond在执行tar命令时，无法识别通配符%的意思（shell能识别），所以该命令无法正常执行</strong></p>
+<p><strong>* * * * * tar czf /tmp/<code>date &#39;+%Y&#39;</code> /etc 该计划任务中命令的执行流程是crond-&gt;tar命令，而crond在执行tar命令时，无法识别通配符%的意思（shell能识别），所以该命令无法正常执行</strong></p>
 <p><strong>改正结果：* * * * * tar czf /tmp/<code>date &#39;+\%Y&#39;</code> /etc</strong></p>
-<p><strong>通常都会把要执行的操作放到文件中，然后/bin/bash a.sh去执行，* * *</strong> <em> **</em> /bin/bash a.sh  ，这样的执行流程就变成了crond-&gt;bash shell-&gt;a.sh,这样a.sh内即便是写%号，也能被识别出来**</p>
+<p><strong>通常都会把要执行的操作放到文件中，然后/bin/bash a.sh去执行，* * *</strong> * <strong>* /bin/bash a.sh  ，这样的执行流程就变成了crond-&gt;bash shell-&gt;a.sh,这样a.sh内即便是写%号，也能被识别出来</strong></p>
 
     </div>
 
@@ -949,7 +956,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#笔记"><span class="nav-number">1.</span> <span class="nav-text">笔记</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一-简介"><span class="nav-number">2.</span> <span class="nav-text">一.简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-linux命令"><span class="nav-number">3.</span> <span class="nav-text">二.linux命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三-目录文件的浏览"><span class="nav-number">4.</span> <span class="nav-text">三.目录文件的浏览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-用户群组和权限"><span class="nav-number">5.</span> <span class="nav-text">四.用户群组和权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五-用户群组权限"><span class="nav-number">6.</span> <span class="nav-text">五.用户群组权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六-正文处理命令及tar命令"><span class="nav-number">7.</span> <span class="nav-text">六.正文处理命令及tar命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#七-vi编辑器"><span class="nav-number">8.</span> <span class="nav-text">七.vi编辑器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#八-linux系统初始化和服务"><span class="nav-number">9.</span> <span class="nav-text">八.linux系统初始化和服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#九-系统监控"><span class="nav-number">10.</span> <span class="nav-text">九.系统监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十-硬盘分区、格式化、文件系统管理"><span class="nav-number">11.</span> <span class="nav-text">十.硬盘分区、格式化、文件系统管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十一-linux网络"><span class="nav-number">12.</span> <span class="nav-text">十一.linux网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十二-软件包管理"><span class="nav-number">13.</span> <span class="nav-text">十二.软件包管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十三-samba服务"><span class="nav-number">14.</span> <span class="nav-text">十三.samba服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十四-NFS服务"><span class="nav-number">15.</span> <span class="nav-text">十四.NFS服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十五-计划任务crond服务"><span class="nav-number">16.</span> <span class="nav-text">十五.计划任务crond服务</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#笔记"><span class="nav-number">1.</span> <span class="nav-text">笔记</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一-简介"><span class="nav-number">2.</span> <span class="nav-text">一.简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-linux命令"><span class="nav-number">3.</span> <span class="nav-text">二.linux命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四-用户群组和权限"><span class="nav-number">4.</span> <span class="nav-text">四.用户群组和权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六-正文处理命令及tar命令"><span class="nav-number">5.</span> <span class="nav-text">六.正文处理命令及tar命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#七-vi编辑器"><span class="nav-number">6.</span> <span class="nav-text">七.vi编辑器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#八-linux系统初始化和服务"><span class="nav-number">7.</span> <span class="nav-text">八.linux系统初始化和服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#九-系统监控"><span class="nav-number">8.</span> <span class="nav-text">九.系统监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十-硬盘分区、格式化、文件系统管理"><span class="nav-number">9.</span> <span class="nav-text">十.硬盘分区、格式化、文件系统管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十一-linux网络"><span class="nav-number">10.</span> <span class="nav-text">十一.linux网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十二-软件包管理"><span class="nav-number">11.</span> <span class="nav-text">十二.软件包管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十三-samba服务"><span class="nav-number">12.</span> <span class="nav-text">十三.samba服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十四-NFS服务"><span class="nav-number">13.</span> <span class="nav-text">十四.NFS服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#十五-计划任务crond服务"><span class="nav-number">14.</span> <span class="nav-text">十五.计划任务crond服务</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

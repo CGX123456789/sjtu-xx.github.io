@@ -270,7 +270,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>参考链接：<a href="https://cn.comsol.com/model/micromechanics-and-stress-analysis-of-a-composite-cylinder-67001" target="_blank" rel="noopener">https://cn.comsol.com/model/micromechanics-and-stress-analysis-of-a-composite-cylinder-67001</a><br><a id="more"></a></p>
+        <p>参考链接：<a href="https://cn.comsol.com/model/micromechanics-and-stress-analysis-of-a-composite-cylinder-67001" target="_blank" rel="noopener">https://cn.comsol.com/model/micromechanics-and-stress-analysis-of-a-composite-cylinder-67001</a></p>
+<a id="more"></a>
 <h1 id="COMSOL复合材料模拟"><a href="#COMSOL复合材料模拟" class="headerlink" title="COMSOL复合材料模拟"></a>COMSOL复合材料模拟</h1><p>纤维复合材料通常为薄层材料，纤维在层中呈单一取向。</p>
 <p>薄层使用两种方法模拟：Layerwise (LW) theory，Equivalent Single Layer (ESL)<br>theory</p>
 <h2 id="模型定义"><a href="#模型定义" class="headerlink" title="模型定义"></a>模型定义</h2><p>对符合材料的分析内容包含以下几个部分：</p>
@@ -280,9 +281,8 @@
 <li>使用ESL理论进行应力分析</li>
 </ul>
 <h3 id="微机械分析"><a href="#微机械分析" class="headerlink" title="微机械分析"></a>微机械分析</h3><p>假设复合材料由碳纤维单向排列在环氧树脂基体中。碳纤维占据了60%的体积。</p>
-<p><img src="cube.jpg" alt=""></p>
+<p><img src="cube.jpg"></p>
 <h4 id="材料属性"><a href="#材料属性" class="headerlink" title="材料属性"></a>材料属性</h4><p>碳纤维T300假设为横观各向同性（正交）；环氧树脂假设为各向同性</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -290,8 +290,7 @@
 <th>值</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>$E_1,E_2,E_3$ </td>
 <td>{230,15,15}GPa</td>
 </tr>
@@ -307,10 +306,7 @@
 <td>$rho$</td>
 <td>1800$kg/m^3$</td>
 </tr>
-</tbody>
-</table>
-</div>
-<div class="table-container">
+</tbody></table>
 <table>
 <thead>
 <tr>
@@ -318,8 +314,7 @@
 <th>值</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>E</td>
 <td>4GPa</td>
 </tr>
@@ -331,9 +326,7 @@
 <td>$\rho$</td>
 <td>1100$kg/m^3$</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <h4 id="cell周期性"><a href="#cell周期性" class="headerlink" title="cell周期性"></a>cell周期性</h4><p>使用cell periodicity节点应用周期性边界条件。</p>
 <h3 id="基于LW理论的应力分析"><a href="#基于LW理论的应力分析" class="headerlink" title="基于LW理论的应力分析"></a>基于LW理论的应力分析</h3><h4 id="LW理论"><a href="#LW理论" class="headerlink" title="LW理论"></a>LW理论</h4><p>LW理论考虑了表面以及厚度方向的位移自由度。从本构方程角度看，类似于三维固体。适用于厚板。</p>
 <h4 id="几何和边界条件"><a href="#几何和边界条件" class="headerlink" title="几何和边界条件"></a>几何和边界条件</h4><p><b>几何</b></p>
@@ -344,7 +337,7 @@
 <li>另一端有滚柱支撑</li>
 <li>1kN的力施加在1/4外表面</li>
 </ul>
-<p><img src="cylinder.jpg" alt=""></p>
+<p><img src="cylinder.jpg"></p>
 <p><b>堆叠顺序和材料属性</b></p>
 <p>材料由5层1mm厚的层组成。不同层纤维取向不同，0，45，90，-45，0</p>
 <h3 id="ESL理论进行应力分析"><a href="#ESL理论进行应力分析" class="headerlink" title="ESL理论进行应力分析"></a>ESL理论进行应力分析</h3><p>ESL理论中考虑了薄层中面的位移和旋转自由度（类似与3D壳单元），因此计算量比LW理论要小得多。适用于薄板、中厚板。</p>

@@ -45,8 +45,8 @@
 <meta property="article:author" content="Xue Xuan">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="pandas">
-<meta property="article:tag" content="数据处理">
 <meta property="article:tag" content="数据分析">
+<meta property="article:tag" content="数据处理">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://mlln.cn/2015/07/05/pandas%E6%95%99%E7%A8%8B%EF%BC%9A[18]%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2/54baacfb43166d222fae9790452309f79152d29e.jpg">
 
@@ -287,10 +287,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>pandas中的字符串方法<br><a id="more"></a><br>df[“col1”].str.startswith()</p>
+        <p>pandas中的字符串方法</p>
+<a id="more"></a>
+<p>df[“col1”].str.startswith()</p>
 <p><img src="https://mlln.cn/2015/07/05/pandas%E6%95%99%E7%A8%8B%EF%BC%9A[18]%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2/54baacfb43166d222fae9790452309f79152d29e.jpg" alt="img"></p>
 <h1 id="三、数据载入，存储及文件格式"><a href="#三、数据载入，存储及文件格式" class="headerlink" title="三、数据载入，存储及文件格式"></a>三、数据载入，存储及文件格式</h1><h2 id="1。文本格式数据的读写"><a href="#1。文本格式数据的读写" class="headerlink" title="1。文本格式数据的读写"></a>1。文本格式数据的读写</h2><p>方法</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -298,8 +299,7 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>read_csv</td>
 <td>从文件对象读取分隔好的数据，默认分隔符为逗号</td>
 </tr>
@@ -355,13 +355,11 @@
 <td>read_feather</td>
 <td>读取Feather二进制格式</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <p>参数：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">pd.read_table(tablename,sep&#x3D;&#39;,&#39;)</span><br><span class="line">pd.read_csv(csv_file,names&#x3D;[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;]，index_col&#x3D;&#39;c&#39;)  #names列名，index_col将指定列作为索引列</span><br><span class="line"></span><br><span class="line">分层索引:</span><br><span class="line">pd.read_csv(csv_file,names&#x3D;[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;]，index_col&#x3D;[&#39;a&#39;,&#39;b&#39;])</span><br><span class="line"></span><br><span class="line">可以使用正则表达式</span><br><span class="line">pd.read_csv(csv_file,sep&#x3D;&#39;\s+&#39;) 以多个空格分开</span><br><span class="line"></span><br><span class="line">跳过行</span><br><span class="line">pd.read_csv(csv_file,skiprows&#x3D;[1，2，3])</span><br><span class="line"></span><br><span class="line">处理缺省值(na_values需要用NA替换的对象)</span><br><span class="line">pd.read_csv(file,na_values&#x3D;[&quot;NULL&quot;])</span><br><span class="line">指定缺省值标识(将message列中的foo和NA认为是缺省值，赋值np.nan)</span><br><span class="line">sentinels &#x3D; &#123;&#39;message&#39;:[&#39;foo&#39;,&#39;NA&#39;]&#125;</span><br><span class="line">pd.read_csv(file,na_values&#x3D;sentinels)</span><br></pre></td></tr></table></figure>
+
 <p>参数（P170）</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -369,8 +367,7 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>path</td>
 <td>文件路径</td>
 </tr>
@@ -454,15 +451,15 @@
 <td>thousands</td>
 <td>千位分隔符</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <h3 id="（1）分块读取文件"><a href="#（1）分块读取文件" class="headerlink" title="（1）分块读取文件"></a>（1）分块读取文件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pd.options.display.maxrow = <span class="number">10</span> 显示设置</span><br><span class="line"> </span><br><span class="line"> 分块读取</span><br><span class="line"> chunk = pd.read_csv(file,chunksize=<span class="number">1000</span>)</span><br><span class="line"> <span class="keyword">for</span> item <span class="keyword">in</span> chunk:</span><br><span class="line">   <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="2-将数据写入文本格式"><a href="#2-将数据写入文本格式" class="headerlink" title="(2)将数据写入文本格式"></a>(2)将数据写入文本格式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">data.to_csv(file)</span><br><span class="line">data.to_csv(file,sep&#x3D;&#39;|&#39;)</span><br><span class="line">data.to_csv(sys.stdout,na_rep&#x3D;&#39;NULL&#39;) 缺省值的表示</span><br><span class="line">data.to_csv(sys.stdout,index&#x3D;False) 不输出行的标签</span><br><span class="line">data.to_csv(sys.stdout,header&#x3D;False) 不输出列的标签</span><br><span class="line">data.to_csv(sys.stdout,columns&#x3D;[&#39;a&#39;,&#39;b&#39;]) 写入列的子集</span><br><span class="line"></span><br><span class="line">Series也有to_csv方法</span><br></pre></td></tr></table></figure>
+
 <h3 id="（3）使用分隔CSV格式"><a href="#（3）使用分隔CSV格式" class="headerlink" title="（3）使用分隔CSV格式"></a>（3）使用分隔CSV格式</h3><p>python自带了csv库</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import csv</span><br><span class="line">with open(&#39;file&#39;,&#39;r&#39;) as f:</span><br><span class="line">	read &#x3D; csv.reader(f)</span><br><span class="line">	for i in read():</span><br><span class="line">		pass</span><br><span class="line">逐行读取</span><br></pre></td></tr></table></figure>
+
 <p>reader可选参数</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -470,8 +467,7 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>delimiter</td>
 <td>分隔符</td>
 </tr>
@@ -501,30 +497,40 @@
 </tr>
 <tr>
 <td></td>
+<td></td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <p>写入</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(file,<span class="string">'w'</span>) <span class="keyword">as</span> f:</span><br><span class="line">  writer = csv.writer(f,dialect = my_dialect)</span><br><span class="line">  writer.writerow((<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>))</span><br></pre></td></tr></table></figure>
+
 <h3 id="4-JSON"><a href="#4-JSON" class="headerlink" title="(4) JSON"></a>(4) JSON</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import json</span><br><span class="line">json.dumps(obj)</span><br><span class="line">json.load(pbj)</span><br><span class="line"></span><br><span class="line">pandas.read_json(&#39;json file path&#39;) 默认每个对象是表里的一行</span><br><span class="line">data.to_json(orient&#x3D;&#39;record&#39;) 按照每一行数据一个&#123;&#125;记录</span><br></pre></td></tr></table></figure>
+
 <h3 id="5-XML和HTML网络抓取"><a href="#5-XML和HTML网络抓取" class="headerlink" title="(5) XML和HTML网络抓取"></a>(5) XML和HTML网络抓取</h3><p>html</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">table &#x3D; pd.read_html(&#39;filename&#39;) 会搜并尝试解析所有包含在&lt;table&gt;标签中的表格型数据类型。</span><br><span class="line">table[0]</span><br></pre></td></tr></table></figure>
+
 <p>xml</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from lxml import objectify</span><br><span class="line"></span><br><span class="line">parsed &#x3D; objectify.parse(open(path))</span><br><span class="line">root &#x3D; parsed.getroot()</span><br></pre></td></tr></table></figure>
+
 <h2 id="2-二进制格式"><a href="#2-二进制格式" class="headerlink" title="2.二进制格式"></a>2.二进制格式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pickle仅作为临时储存格式，由于库的更新，pickle化的对象未来可能无法被反序列化</span><br><span class="line">pd.read_pickle()</span><br><span class="line">pd.to_pickle()</span><br></pre></td></tr></table></figure>
+
 <h3 id="1-使用HDF5格式"><a href="#1-使用HDF5格式" class="headerlink" title="(1)使用HDF5格式"></a>(1)使用HDF5格式</h3><p>HDF代表分层数据格式</p>
 <p>每个HDF5文件可以储存多个数据集并且支持元数据</p>
 <p>HDF5适用于处理不适合在内存中存储的超大型数据</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">store &#x3D; pd.HDFStore(&#39;file&#39;)</span><br><span class="line">store[&#39;obj1&#39;] &#x3D; frame</span><br><span class="line">store[&#39;obj2&#39;] &#x3D; frame[&#39;a&#39;]</span><br><span class="line">store.put(&#39;obj2&#39;,frame,format&#x3D;&#39;table&#39;) 两种格式：table和fixed，TABLe格式支持特殊语法的查询操作</span><br><span class="line">store.select(&#39;obj2&#39;,where&#x3D;[&#39;index&gt;&#x3D;10 and index&lt;&#x3D;15&#39;])</span><br></pre></td></tr></table></figure>
+
 <p>高阶方法</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">frame.to_hdf(&#39;file&#39;,&#39;obj3&#39;,format&#x3D;&#39;table&#39;)</span><br><span class="line">pd.read_hdf(&#39;mydata.h5&#39;,&#39;obj3&#39;,where&#x3D;[&#39;index&lt;5&#39;])</span><br></pre></td></tr></table></figure>
+
 <h3 id="2-读取Microsoft-Excel文件"><a href="#2-读取Microsoft-Excel文件" class="headerlink" title="(2)读取Microsoft Excel文件"></a>(2)读取Microsoft Excel文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">读取(推荐):</span><br><span class="line">xlsx &#x3D; pd.ExcelFile(&#39;exp.xlsx&#39;)</span><br><span class="line">df &#x3D; pd.read_excel(xlsx,&#39;sheet1&#39;)</span><br><span class="line">读取简化</span><br><span class="line">df &#x3D; pd.read_excel(&#39;exp.xlsx&#39;,&#39;sheet1&#39;)</span><br></pre></td></tr></table></figure>
+
 <h3 id="（3）与Web-API交互"><a href="#（3）与Web-API交互" class="headerlink" title="（3）与Web API交互"></a>（3）与Web API交互</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">request.get()</span><br><span class="line">request.post()</span><br></pre></td></tr></table></figure>
+
 <h3 id="4-与数据库交互"><a href="#4-与数据库交互" class="headerlink" title="(4) 与数据库交互"></a>(4) 与数据库交互</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import sqlalchemy as sqla</span><br><span class="line">db &#x3D; sqlalchemy.create_engine(&#39;sqlite:&#x2F;&#x2F;mydata.sqlite&#39;)</span><br><span class="line">pd.read_sql(&#39;select * from test&#39;,db)</span><br></pre></td></tr></table></figure>
+
+
+
 <h1 id="四、数据的清洗与准备"><a href="#四、数据的清洗与准备" class="headerlink" title="四、数据的清洗与准备"></a>四、数据的清洗与准备</h1><h2 id="1-处理缺失值"><a href="#1-处理缺失值" class="headerlink" title="1.处理缺失值"></a>1.处理缺失值</h2><p>对于数据值型的数据，pandas使用NaN(Not a number)表示缺失值。我们称NaN为容易检测到的标识值。</p>
 <p>方法</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -532,8 +538,7 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>dropna</td>
 <td>根据每个标签的值是否是缺失值来筛选轴标签，并根据允许丢失的数据量来确定阈值</td>
 </tr>
@@ -547,14 +552,14 @@
 </tr>
 <tr>
 <td>notnull</td>
+<td></td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <h3 id="（1）过滤缺失值"><a href="#（1）过滤缺失值" class="headerlink" title="（1）过滤缺失值"></a>（1）过滤缺失值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">from numpy import nan as NA</span><br><span class="line"></span><br><span class="line"># 删除缺失值</span><br><span class="line"># 处理Series对象</span><br><span class="line">data &#x3D; pd.Series([1,NA,2,3423,4,NA])</span><br><span class="line">data.dropna()</span><br><span class="line"></span><br><span class="line">data[data.notnull()]</span><br><span class="line"></span><br><span class="line">#处理dataframe对象</span><br><span class="line">df.dropna() #默认删除包含缺失值的行</span><br><span class="line">df.dropna(how&#x3D;&#39;all&#39;) #删除所有值均为NA的行</span><br><span class="line">df.dropna(axis&#x3D;1，how&#x3D;&#39;all&#39;) #删除所有值均为NA的列</span><br><span class="line">df.dropna(thresh&#x3D;2) #保留至少有两个非NA数据的行</span><br></pre></td></tr></table></figure>
+
 <h3 id="（2）补全缺失值"><a href="#（2）补全缺失值" class="headerlink" title="（2）补全缺失值"></a>（2）补全缺失值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 所有的缺失值用相同的值补全</span><br><span class="line">df.fillna(0)</span><br><span class="line"># 不同列使用不同的值进行补全</span><br><span class="line">df.fillna(&#123;&#39;a&#39;:1,&#39;b&#39;:2&#125;)</span><br><span class="line">修改已经存在的对象</span><br><span class="line">df.fillna(0,inplace&#x3D;True)</span><br></pre></td></tr></table></figure>
+
 <p>fillna函数参数</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -562,8 +567,7 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>value</td>
 <td>标量值或字典型对象用于填充缺失值</td>
 </tr>
@@ -583,17 +587,22 @@
 <td>limit</td>
 <td>用于前向或后向填充时最大的填充范围</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <h2 id="2-数据转换"><a href="#2-数据转换" class="headerlink" title="2.数据转换"></a>2.数据转换</h2><h3 id="（1）删除重复值"><a href="#（1）删除重复值" class="headerlink" title="（1）删除重复值"></a>（1）删除重复值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">df.duplicated()  返回布尔值的Series，表示每一行是否存在重复</span><br><span class="line"></span><br><span class="line">data.drop_duplicates()  #删除相同的行</span><br><span class="line"></span><br><span class="line">data.drop_duplicates([&#39;k1&#39;])  #删除k1列相同的行</span><br><span class="line"></span><br><span class="line">data.drop_duplicates([&#39;k1&#39;,&#39;k2&#39;],keep&#x3D;&#39;last&#39;) #保留重复的最后一行</span><br></pre></td></tr></table></figure>
+
 <h3 id="（2）使用函数或映射进行数据转换"><a href="#（2）使用函数或映射进行数据转换" class="headerlink" title="（2）使用函数或映射进行数据转换"></a>（2）使用函数或映射进行数据转换</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lowercased &#x3D; data[&#39;food&#39;].str.lower()</span><br><span class="line">lowercased.map(&#123;&#39;meat&#39;:&#39;pig&#39;&#125;)</span><br><span class="line"></span><br><span class="line">data[food].map(lambda x:meat_to_animal[x])</span><br></pre></td></tr></table></figure>
+
 <h3 id="3-替代值"><a href="#3-替代值" class="headerlink" title="(3) 替代值"></a>(3) 替代值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">替换某些值</span><br><span class="line">data.replace(999,np.nan)</span><br><span class="line">data.replace([999,1000],np.nan)</span><br><span class="line"></span><br><span class="line">不同的值用不同的替换</span><br><span class="line">data.replace([999,1000],[np.nan,0])</span><br><span class="line">data.replace(&#123;999:np.nan,1000:0&#125;)</span><br><span class="line"></span><br><span class="line">data.str.replace是对字符串按照元素替代的</span><br></pre></td></tr></table></figure>
+
 <h3 id="（4）重命名轴索引"><a href="#（4）重命名轴索引" class="headerlink" title="（4）重命名轴索引"></a>（4）重命名轴索引</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">map索引并赋值</span><br><span class="line">data.index &#x3D; data.index.map(lambda x:x[:4].upper())</span><br><span class="line"></span><br><span class="line">使用rename函数</span><br><span class="line">data.rename(index&#x3D;str.title,columns&#x3D;str.upper)</span><br><span class="line">data.rename(index&#x3D;&#123;&#39;ohio&#39;:&#39;OHIO&#39;&#125;)</span><br><span class="line"></span><br><span class="line">inplace:替换原有数据集</span><br></pre></td></tr></table></figure>
+
 <h3 id="（5）离散化和分箱-分段"><a href="#（5）离散化和分箱-分段" class="headerlink" title="（5）离散化和分箱(分段)"></a>（5）离散化和分箱(分段)</h3><p>将数据分段</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">cut按照数据值进行切分</span><br><span class="line">cats &#x3D; pd.cut(ages,bins)  ages是想要划分的数据，bins是区间的断点</span><br><span class="line">返回一个Categorical对象。</span><br><span class="line"></span><br><span class="line">cats.codes 返回每个数据属于那个箱的Series</span><br><span class="line">cats.categories 返回每个箱的区间</span><br><span class="line">pd.value_count(cats) 返回cats的值</span><br><span class="line"></span><br><span class="line">改变区间的开闭</span><br><span class="line">cats &#x3D; pd.cut(ages,bins，right&#x3D;false) 默认是右封闭</span><br><span class="line">自定义箱名</span><br><span class="line">cats &#x3D; pd.cut(ages,bins,lables&#x3D;[&#39;Youth&#39;,&quot;YoungAdult&quot;])</span><br><span class="line"></span><br><span class="line">根据最大值和最小值，创建等长的箱</span><br><span class="line">pd.cut(data,4,precision&#x3D;2)  将数据切成4份,每个区间长度相同</span><br><span class="line"></span><br><span class="line">qcut按照数据分位数进行切分</span><br><span class="line">pd.qcut(data,4) 	将数据切成4份，每个区间的数据数量相同</span><br><span class="line">pd.qcut(data,[0,0.1,0.5,1])</span><br><span class="line"></span><br><span class="line">labels&#x3D;False可以使得分组名返回数值</span><br></pre></td></tr></table></figure>
+
 <h3 id="6-检测和过滤异常值"><a href="#6-检测和过滤异常值" class="headerlink" title="(6) 检测和过滤异常值"></a>(6) 检测和过滤异常值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输出每列的信息</span><br><span class="line">data.describe()</span><br><span class="line"></span><br><span class="line">找出存在绝对值大于3的行</span><br><span class="line">data[(np.abs(data)&gt;3).any(axis&#x3D;1)]</span><br></pre></td></tr></table></figure>
+
 <h3 id="7-置换和随机抽样"><a href="#7-置换和随机抽样" class="headerlink" title="(7)置换和随机抽样"></a>(7)置换和随机抽样</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">随机抽样：先生成一个随机序列，然后取样</span><br><span class="line">df.take(np.random.permutation(5))</span><br><span class="line"></span><br><span class="line">df &#x3D; pd.DataFrame(np.arange(20).reshape(5,4))</span><br><span class="line">生成一个不含重复值的随机序列</span><br><span class="line">df.sample(n&#x3D;3)  #随机三个列</span><br><span class="line"></span><br><span class="line">生成一个含重复值的随机序列(有放回的抽取)</span><br><span class="line">df.sample(n&#x3D;10,replace&#x3D;True)</span><br></pre></td></tr></table></figure>
+
 <h3 id="（8）计算指标-虚拟变量"><a href="#（8）计算指标-虚拟变量" class="headerlink" title="（8）计算指标/虚拟变量"></a>（8）计算指标/虚拟变量</h3><p><code>pd.get_dummies</code>将某一列变量转换为机器学习或统计建模可用的矩阵</p>
 <p><img src="image/1562332179999.png" alt="1562332179999"></p>
 <p>给变量添加前缀</p>
@@ -601,6 +610,9 @@
 <p>将get_dummies和cut等离散化函数连用</p>
 <p><img src="image/1562333488951.png" alt="1562333488951"></p>
 <h2 id="3-字符串操作"><a href="#3-字符串操作" class="headerlink" title="3.字符串操作"></a>3.字符串操作</h2><h3 id="（1）Python中的字符串方法"><a href="#（1）Python中的字符串方法" class="headerlink" title="（1）Python中的字符串方法"></a>（1）Python中的字符串方法</h3><h3 id="（2）正则表达式"><a href="#（2）正则表达式" class="headerlink" title="（2）正则表达式"></a>（2）正则表达式</h3><h3 id="（3）-pandas中的字符串函数"><a href="#（3）-pandas中的字符串函数" class="headerlink" title="（3） pandas中的字符串函数"></a>（3） pandas中的字符串函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pattern &#x3D; re.compile(&#39;\s+&#39;)</span><br><span class="line">data.str.findall(pattern,flags&#x3D;re.IGNORECASE)</span><br><span class="line">data.str.match(pattern)</span><br><span class="line">返回索引处的元素</span><br><span class="line">data.str.get(1)</span><br><span class="line">data.str[0]</span><br></pre></td></tr></table></figure>
+
+
+
 <h1 id="五、数据规整：连接、联合和重塑"><a href="#五、数据规整：连接、联合和重塑" class="headerlink" title="五、数据规整：连接、联合和重塑"></a>五、数据规整：连接、联合和重塑</h1><h2 id="1、分层索引"><a href="#1、分层索引" class="headerlink" title="1、分层索引"></a>1、分层索引</h2><p>多级index</p>
 <p><img src="image/1562336614212.png" alt="1562336614212"></p>
 <p>将多层索引重塑 unstack()</p>
@@ -610,26 +622,38 @@
 <p>多层索引对象</p>
 <p><img src="image/image-20190706104149673-2380909.png" alt="image-20190706104149673"></p>
 <h3 id="（1）重排序和层级排序"><a href="#（1）重排序和层级排序" class="headerlink" title="（1）重排序和层级排序"></a>（1）重排序和层级排序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df.swaplevel(&#39;key1&#39;,&#39;key2&#39;)</span><br><span class="line">df.sort_index(level&#x3D;0)  按照第0级的索引重新排序</span><br></pre></td></tr></table></figure>
+
 <h3 id="（2）按层级进行汇总统计"><a href="#（2）按层级进行汇总统计" class="headerlink" title="（2）按层级进行汇总统计"></a>（2）按层级进行汇总统计</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df.sum(level&#x3D;&#39;key1&#39;)</span><br><span class="line">df.sum(level&#x3D;&#39;color&#39;,axis&#x3D;1)</span><br></pre></td></tr></table></figure>
+
 <h3 id="3-使用DataFrame的列进行索引"><a href="#3-使用DataFrame的列进行索引" class="headerlink" title="(3)使用DataFrame的列进行索引"></a>(3)使用DataFrame的列进行索引</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df.set_index([&#39;c&#39;,&#39;d&#39;])</span><br><span class="line">恢复</span><br><span class="line">df.reset_index()</span><br></pre></td></tr></table></figure>
+
 <p><img src="image/image-20190706105620843-2381780.png" alt="image-20190706105620843"></p>
 <h2 id="2-联合与合并数据集"><a href="#2-联合与合并数据集" class="headerlink" title="2.联合与合并数据集"></a>2.联合与合并数据集</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pd.merge:根据一个或多个键的值进行连接，类似于数据库中的join操作</span><br><span class="line">pd.concat:在axis的方向堆叠</span><br><span class="line">combine_first:允许将重叠数据拼接，来使用一个对象中的值填充到另一个对象中的缺失值。</span><br></pre></td></tr></table></figure>
+
 <h3 id="（1）数据库风格的DataFrame-join操作"><a href="#（1）数据库风格的DataFrame-join操作" class="headerlink" title="（1）数据库风格的DataFrame join操作"></a>（1）数据库风格的DataFrame join操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">pd.merge(df1,df2,on&#x3D;&#39;key&#39;)  内连接</span><br><span class="line">pd.merge(df1,df2,left_on&#x3D;&#39;key1&#39;,right_on&#x3D;&#39;key2&#39;) 当inner join的两个df的间不相同时，可以使用这种方法，等效inner join.</span><br><span class="line">pd.merge(df1,df2,how&#x3D;&#39;outer&#39;)  外连接</span><br><span class="line">pd.merge(df1,df2,on&#x3D;&#39;key&#39;,how&#x3D;&#39;left&#39;)  左连接</span><br><span class="line"></span><br><span class="line">多个键</span><br><span class="line">pd.merge(df1,df2,on&#x3D;[&#39;key1&#39;,&#39;key2&#39;])</span><br><span class="line"></span><br><span class="line">当两组数据中存在重叠的列名时，需要使用suffixes参数添加后缀</span><br><span class="line">pd.merge(df1,df2,on&#x3D;&#39;key1&#39;,suffixes&#x3D;[&#39;_left&#39;,&#39;_right&#39;])</span><br><span class="line"></span><br><span class="line">每一行数据的来源</span><br><span class="line">indicator参数，添加一个列返回数据来源</span><br><span class="line"></span><br><span class="line">使用行索引进行连接</span><br><span class="line">left_index&#x3D;True</span><br><span class="line">pd.merge(df1,df2,left_on&#x3D;&#39;key1&#39;,right_index&#x3D;&#39;True&#39;,how&#x3D;&#39;outer&#39;)</span><br><span class="line">简单的写法</span><br><span class="line">df1.join([df2,df3],how&#x3D;&#39;outer&#39;) 将直接根据索引进行连接</span><br></pre></td></tr></table></figure>
+
 <h3 id="2-沿轴向连接"><a href="#2-沿轴向连接" class="headerlink" title="(2)沿轴向连接"></a>(2)沿轴向连接</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pd.concat([s1,s2,s3]) 默认沿着axis&#x3D;0的轴向生效，默认外连接</span><br><span class="line">pd.concat([s1,s2],axis&#x3D;1,join&#x3D;&#39;inner&#39;,join_axes&#x3D;[[&#39;a&#39;,&#39;b&#39;,&#39;e&#39;]])</span><br><span class="line"></span><br><span class="line">连接轴上创建多层索引</span><br><span class="line">pd.concat([s1,s2],keys&#x3D;[&#39;one&#39;,&#39;two&#39;]) 每一个连接对象对应一个索引</span><br><span class="line">pd.concat(&#123;&#39;one&#39;:s1,&#39;two&#39;:s2&#125;)</span><br><span class="line"></span><br><span class="line">pd.concat([s1,s2],ignor_index&#x3D;True)  忽略默认的index</span><br></pre></td></tr></table></figure>
+
 <h3 id="（3）联合重叠数据"><a href="#（3）联合重叠数据" class="headerlink" title="（3）联合重叠数据"></a>（3）联合重叠数据</h3><p>使用传入的对象修补缺失值</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df1.combine_first(df2)</span><br><span class="line">与下面的等价</span><br><span class="line">np.where(np.isnull(df1),df2,df1)</span><br></pre></td></tr></table></figure>
+
 <h2 id="3-重塑和透视"><a href="#3-重塑和透视" class="headerlink" title="3.重塑和透视"></a>3.重塑和透视</h2><p>stack：“旋转”或将列中的数据透视到行</p>
 <p>unstack:将行中的数据透视到列</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df1.unstack(0)</span><br><span class="line">df1.unstack(&#39;state&#39;)</span><br></pre></td></tr></table></figure>
+
 <p><img src="image/image-20190706135311325-2392391.png" alt="image-20190706135311325"></p>
 <p><img src="image/image-20190706135343353-2392423.png" alt="image-20190706135343353"></p>
 <p><img src="image/image-20190706135400690-2392440.png" alt="image-20190706135400690"></p>
 <h3 id="（1）将long的数据转换为wide的格式"><a href="#（1）将long的数据转换为wide的格式" class="headerlink" title="（1）将long的数据转换为wide的格式"></a>（1）将long的数据转换为wide的格式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df.pivot(&#39;data&#39;,&#39;item&#39;,&#39;value&#39;)  第一个参数作为行索引，第二个参数为列索引，第三个参数是填充df的值。</span><br><span class="line"></span><br><span class="line">pivot方法等价于按照set_index方法建立分层索引，然后unstack。</span><br></pre></td></tr></table></figure>
+
 <p><img src="image/image-20190706140433052-2393073.png" alt="image-20190706140433052"></p>
 <h3 id="（2）将width的数据转换为long的格式"><a href="#（2）将width的数据转换为long的格式" class="headerlink" title="（2）将width的数据转换为long的格式"></a>（2）将width的数据转换为long的格式</h3><p>pivot的相反的操作是melt：将多列合并为一列</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pd.melt(df,[&#39;key&#39;])  [&#39;key&#39;]为分组指标</span><br><span class="line"></span><br><span class="line">指定列作为值列</span><br><span class="line">pd.melt(df,id_vars&#x3D;[&#39;key&#39;],value_vars&#x3D;[&#39;A&#39;,&#39;B&#39;])</span><br></pre></td></tr></table></figure>
+
 <h1 id="pandas1-0-0新特性"><a href="#pandas1-0-0新特性" class="headerlink" title="pandas1.0.0新特性"></a>pandas1.0.0新特性</h1><h2 id="markdown导出"><a href="#markdown导出" class="headerlink" title="markdown导出"></a>markdown导出</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">1</span>]: df = pd.DataFrame(&#123;<span class="string">"A"</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="string">"B"</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]&#125;, index=[<span class="string">'a'</span>, <span class="string">'a'</span>, <span class="string">'b'</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">2</span>]: print(df.to_markdown())</span><br><span class="line">|    |   A |   B |</span><br><span class="line">|:---|----:|----:|</span><br><span class="line">| a  |   <span class="number">1</span> |   <span class="number">1</span> |</span><br><span class="line">| a  |   <span class="number">2</span> |   <span class="number">2</span> |</span><br><span class="line">| b  |   <span class="number">3</span> |   <span class="number">3</span> |</span><br></pre></td></tr></table></figure>
+
 <h2 id="实验特性"><a href="#实验特性" class="headerlink" title="实验特性"></a>实验特性</h2><h3 id="NA"><a href="#NA" class="headerlink" title="NA"></a>NA</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">3</span>]: s = pd.Series([<span class="number">1</span>, <span class="number">2</span>, <span class="literal">None</span>], dtype=<span class="string">"Int64"</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">4</span>]: s</span><br><span class="line">Out[<span class="number">4</span>]: </span><br><span class="line"><span class="number">0</span>       <span class="number">1</span></span><br><span class="line"><span class="number">1</span>       <span class="number">2</span></span><br><span class="line"><span class="number">2</span>    &lt;NA&gt;</span><br><span class="line">Length: <span class="number">3</span>, dtype: Int64</span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: s[<span class="number">2</span>]</span><br><span class="line">Out[<span class="number">5</span>]: &lt;NA&gt;</span><br></pre></td></tr></table></figure>
+
 <h3 id="string和bool类型"><a href="#string和bool类型" class="headerlink" title="string和bool类型"></a>string和bool类型</h3><p>之前的时间和字符串都为object类型，现在可以更改为string和bool类型</p>
 <h3 id="select-dtypes"><a href="#select-dtypes" class="headerlink" title="select_dtypes"></a>select_dtypes</h3><p><code>df.select_dtypes(&quot;string&quot;)</code>可以选择所有类型为string的列</p>
 
@@ -643,8 +667,8 @@
           <div class="post-tags">
               <a href="/tags/python/" rel="tag"># python</a>
               <a href="/tags/pandas/" rel="tag"># pandas</a>
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag"># 数据处理</a>
               <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="tag"># 数据分析</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag"># 数据处理</a>
           </div>
 
         

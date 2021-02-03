@@ -271,8 +271,8 @@
 
       
         <h1 id="17-标准库特殊实施"><a href="#17-标准库特殊实施" class="headerlink" title="17.标准库特殊实施"></a>17.标准库特殊实施</h1><a id="more"></a>
+
 <h2 id="tuple类型"><a href="#tuple类型" class="headerlink" title="tuple类型"></a>tuple类型</h2><p>tuple支持的操作</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -280,13 +280,12 @@
 <th>说明</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td>tuple<T1,T2,...,Tn> t;</td>
+<tbody><tr>
+<td>tuple&lt;T1,T2,…,Tn&gt; t;</td>
 <td>t是一个tuple，成员数为n，所有成员都进行值初始化</td>
 </tr>
 <tr>
-<td>tuple<T1,T2,...,Tn> t(v1,v2,…,vn);</td>
+<td>tuple&lt;T1,T2,…,Tn&gt; t(v1,v2,…,vn);</td>
 <td>t是一个tuple，成员类型为T1…Tn。每个成员都用对应的vi进行初始化。此函数是explicit的。</td>
 </tr>
 <tr>
@@ -310,23 +309,19 @@
 <td>一个类模板，可以通过一个tuple类型来初始化。她有一个名为value的public constexpr static数据成员，类型为size_t,表示给定tuple类型中成员的数量。</td>
 </tr>
 <tr>
-<td>tuple_element<i,tupleType>::type</td>
+<td>tuple_element&lt;i,tupleType&gt;::type</td>
 <td>一个类模板，可以通过一个整型常量和一个tuple类型来初始化。她有一个名为type的public成员，表示给定tuple类型中指定成员的类型。</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <p>tuple的一个常见用途是从一个函数返回多个值。</p>
-<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><div class="table-container">
-<table>
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><table>
 <thead>
 <tr>
 <th>类</th>
 <th>类说明</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>regex</td>
 <td>表示有一个正则表达式的类</td>
 </tr>
@@ -354,12 +349,9 @@
 <td>ssub_match</td>
 <td>string中匹配的表达式的结果</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <p>默认情况，regex使用的正则表达式语言是ECMAScript。在ECMAScript中，模式[[:alpha:]]匹配任意字母。</p>
 <p>regex选项：定义在regex和regex_constants::syntax_option_type</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -367,8 +359,7 @@
 <th>说明</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>icase</td>
 <td>在匹配过程中忽略大小写</td>
 </tr>
@@ -404,14 +395,11 @@
 <td>egrep</td>
 <td>使用POSIX版本的egrep的语法</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <p>使用<code>regex r(&quot;[[:alnum:]]+\\.(cpp|cxx|xx)$&quot;,regex::icase)</code></p>
 <blockquote>
 <p>一个正则表达式所表示的“程序”是在运行时而非编译时编译的。正则表达式的编译是一个非常慢的操作，特别是在你使用了扩展的正则表达式语法或是复杂的正则表达式时。应该努力避免创建很多不必要的regex。</p>
 </blockquote>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -419,8 +407,7 @@
 <th>说明</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>sregex_iterator it(b,e,r)</td>
 <td>一个sregex_iterator,遍历迭代器b和e表示的string。他调用sregex_search(b,e,r)将it定位到输入中第一个匹配的位置。</td>
 </tr>
@@ -450,13 +437,12 @@
 </tr>
 <tr>
 <td>it1!=it2</td>
+<td></td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <h2 id="随机数"><a href="#随机数" class="headerlink" title="随机数"></a>随机数</h2><p>定义在头文件random中：随机数引擎类和随机数分布类</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">default_random_engine e; <span class="comment">//生成随机无符号数</span></span><br><span class="line">e();</span><br></pre></td></tr></table></figure>
-<div class="table-container">
+
 <table>
 <thead>
 <tr>
@@ -464,8 +450,7 @@
 <th>说明</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>Engine e</td>
 <td>默认构造函数，使用默认种子</td>
 </tr>
@@ -493,10 +478,7 @@
 <td>e.discard(u)</td>
 <td>将引擎推进u步，u的类型为unsigned long long</td>
 </tr>
-</tbody>
-</table>
-</div>
-<div class="table-container">
+</tbody></table>
 <table>
 <thead>
 <tr>
@@ -504,8 +486,7 @@
 <th>说明</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>uniform_int_distribution<unsigned> u(0,9)</td>
 <td>生成0到9之间均匀分布的随机数</td>
 </tr>
@@ -521,12 +502,12 @@
 <td>bernoulli_distribution(0.55)</td>
 <td>是一个普通类，返回bool值</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">unsigned</span>&gt; good_randVec()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//由于我们希望引擎和分布对象保持状态，因此应该将他们定义为static的，从而每次调用都生成新的数</span></span><br><span class="line">    <span class="keyword">static</span> default_random_engine e;</span><br><span class="line">    <span class="keyword">static</span> uniform_int_distribution&lt;<span class="keyword">unsigned</span>&gt; u(<span class="number">0</span>,<span class="number">9</span>);</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">unsigned</span>&gt; ret;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> i=<span class="number">0</span>;i&lt;<span class="number">100</span>;++i)</span><br><span class="line">        ret.push_back(u(e));</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <h2 id="IO库再探"><a href="#IO库再探" class="headerlink" title="IO库再探"></a>IO库再探</h2><p>格式化输入输出</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -534,8 +515,7 @@
 <th>说明</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>boolalpha</td>
 <td>将true和false输出为字符串</td>
 </tr>
@@ -643,11 +623,8 @@
 <td>endl</td>
 <td>插入换行，然后刷新ostream缓冲区</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <p>iomanio中的操作符</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -655,8 +632,7 @@
 <th>说明</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>setfill(ch)</td>
 <td>用ch填充空白</td>
 </tr>
@@ -672,12 +648,9 @@
 <td>setbase(b)</td>
 <td>将整数输出为b进制</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <h3 id="流随机访问"><a href="#流随机访问" class="headerlink" title="流随机访问"></a>流随机访问</h3><p>seek和tell函数</p>
 <p>g输入，p输出</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -685,8 +658,7 @@
 <th>说明</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>tellg()</td>
 <td>返回一个输入流中（tellg）或输出流中（tellp）标记当前位置</td>
 </tr>
@@ -708,18 +680,20 @@
 </tr>
 <tr>
 <td>seekp(off,from)</td>
+<td></td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <h1 id="18-用于大型程序的工具"><a href="#18-用于大型程序的工具" class="headerlink" title="18.用于大型程序的工具"></a>18.用于大型程序的工具</h1><h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><ul>
-<li>一个异常如果没有被捕获，则它将终止当前的程序。程序将调用标准库函数terminate</li>
-<li>通常情况下，如果catch接收的异常与某个继承体系有关，最好将该catch的参数定义成引用类型。</li>
+<li><p>一个异常如果没有被捕获，则它将终止当前的程序。程序将调用标准库函数terminate</p>
+</li>
+<li><p>通常情况下，如果catch接收的异常与某个继承体系有关，最好将该catch的参数定义成引用类型。</p>
+</li>
 <li><p>重新抛出仍然是一个throw语句，只不过不包含表达式<code>throw;</code>。</p>
 </li>
 <li><p>处理构造函数初始值异常的唯一方法是将构造函数写成函数try语句块。</p>
 </li>
-<li>一旦一个noexcept函数抛出了异常，程序就会调用terminate以确保遵守不在运行时抛出异常的承诺。</li>
+<li><p>一旦一个noexcept函数抛出了异常，程序就会调用terminate以确保遵守不在运行时抛出异常的承诺。</p>
+</li>
 </ul>
 <h2 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h2><ul>
 <li><p>一个命名空间的定义包含两部分：首先是关键字namespace，随后是命名空间的名字。在命名空间名字后面是一系列由花括号括起来的声明和定义。</p>
@@ -728,11 +702,16 @@
 </li>
 <li><p>命名空间可以是不连续的，命名空间可以定义在几个不同的部分。</p>
 </li>
-<li>命名空间中定义的成员可以直接使用名字，无须前缀；命名空间之外定义的成员必须使用含有前缀的名字</li>
-<li>未命名的命名空间仅在特定的文件内部有效，其作用范围不会横跨多个不同的文件。</li>
-<li>命名空间的别名：<code>namespace primer=cplusplusprimer</code></li>
-<li><code>using namespace A;</code> 把A中的名字</li>
-<li>对于using声明，只是简单的令名字在局部作用域内有效。using指示是令整个命名空间的所有内容变得有效。通常情况下，命名空间中会有一些不能出现在局部作用域中的定义。因此，using指令一般被看做是出现在最近的外层作用域中。</li>
+<li><p>命名空间中定义的成员可以直接使用名字，无须前缀；命名空间之外定义的成员必须使用含有前缀的名字</p>
+</li>
+<li><p>未命名的命名空间仅在特定的文件内部有效，其作用范围不会横跨多个不同的文件。</p>
+</li>
+<li><p>命名空间的别名：<code>namespace primer=cplusplusprimer</code></p>
+</li>
+<li><p><code>using namespace A;</code> 把A中的名字</p>
+</li>
+<li><p>对于using声明，只是简单的令名字在局部作用域内有效。using指示是令整个命名空间的所有内容变得有效。通常情况下，命名空间中会有一些不能出现在局部作用域中的定义。因此，using指令一般被看做是出现在最近的外层作用域中。</p>
+</li>
 </ul>
 <h1 id="特殊工具与技术"><a href="#特殊工具与技术" class="headerlink" title="特殊工具与技术"></a>特殊工具与技术</h1><h2 id="控制内存分配"><a href="#控制内存分配" class="headerlink" title="控制内存分配"></a>控制内存分配</h2><h3 id="重载new和delete"><a href="#重载new和delete" class="headerlink" title="重载new和delete"></a>重载new和delete</h3><ol>
 <li>new</li>
@@ -743,7 +722,7 @@
 <li>编译器运行响应的构造函数以构造这些对象，并为其传入初始值。</li>
 <li>对象被分配了空间并构造完成，返回一个指向该对象的指针。</li>
 </ul>
-<ol>
+<ol start="2">
 <li>delete</li>
 </ol>
 <p>两步操作。</p>
@@ -752,6 +731,7 @@
 <li>编译器调用名为<code>operator delete(或 operator delete[])</code>的标准库函数释放内存空间。</li>
 </ul>
 <h4 id="malloc函数和free函数"><a href="#malloc函数和free函数" class="headerlink" title="malloc函数和free函数"></a>malloc函数和free函数</h4><h3 id="dynamic-cast"><a href="#dynamic-cast" class="headerlink" title="dynamic_cast"></a>dynamic_cast</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">dynamic_cast</span>&lt;type*&gt;(e); <span class="comment">//e必须是指针，如果转换失败返回0</span></span><br><span class="line"><span class="keyword">dynamic_cast</span>&lt;type&amp;&gt;(e);  <span class="comment">//e必须是左值，如果转换失败抛出bad_cast异常</span></span><br><span class="line"><span class="keyword">dynamic_cast</span>&lt;type&amp;&amp;&gt;(e); <span class="comment">//e不能是左值，如果转换失败抛出bad_cast异常</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="typeid"><a href="#typeid" class="headerlink" title="typeid"></a>typeid</h3><p>typeid运算符允许程序向表达式提问，你的对象是什么类型？</p>
 <p><code>typeid(e)</code>返回<code>type_info</code>类型的对象</p>
 

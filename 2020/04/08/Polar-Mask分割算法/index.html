@@ -282,8 +282,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>PolarMask的精度并不是很高，而且速度上也没有优势，但是它的思路是非常巧妙的，对后面的研究有着很大的启发意义。<br><a id="more"></a><br>转载自：<a href="https://zhuanlan.zhihu.com/p/84890413" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/84890413</a></p>
-<p>PolarMask, 一种single shot的实例分割框架，文章在<a href="https://link.zhihu.com/?target=https%3A//arxiv.org/abs/1909.13226">https://arxiv.org/abs/1909.13226</a>, 代码已经开源，在<a href="https://link.zhihu.com/?target=https%3A//github.com/xieenze/PolarMask">https://github.com/xieenze/PolarMask</a>。欢迎大家多多指教。</p>
+        <p>PolarMask的精度并不是很高，而且速度上也没有优势，但是它的思路是非常巧妙的，对后面的研究有着很大的启发意义。</p>
+<a id="more"></a>
+<p>转载自：<a href="https://zhuanlan.zhihu.com/p/84890413" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/84890413</a></p>
+<p>PolarMask, 一种single shot的实例分割框架，文章在<a href="https://link.zhihu.com/?target=https%253A//arxiv.org/abs/1909.13226">https://arxiv.org/abs/1909.13226</a>, 代码已经开源，在<a href="https://link.zhihu.com/?target=https%253A//github.com/xieenze/PolarMask">https://github.com/xieenze/PolarMask</a>。欢迎大家多多指教。</p>
 <p>PolarMask基于FCOS，把实例分割统一到了FCN的框架下。在4月份FCOS挂出来之后，我和沈老师就一直在讨论如何进把instance segmentation融合进FCN里。FCOS本质上是一种FCN的dense prediction的检测框架，可以在性能上不输anchor based的目标检测方法，让行业看到了anchor free方法的潜力。接下来要解决的问题是实例分割。</p>
 <p>这个工作我个人觉得最大的贡献在于，把更复杂的实例分割问题，转化成在网络设计和计算量复杂度上和物体检测一样复杂的任务，把对实例分割的建模变得简单和高效。</p>
 <p>Mask R-CNN<br>首先回顾一下之前最经典的实例分割方法，‘先检测再分割’，在这方面做到极致的算法是Mask RCNN。</p>

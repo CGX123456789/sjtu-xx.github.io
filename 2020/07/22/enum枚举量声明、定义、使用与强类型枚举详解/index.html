@@ -269,12 +269,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>c++中的enum类型<br><a id="more"></a></p>
+        <p>c++中的enum类型</p>
+<a id="more"></a>
 <h1 id="枚举量的声明"><a href="#枚举量的声明" class="headerlink" title="枚举量的声明"></a>枚举量的声明</h1><h2 id="枚举类型定义"><a href="#枚举类型定义" class="headerlink" title="枚举类型定义"></a>枚举类型定义</h2><p><code>enum enumType {Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday};</code></p>
 <p>这句话声明了一个enumType类型，声明Monday等为符号常量，默认值为0-6.</p>
 <h2 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h2><p><code>enumType Weekday</code></p>
 <p>也可以在定义枚举类型时定义枚举变量</p>
-<p><code>enum enumType {Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday}Weekday;</code></p>
+<p><code>enum enumType {Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday}Weekday; </code></p>
 <h1 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h1><p>在不进行强制转换的前提下，只能将定义的枚举量赋值给该种枚举的变量。如：<code>Weekday=Sunday</code></p>
 <h1 id="自定义枚举量的值"><a href="#自定义枚举量的值" class="headerlink" title="自定义枚举量的值"></a>自定义枚举量的值</h1><p><code>enum enumType {Monday=1, Tuesday=2, Wednesday=3, Thursday=4, Friday=5, Saturday=6, Sunday=7};</code></p>
 <p>只定义一部分枚举量的值<code>enum enumType {Monday=1, Tuesday, Wednesday=1, Thursday, Friday, Saturday, Sunday};</code>，这样Monday、Wednesday 均被定义为 1，则 Tuesday=2，Thursday、Friday、Saturday、Sunday 的值默认分别为 2、3、4、5。</p>
@@ -282,9 +283,11 @@
 <p>枚举的下限有两种情况：一、枚举量的最小值不小于 0，则枚举下限取 0；二、枚举量的最小值小于 0，则枚举下限是小于最小枚举量的最大的 2 的幂，加上 1。</p>
 <p>如<code>enum enumType1 { First=-5，Second=14，Third=10 };</code>枚举量的上限是16-1=15,枚举的下限是-8+1=-7（-8小于最小枚举量-5，且为2的幂）；</p>
 <h1 id="枚举应用"><a href="#枚举应用" class="headerlink" title="枚举应用"></a>枚举应用</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> enumType&#123;Step0, Step1, Step2&#125;Step=Step0; <span class="comment">// 注意这里在声明枚举的时候直接定义了枚举变量 Step,并初始化为 Step0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">switch</span> (Step)x</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">case</span> Step0:&#123;...;<span class="keyword">break</span>;&#125;</span><br><span class="line">  <span class="keyword">case</span> Step1:&#123;...;<span class="keyword">break</span>;&#125;</span><br><span class="line">  <span class="keyword">case</span> Step2:&#123;...;<span class="keyword">break</span>;&#125;</span><br><span class="line">  <span class="keyword">default</span>:<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>另外枚举还有一种少见的用法是<code>enum { one ,two ,three};</code>就是不指定一个名字,这样我们自然也没法去定义一些枚举类型了。此时就相当于 <code>static const int one = 0;</code>这样定义三个常量一样。然后用的话就是 <code>int no = one</code>.</p>
+<p>另外枚举还有一种少见的用法是<code>enum { one ,two ,three};</code>就是不指定一个名字,这样我们自然也没法去定义一些枚举类型了。此时就相当于 <code>static const int one = 0; </code>这样定义三个常量一样。然后用的话就是 <code>int no = one</code>.</p>
 <h1 id="强类型枚举"><a href="#强类型枚举" class="headerlink" title="强类型枚举"></a>强类型枚举</h1><p>传统C++中枚举常量被暴漏在外层作用域中，这样若是同一作用域下有两个不同的枚举类型，但含有相同的枚举常量也是不可的（如<code>enum Side{Right,Left};enum Thing{Wrong,Right};</code>是不可的）。</p>
-<p>强类型枚举使用<code>enum class</code>声明。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="class"><span class="keyword">class</span> <span class="title">Enumeration</span>&#123;</span></span><br><span class="line">    VAL1,</span><br><span class="line">    VAL2,</span><br><span class="line">    VAL3=<span class="number">100</span>,</span><br><span class="line">    VAL4</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><br>这样，枚举类型时安全的，枚举值也不会被隐式转换为整数，无法和整数数值比较，比如（Enumeration：：VAL4==10会触发编译错误）。</p>
+<p>强类型枚举使用<code>enum class</code>声明。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="class"><span class="keyword">class</span> <span class="title">Enumeration</span>&#123;</span></span><br><span class="line">    VAL1,</span><br><span class="line">    VAL2,</span><br><span class="line">    VAL3=<span class="number">100</span>,</span><br><span class="line">    VAL4</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这样，枚举类型时安全的，枚举值也不会被隐式转换为整数，无法和整数数值比较，比如（Enumeration：：VAL4==10会触发编译错误）。</p>
 <p>另外枚举类型所使用的类型默认为int类型，也可指定其他类型，比如：<br><code>enum class Enum:unsigned int{VAL1,VAL2};</code></p>
 <p><strong>强类型枚举能解决传统枚举不同枚举类下同枚举值名的问题，使用枚举类型的枚举名时，必须指明所属范围，比如：Enum::VAL1，而单独的VAL1则不再具有意义。</strong></p>
 

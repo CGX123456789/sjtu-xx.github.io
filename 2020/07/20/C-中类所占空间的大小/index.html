@@ -270,47 +270,40 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>struct,class<br><a id="more"></a><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Empyt</span>&#123;</span></span><br><span class="line">    </span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">S</span>&#123;</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">long</span> c; <span class="comment">// static 变量不占用S的存储空间，S为空，那么S占用一个字节</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> a;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(a)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">char</span> *b = &amp;a;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"*:"</span>&lt;&lt;<span class="keyword">sizeof</span>(b)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> c;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"int:"</span>&lt;&lt;<span class="keyword">sizeof</span>(c)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">long</span> d;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"long:"</span> &lt;&lt;<span class="keyword">sizeof</span>(d)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> f;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"long long:"</span> &lt;&lt; <span class="keyword">sizeof</span>(f) &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">double</span> m;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"double:"</span> &lt;&lt; <span class="keyword">sizeof</span>(m) &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"Empyt: "</span>&lt;&lt;<span class="keyword">sizeof</span>(Empyt)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"S: "</span>&lt;&lt;<span class="keyword">sizeof</span>(S)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在64位系统中的结果如下,static 的变量占用全局的内存. 和全局变量分配的内存在同一个区域里面.所以sizeof（s）的时候没有将其计算在内。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Char: 1</span><br><span class="line"></span><br><span class="line">*: 8</span><br><span class="line"></span><br><span class="line">int: 4</span><br><span class="line"></span><br><span class="line">long: 8</span><br><span class="line"></span><br><span class="line">long long: 8</span><br><span class="line"></span><br><span class="line">double: 8</span><br><span class="line"></span><br><span class="line">Empyt: 1</span><br><span class="line"></span><br><span class="line">S: 1</span><br></pre></td></tr></table></figure></p>
+        <p>struct,class</p>
+<a id="more"></a>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Empyt</span>&#123;</span></span><br><span class="line">    </span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">S</span>&#123;</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">long</span> c; <span class="comment">// static 变量不占用S的存储空间，S为空，那么S占用一个字节</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> a;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(a)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">char</span> *b = &amp;a;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"*:"</span>&lt;&lt;<span class="keyword">sizeof</span>(b)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> c;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"int:"</span>&lt;&lt;<span class="keyword">sizeof</span>(c)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">long</span> d;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"long:"</span> &lt;&lt;<span class="keyword">sizeof</span>(d)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> f;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"long long:"</span> &lt;&lt; <span class="keyword">sizeof</span>(f) &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">double</span> m;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"double:"</span> &lt;&lt; <span class="keyword">sizeof</span>(m) &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"Empyt: "</span>&lt;&lt;<span class="keyword">sizeof</span>(Empyt)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;<span class="string">"S: "</span>&lt;&lt;<span class="keyword">sizeof</span>(S)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在64位系统中的结果如下,static 的变量占用全局的内存. 和全局变量分配的内存在同一个区域里面.所以sizeof（s）的时候没有将其计算在内。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Char: 1</span><br><span class="line"></span><br><span class="line">*: 8</span><br><span class="line"></span><br><span class="line">int: 4</span><br><span class="line"></span><br><span class="line">long: 8</span><br><span class="line"></span><br><span class="line">long long: 8</span><br><span class="line"></span><br><span class="line">double: 8</span><br><span class="line"></span><br><span class="line">Empyt: 1</span><br><span class="line"></span><br><span class="line">S: 1</span><br></pre></td></tr></table></figure>
+
 <h2 id="字节对齐"><a href="#字节对齐" class="headerlink" title="字节对齐"></a>字节对齐</h2><p>字节对齐的细节和编译器实现相关，但一般而言，满足三个准则：</p>
 <p>1) 结构体变量的首地址能够被其最宽基本类型成员的大小所整除；<br>2) 结构体每个成员相对于结构体首地址的偏移量（offset）都是成员大小的整数倍，如有需要编译器会在成员之间加上填充字节；<br>3) 结构体的总大小为结构体最宽基本类型成员大小的整数倍，如有需要编译器会在最末一个成员之后加上填充字节；</p>
 <h2 id="字节对齐实际计算方法"><a href="#字节对齐实际计算方法" class="headerlink" title="字节对齐实际计算方法"></a>字节对齐实际计算方法</h2><p>看了以后还是不是很理解，也很正常，我们自己试试差不多就能理解了，通俗点讲，就是类（结构体）占用的大小永远都是其内定义的最宽（就是所占字节最大的变量）字节的整数倍，如果不是，那么编译器会自动帮你补上，如K，最宽的类型是int，占四个字节，加上一个char 一个字节 =5，不能被4整除哇，所以编译器将其自动补齐为8。我们再改一改K：</p>
 <p>struct K{</p>
-<pre><code>int a;
-
-char b;
-
-char c;
-</code></pre><p>};</p>
+<p>    int a;</p>
+<p>    char b;</p>
+<p>    char c;</p>
+<p>};</p>
 <p>这时候K 占几个字节？ 没错，答案还是8，看到这里是不是觉得自己应该掌握了， 哈哈，还没有，我们再看下面，我们把K当中的变量顺序换一换：</p>
 <p>struct K{</p>
-<pre><code>char b;
-
-int a;
-
-char c;
-</code></pre><p>};</p>
+<p>    char b;</p>
+<p>    int a;</p>
+<p>    char c;</p>
+<p>};</p>
 <p>是不是感觉没什么变化，我们只把int a 放在了 b 的下面。答案还是8吗？看我都这么说了，结果肯定不是啦，为先说下答案，是12，知道为什么了吗？看到答案为想大家也应该明白了，类当中的空间存储是自上而下的，我还是通俗点讲，先发现char b，字节大小为1，然后往下走碰到了 a 四个字节，这时候对b 进行自动补齐，字节大小变为八，也就是b的偏移量变成了3.继续走又给c分配四个字节，最后结果就是12.那之前为什么是8呢，很简单呀因为 前面的b，c 共同占用四个字节（他们是连在一起的）</p>
 <p>所以现在懂了吗，出个小题目：</p>
 <p>struct K{</p>
-<pre><code>int a;
-
-long f;
-
-char c;
-
-int b;
-
-char e;
-
-char g;
-
-char h;
-
-char i;
-
-char j;
-</code></pre><p>};</p>
+<p>    int a;</p>
+<p>    long f;</p>
+<p>    char c;</p>
+<p>    int b;</p>
+<p>    char e;</p>
+<p>    char g;</p>
+<p>    char h;</p>
+<p>    char i;</p>
+<p>    char j;</p>
+<p>};</p>
 <p>现在k占几个字节？</p>
 <p>·</p>
 <p>·</p>

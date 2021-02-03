@@ -303,8 +303,8 @@
 <li>力的平衡</li>
 <li>物理本构方程（材料行为）</li>
 </ul>
-<h2 id="微分方程的求解"><a href="#微分方程的求解" class="headerlink" title="微分方程的求解"></a>微分方程的求解</h2><h3 id="解析法"><a href="#解析法" class="headerlink" title="解析法"></a>解析法</h3><h3 id="差分法"><a href="#差分法" class="headerlink" title="差分法"></a>差分法</h3><p>使用差分代替微分</p>
-<script type="math/tex; mode=display">\frac{d^2u}{dx^2}=\frac{u_{i-1}-2u_i+u_{i+1}}{\Delta l^2}</script><h3 id="试函数法"><a href="#试函数法" class="headerlink" title="试函数法"></a>试函数法</h3><ul>
+<h2 id="微分方程的求解"><a href="#微分方程的求解" class="headerlink" title="微分方程的求解"></a>微分方程的求解</h2><h3 id="解析法"><a href="#解析法" class="headerlink" title="解析法"></a>解析法</h3><h3 id="差分法"><a href="#差分法" class="headerlink" title="差分法"></a>差分法</h3><p>使用差分代替微分<br>$$\frac{d^2u}{dx^2}=\frac{u_{i-1}-2u_i+u_{i+1}}{\Delta l^2}$$</p>
+<h3 id="试函数法"><a href="#试函数法" class="headerlink" title="试函数法"></a>试函数法</h3><ul>
 <li>选择试函数使其满足边界条件</li>
 <li>带入控制方程使试函数残差最小</li>
 </ul>
@@ -312,7 +312,8 @@
 <li><strong>基于全域</strong>，使用傅里叶级数逼近。这种方法对于3D问题很难求解。</li>
 <li><strong>基于子域</strong>，分段展开。分片函数逼近：几何-&gt;几何离散-&gt;基本构件（单元）</li>
 </ul>
-<h1 id="弹性力学"><a href="#弹性力学" class="headerlink" title="弹性力学"></a>弹性力学</h1><h2 id="弹簧的力学分析原理"><a href="#弹簧的力学分析原理" class="headerlink" title="弹簧的力学分析原理"></a>弹簧的力学分析原理</h2><p><img src="1.png" alt=""><br>
+<h1 id="弹性力学"><a href="#弹性力学" class="headerlink" title="弹性力学"></a>弹性力学</h1><h2 id="弹簧的力学分析原理"><a href="#弹簧的力学分析原理" class="headerlink" title="弹簧的力学分析原理"></a>弹簧的力学分析原理</h2><p><img src="1.png"></p>
+
 $$
 \left[\begin{matrix}k & -k \\ -k & k\end{matrix}\right]
 \left[\begin{matrix}u_1 \\u_2\end{matrix}\right]
@@ -320,21 +321,25 @@ $$
 \left[\begin{matrix}F_1 \\F_2\end{matrix}\right]
 \tag{1}
 $$
-</p>
+
+
 <h1 id="弹性力学-1"><a href="#弹性力学-1" class="headerlink" title="弹性力学"></a>弹性力学</h1><blockquote>
 <p>弹性力学平面问题<br>为了保持边界位移的连续性，假设单元内任意一点的位移为其坐标的线性函数，这样边界的变化就是线性的。<br>形函数：任意一点的位移可以用单元节点的位移表示，系数称为形函数。<br>单元的应力和应变都是常数。</p>
 </blockquote>
 <h2 id="弹性力学的变形体假设"><a href="#弹性力学的变形体假设" class="headerlink" title="弹性力学的变形体假设"></a>弹性力学的变形体假设</h2><p>连续、均匀、各向同性、线弹性、小变形</p>
-<h2 id="指标记法"><a href="#指标记法" class="headerlink" title="指标记法"></a>指标记法</h2><script type="math/tex; mode=display">F_i = [F_1,F_2,F_3]</script><script type="math/tex; mode=display">\sum_{j=1}^{i}a_{ij}x_j=b_i\ \Rightarrow\ a_{ij}x_j=b_i</script><p><strong>Voigt标记</strong>（将高阶自由指标张量写成低阶张量）<br>
+<h2 id="指标记法"><a href="#指标记法" class="headerlink" title="指标记法"></a>指标记法</h2><p>$$F_i = [F_1,F_2,F_3]$$<br>$$\sum_{j=1}^{i}a_{ij}x_j=b_i\ \Rightarrow\ a_{ij}x_j=b_i$$<br><strong>Voigt标记</strong>（将高阶自由指标张量写成低阶张量）</p>
+
 $$\sigma_{ij}=\left[\begin{matrix}\sigma_{11} & \sigma_{12}\\ \sigma{21} & \sigma_{22}\end{matrix}\right]\ 
 \Rightarrow对称张量写一半
 \Rightarrow\ \sigma=\left[\begin{matrix}\sigma_{11} \\ \sigma_{22} \\ \sigma_{12}\end{matrix}\right]$$
-</p>
+
+
 
 $$\sigma_{ij}=\left[\begin{matrix}\sigma_{11} & \sigma_{12} & \sigma_{13}\\ \sigma_{21} & \sigma_{22} & \sigma_{23}\\
 \sigma_{31} & \sigma_{32} & \sigma_{33}\\\end{matrix}\right]\ 
 \Rightarrow对称张量写一半
 \Rightarrow\ \sigma=\left[\begin{matrix}\sigma_{11} \\ \sigma_{22} \\ \sigma_{33} \\ \sigma_{23} \\ \sigma_{13} \\ \sigma_{12}\end{matrix}\right]$$
+
 
 <h2 id="三大类变量和三大类方程"><a href="#三大类变量和三大类方程" class="headerlink" title="三大类变量和三大类方程"></a>三大类变量和三大类方程</h2><p>三大类变量：位移、应力、应变</p>
 <p>三大类方程：几何方程、平衡方程、无理方程</p>
@@ -369,6 +374,7 @@ $$
 指标形式: \epsilon_{ij}=C_{ijkl}\sigma_{kl}
 $$
 
+
 <h3 id="边界条件"><a href="#边界条件" class="headerlink" title="边界条件"></a>边界条件</h3><ul>
 <li>位移边界$S_u$</li>
 <li>力边界$S_p$</li>
@@ -376,7 +382,8 @@ $$
 <blockquote>
 <p>无边界区域对应（力为0的边界）</p>
 </blockquote>
-<h1 id="典型问题"><a href="#典型问题" class="headerlink" title="典型问题"></a>典型问题</h1><h2 id="平面纯弯梁的描述"><a href="#平面纯弯梁的描述" class="headerlink" title="平面纯弯梁的描述"></a>平面纯弯梁的描述</h2><p>3D问题<br>
+<h1 id="典型问题"><a href="#典型问题" class="headerlink" title="典型问题"></a>典型问题</h1><h2 id="平面纯弯梁的描述"><a href="#平面纯弯梁的描述" class="headerlink" title="平面纯弯梁的描述"></a>平面纯弯梁的描述</h2><p>3D问题</p>
+
 $$
 \left\{\begin{array}{lr}
 位移（3个）\\应力（9个）\\应变（9个）
@@ -389,8 +396,8 @@ $$
 \right.
 (三组剪应力应变互等)
 $$
-</p>
-<div class="table-container">
+
+
 <table>
 <thead>
 <tr>
@@ -400,8 +407,7 @@ $$
 <th>3D</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>平衡方程</td>
 <td>1</td>
 <td>2</td>
@@ -431,10 +437,9 @@ $$
 <td>2</td>
 <td>3</td>
 </tr>
-</tbody>
-</table>
-</div>
-<h2 id="张量"><a href="#张量" class="headerlink" title="张量"></a>张量</h2><p>坐标变换<br>
+</tbody></table>
+<h2 id="张量"><a href="#张量" class="headerlink" title="张量"></a>张量</h2><p>坐标变换</p>
+
 $$
 \left[\begin{matrix}x^{(2)} \\ y^{(2)}\end{matrix}\right]=
 \left[\begin{matrix}cos(x^{(2)},x^{(2)}) & cos(x^{(2)},y^{(1)}) \\  cos(y^{(2)},x^{(1)}) & cos(y^{(2)},y^{(1)}))\end{matrix}\right]
@@ -442,7 +447,8 @@ $$
 = \left[\begin{matrix}cos\alpha & sin\alpha \\  -sin\alpha & cos\alpha)\end{matrix}\right]
 \left[\begin{matrix}x^{(1)} \\ y^{(1)}\end{matrix}\right]
 $$
-<br>$\alpha$为两坐标系转动夹角,T为转置矩阵$\left[\begin{matrix}cos\alpha & sin\alpha \\  -sin\alpha & cos\alpha)\end{matrix}\right]$</p>
+
+<p>$\alpha$为两坐标系转动夹角,T为转置矩阵$\left[\begin{matrix}cos\alpha & sin\alpha \\  -sin\alpha & cos\alpha)\end{matrix}\right]$</p>
 <p>张量存在不变量，不随坐标系的变化而变化，这些变量是重要的分析对象<br>二阶张量$\sigma^{(2)}=T\sigma^{(1)}T^T$</p>
 <h1 id="虚功原理和最小势能原理"><a href="#虚功原理和最小势能原理" class="headerlink" title="虚功原理和最小势能原理"></a>虚功原理和最小势能原理</h1><h2 id="弹性变形体力学方程的求解方法"><a href="#弹性变形体力学方程的求解方法" class="headerlink" title="弹性变形体力学方程的求解方法"></a>弹性变形体力学方程的求解方法</h2><ul>
 <li><strong>直接求解</strong>：解析法、半解析、差分</li>
@@ -458,7 +464,7 @@ $$
 <p>简介求解的关键是1.试函数的选择，2.试函数带入原方程求误差</p>
 </blockquote>
 <h3 id="伽辽金加权残值法"><a href="#伽辽金加权残值法" class="headerlink" title="伽辽金加权残值法"></a>伽辽金加权残值法</h3><p>试函数：将满足边界条件的试函数$\phi_i(x)$组合为新的试函数$\hat{v}(x)=c_1\phi_1(x)+…+c_n\phi_n(x)$,$c_i$为待定系数</p>
-<p>伽辽金法的权值为试函数<br>残值: $\int<em>\Omega{w</em>{t<em>i}R(x,y,z)d\Omega}$<br>$w</em>{t_i}=\phi_i$</p>
+<p>伽辽金法的权值为试函数<br>残值: $\int_\Omega{w_{t_i}R(x,y,z)d\Omega}$<br>$w_{t_i}=\phi_i$</p>
 <p>残值最小二乘法的权值为$w_{t_i}=1$</p>
 <h2 id="如何降低试函数对高阶导数及边界条件的要求"><a href="#如何降低试函数对高阶导数及边界条件的要求" class="headerlink" title="如何降低试函数对高阶导数及边界条件的要求"></a>如何降低试函数对高阶导数及边界条件的要求</h2><p>将三大类变量（位移、应力、应变）代换为一类变量（位移）</p>
 <p>弹性问题加权残值法的难点：</p>
@@ -466,8 +472,7 @@ $$
 <li>试函数要满足所有边界条件 -&gt; 只满足位移边界</li>
 <li>试函数最高阶导数较高（梁弯曲问题要求4阶导数存在，一般弹性问题要求2阶导数存在）-&gt; 虚功原理和最小势能原理可以将最高阶导数降低一半</li>
 </ul>
-<h2 id="虚功原理"><a href="#虚功原理" class="headerlink" title="虚功原理"></a>虚功原理</h2><p>虚功原理：虚功总和为0</p>
-<script type="math/tex; mode=display">\delta W-\delta U =0（W外力虚功，U内力虚功）</script><p>截面惯性矩$I=\int{y^2dA}$</p>
+<h2 id="虚功原理"><a href="#虚功原理" class="headerlink" title="虚功原理"></a>虚功原理</h2><p>虚功原理：虚功总和为0<br>$$\delta W-\delta U =0（W外力虚功，U内力虚功）$$<br>截面惯性矩$I=\int{y^2dA}$</p>
 <p>若试函数为$\hat{v}(x)=C_1sin(\frac{\pi x}{l})$，虚位移场为$\delta\hat{v}(x)=\delta C_1sin(\frac{\pi x}{l})$</p>
 <p>最小势能原理：$min(U-W)$</p>
 <h2 id="能量原理"><a href="#能量原理" class="headerlink" title="能量原理"></a>能量原理</h2><p>加权残值法的试函数满足位移边界条件和力边界条件，最终加权残值满足控制方程。</p>
@@ -502,8 +507,9 @@ $$
 </ul>
 </li>
 </ul>
-<p><img src="2.png" alt=""></p>
-<h2 id="形函数的计算"><a href="#形函数的计算" class="headerlink" title="形函数的计算"></a>形函数的计算</h2><p>单元节点的自由度为4<br>位移场函数$v(x)=a_0+a_1x+a_2x^2+a_3x^3$<br>单元节点条件<br>
+<p><img src="2.png"></p>
+<h2 id="形函数的计算"><a href="#形函数的计算" class="headerlink" title="形函数的计算"></a>形函数的计算</h2><p>单元节点的自由度为4<br>位移场函数$v(x)=a_0+a_1x+a_2x^2+a_3x^3$<br>单元节点条件</p>
+
 $$
 \left\{
 \begin{array}{lr}
@@ -512,7 +518,8 @@ v(l)=v_2 & v^{'}(l)=\theta_2
 \end{array}
 \right.
 $$
-</p>
+
+
 <p>$v(x)=N(\xi)q^e$</p>
 <blockquote>
 <p>分布力转换为节点处的等效载荷</p>
@@ -520,11 +527,13 @@ $$
 <h1 id="常见平面单元"><a href="#常见平面单元" class="headerlink" title="常见平面单元"></a>常见平面单元</h1><h2 id="平面三节点单元"><a href="#平面三节点单元" class="headerlink" title="平面三节点单元"></a>平面三节点单元</h2><p>应变场为常数<br>应力场为常数<br>位移场为完全线性函数($u(x,y)=a_0+a_1x+a_2y$,$v(x,y)=b_0+b_1x+b_2y$)</p>
 <p>基于整体坐标建立节点位移，没有坐标变换问题</p>
 <p>对于应变梯度大的区域，加密或高阶单元</p>
-<h2 id="平面四节点单元"><a href="#平面四节点单元" class="headerlink" title="平面四节点单元"></a>平面四节点单元</h2><p>位移场为完全线性+交叉项函数（$u(x,y)=a_0+a_1x+a_2y+a_3xy$）<br>应变场为不完全线性:<br>
+<h2 id="平面四节点单元"><a href="#平面四节点单元" class="headerlink" title="平面四节点单元"></a>平面四节点单元</h2><p>位移场为完全线性+交叉项函数（$u(x,y)=a_0+a_1x+a_2y+a_3xy$）<br>应变场为不完全线性:</p>
+
 $$
 \epsilon = \left[\begin{matrix}a_1+a_3y\\ b_2+b_3x \\ a_2+b_1+a_3x+b_3y \end{matrix}\right]
 $$
-</p>
+
+
 <p>应力场：$\sigma=D\epsilon$</p>
 <h1 id="空间单元"><a href="#空间单元" class="headerlink" title="空间单元"></a>空间单元</h1><h2 id="空间四节点单元（与平面三节点单元类似）"><a href="#空间四节点单元（与平面三节点单元类似）" class="headerlink" title="空间四节点单元（与平面三节点单元类似）"></a>空间四节点单元（与平面三节点单元类似）</h2><p>应变场为常数<br>应力场为常数<br>没有坐标变换问题</p>
 <h2 id="空间8节点正六面体单元与平面4节点单元类似"><a href="#空间8节点正六面体单元与平面4节点单元类似" class="headerlink" title="空间8节点正六面体单元与平面4节点单元类似"></a>空间8节点正六面体单元与平面4节点单元类似</h2><h2 id="参数单元"><a href="#参数单元" class="headerlink" title="参数单元"></a>参数单元</h2><p><strong>基准单元</strong>：基准坐标系；     <strong>物理单元</strong>：物理坐标系<br>需要进行几种映射：坐标函数映射、偏导数映射、面积（体积）映射</p>
@@ -594,7 +603,7 @@ $$
 <p>单元质量矩阵：$M^e=\int_\Omega\rho N^TNd\Omega$</p>
 <p>单元阻尼矩阵：$C^e=\int_\Omega v N^TNd\Omega$</p>
 <p>单元刚度矩阵：$K^e=\int_\Omega B^T DBd\Omega$</p>
-<p>力矩阵：$P<em>t^e=\int</em>\Omega N^T\bar{b}d\Omega+\int_{S_p}N^T\bar{p}dA$</p>
+<p>力矩阵：$P_t^e=\int_\Omega N^T\bar{b}d\Omega+\int_{S_p}N^T\bar{p}dA$</p>
 <p>对于无阻尼(v=0)自由(p=0)振动:$M\ddot{q}+Kq=0$，这个方程的解的形式为$q_t=\hat{q}e^{iwt}$。带入到方程中得到：$(-w^2M\hat{q}+K\hat{q})e^{iwt}=0$，即$(K-w^2M)\hat{q}=0$。方程由非零解的条件为$|K-w^2M|=0$。</p>
 <p><strong>质量矩阵</strong>：一致质量矩阵；集中质量矩阵（将一直质量矩阵行/列集中到对角线）</p>
 <h2 id="非线性方程的求解"><a href="#非线性方程的求解" class="headerlink" title="非线性方程的求解"></a>非线性方程的求解</h2><ul>
@@ -611,7 +620,8 @@ $$
 <li>隐式求解。将分析过程分为一系列增量步，在每个增量步迭代至合理解。</li>
 <li>显式求解。显式地从上一个增量步推算动力学平衡方程</li>
 </ul>
-<h2 id="一阶-二阶-完全-减缩"><a href="#一阶-二阶-完全-减缩" class="headerlink" title="一阶/二阶 完全/减缩"></a>一阶/二阶 完全/减缩</h2><p><img src=3.png></p>
+<h2 id="一阶-二阶-完全-减缩"><a href="#一阶-二阶-完全-减缩" class="headerlink" title="一阶/二阶 完全/减缩"></a>一阶/二阶 完全/减缩</h2><img src=3.png>
+
 <h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p><strong>线性单元</strong>仅在角点处布置节点，在各方向采用线性插值。</p>
 <p><strong>二次单元</strong>不仅在节点处，在每边的中点也有节点，在各方向采用二次插值</p>
 <p><strong>完全积分</strong>：当单元具有规则形状时，所用高斯积分点数目足以对单元刚度矩阵多项式进行精确积分。</p>
@@ -639,7 +649,8 @@ $$
 <li>受弯：二次单元优于线性单元；； 受扭：线性单元优于二次单元</li>
 </ul>
 </blockquote>
-<p>完全各向异性材料：$C_{ij}$，21个独立分量<br>各向同性材料的刚度系数：<br>
+<p>完全各向异性材料：$C_{ij}$，21个独立分量<br>各向同性材料的刚度系数：</p>
+
 $$
 \left[
     \begin{matrix}
@@ -652,23 +663,33 @@ $$
     \end{matrix}
 \right]
 $$
-</p>
+
+
+
+
 <h1 id="广义变分原理"><a href="#广义变分原理" class="headerlink" title="广义变分原理"></a>广义变分原理</h1><h2 id="约束变分原理"><a href="#约束变分原理" class="headerlink" title="约束变分原理"></a>约束变分原理</h2><h3 id="拉格朗日乘子法"><a href="#拉格朗日乘子法" class="headerlink" title="拉格朗日乘子法"></a>拉格朗日乘子法</h3><p>对于一个使泛函$\Pi(\textbf{u})$取驻值的问题，如果其场函数$\textbf{u}$需满足的附加条件为：</p>
-<script type="math/tex; mode=display">\{C(\textbf{u})\}=\{0\}\ (在域\Omega内)</script><p>则将其引用泛函$\Pi(\textbf{u})$得到一修正的泛函：<br>
+<p>$${C(\textbf{u})}={0}\ (在域\Omega内)$$</p>
+<p>则将其引用泛函$\Pi(\textbf{u})$得到一修正的泛函：</p>
+
 $$\Pi^{*}(\textbf{u,}\lambda)=\Pi(\textbf{u})+\int_{\Omega}\{\lambda\}^T\{C(\textbf{u})\}d\Omega$$
-<br>$\lambda$为一组独立的坐标函数，称为拉格朗日乘子。</p>
+
+<p>$\lambda$为一组独立的坐标函数，称为拉格朗日乘子。</p>
 <p>拉格朗日乘子会导致待定系数的增加，从而增加了计算量。</p>
-<h3 id="罚函数法"><a href="#罚函数法" class="headerlink" title="罚函数法"></a>罚函数法</h3><p>罚函数法与拉格朗日的区别是引入附加条件的形式不同，拉格朗日乘子法引入是附加条件的原型，即${C(\textbf{u})}={0}$，而罚函数法则是附加条件乘积的形式。<br>
+<h3 id="罚函数法"><a href="#罚函数法" class="headerlink" title="罚函数法"></a>罚函数法</h3><p>罚函数法与拉格朗日的区别是引入附加条件的形式不同，拉格朗日乘子法引入是附加条件的原型，即${C(\textbf{u})}={0}$，而罚函数法则是附加条件乘积的形式。</p>
+
 $$\{C(\textbf{u})\}^T\{C(\textbf{u})\}=\{C_1^2(\textbf{u})\}+\{C_2^2(\textbf{u})\}+...+\{C_n^2(\textbf{u})\}$$
-</p>
-<p>当附加条件得到满足时，上式为0，否则它大于0.显然上式的变分在满足:$\delta({C(\textbf{u})}^T{C(\textbf{u})})=0$的条件下是最小的。因此，罚函数法利用一个充分大的系数将附加条件以乘积的形式引入泛函。<br>
+
+
+<p>当附加条件得到满足时，上式为0，否则它大于0.显然上式的变分在满足:$\delta({C(\textbf{u})}^T{C(\textbf{u})})=0$的条件下是最小的。因此，罚函数法利用一个充分大的系数将附加条件以乘积的形式引入泛函。</p>
+
 $$\Pi^{**}(\textbf{u})=\Pi(\textbf{u})+\alpha\int_\Omega\{C(\textbf{u})\}^T\{C(\textbf{u})\}d\Omega$$
-<br>$\alpha$被称为罚函数，若泛函本身是极小值问题，则$\alpha$取正数。<br>罚函数选择很重要，如何选择合适的$\alpha$不易。</p>
+
+<p>$\alpha$被称为罚函数，若泛函本身是极小值问题，则$\alpha$取正数。<br>罚函数选择很重要，如何选择合适的$\alpha$不易。</p>
 <h1 id="非线性问题的求解方法"><a href="#非线性问题的求解方法" class="headerlink" title="非线性问题的求解方法"></a>非线性问题的求解方法</h1><h2 id="直接迭代法"><a href="#直接迭代法" class="headerlink" title="直接迭代法"></a>直接迭代法</h2><p>每次迭代需要重新计算刚度矩阵并求逆，计算量较大。（割线刚度法）</p>
-<p>收敛性：对刚度退化的系统，直接迭代法收敛。对刚度硬化的系统，直接迭代法不收敛。<br><img src="c1.jpg" alt=""></p>
-<h2 id="牛顿-拉夫森方法"><a href="#牛顿-拉夫森方法" class="headerlink" title="牛顿-拉夫森方法"></a>牛顿-拉夫森方法</h2><p>每次迭代需要重新计算系数矩阵并求逆，计算量较大。（切线刚度法）<br><img src="c2.jpg" alt=""></p>
-<h2 id="修正的牛顿-拉夫森方法"><a href="#修正的牛顿-拉夫森方法" class="headerlink" title="修正的牛顿-拉夫森方法"></a>修正的牛顿-拉夫森方法</h2><p>迭代过程不需要重新计算系数矩阵，只计算一次。<br><img src="c3.jpg" alt=""></p>
-<h2 id="增量法"><a href="#增量法" class="headerlink" title="增量法"></a>增量法</h2><p><img src="c4.jpg" alt=""></p>
+<p>收敛性：对刚度退化的系统，直接迭代法收敛。对刚度硬化的系统，直接迭代法不收敛。<br><img src="c1.jpg"></p>
+<h2 id="牛顿-拉夫森方法"><a href="#牛顿-拉夫森方法" class="headerlink" title="牛顿-拉夫森方法"></a>牛顿-拉夫森方法</h2><p>每次迭代需要重新计算系数矩阵并求逆，计算量较大。（切线刚度法）<br><img src="c2.jpg"></p>
+<h2 id="修正的牛顿-拉夫森方法"><a href="#修正的牛顿-拉夫森方法" class="headerlink" title="修正的牛顿-拉夫森方法"></a>修正的牛顿-拉夫森方法</h2><p>迭代过程不需要重新计算系数矩阵，只计算一次。<br><img src="c3.jpg"></p>
+<h2 id="增量法"><a href="#增量法" class="headerlink" title="增量法"></a>增量法</h2><p><img src="c4.jpg"></p>
 <h1 id="求解线性方程组的迭代法"><a href="#求解线性方程组的迭代法" class="headerlink" title="求解线性方程组的迭代法"></a>求解线性方程组的迭代法</h1><h2 id="雅可比迭代法"><a href="#雅可比迭代法" class="headerlink" title="雅可比迭代法"></a>雅可比迭代法</h2><p>每次迭代全部采用上次的迭代结果</p>
 <h2 id="高斯-赛尔德迭代法"><a href="#高斯-赛尔德迭代法" class="headerlink" title="高斯-赛尔德迭代法"></a>高斯-赛尔德迭代法</h2><h2 id="超松弛迭代法"><a href="#超松弛迭代法" class="headerlink" title="超松弛迭代法"></a>超松弛迭代法</h2><p>改善了高斯-赛尔德迭代法的收敛性</p>
 <h1 id="单元类型"><a href="#单元类型" class="headerlink" title="单元类型"></a>单元类型</h1><h2 id="一维单元"><a href="#一维单元" class="headerlink" title="一维单元"></a>一维单元</h2><h3 id="拉格朗日单元"><a href="#拉格朗日单元" class="headerlink" title="拉格朗日单元"></a>拉格朗日单元</h3><p>在n个节点上的函数值连续</p>

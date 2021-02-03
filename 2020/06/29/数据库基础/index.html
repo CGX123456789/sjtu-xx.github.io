@@ -330,11 +330,12 @@
 <p>3) 小心保留词,要保证你的字段名没有和保留词、数据库系统或者常用访问方法冲突</p>
 <p>5) 保持字段名和类型的一致性,在命名字段并为其指定数据类型的时候一定要保证一致性.假如数据类型在一个表里是整数,那在另一个表里可就别变成字符型了.<br><strong>命名规范</strong></p>
 <ul>
-<li><p>数据表名使用小写英文以及下划线组成,尽量说明是那个应用或者系统在使用的.  相关应用的数据表使用同一前缀,如论坛的表使用cdb<em>前缀,博客的数据表使用supe</em>前缀,前缀名称一般不超过5字 。备份数据表名使用正式表名加上备份时间组成 </p>
+<li><p>数据表名使用小写英文以及下划线组成,尽量说明是那个应用或者系统在使用的.  相关应用的数据表使用同一前缀,如论坛的表使用cdb_前缀,博客的数据表使用supe_前缀,前缀名称一般不超过5字 。备份数据表名使用正式表名加上备份时间组成 </p>
 </li>
 <li><p>字段名称使用单词组合完成,首字母小写,后面单词的首字母大写,最好是带表名前缀.</p>
 <p>如 web_user 表的字段:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. userId  </span><br><span class="line">2. userName  </span><br><span class="line">3. userPassword</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h2 id="索引使用原则"><a href="#索引使用原则" class="headerlink" title="索引使用原则"></a>索引使用原则</h2><p>1) 逻辑主键使用唯一的成组索引,对系统键(作为存储过程)采用唯一的非成组索引,对任何外键列采用非成组索引.考虑数据库的空间有多大,表如何进行访问,还有这些访问是否主要用作读写.</p>

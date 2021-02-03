@@ -271,21 +271,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>口罩检测数据集来源：<a href="https://www.bilibili.com/video/av88696686?t=115" target="_blank" rel="noopener">https://www.bilibili.com/video/av88696686?t=115</a><br>口罩检测模型：<a href="https://github.com/zzh8829/yolov3-tf2" target="_blank" rel="noopener">https://github.com/zzh8829/yolov3-tf2</a><br><a id="more"></a><br>模型使用：</p>
+        <p>口罩检测数据集来源：<a href="https://www.bilibili.com/video/av88696686?t=115" target="_blank" rel="noopener">https://www.bilibili.com/video/av88696686?t=115</a><br>口罩检测模型：<a href="https://github.com/zzh8829/yolov3-tf2" target="_blank" rel="noopener">https://github.com/zzh8829/yolov3-tf2</a></p>
+<a id="more"></a>
+<p>模型使用：</p>
 <ol>
 <li>数据集更改<br>将所有图片放到一个文件夹，重命名文件，修改xml文件中filename<br>修改./data/voc2012.names中的名称为have_mask和no_mask</li>
 <li>模型修改<br>由于磁盘空间有限，在train.py中的modelcheckpoint中添加参数，save_best_only=True</li>
 <li>数据集生成<br>分别生成train和val<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">python tools/voc2012.py \</span><br><span class="line">  --data_dir './data/voc2012_raw/VOCdevkit/VOC2012' \</span><br><span class="line">  --split train \</span><br><span class="line">  --output_file ./data/voc2012_train.tfrecord</span><br><span class="line"></span><br><span class="line">python tools/voc2012.py \</span><br><span class="line">  --data_dir './data/voc2012_raw/VOCdevkit/VOC2012' \</span><br><span class="line">  --split val \</span><br><span class="line">  --output_file ./data/voc2012_val.tfrecord</span><br></pre></td></tr></table></figure></li>
 <li>模型训练<br>迁移学习<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">wget https://pjreddie.com/media/files/yolov3.weights -O data/yolov3.weights</span><br><span class="line">python <span class="built_in">convert</span>.py</span><br><span class="line">python detect.py --image ./data/meme.jpg # Sanity check</span><br><span class="line"></span><br><span class="line">python train.py \</span><br><span class="line">	--dataset ./data/voc2012_train.tfrecord \</span><br><span class="line">	--val_dataset ./data/voc2012_val.tfrecord \</span><br><span class="line">	--classes ./data/voc2012.names \</span><br><span class="line">	--num_classes <span class="number">2</span> \</span><br><span class="line">	--<span class="built_in">mode</span> fit --transfer darknet \</span><br><span class="line">	--batch_size <span class="number">16</span> \</span><br><span class="line">	--epochs <span class="number">10</span> \</span><br><span class="line">	--weights ./checkpoints/yolov3.tf \</span><br><span class="line">	--weights_num_classes <span class="number">80</span></span><br></pre></td></tr></table></figure>
+
+
 </li>
 </ol>
-<p>随机初始化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">python train.py \</span><br><span class="line">	--dataset .&#x2F;data&#x2F;voc2012_train.tfrecord \</span><br><span class="line">	--val_dataset .&#x2F;data&#x2F;voc2012_val.tfrecord \</span><br><span class="line">	--classes .&#x2F;data&#x2F;voc2012.names \</span><br><span class="line">	--num_classes 2 \</span><br><span class="line">	--mode fit --transfer none \</span><br><span class="line">	--batch_size 16 \</span><br><span class="line">	--epochs 10 \</span><br></pre></td></tr></table></figure></p>
+<p>随机初始化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">python train.py \</span><br><span class="line">	--dataset .&#x2F;data&#x2F;voc2012_train.tfrecord \</span><br><span class="line">	--val_dataset .&#x2F;data&#x2F;voc2012_val.tfrecord \</span><br><span class="line">	--classes .&#x2F;data&#x2F;voc2012.names \</span><br><span class="line">	--num_classes 2 \</span><br><span class="line">	--mode fit --transfer none \</span><br><span class="line">	--batch_size 16 \</span><br><span class="line">	--epochs 10 \</span><br></pre></td></tr></table></figure>
+
 <p>可以在迁移学习冻结darknet主题部分之后，不冻结再次训练<br>batch_size要尽量小，不然会爆显存</p>
-<ol>
+<ol start="5">
 <li>预测</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python detect.py --classes ./data/voc2012.names --num_classes <span class="number">2</span> --weights ./checkpoints/yolov3_train_2.tf --image ./data/street.jpg</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="6">
 <li>实时检测</li>
 </ol>
 

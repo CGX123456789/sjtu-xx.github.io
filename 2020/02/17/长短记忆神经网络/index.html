@@ -275,7 +275,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>理解LSTM：<a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/" target="_blank" rel="noopener">原文链接</a> <a href="https://www.jianshu.com/p/95d5c461924c" target="_blank" rel="noopener">中文链接</a><br><a id="more"></a></p>
+        <p>理解LSTM：<a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/" target="_blank" rel="noopener">原文链接</a> <a href="https://www.jianshu.com/p/95d5c461924c" target="_blank" rel="noopener">中文链接</a></p>
+<a id="more"></a>
 <h1 id="循环神经网络（RNN）"><a href="#循环神经网络（RNN）" class="headerlink" title="循环神经网络（RNN）"></a>循环神经网络（RNN）</h1><p>循环神经网络通过将信息循环操作，保证信息持续存在。</p>
 <h1 id="长依赖存在的问题"><a href="#长依赖存在的问题" class="headerlink" title="长依赖存在的问题"></a>长依赖存在的问题</h1><p>存在两个问题：</p>
 <ul>
@@ -283,7 +284,7 @@
 <li>预测”I grew up in France… I speak fluent French.”中的french就需要长距离的信息。</li>
 </ul>
 <p>理论上RNNs是能够处理这种“长依赖”问题的。通过调参来解决这种问题。但是在实践过程中RNNs无法学习到这种特征。Hochreiter (1991) [German] 和Bengio, et al. (1994)深入研究过为什么RNNs没法学习到这种特征。</p>
-<h1 id="LSTM网络"><a href="#LSTM网络" class="headerlink" title="LSTM网络"></a>LSTM网络</h1><p>在标准的RNN中，该重复模块将具有非常简单的结构，例如单个tanh层。标准的RNN网络如下图所示<br><img src="LSTM3-SimpleRNN.png" alt=""><br>LSTMs也具有这种链式结构，但是它的重复单元不同于标准RNN网络里的单元只有一个网络层，它的内部有四个网络层。LSTMs的结构如下图所示。<br><img src="LSTM3-chain.png" alt=""><br>图中黄色类似于CNN里的激活函数操作，粉色圆圈表示点操作，单箭头表示数据流向，箭头合并表示向量的合并（concat）操作，箭头分叉表示向量的拷贝操作.</p>
+<h1 id="LSTM网络"><a href="#LSTM网络" class="headerlink" title="LSTM网络"></a>LSTM网络</h1><p>在标准的RNN中，该重复模块将具有非常简单的结构，例如单个tanh层。标准的RNN网络如下图所示<br><img src="LSTM3-SimpleRNN.png"><br>LSTMs也具有这种链式结构，但是它的重复单元不同于标准RNN网络里的单元只有一个网络层，它的内部有四个网络层。LSTMs的结构如下图所示。<br><img src="LSTM3-chain.png"><br>图中黄色类似于CNN里的激活函数操作，粉色圆圈表示点操作，单箭头表示数据流向，箭头合并表示向量的合并（concat）操作，箭头分叉表示向量的拷贝操作.</p>
 <h1 id="LSTMs核心思想"><a href="#LSTMs核心思想" class="headerlink" title="LSTMs核心思想"></a>LSTMs核心思想</h1><p>LSTMs的核心是细胞状态，用贯穿细胞的水平线表示。<br>细胞状态像传送带一样。它贯穿整个细胞却只有很少的分支，这样能保证信息不变的流过整个RNNs。<br>LSTM网络能通过一种被称为门的结构对细胞状态进行删除或者添加信息。<br>门能够有选择性的决定让哪些信息通过。其实门的结构很简单，就是一个sigmoid层和一个点乘操作的组合。</p>
 <h1 id="keras"><a href="#keras" class="headerlink" title="keras"></a>keras</h1><p>将LSTM层的数据整形为(number_of_sequences, number_of_steps,features)。<br>即：（样本个数，时间步，特征个数）<br>对每一个样本，需要有number_of_steps个时间步的样本，每个时间步都要满足特征个数。</p>
 
