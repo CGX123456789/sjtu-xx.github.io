@@ -11,6 +11,7 @@ categories:
 
 JAVA WEB部分
 <!--more-->
+
 # Web开发
 
 ## 端口
@@ -67,6 +68,8 @@ Accept-Language: zh-CN,zh;q=0.9,en-US;q=0.8
 > 我们注意到HTTP协议是一个请求-响应协议，它总是发送一个请求，然后接收一个响应。能不能一次性发送多个请求，然后再接收多个响应呢？**HTTP 2.0可以支持浏览器同时发出多个请求**，但每个请求需要唯一标识，服务器可以不按请求的顺序返回多个响应，由浏览器自己把收到的响应和请求对应起来。可见，HTTP 2.0进一步提高了传输效率，因为浏览器发出一个请求后，不必等待响应，就可以继续发下一个请求。
 >
 > HTTP 3.0为了进一步提高速度，将抛弃TCP协议，**改为使用无需创建连接的UDP协议**，目前HTTP 3.0仍然处于实验阶段。
+
+### TCP
 
 ```java
 import java.io.IOException;
@@ -147,6 +150,283 @@ class Handler extends Thread {
     }
 }
 ```
+
+#### 聊天应用
+
+Server
+
+```java
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class TcpServerDemo1 {
+    public static void main(String[] args) {
+        try (ServerSocket serverSocket = new ServerSocket(9999)) {
+            try (Socket socket = serverSocket.accept()) {
+                try (InputStream inputStream = socket.getInputStream()) {
+                    try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();) {
+                        byte[] buffer = new byte[1024];
+                        int len;
+                        while ((len = inputStream.read(buffer)) != -1) {
+                            byteArrayOutputStream.write(buffer, 0, len);
+                        }
+                        String s = byteArrayOutputStream.toString();
+                        System.out.println(s);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+```
+
+Client
+
+```java
+import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
+
+public class TcpClientDemo1 {
+    public static void main(String[] args) {
+        try {
+            InetAddress iadress = InetAddress.getByName("127.0.0.1");
+            int port = 9999;
+            Socket socket = new Socket(iadress, port);
+            OutputStream outputStream = socket.getOutputStream();
+            outputStream.write("欢迎你".getBytes(StandardCharsets.UTF_8));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+#### 传文件
+
+server
+
+```java
+package mmm.tcp;
+
+import java.io.FileOutputStream;
+import java.io.FilterOutputStream;
+import java.io.InputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class TcpServerDemo2 {
+    public static void main(String[] args) {
+        try (ServerSocket serverSocket = new ServerSocket(9999)) {
+            try(Socket socket = serverSocket.accept()){
+                try(InputStream inputStream = socket.getInputStream()){
+                    try(FileOutputStream fileOutputStream = new FileOutputStream("test.iml")){
+                        inputStream.transferTo(fileOutputStream);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+```
+
+Client
+
+```java
+package mmm.tcp;
+
+import java.io.FileInputStream;
+import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+
+public class TcpClientDemo2 {
+    public static void main(String[] args) {
+        try (Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 9999)) {
+            try (OutputStream outputStream = socket.getOutputStream()) {
+                try (FileInputStream fileInputStream = new FileInputStream("kuangDemo.iml")) {
+                    fileInputStream.transferTo(outputStream);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+```
+
+### UDP
+
+#### 消息发送
+
+Client
+
+```java
+public class UdpClient {
+    public static void main(String[] args) {
+        try (DatagramSocket datagramSocket = new DatagramSocket()) {
+            String msg = "你好啊";
+            InetAddress inetAddress = InetAddress.getByName("localhost");
+            int port = 9090;
+            DatagramPacket packet = new DatagramPacket(msg.getBytes(StandardCharsets.UTF_8), 0, msg.getBytes(StandardCharsets.UTF_8).length, inetAddress, port);
+            datagramSocket.send(packet);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+Server
+
+```java
+public class UdpServer {
+    public static void main(String[] args) {
+        try(DatagramSocket datagramSocket = new DatagramSocket(9090)){
+            byte[] bytes = new byte[1024];
+            DatagramPacket datagramPacket = new DatagramPacket(bytes, 0, bytes.length);
+            datagramSocket.receive(datagramPacket);
+            System.out.println(new String(datagramPacket.getData(),0,datagramPacket.getLength()));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+#### 聊天
+
+TalkReiver
+
+```java
+public class TalkReceiver implements Runnable{
+    DatagramSocket datagramSocket = null;
+    private int port;
+    private String msgFrom;
+
+    public TalkReceiver(int port,String msgFrom) {
+        this.port = port;
+        this.msgFrom = msgFrom;
+        try {
+            datagramSocket = new DatagramSocket(this.port);
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void run() {
+        try{
+            while (true) {
+                byte[] buffer = new byte[1024];
+                DatagramPacket datagramPacket = new DatagramPacket(buffer, 0, buffer.length);
+                datagramSocket.receive(datagramPacket);
+                System.out.println(msgFrom+":"+new String(datagramPacket.getData()));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+TalkSender
+
+```java
+public class TalkSender implements Runnable {
+    DatagramSocket datagramSocket = null;
+    BufferedReader bufferedReader = null;
+    int fromPort;
+    int toPort;
+    String toIp;
+
+
+    public TalkSender(int fromPort, String toIp, int toPort) {
+        this.fromPort = fromPort;
+        this.toPort = toPort;
+        this.toIp = toIp;
+
+        try {
+            datagramSocket = new DatagramSocket(this.fromPort);
+            bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void run() {
+        try {
+            while (true) {
+                String data = bufferedReader.readLine();
+                byte[] datas = data.getBytes(StandardCharsets.UTF_8);
+                DatagramPacket datagramPacket = new DatagramPacket(datas, 0, datas.length, InetAddress.getByName(this.toIp), this.toPort);
+                datagramSocket.send(datagramPacket);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+Student
+
+```java
+public class Student {
+    public static void main(String[] args) {
+        new Thread(new TalkSender(4444,"localhost",6666)).start();
+        new Thread(new TalkReceiver(8888,"老师")).start();
+    }
+}
+```
+
+Teacher
+
+```java
+public class Teacher {
+    public static void main(String[] args) {
+        new Thread(new TalkSender(9999,"localhost",8888)).start();
+        new Thread(new TalkReceiver(6666,"老师")).start();
+    }
+}
+```
+
+### URL
+
+```java
+public class UrlDown {
+    public static void main(String[] args) throws Exception {
+        URL url = new URL("http://xuexuan.site/images/avatar.png");
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        try (InputStream inputStream = urlConnection.getInputStream()) {
+            try(FileOutputStream os = new FileOutputStream("avatar.png")){
+                inputStream.transferTo(os);
+            }
+        }
+        urlConnection.disconnect();
+    }
+}
+```
+
+
+
+
 
 ## Servlet
 
