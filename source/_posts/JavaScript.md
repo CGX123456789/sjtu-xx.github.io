@@ -7,7 +7,12 @@ categories:
 - 前端
 ---
 
+[toc]
+
+
+
 # [JavaScript 的基础](https://www.cnblogs.com/yuanchenqi/articles/5980312.html)
+
 <!--more-->
 
 *知识预览*
@@ -57,9 +62,9 @@ categories:
     <script src="hello.js"></script>　　
 ```
 
-## 二 JavaScript的基础
+##  JavaScript的基础
 
-### 2.1 变量
+### 变量
 
 ```
 x=5
@@ -121,9 +126,7 @@ Var iMyTestValue = 0, sMySecondValue = "hi";
 // 不推荐
 ```
 
-
-
-### 2.2 基础规范
+### 基础规范
 
 1 每行结束可以不加分号. 没有分号会以换行符作为每行的结束
 
@@ -166,7 +169,7 @@ b=2;
 
 ​           ![img](image/877318-20161020153916560-1468649784.png)
 
-### 2.4 数据类型
+### 数据类型
 
 ​            ![img](image/877318-20161023225846513-154917493.png)     [image](image) ![img](image/877318-20161023224930873-196677017.png)    
 
@@ -495,7 +498,7 @@ if (表达式){
 
 
 
-​                 ![img](image/877318-20161020163908654-382264302.png)
+ ![img](image/877318-20161020163908654-382264302.png)
 
 
 
@@ -537,7 +540,7 @@ if (表达式1) {
 
 
 
-​                    ![img](image/877318-20161020164919248-1127492807.png)
+![img](image/877318-20161020164919248-1127492807.png)
 
 ```
 if (x==1){
@@ -2032,11 +2035,9 @@ location.reload()
 location.replace(newURL)//注意与assign的区别
 ```
 
-[回到顶部](https://www.cnblogs.com/yuanchenqi/articles/5980312.html#_labelTop)
+# DOM对象(DHTML)
 
-# **DOM对象(DHTML)**
-
-## **7.1 什么是 DOM？**
+## 什么是 DOM？
 
 DOM 是 W3C（万维网联盟）的标准。DOM 定义了访问 HTML 和 XML 文档的标准：
 
@@ -2053,7 +2054,7 @@ W3C DOM 标准被分为 3 个不同的部分：
 - 什么是 XML DOM？  －－－－>XML DOM 定义了所有 XML 元素的对象和属性，以及访问它们的方法。
 - 什么是 HTML DOM？－－－－>HTML DOM 定义了所有 HTML 元素的对象和属性，以及访问它们的方法。
 
-## **7.2 DOM 节点** 
+## DOM 节点
 
 根据 W3C 的 HTML DOM 标准，HTML 文档中的所有内容都是节点(NODE)：
 
@@ -2178,7 +2179,7 @@ previousElementSibling  // 上一个兄弟标签元素
 </script>
 ```
 
-## 7.3 HTML DOM Event(事件)
+## HTML DOM Event(事件)
 
 HTML 4.0 的新特性之一是有能力使 HTML 事件触发浏览器中的动作（action），比如当用户点击某个 HTML 元素时启动一段 JavaScript。下面是一个属性列表，这些属性可插入 HTML 标签来定义事件动作。
 
@@ -2338,9 +2339,9 @@ Event 对象代表事件的状态，比如事件在其中发生的元素、键�
 </script>
 ```
 
-## 7.4 增删改查演示
+## 增删改查演示
 
-### **7.4.1 node的CURD：**
+### **node的CURD：**
 
 **增:**
 
@@ -2426,7 +2427,7 @@ appendChild();将元素添加`
 
 
 
-### 7.4.2  修改 HTML DOM 
+###  修改 HTML DOM 
 
 - 改变 HTML 内容 
 
@@ -2460,11 +2461,9 @@ appendChild();将元素添加`
 
 ​        elementNode.classList.remove
 
-[回到顶部](https://www.cnblogs.com/yuanchenqi/articles/5980312.html#_labelTop)
+# 实例练习
 
-# 8 实例练习
-
-### 1 搜索框
+## 搜索框
 
 ```
 <input id="ID1" type="text" value="请输入用户名" onblur="Blurs()" onfocus="Focus()">
@@ -2496,7 +2495,7 @@ function Blurs(){
 
 
 
-### 2 模态对话框
+## 模态对话框
 
 
 
@@ -2570,13 +2569,7 @@ function Blurs(){
 </html>
 ```
 
-
-
-### 3 全选反选取消
-
-
-
-
+## 全选反选取消
 
 ```
  <button onclick="select('all');">全选</button>
@@ -2631,11 +2624,7 @@ function Blurs(){
 </script>
 ```
 
-
-
-### 4 两级联动
-
-
+##  两级联动
 
 
 
@@ -2680,13 +2669,7 @@ function Blurs(){
 </script>
 ```
 
-
-
-### 5 select左右移
-
-
-
-
+## select左右移
 
 ```
 <div id="box1">

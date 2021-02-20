@@ -378,7 +378,7 @@ rows:    文本域默认有多少行
 <input id = "www" type="text"></input>
 ```
 
-​    **\<fieldset>**
+​    **`<fieldset>`**
 
 ```html
 <fieldset>
