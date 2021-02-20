@@ -9,7 +9,7 @@ categories:
 
 ## 前端概述 
 <!--more-->
- 
+
 
 ![img](image/877318-20160622221214969-916045696.png)
 
@@ -60,7 +60,7 @@ htyper text markup language  即超文本标记语言
 
 **html文档树形结构图：**
 
-​                      ![img](image/877318-20161025132859984-662031019.png)
+  ![img](image/877318-20161025132859984-662031019.png)
 
 ### 什么是标签
 
@@ -77,7 +77,7 @@ htyper text markup language  即超文本标记语言
 - 属性名字全部小写. *属性值必须使用双引号或单引号包裹 例如 name="alex"
 - 如果属性值和属性名完全一样.直接写属性名即可. 例如 readonly
 
-### <!DOCTYPE html>标签
+### `<!DOCTYPE html>`标签
 
 ​      由于历史的原因，各个浏览器在对页面的渲染上存在差异，甚至同一浏览器在不同版本中，对页面的渲染也不同。在
 W3C标准出台以前，浏览器在对页面的渲染上没有统一规范，产生了差异(Quirks mode或者称为Compatibility 
@@ -98,21 +98,20 @@ window.top.document.compatMode：
 
 这也就是恶魔的开始 -- 浏览器按照自己的方式解析渲染页面，那么，在不同的浏览器就会显示不同的样式。
 
-​    如果你的页面添加了<!DOCTYPE html>那么，那么就等同于开启了标准模式，那么浏览器就得老老实实的按照W3C的
+​    如果你的页面添加了`<!DOCTYPE html>`那么，那么就等同于开启了标准模式，那么浏览器就得老老实实的按照W3C的
 
 标准解析渲染页面，这样一来，你的页面在所有的浏览器里显示的就都是一个样子了。
 
-这就是<!DOCTYPE html>的作用。
+这就是`<!DOCTYPE html>`的作用。
 
 ### head标签
 
-<meta>
-
+`<meta>`
 ​         meta标签的组成：meta标签共有两个属性，它们分别是http-equiv属性和name 属性，不同的属性又有不同的参数值，这些不同的参数值就实现了不同的网页功能。
 
 ​        1: name属性主要用于描述网页，与之对应的属性值为content，content中的内容主要是便于搜索引擎机器人查找信息和分类信息用的。     
 
-​        2: http-equiv顾名思义，相当于http的文件头作用，它可以向浏览器传回一些有用的信息，以帮助正确和精确地显示网页内容，与之对应的属性值为content，              content中的内容其实就是各个参数的变量值。   
+​        2: http-equiv顾名思义，相当于http的文件头作用，它可以向浏览器传回一些有用的信息，以帮助正确和精确地显示网页内容，与之对应的属性值为content, content中的内容其实就是各个参数的变量值。   
 
  注意：X-UA-Compatible
 
@@ -199,7 +198,7 @@ IE8 比之前的任何版本浏览器都更支持业界标准，因此针对旧�
 
 **特殊字符**
 
-​      &lt; &gt；&quot；\&copy;\&reg;
+​     ` &lt; &gt；&quot；\&copy;\&reg;`
 
 **标签属性**
 
@@ -270,7 +269,7 @@ colspan:  单元格横跨多少列（即合并单元格）
 <th>: table header <tbody>(不常用): 为表格进行分区.
 ```
 
-#### 六 表单标签\<form>
+#### 六 表单标签`<form>`
 
 ​      表单用于向服务器传输数据。
 
@@ -286,15 +285,15 @@ colspan:  单元格横跨多少列（即合并单元格）
 
 ​       method: 表单的提交方式 post/get 默认取值 就是 get（信封）
 
-​                          get: 1.提交的键值对.放在地址栏中url后面. 2.安全性相对较差. 3.对提交内容的长度有限制.4.请求或查看数据时使用。
+​       get: 1.提交的键值对.放在地址栏中url后面. 2.安全性相对较差. 3.对提交内容的长度有限制.4.请求或查看数据时使用。
 
-​                          post:1.提交的键值对 不在地址栏. 2.安全性相对较高. 3.对提交内容的长度理论上无限制.
+​       post:1.提交的键值对 不在地址栏. 2.安全性相对较高. 3.对提交内容的长度理论上无限制.
 
-​                          get/post是常见的两种请求方式.
+​       get/post是常见的两种请求方式.
 
 **2.表单元素**
 
-​          **\<input>  标签的属性和对应值**              
+​          **`<input>`  标签的属性和对应值**              
 
 ```
 type:        text 文本输入框
@@ -345,7 +344,7 @@ def index(request):
     return HttpResponse('ok')
 ```
 
- **\<select> 下拉选标签属性**
+ **`<select>` 下拉选标签属性**
 
 ```
           name:表单提交项的键.
@@ -362,7 +361,7 @@ def index(request):
                  				<optgroup label = "name">
 ```
 
-   **\<textarea> 文本域**              
+   **`<textarea>` 文本域**              
 
 ```
 name:    表单提交项的键.
@@ -372,7 +371,7 @@ cols:    文本域默认有多少列
 rows:    文本域默认有多少行
 ```
 
-​    **\<label>**    获得对应id焦点
+​    **`<label>`**    获得对应id焦点
 
 ```html
 <label for = "wwww"></lable>
@@ -1232,10 +1231,6 @@ overflow:hidden;
 
 #### 11.1 inline-block 的间隙
 
-
-
-
-
 ```
 <!DOCTYPE html>
 <html lang="en">
@@ -1325,8 +1320,6 @@ The word-break CSS property is used to specify how (or if) to break lines within
 </body>
 </html>
 ```
-
-
 
 #### 1.3
 
