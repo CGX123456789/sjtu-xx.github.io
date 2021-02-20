@@ -285,8 +285,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>转载自：<a href="https://cloud.tencent.com/developer/article/1594081" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1594081</a></p>
-<a id="more"></a>
+        <p>转载自：<a href="https://cloud.tencent.com/developer/article/1594081" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1594081</a><br><a id="more"></a></p>
 <h1 id="前面的话"><a href="#前面的话" class="headerlink" title="前面的话"></a><strong>前面的话</strong></h1><p>实例分割（Instance Segmentation）是视觉经典四个任务中相对最难的一个，它既具备语义分割（Semantic Segmentation）的特点，需要做到<strong>像素层面上的分类</strong>，也具备目标检测（Object Detection）的一部分特点，即<strong>需要定位出不同实例，即使它们是同一种类</strong>。因此，实例分割的研究长期以来都有着两条线，分别是自下而上的基于语义分割的方法和自上而下的基于检测的方法，这两种方法都属于两阶段的方法，下面将分别简单介绍。</p>
 <p><strong>自上而下的实例分割方法</strong></p>
 <p>思路是：首先通过目标检测的方法<strong>找出实例所在的区域</strong>（bounding box），再<strong>在检测框内进行语义分割</strong>，每个分割结果都作为一个不同的实例输出。</p>
@@ -305,82 +304,86 @@
 </ul>
 <p><strong>单阶段实例分割</strong>（Single Shot Instance Segmentation），这方面工作其实也是受到了单阶段目标检测研究的影响，因此也有两种思路，一种是<strong>受one-stage, anchor-based 检测模型如YOLO，RetinaNet启发，代表作有YOLACT和SOLO；一种是受anchor-free检测模型如 FCOS 启发，代表作有PolarMask和AdaptIS。</strong></p>
 <p>下面是对其中一些方法在COCO数据集上的指标对比：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">Method</th>
-<th align="left">AP</th>
-<th align="left">AP50</th>
-<th align="left">AP75</th>
-<th align="left">APs</th>
-<th align="left">APm</th>
-<th align="left">APL</th>
+<th style="text-align:left">Method</th>
+<th style="text-align:left">AP</th>
+<th style="text-align:left">AP50</th>
+<th style="text-align:left">AP75</th>
+<th style="text-align:left">APs</th>
+<th style="text-align:left">APm</th>
+<th style="text-align:left">APL</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">FCIS</td>
-<td align="left">29.2</td>
-<td align="left">49.5</td>
-<td align="left"></td>
-<td align="left">7.1</td>
-<td align="left">31.3</td>
-<td align="left">50.0</td>
+<tbody>
+<tr>
+<td style="text-align:left">FCIS</td>
+<td style="text-align:left">29.2</td>
+<td style="text-align:left">49.5</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">7.1</td>
+<td style="text-align:left">31.3</td>
+<td style="text-align:left">50.0</td>
 </tr>
 <tr>
-<td align="left">Mask R-CNN</td>
-<td align="left">37.1</td>
-<td align="left">60.0</td>
-<td align="left">39.4</td>
-<td align="left">16.9</td>
-<td align="left">39.9</td>
-<td align="left">53.5</td>
+<td style="text-align:left">Mask R-CNN</td>
+<td style="text-align:left">37.1</td>
+<td style="text-align:left">60.0</td>
+<td style="text-align:left">39.4</td>
+<td style="text-align:left">16.9</td>
+<td style="text-align:left">39.9</td>
+<td style="text-align:left">53.5</td>
 </tr>
 <tr>
-<td align="left">YOLACT-700</td>
-<td align="left">31.2</td>
-<td align="left">50.6</td>
-<td align="left">32.8</td>
-<td align="left">12.1</td>
-<td align="left">33.3</td>
-<td align="left">47.1</td>
+<td style="text-align:left">YOLACT-700</td>
+<td style="text-align:left">31.2</td>
+<td style="text-align:left">50.6</td>
+<td style="text-align:left">32.8</td>
+<td style="text-align:left">12.1</td>
+<td style="text-align:left">33.3</td>
+<td style="text-align:left">47.1</td>
 </tr>
 <tr>
-<td align="left">PolarMask</td>
-<td align="left">32.9</td>
-<td align="left">55.4</td>
-<td align="left">33.8</td>
-<td align="left">15.5</td>
-<td align="left">35.1</td>
-<td align="left">46.3</td>
+<td style="text-align:left">PolarMask</td>
+<td style="text-align:left">32.9</td>
+<td style="text-align:left">55.4</td>
+<td style="text-align:left">33.8</td>
+<td style="text-align:left">15.5</td>
+<td style="text-align:left">35.1</td>
+<td style="text-align:left">46.3</td>
 </tr>
 <tr>
-<td align="left">SOLO</td>
-<td align="left">40.4</td>
-<td align="left">62.7</td>
-<td align="left">43.3</td>
-<td align="left">17.6</td>
-<td align="left">43.3</td>
-<td align="left">58.9</td>
+<td style="text-align:left">SOLO</td>
+<td style="text-align:left">40.4</td>
+<td style="text-align:left">62.7</td>
+<td style="text-align:left">43.3</td>
+<td style="text-align:left">17.6</td>
+<td style="text-align:left">43.3</td>
+<td style="text-align:left">58.9</td>
 </tr>
 <tr>
-<td align="left">PointRend</td>
-<td align="left">40.9</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
+<td style="text-align:left">PointRend</td>
+<td style="text-align:left">40.9</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
 </tr>
 <tr>
-<td align="left">BlendMask</td>
-<td align="left">41.3</td>
-<td align="left">63.1</td>
-<td align="left">44.6</td>
-<td align="left">22.7</td>
-<td align="left">44.1</td>
-<td align="left">54.5</td>
+<td style="text-align:left">BlendMask</td>
+<td style="text-align:left">41.3</td>
+<td style="text-align:left">63.1</td>
+<td style="text-align:left">44.6</td>
+<td style="text-align:left">22.7</td>
+<td style="text-align:left">44.1</td>
+<td style="text-align:left">54.5</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>下面详细介绍一下几个代表性方法：</p>
 <h1 id="1-双阶段的-Mask-R-CNN-（2017-3）"><a href="#1-双阶段的-Mask-R-CNN-（2017-3）" class="headerlink" title="1.双阶段的 Mask R-CNN （2017.3）"></a><strong>1.双阶段的 Mask R-CNN （2017.3）</strong></h1><p>Mask-RCNN通过增加不同的分支可以完成目标分类，目标检测，语义分割，实例分割，人体姿态估计等多种任务。对于实例分割来讲，就是<strong>在Faster-RCNN的基础上(分类+回归分支)增加了一个分支用于语义分割</strong>，其抽象结构如下图所示：</p>
 <p><img src="https://ask.qcloudimg.com/http-save/yehe-5457631/rvza6i2hrq.jpeg?imageView2/2/w/1620" alt="img"></p>

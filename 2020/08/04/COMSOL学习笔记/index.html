@@ -268,7 +268,6 @@
 
       
         <h2 id="网格"><a href="#网格" class="headerlink" title="网格"></a>网格</h2><a id="more"></a>
-
 <h3 id="映射网格"><a href="#映射网格" class="headerlink" title="映射网格"></a>映射网格</h3><p>要求相对规则的几何。可以通过边组参数设置对应的边组。</p>
 <h3 id="虚拟操作"><a href="#虚拟操作" class="headerlink" title="虚拟操作"></a>虚拟操作</h3><p>不改变几何的情况下，忽略一些结构</p>
 <h2 id="求解器"><a href="#求解器" class="headerlink" title="求解器"></a>求解器</h2><h3 id="直接求解vs迭代求解"><a href="#直接求解vs迭代求解" class="headerlink" title="直接求解vs迭代求解"></a>直接求解vs迭代求解</h3><h4 id="直接求解"><a href="#直接求解" class="headerlink" title="直接求解"></a>直接求解</h4><ul>
@@ -373,14 +372,16 @@
 </ul>
 <h3 id="时间步"><a href="#时间步" class="headerlink" title="时间步"></a>时间步</h3><p>研究中的时间步是输出的时间步长。</p>
 <p>求解器中的时间步长是计算的时间步长。</p>
-<h3 id="瞬态研究：时间步进选择"><a href="#瞬态研究：时间步进选择" class="headerlink" title="瞬态研究：时间步进选择"></a>瞬态研究：时间步进选择</h3><table>
+<h3 id="瞬态研究：时间步进选择"><a href="#瞬态研究：时间步进选择" class="headerlink" title="瞬态研究：时间步进选择"></a>瞬态研究：时间步进选择</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>时间步</th>
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>自由</td>
 <td>基于局部误差估计的自适应时间步长。\n如果非线性回路不收敛就减小，如果误差估计不满秩就减小</td>
 </tr>
@@ -396,7 +397,9 @@
 <td>手动</td>
 <td>基于全局表达式或基于值列表进行用户控制</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <blockquote>
 <p>Ctrl+F5查看变量位置</p>
 </blockquote>
@@ -415,8 +418,6 @@
 <blockquote>
 <p>派生值中的最大值等只能用于后处理</p>
 <p>组件-》定义中的最大值可用于模型参数设定。</p>
-</blockquote>
-<blockquote>
 <p>快捷键</p>
 <p><strong>F1</strong>：当前节点的帮助文档。</p>
 <p><strong>Ctrl+F1</strong>：整体帮助文档。</p>

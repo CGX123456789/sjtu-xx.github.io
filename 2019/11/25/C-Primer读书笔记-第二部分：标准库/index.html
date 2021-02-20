@@ -295,6 +295,7 @@
 
       
         <h1 id="8-IO库"><a href="#8-IO库" class="headerlink" title="8.IO库"></a>8.IO库</h1><h2 id="IO类"><a href="#IO类" class="headerlink" title="IO类"></a>IO类</h2><h3 id="IO库类型和头文件"><a href="#IO库类型和头文件" class="headerlink" title="IO库类型和头文件"></a>IO库类型和头文件</h3><a id="more"></a>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -302,7 +303,8 @@
 <th>类型</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>iostream</td>
 <td>istream,wistream从流读取数据</td>
 </tr>
@@ -338,12 +340,13 @@
 <td>&nbsp;</td>
 <td>stringstream，wstringstream读写流</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <ul>
 <li>我们不能拷贝或者对IO对象赋值。</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ofstream out1,out2;</span><br><span class="line">out1 = out2; <span class="comment">//错误：不能赋值</span></span><br><span class="line"><span class="function">ofstream <span class="title">print</span><span class="params">(ofstream)</span></span>; <span class="comment">//错误不能初始化ofstream参数</span></span><br><span class="line">out2 = <span class="built_in">print</span>(out2); <span class="comment">//错误：不能拷贝对象 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//将流当作条件使用</span></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">cin</span> &gt;&gt; <span class="keyword">word</span>);</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li><p>流对象的rdstate成员返回一个iostate值，对应流的当前状态。setstate操作将给定条件位置位，表示发生了对应错误。</p>
 </li>
@@ -355,7 +358,6 @@
 </li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//复位failbit和badbit，保持其他标识位不变</span></span><br><span class="line"><span class="built_in">cin</span>.<span class="built_in">clear</span>(<span class="built_in">cin</span>.rdstate() &amp; ~<span class="built_in">cin</span>.failbit &amp; ~<span class="built_in">cin</span>.badbit)</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li><p>在每个输出操作后，我们可以使用操作符unitbuf设置流的内部状态，来清空缓冲区。默认情况下，对cerr是设置unitbuf的，因此写到cerr的内容都是立即刷新的。</p>
 </li>
@@ -373,7 +375,6 @@
 </li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cout</span> &lt;&lt; unitbuf;  <span class="comment">//所有输出操作后都会立即刷新缓冲区</span></span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; nounitbuff; <span class="comment">//回到正常的缓冲方式</span></span><br></pre></td></tr></table></figure>
-
 <ul>
 <li><p>关联输入和输出流</p>
 <ul>
@@ -414,19 +415,18 @@
 </li>
 <li><p>例子</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"PersonInfo.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;PersonInfo&gt; personInfos;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> <span class="built_in">line</span>,data;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">std</span>::ifstream inputFile;</span><br><span class="line">    inputFile.<span class="built_in">open</span>(<span class="string">"/Users/xuexuan/Desktop/tmp/test/123"</span>);</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">std</span>::getline(inputFile,<span class="built_in">line</span>))&#123;</span><br><span class="line">        PersonInfo person;</span><br><span class="line">        <span class="built_in">std</span>::<span class="function"><span class="built_in">istringstream</span> <span class="title">record</span><span class="params">(<span class="built_in">line</span>)</span></span>;</span><br><span class="line">        record &gt;&gt; person.name;</span><br><span class="line">        <span class="keyword">while</span> (record &gt;&gt; data)&#123;</span><br><span class="line">            person.phones.push_back(data);</span><br><span class="line">        &#125;</span><br><span class="line">        personInfos.push_back(person);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;item:personInfos)&#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">ostringstream</span> formatted, badNums;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;nums:item.phones)&#123;</span><br><span class="line">            <span class="keyword">if</span>(valid(nums))&#123;</span><br><span class="line">                formatted &lt;&lt; <span class="string">" "</span>&lt;&lt;nums;</span><br><span class="line">            &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">                badNums &lt;&lt; <span class="string">"  "</span>&lt;&lt;nums;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (badNums.str().empty())&#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; item.name &lt;&lt;<span class="string">" "</span>&lt;&lt;formatted.str()&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; item.name &lt;&lt;<span class="string">"  invalid:"</span>&lt;&lt; badNums.str() &lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
 </li>
 </ul>
-<h1 id="9-顺序容器"><a href="#9-顺序容器" class="headerlink" title="9.顺序容器"></a>9.顺序容器</h1><h2 id="顺序容器的类型"><a href="#顺序容器的类型" class="headerlink" title="顺序容器的类型"></a>顺序容器的类型</h2><table>
+<h1 id="9-顺序容器"><a href="#9-顺序容器" class="headerlink" title="9.顺序容器"></a>9.顺序容器</h1><h2 id="顺序容器的类型"><a href="#顺序容器的类型" class="headerlink" title="顺序容器的类型"></a>顺序容器的类型</h2><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>容器</th>
 <th>特点</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>vector</td>
 <td>可变大小数组。支持快速随机访问，在尾部之外的位置插入或删除元素可能很慢</td>
 </tr>
@@ -450,7 +450,9 @@
 <td>string</td>
 <td>与vector相似的容器，但专门用于保存字符。随机访问快。在尾部插入/删除速度快</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>vector\deque\list\forward_list\array\string<br>array是一种比内置数组更安全，更容易使用的数组类型。 array支持拷贝与赋值操作。<br>forward_list没有没有size操作。</p>
 <h2 id="选择容器的基本原则"><a href="#选择容器的基本原则" class="headerlink" title="选择容器的基本原则"></a>选择容器的基本原则</h2><ul>
 <li>除非有很好的理由选择其他容器，否则选择vector</li>
@@ -475,13 +477,11 @@
 </ul>
 <h2 id="容器概述"><a href="#容器概述" class="headerlink" title="容器概述"></a>容器概述</h2><h3 id="容器定义与初始化"><a href="#容器定义与初始化" class="headerlink" title="容器定义与初始化"></a>容器定义与初始化</h3><p>每个容器类型都定义了一个默认构造函数。除array之外，其他容器的默认构造函数都会创建一个指定类型的空容器，且都可以接受指定容器大小和元素初始值的参数。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">C c;</span><br><span class="line"><span class="function">C <span class="title">c1</span><span class="params">(c2)</span></span>;</span><br><span class="line">C c1 = c2; <span class="comment">// c1和c2必须是相同类型</span></span><br><span class="line">C c&#123;a,b,c&#125;;  </span><br><span class="line"><span class="function">C <span class="title">c</span><span class="params">(b,e)</span></span>;  <span class="comment">//c初始化为迭代器b和e之间的元素的拷贝</span></span><br><span class="line"><span class="comment">// 只有顺序容器才能接受大小参数</span></span><br><span class="line"><span class="function">C <span class="title">seq</span><span class="params">(n)</span></span>; <span class="comment">//此函数是explicit的</span></span><br><span class="line"><span class="function">C <span class="title">seq</span><span class="params">(n,t)</span></span>;  <span class="comment">//n个t元素</span></span><br></pre></td></tr></table></figure>
-
 <p>为了创建一个容器为另一个容器的拷贝，两个容器的类型及其元素类型必须匹配。当传递迭代器参数来拷贝一个范围时，就不要求容器类型是相同的了。而且，新容器与原容器中的元素类型也可以不同，只要能将要拷贝的元素转换为要初始化的容器的元素即可。</p>
 <p>虽然我们不能对内置数组类型进行拷贝或对象赋值操作，但array无此限制。</p>
 <h2 id="顺序容器操作"><a href="#顺序容器操作" class="headerlink" title="顺序容器操作"></a>顺序容器操作</h2><h3 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a>添加元素</h3><p><img src="image/image-20200101192902724.png" alt="image-20200101192902724"></p>
 <h3 id="访问元素"><a href="#访问元素" class="headerlink" title="访问元素"></a>访问元素</h3><p>在解引用一个迭代器或调用front或back之前检查是否有元素</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!c.empty())&#123;</span><br><span class="line">    <span class="keyword">auto</span> val = *c.<span class="built_in">begin</span>(), val2 = c.front();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>顺序容器中访问元素的操作</p>
 <p><img src="image/image-20200101193255804.png" alt="image-20200101193255804"></p>
 <h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h3><p><img src="image/image-20200101193430976.png" alt="image-20200101193430976"></p>
@@ -492,6 +492,7 @@
 <li>容器操作可能使迭代器失效，因此必须保证每次改变容器的操作之后都正确的重新定位迭代器。</li>
 <li>管理容量的成员函数</li>
 </ul>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -499,7 +500,8 @@
 <th></th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>c.shrink_to_fit()</td>
 <td>将capacity()减小为与size()相同大小</td>
 </tr>
@@ -511,7 +513,9 @@
 <td>c.reserve()</td>
 <td>分配至少能容纳n个元素的内存空间</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <ul>
 <li><p>容器适配器</p>
 <p>stack/queue/priority_queue</p>
@@ -520,10 +524,8 @@
 </li>
 </ul>
 <h2 id="额外的string操作"><a href="#额外的string操作" class="headerlink" title="额外的string操作"></a>额外的string操作</h2><h3 id="构造string的其他方法"><a href="#构造string的其他方法" class="headerlink" title="构造string的其他方法"></a>构造string的其他方法</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//n、len2和pos2都是无符号值</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s</span><span class="params">(cp,n)</span></span>; <span class="comment">//s是cp指向的数组中前n个字符的拷贝。此数组至少应该包含n个字符</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s</span><span class="params">(s2,pos2)</span></span>; <span class="comment">//s是string s2从下标pos2开始的字符的拷贝。若pos2&gt;S2.size(),构造函数未定义</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s</span><span class="params">(s2,pos2,len2)</span></span>; <span class="comment">//s是string s2从下标pos2开始len2个字符的拷贝。若pos2&gt;S2.size(),构造函数行为未定义。不管len2的值是多少，构造函数至多拷贝s2.size()-pos2个字符</span></span><br></pre></td></tr></table></figure>
-
 <p>子字符串操作</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s.substr(pos,n); <span class="comment">//返回一个string，包含s中从pos开始的n个字符的拷贝。pos的默认值为0.n的默认值为s.size()-pos,即拷贝从pos开始的所有字符</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="修改string的操作"><a href="#修改string的操作" class="headerlink" title="修改string的操作"></a>修改string的操作</h3><p><img src="image/image-20200101194839408.png" alt="image-20200101194839408"></p>
 <p><img src="image/image-20200101194856656.png" alt="image-20200101194856656"></p>
 <h3 id="string搜索操作"><a href="#string搜索操作" class="headerlink" title="string搜索操作"></a>string搜索操作</h3><p><img src="image/image-20200101195041242.png" alt="image-20200101195041242"></p>
@@ -534,45 +536,29 @@
 <h1 id="10-范型算法"><a href="#10-范型算法" class="headerlink" title="10.范型算法"></a>10.范型算法</h1><p>大多数算法定义在algorithm中。标准库还在numeric头文件中定义了一组数值范型算法。泛型算法本身不会执行容器的操作，他们只会运行于迭代器之上，执行迭代器的操作。算法永远不会改变底层容器的大小。算法可能改变容器中保存的元素的值，也可能在容器内移动元素，但永远不会直接添加或删除元素。</p>
 <h3 id="只读算法"><a href="#只读算法" class="headerlink" title="只读算法"></a>只读算法</h3><p><strong>累加算法</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> sum = accumulate(vec.cbegin(),vec.cend(),<span class="number">0</span>) <span class="comment">//accumulate中第三个参数的类型决定了函数中使用哪个加法运算符以及返回值的类型</span></span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>对于只读取而不改变元素的算法，通常最好使用cbegin()和cend()</p>
 </blockquote>
 <p><strong>判等算法</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">equal(roster1.cbegin(),roster1.cend(),roster2.cbegin())</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>那些只接收一个单一迭代器来表示第二个序列的算法都假定第二个序列至少和第一个序列一样长。确保算法不会试图访问第二个序列中不存在的元素是程序员的责任。</p>
 </blockquote>
 <h3 id="写容器元素的算法"><a href="#写容器元素的算法" class="headerlink" title="写容器元素的算法"></a>写容器元素的算法</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">fill</span>(vec.<span class="built_in">begin</span>(),vec.<span class="built_in">end</span>(),<span class="number">0</span>); <span class="comment">//将每个元素置0</span></span><br><span class="line">fill_n(dest,n,val); <span class="comment">//将从dest开始的n个元素赋予val</span></span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>向目的位置迭代器写入数据的算法假定目的位置足够大，能容纳要写入的元素</p>
 </blockquote>
 <p><strong>back_inserter 插入迭代器</strong></p>
 <p>back_inserter定义在头文件iterator中的一个函数。接受一个指向容器的引用，返回一个与该容器绑定的插入迭代器。当我们通过此迭代器赋值时，赋值运算符会调用push_back将一个具有给定值的元素添加到容器中。我们常使用back_inserter来创建一个迭代器，作为算法的目的位置来使用。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec; <span class="comment">//空向量</span></span><br><span class="line"><span class="keyword">auto</span> it = back_inserter(vec);</span><br><span class="line">*it = <span class="number">42</span>; <span class="comment">//vec中现在有一个元素，值为42</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec;</span><br><span class="line">fill_n(back_inserter(vec),<span class="number">10</span>,<span class="number">0</span>); <span class="comment">//添加10个元素到vec</span></span><br></pre></td></tr></table></figure>
-
-
-
 <h3 id="拷贝算法"><a href="#拷贝算法" class="headerlink" title="拷贝算法"></a>拷贝算法</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//copy</span></span><br><span class="line"><span class="comment">//返回目的位置迭代器（递增后）的值</span></span><br><span class="line"><span class="keyword">int</span> a1[] = &#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>&#125;</span><br><span class="line"><span class="keyword">int</span> a2[<span class="keyword">sizeof</span>(a1)/<span class="keyword">sizeof</span>(*a1)]</span><br><span class="line"><span class="keyword">auto</span> ret = copy(<span class="built_in">begin</span>(a1),<span class="built_in">end</span>(a1),a2); <span class="comment">//把a1的内容拷贝给a2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//replace</span></span><br><span class="line"><span class="comment">//将ilst中的0替换为42</span></span><br><span class="line">replace(ilst.<span class="built_in">begin</span>(),ilst.<span class="built_in">end</span>(),<span class="number">0</span>,<span class="number">42</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//replace_copy</span></span><br><span class="line"><span class="comment">//保留原序列不变，将调整后的序列保存在第三个参数所指的位置</span></span><br><span class="line">replace_copy(ilst.cbegin(),ilst.cend(),back_inserter(ivec),<span class="number">0</span>,<span class="number">42</span>);</span><br></pre></td></tr></table></figure>
-
-
-
 <h3 id="重排元素的算法"><a href="#重排元素的算法" class="headerlink" title="重排元素的算法"></a>重排元素的算法</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//sort</span></span><br><span class="line"><span class="comment">//unique:将不重复的元素放在序列的开始部分</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">elimDups</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;words)</span></span>&#123;</span><br><span class="line">    <span class="comment">//按字典排序</span></span><br><span class="line">    sort(words.<span class="built_in">begin</span>(),words.<span class="built_in">end</span>());</span><br><span class="line">    <span class="comment">//unique返回 指向不重复区域之后第一个位置的迭代器</span></span><br><span class="line">    <span class="keyword">auto</span> end_unique = unique(words.<span class="built_in">begin</span>(),words.<span class="built_in">end</span>());</span><br><span class="line">    <span class="comment">//使用vector的eraser删除重复元素</span></span><br><span class="line">    words.erase(end_unique,words.<span class="built_in">end</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h2 id="定制操作"><a href="#定制操作" class="headerlink" title="定制操作"></a>定制操作</h2><h3 id="向算法传递函数"><a href="#向算法传递函数" class="headerlink" title="向算法传递函数"></a>向算法传递函数</h3><p>类似于sort之类的函数有第二个版本，接受第三个参数，此参数是一个谓词。</p>
 <blockquote>
 <p>谓词是一个可调用的表达式。其返回结果是一个能用做条件的值。</p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isShorter</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span> &amp;s1, <span class="keyword">const</span> <span class="built_in">string</span> &amp;s2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> s1.<span class="built_in">size</span>()&lt;s2.<span class="built_in">size</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//按长度由短至长排列</span></span><br><span class="line">sort(words.<span class="built_in">begin</span>(),words.<span class="built_in">end</span>(),isShorter);</span><br><span class="line"></span><br><span class="line"><span class="comment">//stable_sort</span></span><br><span class="line"><span class="comment">//保持元素原有顺序</span></span><br><span class="line">sort(words.<span class="built_in">begin</span>(),words.<span class="built_in">end</span>(),isShorter);</span><br></pre></td></tr></table></figure>
-
-
-
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//find_if函数</span></span><br><span class="line">接受一个元素，</span><br></pre></td></tr></table></figure>
-
-
-
 <h3 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h3><blockquote>
 <p>find_if 函数<br>接受一对迭代器，查找范围内第一个满足特定条件的元素。</p>
 </blockquote>
@@ -593,9 +579,6 @@
 </li>
 <li><p>指定lambda的返回类型</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// transform</span></span><br><span class="line"><span class="comment">// 接受三个迭代器和一个可调用对象。前两个迭代器表示输入序列，第三个迭代器表示目的位置。对输入序列中的每个元素调用可调用对象，并将结果写入到目的位置。</span></span><br><span class="line"><span class="comment">// 返回绝对值</span></span><br><span class="line">transform(v1.<span class="built_in">begin</span>(),v1.<span class="built_in">end</span>(),[](<span class="keyword">const</span> <span class="keyword">int</span> &amp;v)-&gt;<span class="keyword">int</span>&#123;<span class="keyword">if</span> v&lt;<span class="number">0</span>:<span class="keyword">return</span> -v;<span class="keyword">else</span>:<span class="keyword">return</span> v;&#125;);</span><br></pre></td></tr></table></figure>
-
-
-
 </li>
 </ul>
 <h3 id="参数绑定"><a href="#参数绑定" class="headerlink" title="参数绑定"></a>参数绑定</h3><p>bind函数位于头文件functional中，绑定格式<code>auto newCallable = bind(callable, arglist)</code>。arglist中的参数可能包含形如<code>_n</code>之类的名字，表示占位符。<code>_1</code>表示newCallable的第一个参数</p>
@@ -605,12 +588,8 @@
 <p>using namespace std::placeholders;</p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check_size</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span> &amp;s, <span class="built_in">string</span>::size_type sz)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> s.<span class="built_in">size</span>() &gt;= sz;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//下面的bind和lambda等价</span></span><br><span class="line"><span class="keyword">auto</span> wc = find_if(words.<span class="built_in">begin</span>(),words.<span class="built_in">end</span>(),</span><br><span class="line">                 [sz](<span class="keyword">const</span> <span class="built_in">string</span> &amp;a)-&gt;<span class="keyword">bool</span>&#123;<span class="keyword">return</span> check_size(a, sz)&#125;);</span><br><span class="line"><span class="keyword">auto</span> wc = find_if(words.<span class="built_in">begin</span>(),words.<span class="built_in">end</span>(),</span><br><span class="line">                 bind(check_size,_1,sz));</span><br></pre></td></tr></table></figure>
-
 <p>bind的哪些不是占位符的参数被拷贝到bind返回的可调用对象中。如果我们希望传递给bind一个对象而不拷贝它，就必须使用ref函数：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for_each(words.<span class="built_in">begin</span>(),words.<span class="built_in">end</span>(),bind(<span class="built_in">print</span>,ref(os),_1,<span class="string">' '</span>))</span><br></pre></td></tr></table></figure>
-
-
-
 <h3 id="其他迭代器"><a href="#其他迭代器" class="headerlink" title="其他迭代器"></a>其他迭代器</h3><ul>
 <li>插入迭代器</li>
 <li>流迭代器</li>
@@ -624,19 +603,18 @@
 <p>当调用front_inserter时，元素总是插入到第一个元素之前。</p>
 </blockquote>
 <h4 id="iostream迭代器"><a href="#iostream迭代器" class="headerlink" title="iostream迭代器"></a>iostream迭代器</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//从标准输入中读取数据，存入一个vector中</span></span><br><span class="line">istream_iterator&lt;<span class="keyword">int</span>&gt; in_iter(<span class="built_in">cin</span>); <span class="comment">//从cin读取int</span></span><br><span class="line">istream_iterator&lt;<span class="keyword">int</span>&gt; eof; <span class="comment">//istream尾后迭代器（空表示尾后迭代器）</span></span><br><span class="line"><span class="keyword">while</span> (in_iter != eof)&#123;</span><br><span class="line">    vec.push_back(*in_iter++); <span class="comment">//将in_iter中的数据保存在in_iter中并读取下一条数据</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以通过copy打印vec中的元素，这比编写循环更简单。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">copy(vec.<span class="built_in">begin</span>(),vec.<span class="built_in">end</span>(),out_iter);</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
-
+<p>可以通过copy打印vec中的元素，这比编写循环更简单。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">copy(vec.<span class="built_in">begin</span>(),vec.<span class="built_in">end</span>(),out_iter);</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure></p>
 <h4 id="反向迭代器"><a href="#反向迭代器" class="headerlink" title="反向迭代器"></a>反向迭代器</h4><p>递增一个反向迭代器会移动到前一个位置，递减一个反向迭代器会移动到后一个位置。</p>
-<h2 id="泛型算法结构"><a href="#泛型算法结构" class="headerlink" title="泛型算法结构"></a>泛型算法结构</h2><table>
+<h2 id="泛型算法结构"><a href="#泛型算法结构" class="headerlink" title="泛型算法结构"></a>泛型算法结构</h2><div class="table-container">
+<table>
 <thead>
 <tr>
-<th>—–</th>
-<th>—–</th>
+<th>——-</th>
+<th>——-</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>输入迭代器</td>
 <td>只读、不写；单遍扫描，只能递增</td>
 </tr>
@@ -656,41 +634,27 @@
 <td>随机访问迭代器</td>
 <td>可读写，多遍扫描，支持全部迭代器运算</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>array、deque、string和vector的迭代器都是随机访问迭代器，用于访问内置数组元素的指针也是。</p>
-<h3 id="算法形参模式"><a href="#算法形参模式" class="headerlink" title="算法形参模式"></a>算法形参模式</h3><p>大多数算法具有如下四种形式之一：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alg(beg,<span class="built_in">end</span>,other args)</span><br><span class="line">alg(beg,<span class="built_in">end</span>,dest,other args)</span><br><span class="line">alg(beg,<span class="built_in">end</span>,beg2,other args)</span><br><span class="line">alg(beg,<span class="built_in">end</span>,beg2,end2,other args)</span><br></pre></td></tr></table></figure>
-
+<h3 id="算法形参模式"><a href="#算法形参模式" class="headerlink" title="算法形参模式"></a>算法形参模式</h3><p>大多数算法具有如下四种形式之一：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alg(beg,<span class="built_in">end</span>,other args)</span><br><span class="line">alg(beg,<span class="built_in">end</span>,dest,other args)</span><br><span class="line">alg(beg,<span class="built_in">end</span>,beg2,other args)</span><br><span class="line">alg(beg,<span class="built_in">end</span>,beg2,end2,other args)</span><br></pre></td></tr></table></figure></p>
 <h4 id="接受单个目标迭代器的算法"><a href="#接受单个目标迭代器的算法" class="headerlink" title="接受单个目标迭代器的算法"></a>接受单个目标迭代器的算法</h4><p>算法假定：按需要写入数据，不管写入多少元素都是安全的<br>如果dest是一个直接指向容器的迭代器，那么算法将输出数据写到容器中已经存在的元素内。更常见的情况是，dest被绑定到一个插入迭代器，或是一个ostream_iterator。</p>
 <h4 id="接受第二个输入序列的算法"><a href="#接受第二个输入序列的算法" class="headerlink" title="接受第二个输入序列的算法"></a>接受第二个输入序列的算法</h4><p>算法假定从beg2开始的范围与beg和end所表示的范围至少一样大。</p>
 <h3 id="算法命名规范"><a href="#算法命名规范" class="headerlink" title="算法命名规范"></a>算法命名规范</h3><p>一些算法使用重载形式传递一个谓词 (unique)</p>
-<h4 id="if版本的算法"><a href="#if版本的算法" class="headerlink" title="_if版本的算法"></a>_if版本的算法</h4><p>接受一个元素值的算法通常有另一个不同名的版本，该版本接受一个谓词代替元素值。接受谓词的算法都有附加的_if前缀：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">find</span>(beg,<span class="built_in">end</span>,val);   <span class="comment">//查找输入范围中val第一次出现的位置</span></span><br><span class="line">find_if(beg,<span class="built_in">end</span>,pred);   <span class="comment">//查找第一个使pred为真的元素</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="区分拷贝元素的版本和不拷贝元素的版本"><a href="#区分拷贝元素的版本和不拷贝元素的版本" class="headerlink" title="区分拷贝元素的版本和不拷贝元素的版本"></a>区分拷贝元素的版本和不拷贝元素的版本</h4><p>写到额外空间的算法都在名字后面附加一个_copy:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">reverse(beg,<span class="built_in">end</span>);</span><br><span class="line">reverse_copy(beg,<span class="built_in">end</span>,dest);  <span class="comment">//将元素按逆序拷贝到dest</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="特定容器算法"><a href="#特定容器算法" class="headerlink" title="特定容器算法"></a>特定容器算法</h3><p>list和forward_list成员函数版本的算法</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">lst.merge(lst2);  将来自lst2的元素合并入lst，lst2变为空。lst和lst2都必须是有序的，使用&lt;运算符</span><br><span class="line">lst.merge(lst2,comp); 将来自lst2的元素合并入lst，lst2变为空。lst和lst2都必须是有序的，使用compare</span><br><span class="line">lst.<span class="built_in">remove</span>(val); 调用erase删除掉与给定值相等的元素</span><br><span class="line">lst.reverse();</span><br><span class="line">lst.sort();</span><br><span class="line">lst.unique();</span><br></pre></td></tr></table></figure>
-
-<h1 id="11-关联容器"><a href="#11-关联容器" class="headerlink" title="11.关联容器"></a>11.关联容器</h1><p><strong>关联容器</strong>支持高效的关键字查找和访问。<br>两个主要的关联容器：<code>set</code>和<code>map</code>。<br>|容器类型|描述|<br>|————-|———|<br>|按关键字有序保存元素||<br>|map|关联数组：保存关键字-值对|<br>|set|关键字即值，即只保存关键字的容器|<br>|multimap|关键字可重复初夏你的map|<br>|multiset|关键字可重复出现的set|<br>|无序集合||<br>|unordered_map|用哈希函数组织的map|<br>|unordered_set|用哈希函数组织的set|<br>|unordered_multimap|哈希组织的map：关键字可重复出现|<br>|unordered_multiset|哈希组织的set：关键字可重复出现|</p>
-<h2 id="使用关联容器"><a href="#使用关联容器" class="headerlink" title="使用关联容器"></a>使用关联容器</h2><p><strong>使用map</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//统计每个单词出现的次数</span></span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">size_t</span>&gt; word_count;</span><br><span class="line"><span class="built_in">string</span> <span class="keyword">word</span>;</span><br><span class="line"><span class="keyword">while</span> (<span class="built_in">cin</span>&gt;&gt;<span class="keyword">word</span>)&#123;</span><br><span class="line">	++word_count[<span class="keyword">word</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;w:word_count)&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; w.first &lt;&lt; <span class="string">" occurs "</span> &lt;&lt; w.second &lt;&lt; ((w.second&gt;<span class="number">1</span>)?<span class="string">"times"</span>:<span class="string">"time"</span>)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>使用set</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//统计每个单词出现的次数</span></span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">size_t</span>&gt; word_count;</span><br><span class="line"><span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt; exclude = &#123;<span class="string">"The"</span>,<span class="string">"But"</span>,<span class="string">"And"</span>,<span class="string">"the"</span>,<span class="string">"but"</span>,<span class="string">"and"</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">string</span> <span class="keyword">word</span>;</span><br><span class="line"><span class="keyword">while</span> (<span class="built_in">cin</span>&gt;&gt;<span class="keyword">word</span>)&#123;</span><br><span class="line">	<span class="keyword">if</span> (exclude.<span class="built_in">find</span>(<span class="keyword">word</span>)==exclude.<span class="built_in">end</span>())</span><br><span class="line">		++ word_count[<span class="keyword">word</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h4 id="if版本的算法"><a href="#if版本的算法" class="headerlink" title="_if版本的算法"></a>_if版本的算法</h4><p>接受一个元素值的算法通常有另一个不同名的版本，该版本接受一个谓词代替元素值。接受谓词的算法都有附加的_if前缀：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">find</span>(beg,<span class="built_in">end</span>,val);   <span class="comment">//查找输入范围中val第一次出现的位置</span></span><br><span class="line">find_if(beg,<span class="built_in">end</span>,pred);   <span class="comment">//查找第一个使pred为真的元素</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="区分拷贝元素的版本和不拷贝元素的版本"><a href="#区分拷贝元素的版本和不拷贝元素的版本" class="headerlink" title="区分拷贝元素的版本和不拷贝元素的版本"></a>区分拷贝元素的版本和不拷贝元素的版本</h4><p>写到额外空间的算法都在名字后面附加一个_copy:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">reverse(beg,<span class="built_in">end</span>);</span><br><span class="line">reverse_copy(beg,<span class="built_in">end</span>,dest);  <span class="comment">//将元素按逆序拷贝到dest</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="特定容器算法"><a href="#特定容器算法" class="headerlink" title="特定容器算法"></a>特定容器算法</h3><p>list和forward_list成员函数版本的算法<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">lst.merge(lst2);  将来自lst2的元素合并入lst，lst2变为空。lst和lst2都必须是有序的，使用&lt;运算符</span><br><span class="line">lst.merge(lst2,comp); 将来自lst2的元素合并入lst，lst2变为空。lst和lst2都必须是有序的，使用compare</span><br><span class="line">lst.<span class="built_in">remove</span>(val); 调用erase删除掉与给定值相等的元素</span><br><span class="line">lst.reverse();</span><br><span class="line">lst.sort();</span><br><span class="line">lst.unique();</span><br></pre></td></tr></table></figure></p>
+<h1 id="11-关联容器"><a href="#11-关联容器" class="headerlink" title="11.关联容器"></a>11.关联容器</h1><p><strong>关联容器</strong>支持高效的关键字查找和访问。<br>两个主要的关联容器：<code>set</code>和<code>map</code>。<br>|容器类型|描述|<br>|——————-|————-|<br>|按关键字有序保存元素||<br>|map|关联数组：保存关键字-值对|<br>|set|关键字即值，即只保存关键字的容器|<br>|multimap|关键字可重复初夏你的map|<br>|multiset|关键字可重复出现的set|<br>|无序集合||<br>|unordered_map|用哈希函数组织的map|<br>|unordered_set|用哈希函数组织的set|<br>|unordered_multimap|哈希组织的map：关键字可重复出现|<br>|unordered_multiset|哈希组织的set：关键字可重复出现|</p>
+<h2 id="使用关联容器"><a href="#使用关联容器" class="headerlink" title="使用关联容器"></a>使用关联容器</h2><p><strong>使用map</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//统计每个单词出现的次数</span></span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">size_t</span>&gt; word_count;</span><br><span class="line"><span class="built_in">string</span> <span class="keyword">word</span>;</span><br><span class="line"><span class="keyword">while</span> (<span class="built_in">cin</span>&gt;&gt;<span class="keyword">word</span>)&#123;</span><br><span class="line">	++word_count[<span class="keyword">word</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;w:word_count)&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; w.first &lt;&lt; <span class="string">" occurs "</span> &lt;&lt; w.second &lt;&lt; ((w.second&gt;<span class="number">1</span>)?<span class="string">"times"</span>:<span class="string">"time"</span>)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>使用set</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//统计每个单词出现的次数</span></span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">size_t</span>&gt; word_count;</span><br><span class="line"><span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt; exclude = &#123;<span class="string">"The"</span>,<span class="string">"But"</span>,<span class="string">"And"</span>,<span class="string">"the"</span>,<span class="string">"but"</span>,<span class="string">"and"</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">string</span> <span class="keyword">word</span>;</span><br><span class="line"><span class="keyword">while</span> (<span class="built_in">cin</span>&gt;&gt;<span class="keyword">word</span>)&#123;</span><br><span class="line">	<span class="keyword">if</span> (exclude.<span class="built_in">find</span>(<span class="keyword">word</span>)==exclude.<span class="built_in">end</span>())</span><br><span class="line">		++ word_count[<span class="keyword">word</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="关联容器概述"><a href="#关联容器概述" class="headerlink" title="关联容器概述"></a>关联容器概述</h2><p>关联容器支持普通容器的所有操作。不支持顺序容器的位置相关操作（如push_back等）。</p>
 <h3 id="关联容器的定义"><a href="#关联容器的定义" class="headerlink" title="关联容器的定义"></a>关联容器的定义</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">size_t</span>&gt; word_count;  <span class="comment">//空容器</span></span><br><span class="line"><span class="comment">//列表初始化</span></span><br><span class="line"><span class="built_in">set</span>&lt;<span class="built_in">string</span>&gt; exclude = &#123;<span class="string">"The"</span>,<span class="string">"But"</span>,<span class="string">"And"</span>,<span class="string">"the"</span>,<span class="string">"but"</span>,<span class="string">"and"</span>&#125;;</span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>,<span class="built_in">string</span>&gt; authors = &#123;&#123;<span class="string">"Joyce"</span>,<span class="string">"James"</span>&#125;,</span><br><span class="line">						&#123;<span class="string">"Austen"</span>,<span class="string">"Jane"</span>&#125;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ivec;</span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::size_type i = <span class="number">0</span>; i!=<span class="number">0</span>; ++i)&#123;</span><br><span class="line">	ivec.push_back(i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; iset(ivec.cbegin(),ivec.cend());</span><br><span class="line"><span class="built_in">multiset</span>&lt;<span class="keyword">int</span>&gt; miset(ivec.cbegin(),ivec.cend());</span><br></pre></td></tr></table></figure>
-
-<h3 id="关键字类型的要求"><a href="#关键字类型的要求" class="headerlink" title="关键字类型的要求"></a>关键字类型的要求</h3><p>关键字类型必须定义元素的比较方法<br><strong>使用关键字类型的比较函数</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//当使用decltype来获得一个函数的指针时，必须加上一个*来指出我们要使用一个给定函数类型的指针</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">compareIsbn</span><span class="params">(<span class="keyword">const</span> Sales_data &amp;lhs, <span class="keyword">const</span> Sales_data &amp;rhs)</span></span>&#123;</span><br><span class="line"><span class="keyword">return</span> lhs.isbn()&lt;rhs.isbn();</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">multiset</span>&lt;Sales_data, <span class="keyword">decltype</span>(compareIsbn) *&gt; bookstore(compareIsbn);</span><br></pre></td></tr></table></figure>
-
-<h3 id="pair类型"><a href="#pair类型" class="headerlink" title="pair类型"></a>pair类型</h3><p>pair类型定义在头文件utility中。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;<span class="built_in">string</span>,<span class="built_in">string</span>&gt; anon;</span><br><span class="line">pair&lt;<span class="built_in">string</span>,<span class="keyword">size_t</span>&gt; word_count;</span><br><span class="line">pair&lt;<span class="built_in">string</span>,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">line</span>;</span><br><span class="line"></span><br><span class="line">pair&lt;<span class="built_in">string</span>,<span class="built_in">string</span>&gt; author&#123;<span class="string">"James"</span>,<span class="string">"Joyce"</span>&#125;;</span><br></pre></td></tr></table></figure>
-<p>pair的数据成员是public的，两个成员分别命名为first和second。</p>
+<h3 id="关键字类型的要求"><a href="#关键字类型的要求" class="headerlink" title="关键字类型的要求"></a>关键字类型的要求</h3><p>关键字类型必须定义元素的比较方法<br><strong>使用关键字类型的比较函数</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//当使用decltype来获得一个函数的指针时，必须加上一个*来指出我们要使用一个给定函数类型的指针</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">compareIsbn</span><span class="params">(<span class="keyword">const</span> Sales_data &amp;lhs, <span class="keyword">const</span> Sales_data &amp;rhs)</span></span>&#123;</span><br><span class="line"><span class="keyword">return</span> lhs.isbn()&lt;rhs.isbn();</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">multiset</span>&lt;Sales_data, <span class="keyword">decltype</span>(compareIsbn) *&gt; bookstore(compareIsbn);</span><br></pre></td></tr></table></figure></p>
+<h3 id="pair类型"><a href="#pair类型" class="headerlink" title="pair类型"></a>pair类型</h3><p>pair类型定义在头文件utility中。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;<span class="built_in">string</span>,<span class="built_in">string</span>&gt; anon;</span><br><span class="line">pair&lt;<span class="built_in">string</span>,<span class="keyword">size_t</span>&gt; word_count;</span><br><span class="line">pair&lt;<span class="built_in">string</span>,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; <span class="built_in">line</span>;</span><br><span class="line"></span><br><span class="line">pair&lt;<span class="built_in">string</span>,<span class="built_in">string</span>&gt; author&#123;<span class="string">"James"</span>,<span class="string">"Joyce"</span>&#125;;</span><br></pre></td></tr></table></figure><br>pair的数据成员是public的，两个成员分别命名为first和second。</p>
 <p><img src="image/image-20200102190613569.png" alt="image-20200102190613569"></p>
 <h2 id="关联容器的操作"><a href="#关联容器的操作" class="headerlink" title="关联容器的操作"></a>关联容器的操作</h2><p>关联容器额外的类型别名</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -698,7 +662,8 @@
 <th>——————</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>key_type</td>
 <td></td>
 </tr>
@@ -708,36 +673,29 @@
 </tr>
 <tr>
 <td>value_type</td>
-<td></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><img src="image/image-20200102191018921.png" alt="image-20200102191018921"></p>
 <h3 id="关联容器迭代器"><a href="#关联容器迭代器" class="headerlink" title="关联容器迭代器"></a>关联容器迭代器</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> map_it = word_count.cbegin(); <span class="comment">// *map_it是一个指向word_count中第一个元素的引用</span></span><br><span class="line"><span class="keyword">while</span> (map_it != word_count.<span class="built_in">end</span>())&#123;</span><br><span class="line">	count&lt;&lt; map_it -&gt; first &lt;&lt; <span class="string">" occurs "</span> &lt;&lt; map_it -&gt; second &lt;&lt; <span class="string">"times"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    ++map_it;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>set类型中的元素是const的，map中的元素是pair，其第一个成员是const的。</li>
 <li>由于关联容器中的元素不能通过他们的关键字进行快速查找，因此对其使用泛型算法是一个坏主意。使用关联容器定义的专用的find成员比泛型find快的多。</li>
 <li>实际编程中，如果我们真要对一个关联容器使用算法，要么是将他作为一个源序列，要么是当作一个目的位置。</li>
 </ul>
 <h3 id="添加元素-1"><a href="#添加元素-1" class="headerlink" title="添加元素"></a>添加元素</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//set</span></span><br><span class="line">set1.insert(ivec.<span class="built_in">begin</span>(),ivec.<span class="built_in">end</span>());</span><br><span class="line">set1.insert(&#123;<span class="number">1</span>,<span class="number">23</span>,<span class="number">4</span>&#125;);</span><br><span class="line"><span class="comment">//map</span></span><br><span class="line">word_count.insert(&#123;<span class="keyword">word</span>,<span class="number">1</span>&#125;);</span><br><span class="line">word_count.insert(make_pair(<span class="keyword">word</span>,<span class="number">1</span>));</span><br><span class="line">word_count.insert(pair&lt;<span class="built_in">string</span>,<span class="keyword">size_t</span>&gt;(<span class="keyword">word</span>,<span class="number">1</span>));</span><br><span class="line">word_count.insert(<span class="built_in">map</span>&lt;<span class="built_in">string</span>,<span class="keyword">size_t</span>&gt;::value_type(<span class="keyword">word</span>,<span class="number">1</span>));</span><br></pre></td></tr></table></figure>
-
 <p><img src="image/image-20200102192548970.png" alt="image-20200102192548970"></p>
 <p>insert具有返回值。对于不包含重复关键字的容器，添加单一元素的insert和emplace返回一个pair,pair的第一个元素为指向具有给定关键字的元素的迭代器，second是一个指示关键字插入成功还是已经存在在容器中的bool值。</p>
 <h3 id="删除元素-1"><a href="#删除元素-1" class="headerlink" title="删除元素"></a>删除元素</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">c.erase(k); <span class="comment">//删除关键字为k的元素，返回size_t值，指出删除元素的数量</span></span><br><span class="line">c.erase(p); <span class="comment">//删除迭代器指向的元素</span></span><br><span class="line">c.erase(b,e); <span class="comment">//删除b和e之间的元素</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="map的下标操作"><a href="#map的下标操作" class="headerlink" title="map的下标操作"></a>map的下标操作</h3><p>不能对multimap和unordered_multimap进行下标操作。</p>
 <p>与其他下标运算符不同的是，<strong>如果关键字不在map中，会为它创建一个元素并插入到map中，关联值将进行值初始化。</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c[k];  <span class="comment">//返回关键字为k的元素；如果k不在map中，则进行值初始化</span></span><br><span class="line">c.at(k); <span class="comment">//如果k不在c中抛出out_of_range异常</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="访问元素-1"><a href="#访问元素-1" class="headerlink" title="访问元素"></a>访问元素</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">c.<span class="built_in">find</span>(k); <span class="comment">//返回一个迭代器，指向第一个关键字为k的元素。如果不存在，指向尾后迭代器。</span></span><br><span class="line">c.count(k); <span class="comment">//返回关键字等于k的元素的数量。</span></span><br><span class="line">c.lower_bound(k); <span class="comment">//返回一个迭代器，指向第一个关键字不小于k的元素</span></span><br><span class="line">c.upper_bound(k); <span class="comment">//返回一个迭代器，指向第一个关键字大于k的元素</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="无序容器"><a href="#无序容器" class="headerlink" title="无序容器"></a>无序容器</h2><p>无序关联容器使用哈希函数。</p>
 <p>无序容器在储存上组织为一个桶，每个桶保存零个或多个元素。无序容器使用哈希函数将元素映射到桶。</p>
 <p>无序容器的管理操作</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//桶接口</span></span><br><span class="line">c.bucket_count(); <span class="comment">//正在使用的桶的数目</span></span><br><span class="line">c.max_bucket_count();</span><br><span class="line">c.bucket_size(n); <span class="comment">//第n个桶中的元素个数</span></span><br><span class="line">c.bucket(k);  <span class="comment">//关键字为k的元素在哪个桶中</span></span><br><span class="line"><span class="comment">//桶迭代</span></span><br><span class="line">local_iterator 用来访问桶中元素的迭代器类型</span><br><span class="line">const_local_iterator</span><br><span class="line">c.<span class="built_in">begin</span>(n),c.<span class="built_in">begin</span>(n) 桶n的首元素迭代器和尾后迭代器</span><br><span class="line">c.cbegin(n),c.cbegin(n)</span><br><span class="line"><span class="comment">//哈希策略</span></span><br><span class="line">c.load_factor(); <span class="comment">// 每个桶的平均元素的数量</span></span><br><span class="line">c.max_load_factor();</span><br><span class="line">c.rehash(n); <span class="comment">//重组存储，使得bucket_count&gt;n而且bucket_count&gt;size/max_load_facor</span></span><br><span class="line">c.reserve(n); <span class="comment">//重组存储，是的c可以保存n个元素不必rehash</span></span><br></pre></td></tr></table></figure>
-
-
-
 <h1 id="12-动态内存"><a href="#12-动态内存" class="headerlink" title="12.动态内存"></a>12.动态内存</h1><ul>
 <li>静态内存保存局部static对象、类static成员以及定义在任何函数之外的变量。分配在静态内存中的对象由编译器自动创建和销毁。</li>
 <li>栈内存用来保存函数内的非static对象。</li>
@@ -751,9 +709,7 @@
 </ul>
 <h3 id="shared-ptr类"><a href="#shared-ptr类" class="headerlink" title="shared_ptr类"></a>shared_ptr类</h3><p>智能指针也是模板</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//shared_ptr和unique_ptr都支持的操作</span></span><br><span class="line"><span class="built_in">shared_ptr</span>&lt;T&gt; sp 空智能指针，可以指向T类型的对象</span><br><span class="line"><span class="built_in">unique_ptr</span>&lt;T&gt; up</span><br><span class="line">p 将p用作一个条件判断，如果p指向一个对象则为<span class="literal">true</span></span><br><span class="line">*p 解引用p</span><br><span class="line">p-&gt;mem</span><br><span class="line">p.<span class="built_in">get</span>()  返回p中保存的指针。要小心使用，如果智能指针释放了对象，返回的指针指向的对象也就消失了</span><br><span class="line">swap(p,q) 交换p和q中的指针</span><br><span class="line">    </span><br><span class="line"><span class="comment">//shared_ptr独有的操作</span></span><br><span class="line">make_shared&lt;T&gt; (args)</span><br><span class="line"><span class="built_in">shared_ptr</span>&lt;T&gt;p(q)   p是智能指针q的拷贝；此操作会递增q中的计数器。q中的指针必须能转换成T*</span><br><span class="line">p=q   此操作会递减p的引用计数，递增q的引用计数；若p的引用计数变为<span class="number">0</span>，则将其管理的原内存释放。</span><br><span class="line">p.unique()  若p.use_count()为<span class="number">1</span>返回<span class="literal">true</span>，否则<span class="literal">false</span></span><br><span class="line">p.use_count()  返回与p共享对象的智能指针的数量；可能很慢，主要用于调试</span><br></pre></td></tr></table></figure>
-
 <h4 id="make-shared函数"><a href="#make-shared函数" class="headerlink" title="make_shared函数"></a>make_shared函数</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="keyword">int</span>&gt; p3 = make_shared&lt;<span class="keyword">int</span>&gt; (<span class="number">42</span>);</span><br><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="built_in">string</span>&gt; p4 = make_shared&lt;<span class="built_in">string</span>&gt;(<span class="number">10</span>,<span class="string">'9'</span>); <span class="comment">//</span></span><br><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="keyword">int</span>&gt; p5 = make_shared&lt;<span class="keyword">int</span>&gt;(); <span class="comment">//进行值初始化</span></span><br><span class="line"><span class="keyword">auto</span> p6 = make_shared&lt;<span class="keyword">int</span>&gt;();</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>如果将shared_ptr保存在容器中，而后不再需要全部元素，而只要其中的一部分元素，要记得使用erase删除不再需要的那些元素。</p>
 </blockquote>
@@ -764,20 +720,15 @@
 </ul>
 <h3 id="直接管理内存"><a href="#直接管理内存" class="headerlink" title="直接管理内存"></a>直接管理内存</h3><h4 id="使用new动态分配和初始化"><a href="#使用new动态分配和初始化" class="headerlink" title="使用new动态分配和初始化"></a>使用new动态分配和初始化</h4><p>在自由空间分配的内存是无名的，因此new无法为其分配的对象命名，而是返回一个指向该对象的指针.</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *pr = <span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">1024</span>);</span><br><span class="line"><span class="built_in">string</span> *ps = <span class="keyword">new</span> <span class="built_in">string</span>(<span class="number">10</span>,<span class="string">'9'</span>);</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; *pv = <span class="keyword">new</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">string</span> *ps = <span class="keyword">new</span> <span class="built_in">string</span>; <span class="comment">//默认初始化为空string</span></span><br><span class="line"><span class="built_in">string</span> *ps = <span class="keyword">new</span> <span class="built_in">string</span>(); <span class="comment">//值初始化为空string</span></span><br><span class="line"><span class="keyword">int</span> *pi1 = <span class="keyword">new</span> <span class="keyword">int</span>;  <span class="comment">//默认初始化，*pi1的值未定义</span></span><br><span class="line"><span class="keyword">int</span> *pi2 = <span class="keyword">new</span> <span class="keyword">int</span>();  <span class="comment">//值初始化为0,*pi2为0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//释放动态内存</span></span><br><span class="line"><span class="keyword">delete</span> p;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> *p2 = <span class="literal">nullptr</span>;</span><br><span class="line"><span class="keyword">delete</span> p2; <span class="comment">//释放空指针总是对的</span></span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p><strong>new和delete内存管理常见的三个问题</strong></p>
 <p>1.忘记delete内存<br>2.使用已经释放的对象<br>3.同一块内存使用两次</p>
 </blockquote>
 <h3 id="shared-ptr和new结合使用"><a href="#shared-ptr和new结合使用" class="headerlink" title="shared_ptr和new结合使用"></a>shared_ptr和new结合使用</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="keyword">int</span>&gt; p1 = <span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">42</span>);  <span class="comment">//错误：必须直接初始化</span></span><br><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="keyword">int</span>&gt; p2(<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">42</span>)); <span class="comment">//正确：进行了值初始化</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//定义和改变shared_ptr的其他方法</span></span><br><span class="line"><span class="built_in">shared_ptr</span>&lt;T&gt; p(q);  <span class="comment">//p管理内置指针q所指向的对象</span></span><br><span class="line"><span class="built_in">shared_ptr</span>&lt;T&gt; p(u);  <span class="comment">//p从unique_ptr u处接管了对象的所有权；将u置空</span></span><br><span class="line"><span class="built_in">shared_ptr</span>&lt;T&gt; p(q,d);  <span class="comment">//p接管了内置指针q所指对象的所有权。q将使用可调用对象d来代替delete</span></span><br><span class="line"><span class="built_in">shared_ptr</span>&lt;T&gt; p(p2,d);  <span class="comment">//p是shared_ptr p2的拷贝，唯一的区别是使用可调用对象d代替delete</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 若p是唯一指向其对象的shared_ptr, reset会释放此对象。若传递了可选的参数内置指针q，会令q指向p，否则将p置空</span></span><br><span class="line">p.reset();  </span><br><span class="line">p.reset(q);</span><br><span class="line">p.reset(q,d);</span><br></pre></td></tr></table></figure>
-
-
-
 <blockquote>
 <p>不要混合使用普通指针和智能指针，也不要使用get初始化另一个智能指针或为另一个智能指针赋值</p>
 </blockquote>
 <h3 id="其他shared-ptr操作"><a href="#其他shared-ptr操作" class="headerlink" title="其他shared_ptr操作"></a>其他shared_ptr操作</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p = <span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">1024</span>); <span class="comment">//错误：不能将一个指针赋予shared_ptr</span></span><br><span class="line">p.reset(<span class="keyword">new</span> <span class="keyword">int</span>(<span class="number">1024</span>));  <span class="comment">//正确：p指向一个新对象</span></span><br><span class="line"><span class="comment">//reset会更新引用计数</span></span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p><strong>智能指针使用规范</strong></p>
 <ul>
@@ -790,7 +741,6 @@
 </blockquote>
 <h3 id="unique-ptr"><a href="#unique-ptr" class="headerlink" title="unique_ptr"></a>unique_ptr</h3><p>初始化unique_ptr也必须采用值初始化</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unique_ptr</span>&lt;<span class="built_in">string</span>&gt; p1(<span class="keyword">new</span> <span class="built_in">string</span>(<span class="string">"Stearklwjer"</span>));</span><br><span class="line"><span class="built_in">unique_ptr</span>&lt;<span class="built_in">string</span>&gt; p1(p2); <span class="comment">//错误：unique_ptr不支持拷贝</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//unique_ptr操作</span></span><br><span class="line"><span class="built_in">unique_ptr</span>&lt;T&gt; u1;  <span class="comment">//空unique_ptr（使用delete释放指针）</span></span><br><span class="line"><span class="built_in">unique_ptr</span>&lt;T,D&gt; u2;  <span class="comment">//空unique_ptr，使用D释放指针</span></span><br><span class="line"><span class="built_in">unique_ptr</span>&lt;T,D&gt; u(d); <span class="comment">//空unique_ptr,指向类型为T的对象，用类型为D的对象d来代替delete</span></span><br><span class="line">u = <span class="literal">nullptr</span>;  <span class="comment">//释放u所指的对象，将u置空</span></span><br><span class="line">u.reset(); </span><br><span class="line">u.reset(q);  <span class="comment">//将u指向q</span></span><br><span class="line">u.reset(<span class="literal">nullptr</span>);</span><br></pre></td></tr></table></figure>
-
 <p>可以拷贝或赋值一个将要销毁的unique_ptr，比如函数返回值。</p>
 <h3 id="weak-ptr"><a href="#weak-ptr" class="headerlink" title="weak_ptr"></a>weak_ptr</h3><p>weak_ptr是一种不控制所指向对象生存期的智能指针，它指向一个由shared_ptr管理的对象。将一个weak_ptr绑定到一个shared_ptr不会改变shared_ptr的引用计数。一旦最后一个指向对象的shared_ptr被销毁，对象就会释放。</p>
 <p><img src="image/image-20200102214647056.png" alt="image-20200102214647056"></p>
@@ -800,7 +750,6 @@
 <p>当一个应用需要可变数量的对象时，使用vector。</p>
 </blockquote>
 <h3 id="new和数组"><a href="#new和数组" class="headerlink" title="new和数组"></a>new和数组</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *pia = <span class="keyword">new</span> <span class="keyword">int</span>[get_size()]; <span class="comment">//pia指向第一个int</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> arrT[<span class="number">42</span>];</span><br><span class="line"><span class="keyword">int</span> *p = <span class="keyword">new</span> arrT;  </span><br><span class="line"></span><br><span class="line"><span class="comment">//释放动态数组</span></span><br><span class="line"><span class="keyword">delete</span> [] pia;</span><br><span class="line"></span><br><span class="line"><span class="comment">//管理new分配的数组的unique_ptr</span></span><br><span class="line"><span class="built_in">unique_ptr</span>&lt;<span class="keyword">int</span> []&gt; up(<span class="keyword">new</span> <span class="keyword">int</span> [<span class="number">10</span>]);</span><br><span class="line">up.<span class="built_in">release</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">//shared_ptr不直接管理动态数组，如果希望使用shared_ptr管理动态数组，必须提供自己定义的删除器</span></span><br><span class="line"><span class="built_in">shared_ptr</span>&lt;<span class="keyword">int</span>&gt; sp(<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>], [](<span class="keyword">int</span> *p)&#123;<span class="keyword">delete</span> p;&#125;);</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>注意：动态数组类型并不是数组类型</p>
 </blockquote>

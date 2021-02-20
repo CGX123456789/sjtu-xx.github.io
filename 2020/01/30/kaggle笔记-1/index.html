@@ -268,10 +268,8 @@
       
         <h1 id="分类的分析"><a href="#分类的分析" class="headerlink" title="分类的分析"></a>分类的分析</h1><a id="more"></a>
 <ol>
-<li><p>获得数据</p>
-</li>
-<li><p>分析数据</p>
-<ul>
+<li>获得数据</li>
+<li>分析数据<ul>
 <li>类别数据<ul>
 <li>等级数据</li>
 <li>分类数据</li>
@@ -281,10 +279,8 @@
 <li>字母/数字/混合数据</li>
 </ul>
 </li>
-<li><p>通过透视表pivot table分析数据</p>
-</li>
-<li><p>通过图表可视化分析数据</p>
-<ul>
+<li>通过透视表pivot table分析数据</li>
+<li>通过图表可视化分析数据<ul>
 <li>分析等级数据</li>
 <li>分析普通分类数据</li>
 <li>分析数据之间的关系<ul>
@@ -293,8 +289,7 @@
 </li>
 </ul>
 </li>
-<li><p>处理数据</p>
-<ul>
+<li>处理数据<ul>
 <li>选择特征<ul>
 <li>缺失数据少</li>
 <li>具有代表性</li>
@@ -321,8 +316,7 @@
 </li>
 <li><p>模型训练</p>
 </li>
-<li><p>模型结果分析</p>
-</li>
+<li>模型结果分析</li>
 </ol>
 <h1 id="常用技术"><a href="#常用技术" class="headerlink" title="常用技术"></a>常用技术</h1><h2 id="特征提取和分析"><a href="#特征提取和分析" class="headerlink" title="特征提取和分析"></a>特征提取和分析</h2><p><a href="https://www.kaggle.com/kashnitsky/topic-6-feature-engineering-and-feature-selection/notebook" target="_blank" rel="noopener">https://www.kaggle.com/kashnitsky/topic-6-feature-engineering-and-feature-selection/notebook</a></p>
 <ul>
@@ -333,7 +327,8 @@
 <li><strong>时间序列</strong></li>
 </ul>
 <h2 id="特征转换"><a href="#特征转换" class="headerlink" title="特征转换"></a>特征转换</h2><ul>
-<li>正则化和改变分布<br><code>from sklearn.preprocessing import StandardScaler</code> 规范化<br><code>from sklearn.preprocessing import MinMaxScaler</code> 将数据重新分布在min和max之间<br><code>from scipy.stats import lognorm; data = lognorm(s=1).rvs(1000)</code> 将对数正态分布转换为正态分布</li>
+<li>正则化和改变分布<br><code>from sklearn.preprocessing import StandardScaler</code> 规范化<br><code>from sklearn.preprocessing import MinMaxScaler</code> 将数据重新分布在min和max之间<br><code>from scipy.stats import lognorm;
+data = lognorm(s=1).rvs(1000)</code> 将对数正态分布转换为正态分布</li>
 </ul>
 <h2 id="特征选择"><a href="#特征选择" class="headerlink" title="特征选择"></a>特征选择</h2><ul>
 <li>统计方法<br>方差小的认为数据的变化小<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> VarianceThreshold</span><br><span class="line">VarianceThreshold(<span class="number">.7</span>).fit_transform(x_data_generated)</span><br></pre></td></tr></table></figure>
@@ -343,8 +338,8 @@
 </ul>
 <h2 id="xgboost"><a href="#xgboost" class="headerlink" title="xgboost"></a>xgboost</h2><p>　　Xgboost是Boosting算法的其中一种，Boosting算法的思想是将许多弱分类器集成在一起，形成一个强分类器。因为Xgboost是一种提升树模型，所以它是将许多树模型集成在一起，形成一个很强的分类器。而所用到的树模型则是CART回归树模型。<br>　　Xgboost是在GBDT的基础上进行改进，使之更强大，适用于更大范围。<br>　　Xgboost一般和sklearn一起使用，但是由于sklearn中没有集成Xgboost，所以才需要单独下载安装。</p>
 <h3 id="xgboost教程"><a href="#xgboost教程" class="headerlink" title="xgboost教程"></a>xgboost教程</h3><pre><code>分类问题和回归问题
-https://zhuanlan.zhihu.com/p/31182879</code></pre>
-<h1 id="库"><a href="#库" class="headerlink" title="库"></a>库</h1><h2 id="pandas"><a href="#pandas" class="headerlink" title="pandas"></a>pandas</h2><ol>
+https://zhuanlan.zhihu.com/p/31182879
+</code></pre><h1 id="库"><a href="#库" class="headerlink" title="库"></a>库</h1><h2 id="pandas"><a href="#pandas" class="headerlink" title="pandas"></a>pandas</h2><ol>
 <li>选择特定dtype对应的列<br><code>[x  if data[c].dtype == np.dtype(&quot;O&quot;) else y for c in data]</code><br><code>categorical_features = df.select_dtypes(include=&quot;object&quot;)</code><br><code>numerical_features = df.select_dtypes(exclude=&quot;object&quot;)</code></li>
 </ol>
 <h2 id="seaborn"><a href="#seaborn" class="headerlink" title="seaborn"></a>seaborn</h2><ol>
@@ -363,7 +358,8 @@ https://zhuanlan.zhihu.com/p/31182879</code></pre>
 <p><b>mask</b>：布尔数组或者DataFrame数据，可选参数。 </p>
 </details>
 </li>
-<li><p>检查正态和线性<br>:```python<br>#histogram and normal probability plot<br>sns.distplot(df_train[‘GrLivArea’], fit=norm);<br>fig = plt.figure()<br>res = stats.probplot(df_train[‘GrLivArea’], plot=plt)</p>
+<li><p>检查正态和线性<br>:```python</p>
+<h1 id="histogram-and-normal-probability-plot"><a href="#histogram-and-normal-probability-plot" class="headerlink" title="histogram and normal probability plot"></a>histogram and normal probability plot</h1><p>sns.distplot(df_train[‘GrLivArea’], fit=norm);<br>fig = plt.figure()<br>res = stats.probplot(df_train[‘GrLivArea’], plot=plt)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## sklearn</span><br><span class="line">1. 预处理</span><br><span class="line">  - 将字符串类别转换为数字</span><br><span class="line">  &#96;&#96;&#96; python</span><br><span class="line">  from sklearn.preprocessing import LabelEncoder</span><br><span class="line">  la &#x3D; LabelEncoder()</span><br><span class="line">  result &#x3D; la.fit_transform(data)</span><br></pre></td></tr></table></figure>
 <ul>
 <li>自定义转换器<blockquote>
@@ -378,11 +374,9 @@ https://zhuanlan.zhihu.com/p/31182879</code></pre>
 <li>标准化、正则化<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 标准化：均值为0，方差为1</span></span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> scale,StandardScaler</span><br><span class="line">scaler = preprocessing.StandardScaler().fit(X)</span><br><span class="line">scaler = preprocessing.StandardScaler().fit_transform(X)</span><br><span class="line"><span class="comment"># 限制范围</span></span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> MinMaxScaler</span><br><span class="line">preprocessing.MinMaxScaler().fit_transform(X)</span><br><span class="line"><span class="comment"># 正则化:范数为1</span></span><br><span class="line">preprocessing.normalize(X, norm=<span class="string">'l2'</span>)</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li><p>模型训练</p>
-<ul>
+<li>模型训练<ul>
 <li>pipeline</li>
 <li>超参数搜索<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">   <span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> Pipeline</span><br><span class="line">   <span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> GridSearchCV</span><br><span class="line">   <span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier</span><br><span class="line">   </span><br><span class="line">   clf = Pipeline([(<span class="string">"cls"</span>,AdaBoostClassifier(DecisionTreeClassifier(),algorithm=<span class="string">"SAMME"</span>,n_estimators=<span class="number">600</span>, learning_rate=<span class="number">0.7</span>))])</span><br><span class="line">   params = [&#123;<span class="string">"cls__learning_rate"</span>:np.linspace(<span class="number">0.1</span>,<span class="number">1</span>,<span class="number">10</span>)&#125;]</span><br><span class="line">   grid_search = GridSearchCV(clf,params,cv=<span class="number">3</span>)</span><br><span class="line">   </span><br><span class="line">   grid_search.fit(X_train,Y_train)</span><br><span class="line">   grid_search.best_score_</span><br><span class="line">  ``` </span><br><span class="line"><span class="number">3.</span> 模型结果</span><br><span class="line">  ```python</span><br><span class="line">  model.predict(x_test)</span><br><span class="line">  model.score(X_train,y_train)</span><br><span class="line">  ```  </span><br><span class="line"><span class="number">4.</span> 结果分析</span><br><span class="line">   ```python</span><br><span class="line">   <span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> learning_curve</span><br><span class="line">   N_train, val_train, val_test = learning_curve(pipeline,</span><br><span class="line">                                                  X, y, train_sizes=train_sizes, cv=<span class="number">5</span>,</span><br><span class="line">                                                  scoring=<span class="string">'roc_auc'</span>)</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 </li>
@@ -399,7 +393,6 @@ https://zhuanlan.zhihu.com/p/31182879</code></pre>
 </li>
 <li><p>模型</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tensorflow.keras.layers <span class="keyword">import</span> Dense, Dropout, BatchNormalization</span><br><span class="line"><span class="keyword">from</span> tensorflow.keras.models <span class="keyword">import</span> Sequential</span><br><span class="line">model = Sequential()</span><br><span class="line">model.add(Dense(<span class="number">32</span>, input_dim=<span class="number">858</span>, activation=<span class="string">'relu'</span>))</span><br><span class="line">model.add(Dropout(<span class="number">0.9</span>))</span><br><span class="line">model.add(Dense(<span class="number">32</span>, activation=<span class="string">'relu'</span>))</span><br><span class="line">model.add(BatchNormalization())</span><br><span class="line">model.add(Dropout(<span class="number">0.9</span>))</span><br><span class="line">model.add(Dense(<span class="number">1</span>, activation=<span class="string">'sigmoid'</span>))</span><br><span class="line">model.compile(loss=<span class="string">'binary_crossentropy'</span>, optimizer=<span class="string">'adam'</span>, metrics=[<span class="string">'accuracy'</span>])</span><br><span class="line">model.fit(X_train, y_train, epochs=<span class="number">1000</span>, batch_size=<span class="number">8</span>)</span><br><span class="line">X_test = preprocessor.transform(df_test[cols])</span><br><span class="line">y_pred = model.predict_classes(X_test)</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 <p><code>print(model.summary())</code>显示模型的详细信息</p>
@@ -488,7 +481,7 @@ https://zhuanlan.zhihu.com/p/31182879</code></pre>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分类的分析"><span class="nav-number">1.</span> <span class="nav-text">分类的分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用技术"><span class="nav-number">2.</span> <span class="nav-text">常用技术</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#特征提取和分析"><span class="nav-number">2.1.</span> <span class="nav-text">特征提取和分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征转换"><span class="nav-number">2.2.</span> <span class="nav-text">特征转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征选择"><span class="nav-number">2.3.</span> <span class="nav-text">特征选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xgboost"><span class="nav-number">2.4.</span> <span class="nav-text">xgboost</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#xgboost教程"><span class="nav-number">2.4.1.</span> <span class="nav-text">xgboost教程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#库"><span class="nav-number">3.</span> <span class="nav-text">库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pandas"><span class="nav-number">3.1.</span> <span class="nav-text">pandas</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#seaborn"><span class="nav-number">3.2.</span> <span class="nav-text">seaborn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tensorflow"><span class="nav-number">3.3.</span> <span class="nav-text">tensorflow</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#案例"><span class="nav-number">4.</span> <span class="nav-text">案例</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分类的分析"><span class="nav-number">1.</span> <span class="nav-text">分类的分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用技术"><span class="nav-number">2.</span> <span class="nav-text">常用技术</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#特征提取和分析"><span class="nav-number">2.1.</span> <span class="nav-text">特征提取和分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征转换"><span class="nav-number">2.2.</span> <span class="nav-text">特征转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征选择"><span class="nav-number">2.3.</span> <span class="nav-text">特征选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xgboost"><span class="nav-number">2.4.</span> <span class="nav-text">xgboost</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#xgboost教程"><span class="nav-number">2.4.1.</span> <span class="nav-text">xgboost教程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#库"><span class="nav-number">3.</span> <span class="nav-text">库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#pandas"><span class="nav-number">3.1.</span> <span class="nav-text">pandas</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#seaborn"><span class="nav-number">3.2.</span> <span class="nav-text">seaborn</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#histogram-and-normal-probability-plot"><span class="nav-number">4.</span> <span class="nav-text">histogram and normal probability plot</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#tensorflow"><span class="nav-number">4.1.</span> <span class="nav-text">tensorflow</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#案例"><span class="nav-number">5.</span> <span class="nav-text">案例</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -280,13 +280,12 @@
 <li>镜像中心-》镜像加速器</li>
 <li>按照对应的教程进行</li>
 </ol>
-<h2 id="docker为什么比虚拟机快"><a href="#docker为什么比虚拟机快" class="headerlink" title="docker为什么比虚拟机快"></a>docker为什么比虚拟机快</h2><p>(1)docker有着比虚拟机更少的抽象层。<br>(2)docker利用的是宿主机的内核,而不需要Guest OS。<br><img src="docker_vm.png"></p>
+<h2 id="docker为什么比虚拟机快"><a href="#docker为什么比虚拟机快" class="headerlink" title="docker为什么比虚拟机快"></a>docker为什么比虚拟机快</h2><p>(1)docker有着比虚拟机更少的抽象层。<br>(2)docker利用的是宿主机的内核,而不需要Guest OS。<br><img src="docker_vm.png" alt=""></p>
 <h1 id="docker常用命令"><a href="#docker常用命令" class="headerlink" title="docker常用命令"></a>docker常用命令</h1><h2 id="docker帮助命令"><a href="#docker帮助命令" class="headerlink" title="docker帮助命令"></a>docker帮助命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker version</span><br><span class="line">docker info</span><br><span class="line">docker --help</span><br></pre></td></tr></table></figure>
-
 <h2 id="docker镜像命令"><a href="#docker镜像命令" class="headerlink" title="docker镜像命令"></a>docker镜像命令</h2><ol>
 <li><p><code>docker images</code><br>列出本地的镜像模板</p>
 <blockquote>
-<p>Options<br>-a 列出本地的所有镜像<br>-q 只显示对象的ID<br>–digests: 显示对象的摘要信息<br>–no-trunc: 显示完整的信息</p>
+<p>Options<br>-a 列出本地的所有镜像<br>-q 只显示对象的ID<br>—digests: 显示对象的摘要信息<br>—no-trunc: 显示完整的信息</p>
 </blockquote>
 </li>
 <li><p><code>docker search</code></p>
@@ -309,12 +308,12 @@
 <li>新建并启动容器<br><code>docker run [OPTIONS] IMAGE [COMMAND][ARG...]</code><br><code>docker run -it IMAGE</code> 启用交互式容器</li>
 </ol>
 <blockquote>
-<p>OPTIONS<br>–name=”容器的新名字”：为容器制定一个名称<br> -i：以交互模式运行容器，通常与 -t 同时使用；<br>-t：为容器重新分配一个伪输入终端，通常与 -i 同时使用；<br>-d: 后台运行容器，并返回容器ID，也即启动守护式容器；<br>-P: 随机端口映射；<br>-p: 指定端口映射，有以下四种格式<br>    ip:hostPort:containerPort<br>    ip::containerPort<br>    hostPort:containerPort<br>    containerPort </p>
+<p>OPTIONS<br>—name=”容器的新名字”：为容器制定一个名称<br> -i：以交互模式运行容器，通常与 -t 同时使用；<br>-t：为容器重新分配一个伪输入终端，通常与 -i 同时使用；<br>-d: 后台运行容器，并返回容器ID，也即启动守护式容器；<br>-P: 随机端口映射；<br>-p: 指定端口映射，有以下四种格式<br>    ip:hostPort:containerPort<br>    ip::containerPort<br>    hostPort:containerPort<br>    containerPort </p>
 </blockquote>
-<ol start="2">
+<ol>
 <li><p>列出所有正在运行的容器<br><code>docker ps</code></p>
 <blockquote>
-<p>OPTIONS说明（常用）：<br>-a :列出当前所有正在运行的容器+历史上运行过的<br>-l :显示最近创建的容器。<br>-n：显示最近n个创建的容器。<br>-q :静默模式，只显示容器编号。<br>–no-trunc :不截断输出。</p>
+<p>OPTIONS说明（常用）：<br>-a :列出当前所有正在运行的容器+历史上运行过的<br>-l :显示最近创建的容器。<br>-n：显示最近n个创建的容器。<br>-q :静默模式，只显示容器编号。<br>—no-trunc :不截断输出。</p>
 </blockquote>
 </li>
 <li><p>启动容器<br><code>docker start</code></p>
@@ -325,7 +324,7 @@
 </li>
 <li><p>强制停止容器<br><code>docker kill</code></p>
 </li>
-<li><p>删除已停止容器<br><code>docker rm </code><br>删除多个容器</p>
+<li><p>删除已停止容器<br><code>docker rm</code><br>删除多个容器</p>
 </li>
 </ol>
 <ul>
@@ -349,7 +348,7 @@
 </li>
 <li>提交容器副本，使之成为新的镜像<br><code>docker commit</code><br><code>docker commit -m=&quot;描述信息&quot; -a=&quot;作者&quot; 容器id 要创建的镜像的名称:[标签名]</code></li>
 </ol>
-<h3 id="docker命令总结"><a href="#docker命令总结" class="headerlink" title="docker命令总结"></a>docker命令总结</h3><p><img src="docker_command.png"></p>
+<h3 id="docker命令总结"><a href="#docker命令总结" class="headerlink" title="docker命令总结"></a>docker命令总结</h3><p><img src="docker_command.png" alt=""></p>
 <blockquote>
 <p>attach    Attach to a running container                 # 当前 shell 下 attach 连接指定运行镜像</p>
 <p>build     Build an image from a Dockerfile              # 通过 Dockerfile 定制镜像</p>
@@ -397,7 +396,7 @@
 <li>DockerFile添加<br><code>VOLUME[&quot;/dataVolumeContainer&quot;,&quot;/dataVolumeContainer2&quot;,&quot;/dataVolumeContainer3&quot;]</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># volume test</span><br><span class="line">FROM centos</span><br><span class="line">VOLUME [&quot;&#x2F;dataVolumeContainer1&quot;,&quot;&#x2F;dataVolumeContainer2&quot;]</span><br><span class="line">CMD echo &quot;finished,--------success1&quot;</span><br><span class="line">CMD &#x2F;bin&#x2F;bash</span><br></pre></td></tr></table></figure>
 <code>docker build -f dockerfile -t newcentos .</code><br>对应的宿主机上的卷地址可以通过<code>docker inspect newcentos</code></li>
 </ol>
-<p>Docker挂载主机目录Docker访问出现cannot open directory .: Permission denied<br>解决办法：在挂载目录后多加一个–privileged=true参数即可</p>
+<p>Docker挂载主机目录Docker访问出现cannot open directory .: Permission denied<br>解决办法：在挂载目录后多加一个—privileged=true参数即可</p>
 <h2 id="数据卷容器"><a href="#数据卷容器" class="headerlink" title="数据卷容器"></a>数据卷容器</h2><p>命名的容器挂载数据卷，其它容器通过挂载这个(父容器)实现数据共享，挂载数据卷的容器，称之为数据卷容器<br>容器见传递共享<code>--volumes-from</code></p>
 <p><code>docker run -it --name doc2 --volume-from doc1 centos</code><br>容器之间配置信息传递，数据卷的生命周期一直持续到没有容器使用他为止。</p>
 <h1 id="DockerFile解析"><a href="#DockerFile解析" class="headerlink" title="DockerFile解析"></a>DockerFile解析</h1><h2 id="构建三步骤"><a href="#构建三步骤" class="headerlink" title="构建三步骤"></a>构建三步骤</h2><p>编写dockerfile - &gt; docker build - &gt; docker run</p>
@@ -427,9 +426,8 @@
 <li>ENTRYPOINT：指定一个容器启动时要运行的命令。会追加参数</li>
 <li>ONBUILD：当构建一个被继承的dockerfile时运行命令，父镜像在被子继承后父镜像的onbuild被触发</li>
 </ol>
-<p><img src="docker_image.png"></p>
-<h2 id="将镜像发布到阿里云"><a href="#将镜像发布到阿里云" class="headerlink" title="将镜像发布到阿里云"></a>将镜像发布到阿里云</h2><p>dev.aliyun.com创建仓库<br>在仓库中的管理按钮中查看帮助文档即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo docker login --username&#x3D; registry.cn-xxx.aliyuncs.com</span><br><span class="line">sudo docker tag [Imageid] resgistry.cn-xxx.aliyuncs.com&#x2F;xasdf&#x2F;asdff:[镜像版本号]</span><br><span class="line">sudo docker push registry.cn-xxx.aliyuncs.com&#x2F;xasdf&#x2F;asdff:[镜像版本号]</span><br></pre></td></tr></table></figure>
+<p><img src="docker_image.png" alt=""></p>
+<h2 id="将镜像发布到阿里云"><a href="#将镜像发布到阿里云" class="headerlink" title="将镜像发布到阿里云"></a>将镜像发布到阿里云</h2><p>dev.aliyun.com创建仓库<br>在仓库中的管理按钮中查看帮助文档即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo docker login --username&#x3D; registry.cn-xxx.aliyuncs.com</span><br><span class="line">sudo docker tag [Imageid] resgistry.cn-xxx.aliyuncs.com&#x2F;xasdf&#x2F;asdff:[镜像版本号]</span><br><span class="line">sudo docker push registry.cn-xxx.aliyuncs.com&#x2F;xasdf&#x2F;asdff:[镜像版本号]</span><br></pre></td></tr></table></figure></p>
 
     </div>
 

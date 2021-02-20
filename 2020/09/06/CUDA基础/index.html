@@ -350,8 +350,8 @@
 <li><code>cudaMemcpy(P,Pd,size,cudaMemcpyDeviceToHost)</code></li>
 </ul>
 <h2 id="cuda-矩阵乘法"><a href="#cuda-矩阵乘法" class="headerlink" title="cuda 矩阵乘法"></a>cuda 矩阵乘法</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">__<span class="function">global__ <span class="keyword">void</span> <span class="title">MatrixMulkernel</span><span class="params">(<span class="keyword">float</span>* Md,<span class="keyword">float</span>* Nd,<span class="keyword">float</span>* Pd,<span class="keyword">int</span> Width)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> tx= threadIdx.x;</span><br><span class="line">    <span class="keyword">int</span> ty= threadIdy.y;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">float</span> Pvalue = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>;k&lt;<span class="built_in">width</span>;++k)&#123;</span><br><span class="line">        <span class="keyword">float</span> Mdelement = Md[ty * Md.<span class="built_in">width</span> +k];</span><br><span class="line">        <span class="keyword">float</span> Ndelement = Nd[k * Nd.<span class="built_in">width</span> + tx];</span><br><span class="line">        Pvalue += Mdelement * Ndelement;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Pd[ty * <span class="built_in">width</span> + tx] = Pvalue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MatrixMulOnDevice</span><span class="params">(<span class="keyword">float</span>* M, <span class="keyword">float</span>* N, <span class="keyword">float</span>* P, <span class="keyword">int</span> <span class="built_in">width</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">size</span> = <span class="built_in">width</span> * <span class="built_in">width</span> *<span class="keyword">sizeof</span>(<span class="keyword">float</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// load M and N to device memory</span></span><br><span class="line">    cudaMalloc(Md,<span class="built_in">size</span>);</span><br><span class="line">    cudaMemcpy(Md,M,<span class="built_in">size</span>,cudaMemcpyHostToDevice);</span><br><span class="line">    cudaMalloc(Nd,<span class="built_in">size</span>);</span><br><span class="line">    cudaMemcpy(Nd,N,<span class="built_in">size</span>,cudaMemcpyHostToDevice);</span><br><span class="line"></span><br><span class="line">    cudaMalloc(Pd,<span class="built_in">size</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// </span></span><br><span class="line">    <span class="function">dim3 <span class="title">dimBlock</span><span class="params">(<span class="built_in">width</span>,<span class="built_in">width</span>)</span></span>; <span class="comment">// 1个block含width*width个线程</span></span><br><span class="line">    <span class="function">dim3 <span class="title">dimGrid</span><span class="params">(<span class="number">1</span>,<span class="number">1</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    MatrixMulKernel&lt;&lt;&lt;dimGrid,dimBlock&gt;&gt;&gt;(Md,Nd,Pd);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// read p from device</span></span><br><span class="line">    cudaMemcpy(P,Pd,<span class="built_in">size</span>,cudaMemcpyDeviceToHost);</span><br><span class="line">    cudaFree(Md);</span><br><span class="line">    cudaFree(Nd);</span><br><span class="line">    cudaFree(Pd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="cuda函数声明"><a href="#cuda函数声明" class="headerlink" title="cuda函数声明"></a>cuda函数声明</h2><table>
+<h2 id="cuda函数声明"><a href="#cuda函数声明" class="headerlink" title="cuda函数声明"></a>cuda函数声明</h2><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>声明</th>
@@ -359,7 +359,8 @@
 <th>调用</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><code>__global__ void KernelFunc()</code></td>
 <td>设备端</td>
 <td>主机端</td>
@@ -374,7 +375,9 @@
 <td>主机端</td>
 <td>主机端</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><code>__global__</code>返回类型必须是void</p>
 <blockquote>
 <p>global和device函数</p>
@@ -392,6 +395,7 @@
 <p>Warp中的线程切换是0开销的。</p>
 <h3 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h3><p>local memory实际上存放在global memory当中。</p>
 <p>shared memory可全速读写。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -401,7 +405,8 @@
 <th>生命期</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>单独的自动变量而不是数组</td>
 <td>寄存器</td>
 <td>thread</td>
@@ -431,7 +436,9 @@
 <td>grid</td>
 <td>application</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>global和constant变量</p>
 <ul>
 <li>host可以通过以下函数访问：<ul>

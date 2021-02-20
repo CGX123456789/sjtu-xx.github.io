@@ -36,8 +36,8 @@
 <meta property="article:author" content="Xue Xuan">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="pandas">
-<meta property="article:tag" content="数据分析">
 <meta property="article:tag" content="seaborn">
+<meta property="article:tag" content="数据分析">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://sjtu-xx.github.io/2020/02/17/%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%903%EF%BC%88%E7%BB%98%E5%9B%BE%E4%B8%8E%E5%8F%AF%E8%A7%86%E5%8C%96%EF%BC%89/image/image-20190706151130509-2397090.png">
 
@@ -280,16 +280,13 @@
       
         <h1 id="六、绘图与可视化"><a href="#六、绘图与可视化" class="headerlink" title="六、绘图与可视化"></a>六、绘图与可视化</h1><a id="more"></a>
 <h2 id="1-matplotlib入门"><a href="#1-matplotlib入门" class="headerlink" title="1.matplotlib入门"></a>1.matplotlib入门</h2><h3 id="（1）图片与子图"><a href="#（1）图片与子图" class="headerlink" title="（1）图片与子图"></a>（1）图片与子图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(np.arange(10))</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
 <p>plt绘制的图位于Figure对象中</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fig &#x3D; plt.figure()</span><br><span class="line">ax1 &#x3D; fig.add_subplot(2,2,1)  两行两列，第一个位置</span><br><span class="line">ax2 &#x3D; fig.add_subplot(2,2,2)</span><br><span class="line">ax3 &#x3D; fig.add_subplot(2,2,3)</span><br><span class="line">此时调用plt.plot()会在最后一张图进行绘制</span><br></pre></td></tr></table></figure>
-
 <p>fig.add_subplot返回的是Axes Subplot对象</p>
 <p><strong>图形类型：</strong></p>
 <p>hist，scatter</p>
 <p><strong>子图：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fig,axes &#x3D; plt.subplots(2,3)</span><br><span class="line">axes为Axes Subplot对象列表</span><br><span class="line">索引方法：axes[0,1]</span><br><span class="line"></span><br><span class="line">subplots方法参数：</span><br><span class="line">sharex：所有子图使用相同的x刻度</span><br><span class="line">subplot_kw：传入add_subplot的关键字参数字典，用于生成子图</span><br></pre></td></tr></table></figure>
-
 <h4 id="调整子图间距"><a href="#调整子图间距" class="headerlink" title="调整子图间距"></a>调整子图间距</h4><p><code>plt.subplot_adjust(left=None,bottom=None,right=None,top=None,wspace=None,hspace=None)</code></p>
 <p>wspace和hspace分别控制的是图片的宽度和高度百分比，用作子图间距。</p>
 <h4 id="颜色，标记和线型"><a href="#颜色，标记和线型" class="headerlink" title="颜色，标记和线型"></a>颜色，标记和线型</h4><p>1）字符串参数指定：</p>
@@ -308,7 +305,6 @@
 <p>plt.xlim([0,10]) 设置范围</p>
 <p>这些方法对应子图中的get_xlim()和set_xlim()方法</p>
 <h4 id="2-1设置标题、轴标签、刻度和刻度标签"><a href="#2-1设置标题、轴标签、刻度和刻度标签" class="headerlink" title="2.1设置标题、轴标签、刻度和刻度标签"></a>2.1设置标题、轴标签、刻度和刻度标签</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ax.set_title(&#39;Title&#39;)</span><br><span class="line">ax.set_xlable(&#39;Stages&#39;)</span><br><span class="line">ax.set_xticks([0,200,500,750])</span><br><span class="line">ax.set_xticklabels([&#39;one&#39;,&#39;two&#39;,&#39;three&#39;,&#39;four&#39;],rotation&#x3D;30,fontsize&#x3D;&#39;small&#39;)</span><br><span class="line"></span><br><span class="line">prop&#x3D;&#123;</span><br><span class="line">	&#39;title&#39;:&quot;Title&quot;,</span><br><span class="line">	&#39;xlabel&#39;:&quot;Stages&quot;</span><br><span class="line">&#125;</span><br><span class="line">ax.set(**prop)</span><br></pre></td></tr></table></figure>
-
 <h4 id="2-2-图例"><a href="#2-2-图例" class="headerlink" title="2.2 图例"></a>2.2 图例</h4><p>要使用图例，在绘制时要穿入 label参数，</p>
 <p>不使用图例，绘制时不要穿入label或传入<code>label=&#39;_nolegend_&#39;</code></p>
 <p><img src="image/image-20190706151130509-2397090.png" alt="image-20190706151130509"></p>
@@ -317,19 +313,14 @@
 <p><code>ax.text(x,y,&#39;hello world&#39;,family=&#39;monospace&#39;,fontsize=10)</code></p>
 <p>添加箭头：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ax.annotate(label,</span><br><span class="line">						xy&#x3D;(x, data.asof(x)+75),</span><br><span class="line">						xytext&#x3D;(x, data.asof(x)+275),</span><br><span class="line">						arrowprops&#x3D;&#123;</span><br><span class="line">								facecolor:&#39;black&#39;,</span><br><span class="line">								headwidth:4,</span><br><span class="line">								width:2,</span><br><span class="line">								headlength:4</span><br><span class="line">						&#125;,</span><br><span class="line">						horizontalalignment&#x3D;&#39;left&#39;,</span><br><span class="line">						verticalalignment&#x3D;&#39;top&#39;)</span><br></pre></td></tr></table></figure>
-
 <p>其他图形：</p>
 <p>matplotlib.pyplot中提供了常见图形的引用，完整的引用在matplotlib.patches中</p>
 <p>使用时，先生成patch对象shp，然后调用ax.add_patch将图形添加到子图中</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rect &#x3D; plt.Rectangle((0.2,0.75),0.4,0.15,color&#x3D;&#39;k&#39;,alpha&#x3D;0.3)</span><br><span class="line">ax.add_patches(rect)</span><br></pre></td></tr></table></figure>
-
 <h3 id="4-将图像保存到文件"><a href="#4-将图像保存到文件" class="headerlink" title="(4)将图像保存到文件"></a>(4)将图像保存到文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">plt.savefig(filename)</span><br><span class="line">plt.savefig(filename,dpi&#x3D;400,bbox_inches&#x3D;&#39;tight&#39;)  bbox_inches修建图片的空白</span><br><span class="line"></span><br><span class="line">参数：</span><br><span class="line">facecolor,edgecolor. 子图之外背景的颜色；&#39;w&#39;默认</span><br><span class="line">format 导出图片的格式</span><br><span class="line">bbox_inches. 导出图片中figure所占的百分比</span><br></pre></td></tr></table></figure>
-
 <h3 id="（5）修改配置"><a href="#（5）修改配置" class="headerlink" title="（5）修改配置"></a>（5）修改配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">plt.rc()</span><br><span class="line">rc的第一个参数时想要自定义的组件，如figure，axes，xtick等</span><br><span class="line"></span><br><span class="line">使用：</span><br><span class="line">font_options &#x3D; &#123;</span><br><span class="line">			&#39;family&#39;:&#39;monospace&#39;,</span><br><span class="line">			&#39;size&#39;:&#39;small&#39;,</span><br><span class="line">			&#39;weigth&#39;:bold</span><br><span class="line">&#125;</span><br><span class="line">plt.rc(&#39;font&#39;,**font_options)</span><br></pre></td></tr></table></figure>
-
 <h2 id="2-使用pandas和seaborn绘图"><a href="#2-使用pandas和seaborn绘图" class="headerlink" title="2.使用pandas和seaborn绘图"></a>2.使用pandas和seaborn绘图</h2><h3 id="（1）折线图"><a href="#（1）折线图" class="headerlink" title="（1）折线图"></a>（1）折线图</h3><p>默认情况下pandas对象调用plot函数会绘制折线图</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">s.plot()</span><br><span class="line">df.plot() 等价df.plot.line()</span><br><span class="line"></span><br><span class="line">Series方法参数：</span><br><span class="line">lable:标签</span><br><span class="line">ax：绘图所用的matplotlib子图对象；如果没有传值，使用当前活动的matplotlib子图</span><br><span class="line">style：&#39;g--&#39;等</span><br><span class="line">kind：可以是area,bar,barh,density,hist,kde,line,pie</span><br><span class="line">logy:在y轴上对数缩放</span><br><span class="line">use_index：使用对象索引刻度标签</span><br><span class="line">rot：刻度标签的旋转</span><br><span class="line">xticks：用于x轴刻度的值</span><br><span class="line">xlim：x轴范围</span><br><span class="line">grid：展示轴的网格</span><br><span class="line"></span><br><span class="line">Dataframe方法参数：</span><br><span class="line">subplots：将每一列绘制在单独的子图</span><br><span class="line">sharex：共享x轴的参数</span><br><span class="line">figsize：</span><br><span class="line">title：标题</span><br><span class="line">legend：添加子图图例（默认为True）</span><br><span class="line">sort_columns:按字母顺序绘制各列，默认情况使用已有的列顺序</span><br></pre></td></tr></table></figure>
-
 <h3 id="（2）柱状图"><a href="#（2）柱状图" class="headerlink" title="（2）柱状图"></a>（2）柱状图</h3><p>bar(),barh() :垂直/水平柱状图</p>
 <p>使用：</p>
 <p><code>data.plot.bar(ax=axes[0],color=&#39;k&#39;,alpha=0.7)</code></p>
@@ -338,13 +329,11 @@
 <p><img src="image/image-20190706155525312-2399725.png" alt="image-20190706155525312"></p>
 <p>使用seaborn绘制：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import seaborn as sns</span><br><span class="line">sns.barplot(x&#x3D;&#39;tip_pct&#39;,y&#x3D;&#39;day&#39;,data&#x3D;tips,orient&#x3D;&#39;h&#39;)</span><br><span class="line">sns.barplot(x&#x3D;&#39;tip_pct&#39;,y&#x3D;&#39;day&#39;,hue&#x3D;&#39;time&#39;,data&#x3D;tips,orient&#x3D;&#39;h&#39;)  hue参数：将数据按照time进行分类</span><br><span class="line">样式：</span><br><span class="line">sns.set(style&#x3D;&#39;whitegrid&#39;)</span><br></pre></td></tr></table></figure>
-
 <p><img src="image/image-20190706163812460-2402292.png" alt="image-20190706163812460"></p>
 <h3 id="（4）直方图和密度图"><a href="#（4）直方图和密度图" class="headerlink" title="（4）直方图和密度图"></a>（4）直方图和密度图</h3><p>直方图：<code>data.plot.hist(bins=50)</code>分成50列</p>
 <p>内核密度估计图：<code>data.plot.density()</code> </p>
 <p>同时绘制两者：<code>sns.distplot(data,bins=100,color=&#39;k&#39;)</code></p>
 <h3 id="5-散点图和点图"><a href="#5-散点图和点图" class="headerlink" title="(5)散点图和点图"></a>(5)散点图和点图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">散点图</span><br><span class="line">sns.regplot(&#39;col1&#39;,&#39;col2&#39;,data&#x3D;trans_data)</span><br><span class="line"></span><br><span class="line">散点图组</span><br><span class="line">sns.pairplot(trans_data,kind&#x3D;&#39;scatter&#39;,diag_kind&#x3D;&#39;kde&#39;,plot_kws&#x3D;&#123;&#39;alpha&#39;:0.2&#125;)</span><br></pre></td></tr></table></figure>
-
 <h3 id="（6）特征网格和分类数据"><a href="#（6）特征网格和分类数据" class="headerlink" title="（6）特征网格和分类数据"></a>（6）特征网格和分类数据</h3><p><img src="image/image-20190706170519024-2403919.png" alt="image-20190706170519024"></p>
 <p><code>sns.factorplot(x=&#39;day&#39;,y=&#39;tip&#39;,row=&#39;time&#39;,col=&#39;smoker&#39;,data=tips,kind=&#39;bar&#39;)</code></p>
 <p>通用的特征网格 sns.FacetGrid</p>
@@ -359,8 +348,8 @@
           <div class="post-tags">
               <a href="/tags/python/" rel="tag"># python</a>
               <a href="/tags/pandas/" rel="tag"># pandas</a>
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="tag"># 数据分析</a>
               <a href="/tags/seaborn/" rel="tag"># seaborn</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="tag"># 数据分析</a>
           </div>
 
         

@@ -335,7 +335,6 @@
 <h2 id="1-GroupBy机制"><a href="#1-GroupBy机制" class="headerlink" title="1.GroupBy机制"></a>1.GroupBy机制</h2><p>groupby的结果会自动过滤掉非数值列</p>
 <p><img src="image/image-20190707151329772-2483609-1934894.png" alt="image-20190707151329772"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">####以自身的列作为键</span><br><span class="line">grouped &#x3D; df[&#39;data1&#39;].groupby(df[key1])</span><br><span class="line">grouped 是一个GroupBy对象</span><br><span class="line">grouped.mean() 返回对应键的均值</span><br><span class="line"></span><br><span class="line">grouped &#x3D; df[&#39;data1&#39;].groupby([df[&#39;key1&#39;],df[&#39;key2&#39;]]).mean()  #多层</span><br><span class="line"></span><br><span class="line"># 还可以直接使用列名进行分组</span><br><span class="line">df[&#39;data1&#39;].groupby(&#39;key1&#39;).mean()</span><br><span class="line">df[&#39;data1&#39;].groupby([&#39;key1&#39;,&#39;key2&#39;]).mean()</span><br></pre></td></tr></table></figure>
-
 <p><img src="image/image-20190707153301322-2484781-1934894.png" alt="image-20190707153301322"></p>
 <p>分组的键还可以是正确长度的任何数组：</p>
 <p><img src="image/image-20190707153502518-2484902-1934894.png" alt="image-20190707153502518"></p>
@@ -362,6 +361,7 @@
 <p><img src="image/image-20190707160412210-2486652-1934894.png" alt="image-20190707160412210"></p>
 <h2 id="2-数据聚合"><a href="#2-数据聚合" class="headerlink" title="2.数据聚合"></a>2.数据聚合</h2><p>apply方法传入的是整个dataframe，而agg方法传入的是每一列数据</p>
 <p>常用的聚合方法</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -369,7 +369,8 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>count</td>
 <td>非NA值的数量</td>
 </tr>
@@ -401,7 +402,9 @@
 <td>first，last</td>
 <td>非NA值的第一个，最后一个</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>Series的方法生来就可以用于聚合</p>
 <p>自定义聚合方法：</p>
 <p><img src="image/image-20190707161508864-2487308-1934894.png" alt="image-20190707161508864"></p>
@@ -464,7 +467,6 @@
 <p>​    使用truncate切片：</p>
 <p><img src="image/image-20190707192308408-2498588-1934894.png" alt="image-20190707192308408"></p>
 <h2 id="3-日期范围、频率和移位"><a href="#3-日期范围、频率和移位" class="headerlink" title="3.日期范围、频率和移位"></a>3.日期范围、频率和移位</h2><h3 id="（1）生成日期范围"><a href="#（1）生成日期范围" class="headerlink" title="（1）生成日期范围"></a>（1）生成日期范围</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pd.date_range(&#39;2012-04-01&#39;,&#39;2012-06-01&#39;)  #默认以天为间隔</span><br><span class="line">pd.date_range(start&#x3D;&#39;2012-04-01&#39;,periods&#x3D;20)  #生成20个时间</span><br><span class="line">pd.date_range(end&#x3D;&#39;2012-04-01&#39;,periods&#x3D;20)  #生成20个时间</span><br><span class="line">pd.date_range(&#39;2000-01-01&#39;,&#39;2000-12-01&#39;,freq&#x3D;&#39;BM&#39;) #在区间内按照频率生成</span><br><span class="line">pd.date_range(&#39;2012-05-06 12:56:31&#39;,periods&#x3D;5,normalize&#x3D;True) #生成的列表中不包含时刻，只有日期</span><br></pre></td></tr></table></figure>
-
 <p><img src="image/image-20190707193307614-2499187.png" alt="image-20190707193307614"></p>
 <h3 id="（2）频率和日期offset"><a href="#（2）频率和日期offset" class="headerlink" title="（2）频率和日期offset"></a>（2）频率和日期offset</h3><p><code>pandas.tseries.offsets</code>中有Hour，Minute等对象，大多数情况下不需要主动创建</p>
 <p>可以传递的freq参数：‘4h‘，’1h30min‘</p>
@@ -482,13 +484,11 @@
 <p>offset与groupby结合</p>
 <p><img src="image/image-20190707195140170-2500300.png" alt="image-20190707195140170"></p>
 <h2 id="4-时区处理"><a href="#4-时区处理" class="headerlink" title="4.时区处理"></a>4.时区处理</h2><h3 id="（1）时区的本地化和转换"><a href="#（1）时区的本地化和转换" class="headerlink" title="（1）时区的本地化和转换"></a>（1）时区的本地化和转换</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">df.index.tz      查看当前的index的时区属性</span><br><span class="line">生成时直接设定</span><br><span class="line">rng &#x3D; pd.data_range(&#39;2012-01-01 12:01&#39;,period&#x3D;10,tz&#x3D;&#39;UTC&#39;)</span><br><span class="line">ts &#x3D; pd.Series(np.random.randn(len(rng)),index&#x3D;rng)</span><br><span class="line"></span><br><span class="line">将时区转化为本地化时区</span><br><span class="line">ts.tz_localize(&#39;UTC&#39;)</span><br><span class="line">ts_shanghai &#x3D; ts.tz_localize(&#39;Asia&#x2F;Shanghai&#39;)</span><br><span class="line">ts_shanghai.tz_convert(&#39;UTC&#39;)</span><br></pre></td></tr></table></figure>
-
 <h3 id="2-时区感知时间戳对象的操作"><a href="#2-时区感知时间戳对象的操作" class="headerlink" title="(2)时区感知时间戳对象的操作"></a>(2)时区感知时间戳对象的操作</h3><p>时间戳对象也可直接进行时区操作</p>
 <p><img src="image/image-20190707200326507-2501006.png" alt="image-20190707200326507"></p>
 <p><img src="image/image-20190707200340558-2501020.png" alt="image-20190707200340558"></p>
 <h3 id="（3）不同时区间的操作"><a href="#（3）不同时区间的操作" class="headerlink" title="（3）不同时区间的操作"></a>（3）不同时区间的操作</h3><p>两个时区不同的时间序列联合时，结果为UTC时间</p>
 <h2 id="5-时间区间和区间算数"><a href="#5-时间区间和区间算数" class="headerlink" title="5.时间区间和区间算数"></a>5.时间区间和区间算数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">pandas区间：</span><br><span class="line">p &#x3D; pd.Period(2007,freq&#x3D;&#39;A-DEC&#39;)</span><br><span class="line">p+2</span><br><span class="line">p-5</span><br><span class="line">p - pd.Period(2005,freq&#x3D;&#39;A-DEC&#39;)  # 2</span><br><span class="line"></span><br><span class="line">pandas区间序列：</span><br><span class="line">pd.period_range(&#39;2000-01-01&#39;,&#39;2000-06-30&#39;,freq&#x3D;&#39;M&#39;)</span><br><span class="line">使用数组生成区间序列：</span><br><span class="line">pd.PeriodIndex([&#39;200103&#39;,&#39;200104&#39;],freq&#x3D;&#39;Q-DEC&#39;)</span><br><span class="line">pd.PeriodIndex(year&#x3D;yearlist,quarter&#x3D;quaterlist,freq&#x3D;&#39;Q-DEC&#39;)</span><br><span class="line"></span><br><span class="line">区间频率的转换</span><br><span class="line">p.asfreq(&#39;M&#39;,how&#x3D;&#39;start&#39;)  # 低频率向高频率转换</span><br><span class="line"># 高频率向低频率转换时，直接根据自区间所属决定父区间</span><br><span class="line"></span><br><span class="line"># 时间戳转化为区间</span><br><span class="line">pts &#x3D; ts.to_period(&#39;M&#39;)  #转换的频率可以不指定</span><br><span class="line"># 区间转换为时间戳</span><br><span class="line">ts &#x3D; pts.to_timestamp(how&#x3D;&#39;end&#39;)</span><br><span class="line"></span><br><span class="line"># 从数组生成PeriodIndex</span><br></pre></td></tr></table></figure>
-
 <h2 id="6-重采样"><a href="#6-重采样" class="headerlink" title="6.重采样"></a>6.重采样</h2><p>从低频率转换到高频率：向上采样</p>
 <p>从高频率转换到低频率：向下采样</p>
 <p>resample方法的参数：</p>
@@ -505,11 +505,6 @@
 <li>在向上采样中，目标频率必须是原频率的父区间</li>
 </ul>
 <h2 id="7-移动窗口函数"><a href="#7-移动窗口函数" class="headerlink" title="7.移动窗口函数"></a>7.移动窗口函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">df.COL1.rolling(250,min_periods&#x3D;10).mean()</span><br><span class="line">df.COL1.expanding().mean()</span><br><span class="line">df.COL1.ewm(span&#x3D;30).mean() #指数加权函数，给近期的观测值更高的权重,span为跨度</span><br><span class="line"></span><br><span class="line">二元移动窗口</span><br><span class="line">pd.COL2.rolling(125,min_period&#x3D;10).corr(pd.COL1)</span><br><span class="line">pd.rolling(125,min_period&#x3D;10).corr(pd.COL1)</span><br><span class="line"></span><br><span class="line">自定义窗口函数只要输入为一个序列返回一个单值即可</span><br></pre></td></tr></table></figure>
-
-
-
-
-
 <h1 id="九、高阶Pandas"><a href="#九、高阶Pandas" class="headerlink" title="九、高阶Pandas"></a>九、高阶Pandas</h1><h2 id="1-分类数据"><a href="#1-分类数据" class="headerlink" title="1.分类数据"></a>1.分类数据</h2><h3 id="（1）Categorical对象"><a href="#（1）Categorical对象" class="headerlink" title="（1）Categorical对象"></a>（1）Categorical对象</h3><p><img src="image/image-20190707210848754-2504928.png" alt="image-20190707210848754"></p>
 <p>Series转换为category类型的数据</p>
 <p><img src="image/image-20190707210900725-2504940.png" alt="image-20190707210900725"></p>
@@ -522,15 +517,10 @@
 <p><img src="image/image-20190707211422094-2505262.png" alt="image-20190707211422094"></p>
 <p>访问category对象的分类方法(通过cat)：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">df1.cat.codes</span><br><span class="line">df1.cat.categories</span><br><span class="line">df2.cat.set_categories([&#39;a&#39;,&#39;b&#39;,&#39;c&#39;])</span><br></pre></td></tr></table></figure>
-
 <p>Categories方法</p>
 <p><img src="image/image-20190707212549393-2505949.png" alt="image-20190707212549393"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd.Categorical(df[<span class="string">'thal'</span>]).cat.codes  <span class="comment">#Categorial对应的index值</span></span><br></pre></td></tr></table></figure>
-
-
-
 <h2 id="2-GroupBy高阶应用"><a href="#2-GroupBy高阶应用" class="headerlink" title="2.GroupBy高阶应用"></a>2.GroupBy高阶应用</h2><h3 id="（1）分组转换和展开Groupby"><a href="#（1）分组转换和展开Groupby" class="headerlink" title="（1）分组转换和展开Groupby"></a>（1）分组转换和展开Groupby</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">df &#x3D; pd.DataFrame(&#123;&#39;key&#39;:[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;]*4,&#39;value&#39;:np.arange(12)&#125;)</span><br><span class="line">gdf &#x3D; df.groupby(&#39;key&#39;).value  #返回的是Series对象</span><br><span class="line">gdf.mean()  #	每一组的平均值</span><br><span class="line">gdf.transform(&#39;mean&#39;)  #将每一组的平均值赋值给该组每一个元素，然后返回</span><br><span class="line">gdf.transform(lambda x:x.mean())</span><br></pre></td></tr></table></figure>
-
 <h3 id="（2）方法链技术"><a href="#（2）方法链技术" class="headerlink" title="（2）方法链技术"></a>（2）方法链技术</h3><p>方法链可以减少中间变量</p>
 <p>两种等价的赋值方式</p>
 <p><img src="image/image-20190707214825897-2507305.png" alt="image-20190707214825897"></p>

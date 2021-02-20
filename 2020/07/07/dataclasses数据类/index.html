@@ -269,19 +269,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="dataclasses"><a href="#dataclasses" class="headerlink" title="dataclasses"></a>dataclasses</h1><p>官方文档：<a href="https://docs.python.org/zh-cn/3/library/dataclasses.html" target="_blank" rel="noopener">https://docs.python.org/zh-cn/3/library/dataclasses.html</a></p>
-<a id="more"></a>
-
+        <h1 id="dataclasses"><a href="#dataclasses" class="headerlink" title="dataclasses"></a>dataclasses</h1><p>官方文档：<a href="https://docs.python.org/zh-cn/3/library/dataclasses.html" target="_blank" rel="noopener">https://docs.python.org/zh-cn/3/library/dataclasses.html</a><br><a id="more"></a></p>
 <h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>这个模块提供了一个装饰器和一些函数，用于自动添加生成的 special methods ，例如 <code>__init__()</code> 和 <code>__repr__()</code> 到用户定义的类。 它最初描述于PEP557。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass</span><br><span class="line"></span><br><span class="line"><span class="meta">@dataclass</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">InventoryItem</span>:</span></span><br><span class="line">    <span class="string">'''Class for keeping track of an item in inventory.'''</span></span><br><span class="line">    name: str</span><br><span class="line">    unit_price: float</span><br><span class="line">    quantity_on_hand: int = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">total_cost</span><span class="params">(self)</span> -&gt; float:</span></span><br><span class="line">        <span class="keyword">return</span> self.unit_price * self.quantity_on_hand</span><br></pre></td></tr></table></figure>
-
 <p>除其他事情外，将添加<code>__init__()</code>，其看起来像:</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name: str, unit_price: float, quantity_on_hand: int=<span class="number">0</span>)</span>:</span></span><br><span class="line">    self.name = name</span><br><span class="line">    self.unit_price = unit_price</span><br><span class="line">    self.quantity_on_hand = quantity_on_hand</span><br></pre></td></tr></table></figure>
 <p>请注意，此方法会自动添加到类中：它不会在上面显示的 InventoryItem 定义中直接指定。</p>
 <h2 id="模块级装饰器、类和函数"><a href="#模块级装饰器、类和函数" class="headerlink" title="模块级装饰器、类和函数"></a>模块级装饰器、类和函数</h2><ol>
-<li><code>@dataclasses.dataclass(*, init=True, repr=True, eq=True, order=False, unsafe_hash=False, frozen=False)</code></li>
+<li><code>@dataclasses.dataclass(*, init=True, repr=True, eq=True, order=False, unsafe_hash=False, frozen=False)</code><br><strong>dataclass() 的参数有：</strong></li>
 </ol>
-<p><strong>dataclass() 的参数有：</strong></p>
 <ul>
 <li><p><code>init</code>: 如果为真值（默认），将生成一个<code>__init__()</code>方法。<br>如果类已定义 <code>__init__()</code> ，则忽略此参数。</p>
 </li>
@@ -294,21 +290,21 @@
 </ul>
 <p>如果类已定义 <code>__eq__()</code> ，则忽略此参数。</p>
 <ul>
-<li><code>order</code> ：如果为真值（默认为 False ），则 <code>__lt__()</code> 、<code> __le__()</code> 、 <code>__gt__()</code> 和 <code>__ge__()</code> 方法将生成。 这将类作为其字段的元组按顺序比较。比较中的两个实例必须是相同的类型。如果 order 为真值并且 eq 为假值 ，则引发 ValueError 。</li>
+<li><code>order</code> ：如果为真值（默认为 False ），则 <code>__lt__()</code> 、<code>__le__()</code> 、 <code>__gt__()</code> 和 <code>__ge__()</code> 方法将生成。 这将类作为其字段的元组按顺序比较。比较中的两个实例必须是相同的类型。如果 order 为真值并且 eq 为假值 ，则引发 ValueError 。</li>
 </ul>
-<p>如果类已经定义了 <code>__lt__()</code> 、<code> __le__()</code> 、 <code>__gt__()</code> 或者 <code>__ge__()</code> 中的任意一个，将引发 TypeError 。</p>
+<p>如果类已经定义了 <code>__lt__()</code> 、<code>__le__()</code> 、 <code>__gt__()</code> 或者 <code>__ge__()</code> 中的任意一个，将引发 TypeError 。</p>
 <ul>
 <li><code>unsafe_hash</code> ：如果为 False （默认值），则根据 eq 和 frozen 的设置方式生成 <code>__hash__()</code> 方法。</li>
 </ul>
 <p><code>__hash__()</code> 由内置的 hash() 使用，当对象被添加到散列集合（如字典和集合）时。有一个<code>__hash__()</code> 意味着类的实例是不可变的。可变性是一个复杂的属性，取决于程序员的意图， <code>__eq__()</code> 的存在性和行为，以及 dataclass() 装饰器中 eq 和 frozen 标志的值。</p>
 <p>默认情况下， dataclass() 不会隐式添加 <code>__hash__()</code> 方法，除非这样做是安全的。 它也不会添加或更改现有的明确定义的 <code>__hash__()</code> 方法。 设置类属性 <code>__hash__ = None</code> 对 Python 具有特定含义，如 <code>__hash__()</code> 文档中所述。</p>
-<p>如果 <code>__hash__()</code> 没有显式定义，或者它被设置为 None ，那么 dataclass() 可以 添加一个隐式 <code>__hash__()</code> 方法。虽然不推荐，但你可以强制 dataclass() 用 unsafe_hash=True 创建一个 <code>__hash__()</code> 方法。 如果你的类在逻辑上是不可变的但实际仍然可变，则可能就是这种情况。这是一个特殊的用例，应该仔细考虑。</p>
+<p>如果 <code>__hash__()</code> 没有显式定义，或者它被设置为 None ，那么 dataclass() 可以 添加一个隐式 <code>__hash__()</code> 方法。虽然不推荐，但你可以强制 dataclass() 用 unsafe<em>hash=True 创建一个 `<em>_hash</em></em>()` 方法。 如果你的类在逻辑上是不可变的但实际仍然可变，则可能就是这种情况。这是一个特殊的用例，应该仔细考虑。</p>
 <p>以下是隐式创建 <code>__hash__()</code> 方法的规则。请注意，你不能在数据类中都使用显式的 <code>__hash__()</code> 方法并设置 unsafe_hash=True ；这将导致 TypeError 。</p>
 <p>如果 eq 和 frozen 都是 true，默认情况下 dataclass() 将为你生成一个 <code>__hash__()</code> 方法。如果 eq 为 true 且 frozen 为 false ，则 <code>__hash__()</code> 将被设置为 None ，标记它不可用（因为它是可变的）。如果 eq 为 false ，则 <code>__hash__()</code> 将保持不变，这意味着将使用超类的 <code>__hash__()</code> 方法（如果超类是 object ，这意味着它将回到基于id的hash）。</p>
 <ul>
-<li>frozen: 如为真值 (默认值为 False)，则对字段赋值将会产生异常。 这模拟了只读的冻结实例。 如果在类中定义了 <code>__setattr__()</code> 或<code> __delattr__()</code> 则将会引发 TypeError。 参见下文的讨论。</li>
+<li>frozen: 如为真值 (默认值为 False)，则对字段赋值将会产生异常。 这模拟了只读的冻结实例。 如果在类中定义了 <code>__setattr__()</code> 或<code>__delattr__()</code> 则将会引发 TypeError。 参见下文的讨论。</li>
 </ul>
-<ol start="2">
+<ol>
 <li><code>dataclasses.field(*, default=MISSING, default_factory=MISSING, repr=True, hash=None, init=True, compare=True, metadata=None)</code></li>
 </ol>
 <p>field() 参数有：</p>
@@ -331,7 +327,6 @@
 <li>metadata ：这可以是映射或 None 。 None 被视为一个空的字典。这个值包含在 MappingProxyType() 中，使其成为只读，并暴露在 Field 对象上。数据类根本不使用它，它是作为第三方扩展机制提供的。多个第三方可以各自拥有自己的键值，以用作元数据中的命名空间。</li>
 </ul>
 <h2 id="初始化后处理"><a href="#初始化后处理" class="headerlink" title="初始化后处理"></a>初始化后处理</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@dataclass</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span>:</span></span><br><span class="line">    a: float</span><br><span class="line">    b: float</span><br><span class="line">    c: float = field(init=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__post_init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.c = self.a + self.b</span><br></pre></td></tr></table></figure>
-
 
     </div>
 

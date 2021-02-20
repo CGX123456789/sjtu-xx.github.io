@@ -267,65 +267,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>廖雪峰的教程<a href="https://www.liaoxuefeng.com/wiki/896043488029600/896827951938304" target="_blank" rel="noopener">https://www.liaoxuefeng.com/wiki/896043488029600/896827951938304</a></p>
-<a id="more"></a>
-<p>创建忽略文件</p>
+        <p>廖雪峰的教程<a href="https://www.liaoxuefeng.com/wiki/896043488029600/896827951938304" target="_blank" rel="noopener">https://www.liaoxuefeng.com/wiki/896043488029600/896827951938304</a><br><a id="more"></a><br>创建忽略文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.gitignore文件，文件中填写需要忽略文件的正则表达式</span><br></pre></td></tr></table></figure>
-
 <p>创建版本库</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
-
 <p>提交到暂存区</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add &lt;file&gt;</span><br></pre></td></tr></table></figure>
-
 <p>提交到版本库</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;提示信息&quot;</span><br></pre></td></tr></table></figure>
-
 <p>查看状态</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
-
 <p>查看修改</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff &lt;filename&gt;</span><br></pre></td></tr></table></figure>
-
 <p>查看日志文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git log  &#x2F;&#x2F;可以加参数 --pretty&#x3D;oneline</span><br><span class="line">git reflog &#x2F;&#x2F;</span><br></pre></td></tr></table></figure>
-
 <p>版本回退</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HEAD^ &#x2F;&#x2F;回退到上个版本 HEAD指向当前版本</span><br><span class="line">git reset --hard &lt;commit id&gt;  &#x2F;&#x2F;回退到指定commit</span><br></pre></td></tr></table></figure>
-
 <p>丢弃工作区的修改</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -- readme.txt &#x2F;&#x2F;让这个文件回到最近一次git commit或git add时的状态。</span><br></pre></td></tr></table></figure>
-
 <p>撤销暂存区的修改</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD &lt;file&gt;</span><br></pre></td></tr></table></figure>
-
 <p>删除文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm &lt;file&gt;</span><br></pre></td></tr></table></figure>
-
-
-
 <p>远程仓库</p>
 <p>1.创建ssh密钥</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;youremail@example.com&quot;</span><br></pre></td></tr></table></figure>
-
 <p>2.本地与远程关联</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:michaelliao&#x2F;learngit.git</span><br></pre></td></tr></table></figure>
-
 <p>3.当前分支所有内容推送到远程</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master &#x2F;&#x2F;-u参数：推送的同时将本地的master分支与远程的master分支关联</span><br></pre></td></tr></table></figure>
-
 <p>4.克隆</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone</span><br></pre></td></tr></table></figure>
-
 <p>查看远程库的信息：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote</span><br></pre></td></tr></table></figure>
-
 <p><code>git remote -v</code>显示更详细的信息</p>
 <p>推送dev分支到远程</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin dev</span><br></pre></td></tr></table></figure>
-
-
-
 <p>分支</p>
 <p>查看分支：<code>git branch</code></p>
 <p>创建分支：<code>git branch &lt;name&gt;</code></p>
@@ -338,12 +315,8 @@
 <p>BUG分支：</p>
 <p>把当前工作现场“储藏”起来，等以后恢复现场后继续工作：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git stash &#x2F;&#x2F;储存</span><br><span class="line">git stash list  &#x2F;&#x2F;查看</span><br><span class="line">git stash apply  &#x2F;&#x2F;恢复，不删除</span><br><span class="line">git stash drop  &#x2F;&#x2F;删除</span><br><span class="line">git stash pop  &#x2F;&#x2F;恢复并删除</span><br></pre></td></tr></table></figure>
-
-
-
 <p>创建远程<code>origin</code>的<code>dev</code>分支到本地</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b dev origin&#x2F;dev</span><br></pre></td></tr></table></figure>
-
 <p>删除远程分支：$ <strong>git push</strong> origin :heads/[name]</p>
 <p>标签</p>
 <p><code>git tag</code>查看所有标签</p>
@@ -352,168 +325,122 @@
 <p><code>git show &lt;tagname&gt;</code>查看标签信息</p>
 <p>创建带有说明的标签，用<code>-a</code>指定标签名，<code>-m</code>指定说明文字：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -a v0.1 -m &quot;version 0.1 released&quot; 1094adb</span><br></pre></td></tr></table></figure>
-
 <p>删除标签</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -d v0.1</span><br></pre></td></tr></table></figure>
-
-
-
 <p>上传空文件夹：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -type d -empty -exec touch &#123;&#125;&#x2F;.gitignore \;</span><br></pre></td></tr></table></figure>
-
-
 <p> <strong>一、创建与合并分支</strong> </p>
 <p><strong>1、 从master分支创建dev分支并切换到dev分支</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git checkout -b dev</span><br></pre></td></tr></table></figure>
-
 <p>其中，git checkout -b dev 等价于:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch dev</span><br><span class="line">git checkout dev</span><br></pre></td></tr></table></figure>
-
 <p>（1）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure>
-
 <p>查看本地当前的分支，分支前面带“*”表示当前分支，剩下的分支表示本地有的分支。</p>
 <p>（2）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git  branch  -a</span><br></pre></td></tr></table></figure>
-
 <p>查看远程全部的分支，白色的表示本地有的，红色的表示本地没有，仅在远程存在。</p>
 <p><strong>2、修改代码、提交代码（当前的操作是在dev分支上进行）</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git add a.html</span><br><span class="line">git commit -m &quot;提交文件a.html&quot;</span><br></pre></td></tr></table></figure>
-
 <p><strong>3、分支合并(将dev合并到master)</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git merge dev</span><br></pre></td></tr></table></figure>
-
 <p><strong>4、合并完成后，删除dev分支.(删除dev分支时，注意我们当前所在的分支不能是dev分支)</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d dev</span><br></pre></td></tr></table></figure>
-
 <p><strong>5、删除后，查看分支(此时看不到dev分支了)</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure>
-
 <p><strong>6、总结 ：工作中经常从master创建新的分支，具体操作如下:</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">master创建新分支：git checkout master</span><br><span class="line">git checkout -b  issues1234  &#x2F;&#x2F; 从master分支创建issues1234分支</span><br><span class="line">git push origin issues1234</span><br><span class="line">git add ..</span><br><span class="line">git commit -m &quot;***&quot;</span><br><span class="line">git push origin issues1234</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>注意：将本地分支branch1推到远端的branch2操作步骤：</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin branch1:branch2</span><br></pre></td></tr></table></figure>
-
 <p><strong>7、删除分支：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch -D   issues1234  &#x2F;&#x2F; 本地强制删除分支issues1234</span><br><span class="line">git push origin  :issues1234  &#x2F;&#x2F; 推到远程</span><br></pre></td></tr></table></figure>
-
 <hr>
 <p> <strong>二、解决冲突</strong> </p>
 <p><strong>1、发生冲突的文件</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEADCreating a new branch is quick &amp; simple.&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;Creating a new branch is quick AND simple.&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature1</span><br></pre></td></tr></table></figure>
-
 <p>其中，git使用 <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;，=======，&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>标记文件中自己和别人产生冲突的部分。</p>
 <p>在 <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;，=======</code>之间为自己的代码；=======，&gt;&gt;&gt;&gt;&gt;&gt;&gt;之间为别人的代码。</p>
 <p>如果保留自己的代码，将别人的代码删掉即可。</p>
 <p><strong>2、冲突解决后提交</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br><span class="line">git add ***</span><br><span class="line">git commit -m &quot;fix conflict&quot;</span><br><span class="line">git push origin 分支名</span><br></pre></td></tr></table></figure>
-
 <hr>
 <p> <strong>三、Bug分支</strong> </p>
 <p><strong>1、储藏更改:将当前更改的代码储藏起来，等以后恢复使用</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash</span><br></pre></td></tr></table></figure>
-
 <p><strong>2、恢复储藏的代码</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash pop &#x2F;&#x2F; 恢复的同时把stash内容删掉</span><br></pre></td></tr></table></figure>
-
 <p>或者<img src="image/640.webp" alt="img"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 通过 git stash list，查看本地所有的stash,如果我要恢复第一个就执行：</span><br><span class="line">git stash apply stash@&#123;0&#125;</span><br><span class="line">git stash apply  </span><br><span class="line">&#x2F;&#x2F; 恢复stash，但是stash内容并不删除</span><br><span class="line">git stash drop </span><br><span class="line">&#x2F;&#x2F; 在上面操作的基础上，以此来删除stash注： git stash list &#x2F;&#x2F; 查看全部的stash列表</span><br></pre></td></tr></table></figure>
-
 <p><strong>3、将stash空间清空</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash clear</span><br></pre></td></tr></table></figure>
-
 <p><strong>4、git stash pop 和 git stash apply 区别</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">原来git stash pop stash@&#123;id&#125;命令会在执行后将对应的stash id 从stash list里删除，而 git stash apply stash@&#123;id&#125; 命令则会继续保存stash id。</span><br></pre></td></tr></table></figure>
-
 <hr>
 <p> <strong>四、版本回退</strong> </p>
 <p><strong>1、回退至上一个版本</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HEAD</span><br></pre></td></tr></table></figure>
-
 <p><strong>2、回退至指定版本</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard  版本号</span><br></pre></td></tr></table></figure>
-
 <p><strong>3、查看以往版本号(本地的commit)</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reflog</span><br></pre></td></tr></table></figure>
-
 <p><strong>4、查看各版本号及信息(所有的commit：本地commit + 其他同事的commit)</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
-
 <hr>
 <p> <strong>五、撤销修改</strong> </p>
 <p><strong>1、撤销修改</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git  checkout -- a.html</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>分两种情况分析：</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">①： 还没有执行 git add 操作，执行上面的操作后，会恢复到和版本库中一模一样的版本状态。</span><br><span class="line">②： 执行了git add ，还没执行 git commit ,再执行上面的操作后，会恢复到git add 结束后的状态</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>注：一旦执行了git commit -m “*”，就不能再使用上面的命令回退。</p>
 </blockquote>
 <p><strong>2、撤销新建文件</strong></p>
 <p>比如新建一个aa.html页面，并未执行git add ,即没有被git追踪，此时如果你想撤销新建动作，可执行：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clean -f ..&#x2F;aa.html</span><br></pre></td></tr></table></figure>
-
 <p><strong>3、撤销新建文件夹</strong></p>
 <p>比如新建一个文件夹”demo”，并未执行git add ,即没有被git追踪，此时如果你想撤销新建动作，可执行：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clean -df .&#x2F;demo</span><br></pre></td></tr></table></figure>
-
 <hr>
 <p> <strong>六、对已push版本进行回退</strong> </p>
 <p><strong>1、第一步：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard 版本号 &#x2F;&#x2F; 本地回退到指定的版本</span><br></pre></td></tr></table></figure>
-
 <p><strong>2、第二步：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push  -f origin dev    &#x2F;&#x2F;将远程的也回退到指定版本</span><br></pre></td></tr></table></figure>
-
 <hr>
 <p> <strong>七、本地同步远程删除的分支</strong> </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch origin -p  &#x2F;&#x2F; 用来清除已经没有远程信息的分支，这样git branch -a 就不会拉取远程已经删除的分支了</span><br></pre></td></tr></table></figure>
-
 <hr>
 <p> <strong>八、删掉未与远程分支对应的本地分支</strong> </p>
 <p>从gitlab上看不到的分支在本地可以通过git branch -a 查到，删掉没有与远程分支对应的本地分支：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch -p</span><br></pre></td></tr></table></figure>
-
 <hr>
 <p> <strong>九、查看远程库与本地分支的信息</strong> </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote show origin</span><br></pre></td></tr></table></figure>
-
 <hr>
 <p> <strong>十、标签管理</strong> </p>
 <p><strong>1、给当前分支最新commit打标签</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag v1.0.0</span><br></pre></td></tr></table></figure>
-
 <p><strong>2、比如现在周五，要给周一某个commit打标签，应执行以下步骤：</strong></p>
 <p>（1）、查看log日志，找到相应的commit版本号</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git log --pretty&#x3D;oneline --abbrev-commit</span><br><span class="line">&#x2F;&#x2F; 显示如下commit，比如我想在 &quot;34372b05&quot;这个commit打标签44d2e20b fix bug34372b05 fix bug29554931 fix bug</span><br></pre></td></tr></table></figure>
-
 <p>（2）、给指定的commit打标签</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag v1.0.0 34372b05</span><br></pre></td></tr></table></figure>
-
 <p>（3）、创建的标签只存在本地，推至远程</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin v1.0.0</span><br></pre></td></tr></table></figure>
-
 <p>（4）、一次性推送未推至远程的本地标签</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin --tags</span><br></pre></td></tr></table></figure>
-
 <p>（5）、查询所有标签</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag</span><br></pre></td></tr></table></figure>
-
 <p>（6）、查询标签详细信息</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git show v1.0.0</span><br></pre></td></tr></table></figure>
-
 <p>（7）、删除本地标签</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -d v1.0.0</span><br></pre></td></tr></table></figure>
-
 <p>（8）、删除远程标签</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 先从本地删除git tag -d v1.0.0&#x2F;&#x2F; 然后从远程删除</span><br><span class="line">git push origin :refs&#x2F;tags&#x2F;v1.0.0&#x2F;&#x2F; 最后可以在gitlab上查看是否真正的删除了标签</span><br></pre></td></tr></table></figure>
-
 <p><strong>3、创建带有说明的标签，用-a指定标签名，-m指定说明文字</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; git  tag  -a  版本号  -m  说明信息  commit版本号</span><br><span class="line">git tag -a v1.0.0 -m &quot;version 1.0.0 released&quot; 34372b05(commit版本号)     &#x2F;&#x2F; 查看标签详细信息git show v1.0.0</span><br></pre></td></tr></table></figure>
     </div>

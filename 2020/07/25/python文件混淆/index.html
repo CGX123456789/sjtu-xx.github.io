@@ -269,8 +269,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>选择了一种比较合适的加密方式对python文件进行加密。</p>
-<a id="more"></a>
+        <p>选择了一种比较合适的加密方式对python文件进行加密。<br><a id="more"></a></p>
 <h2 id="混淆"><a href="#混淆" class="headerlink" title="混淆"></a>混淆</h2><p>网址：<a href="https://pyob.oxyry.com/" target="_blank" rel="noopener">https://pyob.oxyry.com/</a></p>
 <p>该方法通过将变量名替换，实现加密效果。</p>
 <p>该方法的缺点在于，只能对单个文件进行加密。无法对多个文件进行加密</p>
@@ -279,9 +278,6 @@
 <p><code>import py_compile   py_compile.compile(&#39;/path/to/foo.py&#39;)</code></p>
 <h3 id="批量生成"><a href="#批量生成" class="headerlink" title="批量生成"></a>批量生成</h3><p><code>python -m compileall &lt;dir&gt;</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> compileall</span><br><span class="line">compileall.compile_dir(<span class="string">r'/path'</span>)</span><br></pre></td></tr></table></figure>
-
-
-
 <h2 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h2><p>还可以考虑将混淆文件打包成exe文件发布。</p>
 
     </div>

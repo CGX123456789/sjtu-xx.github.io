@@ -283,8 +283,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>印制电路板{PCB线路板}，又称印刷电路板，是电子元器件电气连接的提供者。<br>参考链接：<a href="http://mouser.eetrend.com/content/2018/100015548.html" target="_blank" rel="noopener">http://mouser.eetrend.com/content/2018/100015548.html</a><br><a href="http://www.360doc.com/content/16/0529/15/33072037_563261798.shtml" target="_blank" rel="noopener">http://www.360doc.com/content/16/0529/15/33072037_563261798.shtml</a><br><a href="https://wenku.baidu.com/view/e809f110cc7931b765ce1577.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/e809f110cc7931b765ce1577.html</a></p>
-<a id="more"></a>
+        <p>印制电路板{PCB线路板}，又称印刷电路板，是电子元器件电气连接的提供者。<br>参考链接：<a href="http://mouser.eetrend.com/content/2018/100015548.html" target="_blank" rel="noopener">http://mouser.eetrend.com/content/2018/100015548.html</a><br><a href="http://www.360doc.com/content/16/0529/15/33072037_563261798.shtml" target="_blank" rel="noopener">http://www.360doc.com/content/16/0529/15/33072037_563261798.shtml</a><br><a href="https://wenku.baidu.com/view/e809f110cc7931b765ce1577.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/e809f110cc7931b765ce1577.html</a><br><a id="more"></a></p>
 <h1 id="PCB电路板的组成"><a href="#PCB电路板的组成" class="headerlink" title="PCB电路板的组成"></a>PCB电路板的组成</h1><p>1、线路与图面（Pattern）：线路是做为原件之间导通的工具，在设计上会另外设计大铜面作为接地及电源层。线路与图面是同时做出的。</p>
 <p>2、介电层（Dielectric）：用来保持线路及各层之间的绝缘性，俗称为基材。</p>
 <p>3、孔（Through hole / via）：导通孔可使两层次以上的线路彼此导通，较大的导通孔则做为零件插件用，另外有非导通孔（nPTH）通常用来作为表面贴装定位，组装时固定螺丝用。</p>
@@ -308,17 +307,16 @@
 <p>14.去膜【Strip Resist】<br><img src="13.jpeg" alt="img"><br>我们已经知道了目的，只需要用化学方法，表面的铜被暴露出来。</p>
 <p>15.蚀刻【Copper Etch】<br><img src="14.jpeg" alt="img"><br>我们知道了蚀刻的目的，镀锡部分保护了下面的铜箔。</p>
 <p>16.预硬化 曝光 显影 上阻焊<br><img src="15.jpeg" alt="img"><br>【LPI coating side 1】 【Tack Dry】 【LPI coating side 2】【Tack Dry】<br>【Image Expose】【Image Develop】 【Thermal Cure Soldermask】<br>阻焊层,是为了把焊盘露出来用的,也就是通常说的绿油层,实际上就是在绿油层上挖孔,把焊盘等不需要绿油盖住的地方露出来。适当清洗可以得到合适的表面特征。</p>
-<p>17.表面处理<br><img src="16.jpeg" alt="img"><br>【Surface finish】<br> &gt; HASL, Silver, OSP, ENIG 热风整平，沉银，有机保焊剂，化学镍金<br> &gt; Tab Gold if any 金手指<br>热风整平焊料涂覆ＨＡＬ(俗称喷锡)过程是先把印制板上浸上助焊剂，随后在熔融焊料里浸涂，然后从两片风刀之间通过，用风刀中的热压缩空气把印制板上的多余焊料吹掉，同时排除金属孔内的多余焊料，从而得到一个光亮、平整、均匀的焊料涂层。<br>金手指(Gold Finger,或称 Edge Connector)设计的目的,在于藉由connector连接器的插接作为板对外连络的出口,因此须要金手指制程.之所以选择金是因为它优越的导电度及抗氧化性.但因为金的成本极高所以只应用于金手指,局部镀或化学金</p>
-<p>最后总结一下所有的过程：</p>
-<p>1) Inner Layer 内层<br> &gt; Chemical Clean 化学清洗<br> &gt; Cut Sheet Dry Film Lamination 裁板 压膜<br> &gt; Image Expose 曝光<br> &gt; Image Develop 显影<br> &gt; Copper Etch 蚀铜<br> &gt; Strip Resist 去膜<br> &gt; Post Etch Punch 蚀后冲孔<br> &gt; AOI Inspection AOI 检查<br> &gt; Oxide 氧化<br> &gt; Layup 叠板<br> &gt; Vacuum Lamination Press 压合</p>
-<p>2) CNC Drilling 钻孔<br> &gt; CNC Drilling 钻孔</p>
-<p>3) Outer Layer 外层<br> &gt; Deburr 去毛刺<br> &gt; Etch back - Desmear 除胶渣<br> &gt; Electroless Copper 电镀-通孔<br> &gt; Cut Sheet Dry Film Lamination 裁板 压膜<br> &gt; Image Expose 曝光<br> &gt; Image Develop 显影</p>
-<p>4) Plating 电镀<br> &gt; Image Develop 显影<br> &gt; Copper Pattern Electro Plating 二次镀铜<br> &gt; Tin Pattern Electro Plating 镀锡<br> &gt; Strip Resist 去膜<br> &gt; Copper Etch 蚀铜<br> &gt; Strip Tin 剥锡</p>
-<p>5) Solder Mask 阻焊<br> &gt; Surface prep 前处理<br> &gt; LPI coating side 1 印刷<br> &gt; Tack Dry 预硬化<br> &gt; LPI coating side 2 印刷<br> &gt; Tack Dry 预硬化<br> &gt; Image Expose 曝光<br> &gt; Image Develop 显影<br> &gt; Thermal Cure Soldermask 印阻焊</p>
-<p>6) Surface finish 表面处理<br> &gt; HASL, Silver, OSP, ENIG 热风整平，沉银，有机保焊剂，化学镍金<br> &gt; Tab Gold if any 金手指<br> &gt; Legend 图例</p>
-<p>7) Profile 成型<br> &gt; NC Routing or punch</p>
+<p>17.表面处理<br><img src="16.jpeg" alt="img"><br>【Surface finish】<br> > HASL, Silver, OSP, ENIG 热风整平，沉银，有机保焊剂，化学镍金<br> > Tab Gold if any 金手指<br>热风整平焊料涂覆ＨＡＬ(俗称喷锡)过程是先把印制板上浸上助焊剂，随后在熔融焊料里浸涂，然后从两片风刀之间通过，用风刀中的热压缩空气把印制板上的多余焊料吹掉，同时排除金属孔内的多余焊料，从而得到一个光亮、平整、均匀的焊料涂层。<br>金手指(Gold Finger,或称 Edge Connector)设计的目的,在于藉由connector连接器的插接作为板对外连络的出口,因此须要金手指制程.之所以选择金是因为它优越的导电度及抗氧化性.但因为金的成本极高所以只应用于金手指,局部镀或化学金</p>
+<p>最后总结一下所有的过程：<br>1) Inner Layer 内层<br> > Chemical Clean 化学清洗<br> > Cut Sheet Dry Film Lamination 裁板 压膜<br> > Image Expose 曝光<br> > Image Develop 显影<br> > Copper Etch 蚀铜<br> > Strip Resist 去膜<br> > Post Etch Punch 蚀后冲孔<br> > AOI Inspection AOI 检查<br> > Oxide 氧化<br> > Layup 叠板<br> > Vacuum Lamination Press 压合</p>
+<p>2) CNC Drilling 钻孔<br> > CNC Drilling 钻孔</p>
+<p>3) Outer Layer 外层<br> > Deburr 去毛刺<br> > Etch back - Desmear 除胶渣<br> > Electroless Copper 电镀-通孔<br> > Cut Sheet Dry Film Lamination 裁板 压膜<br> > Image Expose 曝光<br> > Image Develop 显影</p>
+<p>4) Plating 电镀<br> > Image Develop 显影<br> > Copper Pattern Electro Plating 二次镀铜<br> > Tin Pattern Electro Plating 镀锡<br> > Strip Resist 去膜<br> > Copper Etch 蚀铜<br> > Strip Tin 剥锡</p>
+<p>5) Solder Mask 阻焊<br> > Surface prep 前处理<br> > LPI coating side 1 印刷<br> > Tack Dry 预硬化<br> > LPI coating side 2 印刷<br> > Tack Dry 预硬化<br> > Image Expose 曝光<br> > Image Develop 显影<br> > Thermal Cure Soldermask 印阻焊</p>
+<p>6) Surface finish 表面处理<br> > HASL, Silver, OSP, ENIG 热风整平，沉银，有机保焊剂，化学镍金<br> > Tab Gold if any 金手指<br> > Legend 图例</p>
+<p>7) Profile 成型<br> > NC Routing or punch</p>
 <p>8) ET Testing, continuity and isolation</p>
-<p>9) QC Inspection<br> &gt; Ionics 离子残余量测试<br> &gt; 100% Visual Inspection 目检<br> &gt; Audit Sample Mechanical Inspection<br> &gt; Pack &amp; Shipping 包装及出货</p>
+<p>9) QC Inspection<br> > Ionics 离子残余量测试<br> > 100% Visual Inspection 目检<br> > Audit Sample Mechanical Inspection<br> > Pack &amp; Shipping 包装及出货</p>
 
     </div>
 

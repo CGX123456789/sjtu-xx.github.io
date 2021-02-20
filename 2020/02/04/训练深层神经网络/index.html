@@ -277,7 +277,7 @@
 <h1 id="非饱和激活函数"><a href="#非饱和激活函数" class="headerlink" title="非饱和激活函数"></a>非饱和激活函数</h1><p>ELU &gt; leaky ReLU(及其变体) &gt; ReLU &gt; tanh &gt; sigmoid<br>如果您关心运行时性能，那么您可能喜欢 leaky ReLU超过ELU。 如果你不想调整另一个超参数，你可以使用前面提到的默认的<code>α</code>值（leaky ReLU 为 0.01，ELU 为 1）。 如果您有充足的时间和计算能力，您可以使用交叉验证来评估其他激活函数，特别是如果您的神经网络过拟合，则为RReLU; 如果您拥有庞大的训练数据集，则为 PReLU。</p>
 <h1 id="批量标准化"><a href="#批量标准化" class="headerlink" title="批量标准化"></a>批量标准化</h1><p><code>batch_norm()</code><br>标准化：均值为0方差为1</p>
 <h1 id="优化器"><a href="#优化器" class="headerlink" title="优化器"></a>优化器</h1><p>动量优化，Nesterov 加速梯度，AdaGrad，RMSProp，Adam 优化<br>总是应该使用<code>Adam_optimization</code></p>
-<h1 id="正则化避免过拟合"><a href="#正则化避免过拟合" class="headerlink" title="正则化避免过拟合"></a>正则化避免过拟合</h1><h1 id="数据增强"><a href="#数据增强" class="headerlink" title="数据增强"></a>数据增强</h1><h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p><img src="t-11-2.png"></p>
+<h1 id="正则化避免过拟合"><a href="#正则化避免过拟合" class="headerlink" title="正则化避免过拟合"></a>正则化避免过拟合</h1><h1 id="数据增强"><a href="#数据增强" class="headerlink" title="数据增强"></a>数据增强</h1><h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p><img src="t-11-2.png" alt=""></p>
 <p>这个默认配置可能需要调整：</p>
 <ul>
 <li>如果你找不到一个好的学习率（收敛速度太慢，所以你增加了训练速度，现在收敛速度很快，但是网络的准确性不是最理想的），那么你可以尝试添加一个学习率调整，如指数衰减。</li>
