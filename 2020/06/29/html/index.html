@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://sjtu-xx.github.io/2020/06/29/html/image/lamp.gif">
 <meta property="og:image" content="https://sjtu-xx.github.io/2020/06/29/html/image/292243208766594.jpg">
 <meta property="article:published_time" content="2020-06-29T12:29:05.000Z">
-<meta property="article:modified_time" content="2021-02-20T04:46:05.092Z">
+<meta property="article:modified_time" content="2021-02-20T04:53:57.565Z">
 <meta property="article:author" content="Xue Xuan">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://sjtu-xx.github.io/2020/06/29/html/image/877318-20160622221214969-916045696.png">
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-20 12:46:05" itemprop="dateModified" datetime="2021-02-20T12:46:05+08:00">2021-02-20</time>
+                <time title="修改时间：2021-02-20 12:53:57" itemprop="dateModified" datetime="2021-02-20T12:53:57+08:00">2021-02-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -286,7 +286,7 @@
 <p>静态网页：静态的资源，如xxx.html</p>
 <p>动态网页：html代码是由某种开发语言根据用户请求动态生成的</p>
 <p><strong>html文档树形结构图：</strong></p>
-<p>​                      <img src="image/877318-20161025132859984-662031019.png" alt="img"></p>
+<p>  <img src="image/877318-20161025132859984-662031019.png" alt="img"></p>
 <h3 id="什么是标签"><a href="#什么是标签" class="headerlink" title="什么是标签"></a>什么是标签</h3><ul>
 <li>是由一对尖括号包裹的单词构成 例如: <code>&lt;html&gt;</code> *所有标签中的单词不可能以数字开头.</li>
 <li>标签不区分大小写.<code>&lt;html&gt;</code> 和 <code>&lt;HTML&gt;</code>. 推荐使用小写.</li>
@@ -305,14 +305,12 @@
 
 <p>​       这个属性会被浏览器识别并使用，但是如果你的页面没有DOCTYPE的声明，那么compatMode默认就是BackCompat,</p>
 <p>这也就是恶魔的开始 – 浏览器按照自己的方式解析渲染页面，那么，在不同的浏览器就会显示不同的样式。</p>
-<p>​    如果你的页面添加了<!DOCTYPE html>那么，那么就等同于开启了标准模式，那么浏览器就得老老实实的按照W3C的</p>
+<p>​    如果你的页面添加了<code>&lt;!DOCTYPE html&gt;</code>那么，那么就等同于开启了标准模式，那么浏览器就得老老实实的按照W3C的</p>
 <p>标准解析渲染页面，这样一来，你的页面在所有的浏览器里显示的就都是一个样子了。</p>
-<p>这就是<!DOCTYPE html>的作用。</p>
-<h3 id="head标签"><a href="#head标签" class="headerlink" title="head标签"></a>head标签</h3><meta>
-
-<p>​         meta标签的组成：meta标签共有两个属性，它们分别是http-equiv属性和name 属性，不同的属性又有不同的参数值，这些不同的参数值就实现了不同的网页功能。</p>
+<p>这就是<code>&lt;!DOCTYPE html&gt;</code>的作用。</p>
+<h3 id="head标签"><a href="#head标签" class="headerlink" title="head标签"></a>head标签</h3><p><code>&lt;meta&gt;</code><br>​         meta标签的组成：meta标签共有两个属性，它们分别是http-equiv属性和name 属性，不同的属性又有不同的参数值，这些不同的参数值就实现了不同的网页功能。</p>
 <p>​        1: name属性主要用于描述网页，与之对应的属性值为content，content中的内容主要是便于搜索引擎机器人查找信息和分类信息用的。     </p>
-<p>​        2: http-equiv顾名思义，相当于http的文件头作用，它可以向浏览器传回一些有用的信息，以帮助正确和精确地显示网页内容，与之对应的属性值为content，              content中的内容其实就是各个参数的变量值。   </p>
+<p>​        2: http-equiv顾名思义，相当于http的文件头作用，它可以向浏览器传回一些有用的信息，以帮助正确和精确地显示网页内容，与之对应的属性值为content, content中的内容其实就是各个参数的变量值。   </p>
 <p> 注意：X-UA-Compatible</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">每个主要版本IE新增的功能都是为了让浏览器更容易使用、增加安全性及更支持业界标准。以这些作为IE的特色，其中</span><br><span class="line">一个风险就是旧版本网站无法正确的显示。</span><br><span class="line"></span><br><span class="line">为了将这个风险降到最低，IE6允许网页开发人员选择IE编译和显示他们网页的方式。&quot;Quirks mode&quot;为预设，这会</span><br><span class="line">使页面以旧版本浏览器的视点显示，&quot;Standards mode&quot;(也称为&quot;strict mode&quot;)特点是支持业界标准最为完善。</span><br><span class="line">然而要利用这个增强的支持功能，网页必须包含恰当的&lt;!DOCTYPE&gt;指令。</span><br><span class="line"></span><br><span class="line">若一个网页没有包含&lt;!DOCTYPE&gt;指令，IE6会将它以quirks mode显示。若网页包含有效的&lt;!DOCTYPE&gt;指令但浏</span><br><span class="line">览器无法辨识，IE6会将它以IE6 standards mode显示。因为少数网站已经包含&lt;!DOCTYPE&gt;指令，兼容性模式的</span><br><span class="line">切换相当成功。这使网页开发人员能选择将他们的网页转移为standards mode的最佳时机。</span><br><span class="line"></span><br><span class="line">随著时间经过，更多网站开始使用standards mode。它们也开始使用IE6的特性和功能来检测IE。举例来说，IE6</span><br><span class="line">不支持universal selector(即css之全局选择器 * &#123;&#125;)，一些网站便使用它来针对IE做特定的对应。</span><br><span class="line"></span><br><span class="line">当 IE7增加了对全域选择器的支持，那些依赖IE6特点的网站便无法侦测出这个新版本的浏览器。因此那些针对IE的</span><br><span class="line">特定对应无法应用于IE7，造成这些网站便无法如他们预期的显示。由于&lt;!DOCTYPE&gt;只支持两种兼容性模式，受到影</span><br><span class="line">响的网站拥有者被迫更新他们的网站使其能支持IE7。</span><br><span class="line"></span><br><span class="line">IE8 比之前的任何版本浏览器都更支持业界标准，因此针对旧版本浏览器设计的网页可能无法如预期般呈现。为了帮</span><br><span class="line">助减轻所有问题，IE8引入文件兼容性的概念，使你能选择你的网页设计要对应的特定IE版本。文件兼容性在IE8增加</span><br><span class="line">了一些新的模式，这些模式能告诉浏览器如何解析和编译一个网页。若你的网页无法在 ie8正确的显示，你可以更新</span><br><span class="line">你的网站使它支持最新的网页标准(优先选项)或在你的页面上新增一个meta元素用于告诉IE8如何依照旧版本浏览器</span><br><span class="line">编译你的页面。</span><br><span class="line"></span><br><span class="line">这能让你选择将你的网站更新支持IE8新特点的时机。</span><br><span class="line"></span><br><span class="line">当 Internet Explorer 8 遇到未包含 X-UA-Compatible 标头的网页时，它将使用 &lt;!DOCTYPE&gt; 指令来确</span><br><span class="line">定如何显示该网页。 如果该指令丢失或未指定基于标准的文档类型，则 Internet Explorer 8 将以 IE5 模式</span><br><span class="line">（Quirks 模式）显示该网页。</span><br></pre></td></tr></table></figure>
 
@@ -339,18 +337,18 @@
 
 <h4 id="五-表格标签-lt-table-gt"><a href="#五-表格标签-lt-table-gt" class="headerlink" title="五 表格标签: &lt;table&gt;"></a>五 表格标签: &lt;table&gt;</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">border: 表格边框.</span><br><span class="line"></span><br><span class="line">cellpadding: 内边距</span><br><span class="line"></span><br><span class="line">cellspacing: 外边距.</span><br><span class="line"></span><br><span class="line">width: 像素 百分比.（最好通过css来设置长宽）</span><br><span class="line"></span><br><span class="line">&lt;tr&gt;: table rowc</span><br><span class="line"></span><br><span class="line">&lt;th&gt;: table head cell</span><br><span class="line"></span><br><span class="line">&lt;td&gt;: table data cell</span><br><span class="line"></span><br><span class="line">rowspan:  单元格竖跨多少行</span><br><span class="line"></span><br><span class="line">colspan:  单元格横跨多少列（即合并单元格）</span><br><span class="line"></span><br><span class="line">&lt;th&gt;: table header &lt;tbody&gt;(不常用): 为表格进行分区.</span><br></pre></td></tr></table></figure>
 
-<h4 id="六-表单标签-lt-form-gt"><a href="#六-表单标签-lt-form-gt" class="headerlink" title="六 表单标签&lt;form&gt;"></a>六 表单标签&lt;form&gt;</h4><p>​      表单用于向服务器传输数据。</p>
+<h4 id="六-表单标签-lt-form-gt"><a href="#六-表单标签-lt-form-gt" class="headerlink" title="六 表单标签&lt;form&gt;"></a>六 表单标签<code>&lt;form&gt;</code></h4><p>​      表单用于向服务器传输数据。</p>
 <p>​      表单能够包含 <a href="http://www.w3school.com.cn/tags/tag_input.asp" target="_blank" rel="noopener">input 元素</a>，比如文本字段、复选框、单选框、提交按钮等等。</p>
 <p>​      表单还可以包含<a href="http://www.w3school.com.cn/tags/tag_textarea.asp" target="_blank" rel="noopener">textarea</a>、select、<a href="http://www.w3school.com.cn/tags/tag_fieldset.asp" target="_blank" rel="noopener">fieldset</a>和 <a href="http://www.w3school.com.cn/tags/tag_label.asp" target="_blank" rel="noopener">label 元素</a>。</p>
 <p><strong>1.表单属性</strong></p>
 <p>　　HTML 表单用于接收不同类型的用户输入，用户提交表单时向服务器传输数据，从而实现用户与Web服务器的交互。表单标签, 要提交的所有内容都应该在该标签中.</p>
 <p>​       action: 表单提交到哪. 一般指向服务器端一个程序,程序接收到表单提交过来的数据（即表单元素值）作相应处理，比如<a href="https://www.sogou.com/web" target="_blank" rel="noopener">https://www.sogou.com/web</a></p>
 <p>​       method: 表单的提交方式 post/get 默认取值 就是 get（信封）</p>
-<p>​                          get: 1.提交的键值对.放在地址栏中url后面. 2.安全性相对较差. 3.对提交内容的长度有限制.4.请求或查看数据时使用。</p>
-<p>​                          post:1.提交的键值对 不在地址栏. 2.安全性相对较高. 3.对提交内容的长度理论上无限制.</p>
-<p>​                          get/post是常见的两种请求方式.</p>
+<p>​       get: 1.提交的键值对.放在地址栏中url后面. 2.安全性相对较差. 3.对提交内容的长度有限制.4.请求或查看数据时使用。</p>
+<p>​       post:1.提交的键值对 不在地址栏. 2.安全性相对较高. 3.对提交内容的长度理论上无限制.</p>
+<p>​       get/post是常见的两种请求方式.</p>
 <p><strong>2.表单元素</strong></p>
-<p>​          <strong>&lt;input&gt;  标签的属性和对应值</strong>              </p>
+<p>​          <strong><code>&lt;input&gt;</code>  标签的属性和对应值</strong>              </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">type:        text 文本输入框</span><br><span class="line"></span><br><span class="line">             password 密码输入框</span><br><span class="line"></span><br><span class="line">             radio 单选框</span><br><span class="line"></span><br><span class="line">             checkbox 多选框  </span><br><span class="line"></span><br><span class="line">             submit 提交按钮（submit的value属性只是用于显示）     </span><br><span class="line"></span><br><span class="line">             button 按钮(需要配合js使用.) button和submit的区别？</span><br><span class="line"></span><br><span class="line">             file 提交文件：form表单需要加上属性enctype&#x3D;&quot;multipart&#x2F;form-data&quot;  </span><br><span class="line">             </span><br><span class="line">             reset 重置：value为按钮上显示的字符</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">name: 表单提交项的键.注意和id属性的区别：name属性是和服务器通信时使用的名称；而id属性是浏览器端使用的名称，该属性主要是为了方便客户端编程，而在css和javascript中使用的</span><br><span class="line">value:   表单提交项的值.对于不同的输入类型，value 属性的用法也不同</span><br><span class="line">placeholder：放在输入框后</span><br><span class="line">checked:  radio 和 checkbox 默认被选中</span><br><span class="line">readonly: 只读. text 和 password</span><br><span class="line">disabled: 对所用input都好使.</span><br></pre></td></tr></table></figure>
@@ -360,13 +358,13 @@
 <p> 2 enctype=”multipart/form-data”</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def index(request):</span><br><span class="line">    print request.POST</span><br><span class="line">    print request.GET</span><br><span class="line">    print request.FILES</span><br><span class="line">    for item in request.FILES:</span><br><span class="line">        fileObj &#x3D; request.FILES.get(item)</span><br><span class="line">        f &#x3D; open(fileObj.name, &#39;wb&#39;)</span><br><span class="line">        iter_file &#x3D; fileObj.chunks()</span><br><span class="line">        for line in iter_file:</span><br><span class="line">            f.write(line)</span><br><span class="line">        f.close()</span><br><span class="line">    return HttpResponse(&#39;ok&#39;)</span><br></pre></td></tr></table></figure>
 
-<p> <strong>&lt;select&gt; 下拉选标签属性</strong></p>
+<p> <strong><code>&lt;select&gt;</code> 下拉选标签属性</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">name:表单提交项的键.</span><br><span class="line"></span><br><span class="line">size：选项个数</span><br><span class="line"></span><br><span class="line">multiple：multiple </span><br><span class="line"></span><br><span class="line">       &lt;option&gt; 下拉选中的每一项 属性：</span><br><span class="line"></span><br><span class="line">             value:表单提交项的值.   selected: selected下拉选默认被选中</span><br><span class="line"></span><br><span class="line">       &lt;optgroup&gt;为每一项加上分组</span><br><span class="line">       				&lt;optgroup label &#x3D; &quot;name&quot;&gt;</span><br></pre></td></tr></table></figure>
 
-<p>   <strong>&lt;textarea&gt; 文本域</strong>              </p>
+<p>   <strong><code>&lt;textarea&gt;</code> 文本域</strong>              </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">name:    表单提交项的键.</span><br><span class="line"></span><br><span class="line">cols:    文本域默认有多少列</span><br><span class="line"></span><br><span class="line">rows:    文本域默认有多少行</span><br></pre></td></tr></table></figure>
 
-<p>​    <strong>&lt;label&gt;</strong>    获得对应id焦点</p>
+<p>​    <strong><code>&lt;label&gt;</code></strong>    获得对应id焦点</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span> = <span class="string">"wwww"</span>&gt;</span><span class="tag">&lt;/<span class="name">lable</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span> = <span class="string">"www"</span> <span class="attr">type</span>=<span class="string">"text"</span>&gt;</span><span class="tag">&lt;/<span class="name">input</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>​    <strong>&lt;fieldset&gt;</strong></p>
