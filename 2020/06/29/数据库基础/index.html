@@ -28,7 +28,7 @@
 <meta property="og:description" content="最近组里要求做一个材料数据库，因此对之前数据库的知识进行复习，简单记录。 数据库基础设计原则">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-29T13:48:54.000Z">
-<meta property="article:modified_time" content="2021-02-19T02:26:07.090Z">
+<meta property="article:modified_time" content="2021-02-23T14:51:17.855Z">
 <meta property="article:author" content="Xue Xuan">
 <meta name="twitter:card" content="summary">
 
@@ -221,7 +221,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-19 10:26:07" itemprop="dateModified" datetime="2021-02-19T10:26:07+08:00">2021-02-19</time>
+                <time title="修改时间：2021-02-23 22:51:17" itemprop="dateModified" datetime="2021-02-23T22:51:17+08:00">2021-02-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -330,11 +330,12 @@
 <p>3) 小心保留词,要保证你的字段名没有和保留词、数据库系统或者常用访问方法冲突</p>
 <p>5) 保持字段名和类型的一致性,在命名字段并为其指定数据类型的时候一定要保证一致性.假如数据类型在一个表里是整数,那在另一个表里可就别变成字符型了.<br><strong>命名规范</strong></p>
 <ul>
-<li><p>数据表名使用小写英文以及下划线组成,尽量说明是那个应用或者系统在使用的.  相关应用的数据表使用同一前缀,如论坛的表使用cdb<em>前缀,博客的数据表使用supe</em>前缀,前缀名称一般不超过5字 。备份数据表名使用正式表名加上备份时间组成 </p>
+<li><p>数据表名使用小写英文以及下划线组成,尽量说明是那个应用或者系统在使用的.  相关应用的数据表使用同一前缀,如论坛的表使用cdb_前缀,博客的数据表使用supe_前缀,前缀名称一般不超过5字 。备份数据表名使用正式表名加上备份时间组成 </p>
 </li>
 <li><p>字段名称使用单词组合完成,首字母小写,后面单词的首字母大写,最好是带表名前缀.</p>
 <p>如 web_user 表的字段:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. userId  </span><br><span class="line">2. userName  </span><br><span class="line">3. userPassword</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h2 id="索引使用原则"><a href="#索引使用原则" class="headerlink" title="索引使用原则"></a>索引使用原则</h2><p>1) 逻辑主键使用唯一的成组索引,对系统键(作为存储过程)采用唯一的非成组索引,对任何外键列采用非成组索引.考虑数据库的空间有多大,表如何进行访问,还有这些访问是否主要用作读写.</p>
@@ -359,10 +360,6 @@
 <ul>
 <li>主键是关系表中记录的唯一标识。主键的选取非常重要：主键不要带有业务含义，而应该使用BIGINT自增或者GUID类型。主键也不应该允许<code>NULL</code>。 </li>
 </ul>
-<h1 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h1><h2 id="SQL语句规范"><a href="#SQL语句规范" class="headerlink" title="SQL语句规范"></a>SQL语句规范</h2><p>所有sql关键词全部大写,比如SELECT,UPDATE,FROM,ORDER,BY等,所有的表名和库名都要用包含</p>
-<p>如:</p>
-<p>SELECT COUNT(*) FROM <code>cdb_members</code> WHERE <code>userName</code> = ‘aeolus’;</p>
-<h2 id="基本表的定义删除与修改"><a href="#基本表的定义删除与修改" class="headerlink" title="基本表的定义删除与修改"></a>基本表的定义删除与修改</h2><h2 id="数据类型-1"><a href="#数据类型-1" class="headerlink" title="数据类型"></a>数据类型</h2><h2 id="空值的处理"><a href="#空值的处理" class="headerlink" title="空值的处理"></a>空值的处理</h2><p>空值NULL</p>
 
     </div>
 
@@ -444,7 +441,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库基础"><span class="nav-number">1.</span> <span class="nav-text">数据库基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设计原则"><span class="nav-number">1.1.</span> <span class="nav-text">设计原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型"><span class="nav-number">1.2.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#整数"><span class="nav-number">1.2.1.</span> <span class="nav-text">整数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实数"><span class="nav-number">1.2.2.</span> <span class="nav-text">实数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串"><span class="nav-number">1.2.3.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BLOB和TEXT类型"><span class="nav-number">1.2.4.</span> <span class="nav-text">BLOB和TEXT类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日期和时间类型"><span class="nav-number">1.2.5.</span> <span class="nav-text">日期和时间类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MYSQL数据库命名与其设计规范"><span class="nav-number">1.3.</span> <span class="nav-text">MYSQL数据库命名与其设计规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标准化和规范化"><span class="nav-number">1.3.1.</span> <span class="nav-text">标准化和规范化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库涉及字符规范"><span class="nav-number">1.3.2.</span> <span class="nav-text">数据库涉及字符规范</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引使用原则"><span class="nav-number">1.4.</span> <span class="nav-text">索引使用原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多对多的关系"><span class="nav-number">1.5.</span> <span class="nav-text">多对多的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主键与外键在多表中的重复出现-不属于数据冗余"><span class="nav-number">1.6.</span> <span class="nav-text">主键与外键在多表中的重复出现, 不属于数据冗余</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主键"><span class="nav-number">1.7.</span> <span class="nav-text">主键</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL"><span class="nav-number">2.</span> <span class="nav-text">SQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL语句规范"><span class="nav-number">2.1.</span> <span class="nav-text">SQL语句规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本表的定义删除与修改"><span class="nav-number">2.2.</span> <span class="nav-text">基本表的定义删除与修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型-1"><span class="nav-number">2.3.</span> <span class="nav-text">数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空值的处理"><span class="nav-number">2.4.</span> <span class="nav-text">空值的处理</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库基础"><span class="nav-number">1.</span> <span class="nav-text">数据库基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设计原则"><span class="nav-number">1.1.</span> <span class="nav-text">设计原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型"><span class="nav-number">1.2.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#整数"><span class="nav-number">1.2.1.</span> <span class="nav-text">整数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实数"><span class="nav-number">1.2.2.</span> <span class="nav-text">实数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串"><span class="nav-number">1.2.3.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BLOB和TEXT类型"><span class="nav-number">1.2.4.</span> <span class="nav-text">BLOB和TEXT类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日期和时间类型"><span class="nav-number">1.2.5.</span> <span class="nav-text">日期和时间类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MYSQL数据库命名与其设计规范"><span class="nav-number">1.3.</span> <span class="nav-text">MYSQL数据库命名与其设计规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标准化和规范化"><span class="nav-number">1.3.1.</span> <span class="nav-text">标准化和规范化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库涉及字符规范"><span class="nav-number">1.3.2.</span> <span class="nav-text">数据库涉及字符规范</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引使用原则"><span class="nav-number">1.4.</span> <span class="nav-text">索引使用原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多对多的关系"><span class="nav-number">1.5.</span> <span class="nav-text">多对多的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主键与外键在多表中的重复出现-不属于数据冗余"><span class="nav-number">1.6.</span> <span class="nav-text">主键与外键在多表中的重复出现, 不属于数据冗余</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主键"><span class="nav-number">1.7.</span> <span class="nav-text">主键</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
